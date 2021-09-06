@@ -1,52 +1,65 @@
 import React from "react";
-import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
-const DarkBackground = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.8);
-`;
+const useStyles = makeStyles((theme) => ({
+  btnStyle: {
+    "& > *": {
+      margin: theme.spacing(3.8),
+      width: "25ch",
+    },
+  },
+}));
 
-const DialogBlock = styled.div`
-  width: 320px;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 2px;
-  h3 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  p {
-    font-size: 1.125rem;
-  }
-`;
+function Signup() {
+  const [open, setOpen] = React.useState(false);
 
-const ButtonGroup = styled.div`
-  margin-top: 3rem;
-  display: flex;
-  justify-content: flex-end;
-`;
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-function Signup({ title, children }) {
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <DarkBackground>
-      <DialogBlock>
-        <h3>{title}</h3>
-        <p>{children}</p>
-      </DialogBlock>
-    </DarkBackground>
+    <>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Sign up
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">회원가입양식/인증</DialogTitle>
+        <DialogContent>
+          <DialogContentText>여기는 회원가입항목 들어올곳</DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="입력내용"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Sign Up
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
-
-Dialog.defaultProps = {
-  confirmText: "확인",
-  cancelText: "취소",
-};
 
 export default Signup;
