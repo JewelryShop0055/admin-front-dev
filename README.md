@@ -24,4 +24,6 @@ React CRA를 이용해서 만드는 SPA
 - 2021.09.06 mockup내용을 바탕으로 UI build 시작.
   첫 로그인 페이지 및 sign up modal window작성중
 
+- 2021.09.07 JSX => TSX로 작성방향 변경
+
 +추후 변경/추가사항시 작성
