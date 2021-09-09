@@ -7,6 +7,8 @@
 아래의 링크에서 확인할 수 있음
 https://www.figma.com/file/9fxpydne9x5rlm1LbFcf8F/Raviluz-admin-page?node-id=4%3A2
 
+testWebPage
+
 ### Process
 
 - 2021.09.04 pc버전 웹페이지 필수컨텐츠를 포함한 첫 목업
@@ -25,5 +27,7 @@ React CRA를 이용해서 만드는 SPA
   첫 로그인 페이지 및 sign up modal window작성중
 
 - 2021.09.07 JSX => TSX로 작성방향 변경
+
+- 20201.09.09 카카오톡, 네이버, 구글연동 버튼추가
 
 +추후 변경/추가사항시 작성

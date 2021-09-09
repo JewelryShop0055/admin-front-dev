@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
@@ -20,7 +20,7 @@ const InputBlock = styled.div`
   border: 0.5px solid black;
   border-radius: 5px;
   width: 512px;
-  height: 292px;
+  height: 450px;
 
   padding-top: 20px;
 
@@ -29,10 +29,118 @@ const InputBlock = styled.div`
   }
 `;
 
-const SignupModal = styled.div`
-  flex: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
+const KakaoLoginButton = withStyles({
+  root: {
+    boxShadow: "none",
+    textTransform: "none",
+    fontSize: 16,
+    padding: "6px 12px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    fontWeight: "bold",
+    color: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(251,229,77,1)",
+    borderColor: "rgba(176,182,221,1)",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "rgba(251,229,77,1)",
+      borderColor: "none",
+      boxShadow: "rgba(0,0,0,1)",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "rgba(251,229,77,1)",
+      borderColor: "none",
+    },
+  },
+})(Button);
+
+const NaverLoginButton = withStyles({
+  root: {
+    boxShadow: "none",
+    textTransform: "none",
+    fontSize: 16,
+    padding: "6px 12px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    color: "#ffffff",
+    fontWeight: "bold",
+    WebkitTextStrokeWidth: "0.01px",
+    WebkitTextStrokeColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(0,195,0,1)",
+    borderColor: "rgba(176,182,221,1)",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "rgba(0,195,0,1)",
+      borderColor: "none",
+      boxShadow: "rgba(0,0,0,1)",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "rgba(0,195,0,1)",
+      borderColor: "none",
+    },
+  },
+})(Button);
+
+const GoogleLoginButton = withStyles({
+  root: {
+    boxShadow: "none",
+    textTransform: "none",
+    fontSize: 16,
+    padding: "6px 12px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    color: "rgba(0,0,0,1)",
+    fontWeight: "bold",
+    backgroundColor: "rgba(255,255,255,1)",
+    borderColor: "rgba(176,182,221,1)",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,1)",
+      borderColor: "none",
+      boxShadow: "rgba(0,0,0,1)",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "rgba(255,255,255,1)",
+      borderColor: "none",
+    },
+  },
+})(Button);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,8 +151,14 @@ const useStyles = makeStyles((theme) => ({
   },
   btnStyle: {
     "& > *": {
-      margin: theme.spacing(3.8),
-      width: "12ch",
+      margin: theme.spacing(3),
+      width: "20ch",
+    },
+  },
+  authBtnStyle: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "33ch",
     },
   },
 }));
@@ -66,12 +180,29 @@ function Login({}: Props) {
             />
           </form>
           <div className={classes.btnStyle}>
-            <Link to="/ReserveManage">
-              <Button variant="outlined" color="primary">
-                Log in
-              </Button>
-            </Link>
+            <Button variant="outlined" color="primary">
+              <Link to="/ReserveManage">Log in</Link>
+            </Button>
+
             <Signup />
+          </div>
+
+          <div className={classes.authBtnStyle}>
+            <KakaoLoginButton variant="contained" color="primary" disableRipple>
+              카카오톡으로 로그인
+            </KakaoLoginButton>
+            <br />
+            <NaverLoginButton variant="contained" color="primary" disableRipple>
+              네이버로 로그인
+            </NaverLoginButton>
+            <br />
+            <GoogleLoginButton
+              variant="contained"
+              color="primary"
+              disableRipple
+            >
+              Google로 로그인
+            </GoogleLoginButton>
           </div>
         </InputBlock>
       </LoginBlock>
