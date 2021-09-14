@@ -20,7 +20,7 @@ const InputBlock = styled.div`
   border: 0.5px solid black;
   border-radius: 5px;
   width: 512px;
-  height: 450px;
+  height: 260px;
 
   padding-top: 20px;
 
@@ -29,119 +29,6 @@ const InputBlock = styled.div`
   }
 `;
 
-const KakaoLoginButton = withStyles({
-  root: {
-    boxShadow: "none",
-    textTransform: "none",
-    fontSize: 16,
-    padding: "6px 12px",
-    border: "1px solid",
-    lineHeight: 1.5,
-    fontWeight: "bold",
-    color: "rgba(0,0,0,1)",
-    backgroundColor: "rgba(251,229,77,1)",
-    borderColor: "rgba(176,182,221,1)",
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:hover": {
-      backgroundColor: "rgba(251,229,77,1)",
-      borderColor: "none",
-      boxShadow: "rgba(0,0,0,1)",
-    },
-    "&:active": {
-      boxShadow: "none",
-      backgroundColor: "rgba(251,229,77,1)",
-      borderColor: "none",
-    },
-  },
-})(Button);
-
-const NaverLoginButton = withStyles({
-  root: {
-    boxShadow: "none",
-    textTransform: "none",
-    fontSize: 16,
-    padding: "6px 12px",
-    border: "1px solid",
-    lineHeight: 1.5,
-    color: "#ffffff",
-    fontWeight: "bold",
-    WebkitTextStrokeWidth: "0.01px",
-    WebkitTextStrokeColor: "rgba(0,0,0,1)",
-    backgroundColor: "rgba(0,195,0,1)",
-    borderColor: "rgba(176,182,221,1)",
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:hover": {
-      backgroundColor: "rgba(0,195,0,1)",
-      borderColor: "none",
-      boxShadow: "rgba(0,0,0,1)",
-    },
-    "&:active": {
-      boxShadow: "none",
-      backgroundColor: "rgba(0,195,0,1)",
-      borderColor: "none",
-    },
-  },
-})(Button);
-
-const GoogleLoginButton = withStyles({
-  root: {
-    boxShadow: "none",
-    textTransform: "none",
-    fontSize: 16,
-    padding: "6px 12px",
-    border: "1px solid",
-    lineHeight: 1.5,
-    color: "rgba(0,0,0,1)",
-    fontWeight: "bold",
-    backgroundColor: "rgba(255,255,255,1)",
-    borderColor: "rgba(176,182,221,1)",
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255,1)",
-      borderColor: "none",
-      boxShadow: "rgba(0,0,0,1)",
-    },
-    "&:active": {
-      boxShadow: "none",
-      backgroundColor: "rgba(255,255,255,1)",
-      borderColor: "none",
-    },
-  },
-})(Button);
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -149,61 +36,101 @@ const useStyles = makeStyles((theme) => ({
       width: "45ch",
     },
   },
-  btnStyle: {
-    "& > *": {
-      margin: theme.spacing(3),
-      width: "20ch",
-    },
-  },
-  authBtnStyle: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "33ch",
-    },
-  },
 }));
 
-function Login({}: Props) {
+//RouteIf를 이용한 임시 로그인체크
+// => ID와 PASSWORD항목을 아예 따로 분류해서 상태정리해야함 + id, pw는 정규식처리를 통해 영문, ~!@#$%^&*() 특문 외의 문자입력시 영어로 입력중이 아니라는것을 알리기
+interface UserId {
+  onSubmitUserId: (name: string) => void;
+}
+
+interface UserPassword {
+  onSubmitUserPassword: (name: string) => void;
+}
+
+function Login(
+  { onSubmitUserId }: UserId,
+  { onSubmitUserPassword }: UserPassword
+) {
   const classes = useStyles();
+
+  const [userIdForm, setUserIdForm] = useState("");
+  const [userPasswordForm, setUserPasswordForm] = useState("");
+
+  const id = userIdForm;
+  const password = userPasswordForm;
+
+  const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUserIdForm(value);
+  };
+
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUserPasswordForm(value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(userIdForm);
+    console.log(userPasswordForm);
+    setUserIdForm("");
+    setUserPasswordForm("");
+  };
+
+  // const [userIdentification, setUserIdentification] = useState({
+  //   userId: "",
+  //   userPassword: "",
+  // });
+  // const { userId, userPassword } = userIdentification;
+  // const onChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { userId, value } = e.target;
+  //   setUserIdentification({
+  //     ...userIdentification,
+  //     [userId]: value,
+  //   });
+  // };
+  // const onUserIdSubmit = (e: React.FormEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  // };
+
   return (
     <>
       <LoginBlock>
         <h1>Laviluz Admin Page</h1>
 
         <InputBlock>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="ID" variant="outlined" />
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              id="outlined-basic"
+              label="ID"
+              variant="outlined"
+              name="id"
+              onChange={onChangeId}
+              value={id}
+            />
             <TextField
               id="outlined-basic"
               label="PASSWORD"
               variant="outlined"
+              name="password"
+              onChange={onChangePassword}
+              value={password}
             />
+
+            <div className="btn">
+              <Button variant="outlined" color="primary" type="submit">
+                <Link to="/TodaysCheckList">Log in</Link>
+              </Button>
+
+              <Signup />
+            </div>
           </form>
-          <div className={classes.btnStyle}>
-            <Button variant="outlined" color="primary">
-              <Link to="/ReserveManage">Log in</Link>
-            </Button>
-
-            <Signup />
-          </div>
-
-          <div className={classes.authBtnStyle}>
-            <KakaoLoginButton variant="contained" color="primary" disableRipple>
-              카카오톡으로 로그인
-            </KakaoLoginButton>
-            <br />
-            <NaverLoginButton variant="contained" color="primary" disableRipple>
-              네이버로 로그인
-            </NaverLoginButton>
-            <br />
-            <GoogleLoginButton
-              variant="contained"
-              color="primary"
-              disableRipple
-            >
-              Google로 로그인
-            </GoogleLoginButton>
-          </div>
         </InputBlock>
       </LoginBlock>
     </>

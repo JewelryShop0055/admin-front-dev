@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
-import ReserveManage from "./components/ReserveManage";
+// import ReserveManage from "./components/ReserveManage";
+import TodaysCheckList from "./components/TodaysCheckList";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/" component={Login} exact />
-            <Route path="/ReserveManage" component={ReserveManage} />
+            <Route path="/TodaysChecklist" component={TodaysCheckList} />
           </Switch>
         </Router>
       </BrowserView>
