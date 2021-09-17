@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./Signup";
-import { Link, RouteComponentProps } from "react-router-dom";
-
-interface Props extends RouteComponentProps {}
+import { Link } from "react-router-dom";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -29,6 +27,8 @@ const InputBlock = styled.div`
   }
 `;
 
+const ButtonBlock = styled.div``;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -40,59 +40,53 @@ const useStyles = makeStyles((theme) => ({
 
 //RouteIf를 이용한 임시 로그인체크
 // => ID와 PASSWORD항목을 아예 따로 분류해서 상태정리해야함 + id, pw는 정규식처리를 통해 영문, ~!@#$%^&*() 특문 외의 문자입력시 영어로 입력중이 아니라는것을 알리기
-interface UserId {
-  onSubmitUserId: (name: string) => void;
+
+interface LoginProps {
+  children: React.ReactElement;
+  userId: string;
+  userPassword: string;
 }
 
-interface UserPassword {
-  onSubmitUserPassword: (name: string) => void;
-}
-
-function Login(
-  { onSubmitUserId }: UserId,
-  { onSubmitUserPassword }: UserPassword
-) {
+//tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
+const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
 
-  const [userIdForm, setUserIdForm] = useState("");
-  const [userPasswordForm, setUserPasswordForm] = useState("");
+  //아이디와 비밀번호를 전부 입력했는지 확인하는값(임시)
+  const [allTyped, setAlltyped] = useState(false);
 
-  const id = userIdForm;
-  const password = userPasswordForm;
+  //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
-  const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeId: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
     const { value } = e.target;
-    setUserIdForm(value);
+    setUserId(value);
   };
 
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePassword: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
     const { value } = e.target;
-    setUserPasswordForm(value);
+    setUserPassword(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    console.log(userIdForm);
-    console.log(userPasswordForm);
-    setUserIdForm("");
-    setUserPasswordForm("");
-  };
+    console.log("ID입력값:", userId);
+    console.log("PW입력값:", userPassword);
 
-  // const [userIdentification, setUserIdentification] = useState({
-  //   userId: "",
-  //   userPassword: "",
-  // });
-  // const { userId, userPassword } = userIdentification;
-  // const onChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { userId, value } = e.target;
-  //   setUserIdentification({
-  //     ...userIdentification,
-  //     [userId]: value,
-  //   });
-  // };
-  // const onUserIdSubmit = (e: React.FormEvent<HTMLDivElement>) => {
-  //   e.preventDefault();
-  // };
+    //id, pw를 전부 입력했는지 확인후, 전부 입력했다면 넘김(임시)
+    if (!userId || !userPassword) {
+      alert("아이디 또는 비밀번호를 입력해주세요");
+    } else {
+      setAlltyped(true);
+    }
+
+    setUserId("");
+    setUserPassword("");
+  };
 
   return (
     <>
@@ -111,30 +105,35 @@ function Login(
               label="ID"
               variant="outlined"
               name="id"
-              onChange={onChangeId}
-              value={id}
+              onChange={handleChangeId}
+              value={userId}
             />
             <TextField
               id="outlined-basic"
               label="PASSWORD"
               variant="outlined"
               name="password"
-              onChange={onChangePassword}
-              value={password}
+              onChange={handleChangePassword}
+              value={userPassword}
             />
 
-            <div className="btn">
+            <ButtonBlock>
               <Button variant="outlined" color="primary" type="submit">
-                <Link to="/TodaysCheckList">Log in</Link>
+                <Link
+                  to="/TodaysCheckList"
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                >
+                  Log in
+                </Link>
               </Button>
 
               <Signup />
-            </div>
+            </ButtonBlock>
           </form>
         </InputBlock>
       </LoginBlock>
     </>
   );
-}
+};
 
 export default Login;

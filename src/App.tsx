@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
+import TodaysCheckListMainPage from "./components/TodaysCheckList/TodaysCheckListMainPage";
 // import ReserveManage from "./components/ReserveManage";
-import TodaysCheckList from "./components/TodaysCheckList";
 
 const App: React.FC = () => {
   return (
@@ -12,7 +12,10 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/" component={Login} exact />
-            <Route path="/TodaysChecklist" component={TodaysCheckList} />
+            <Route
+              path="/TodaysChecklist"
+              component={TodaysCheckListMainPage}
+            />
           </Switch>
         </Router>
       </BrowserView>

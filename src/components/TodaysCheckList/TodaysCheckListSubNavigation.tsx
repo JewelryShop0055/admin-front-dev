@@ -2,16 +2,13 @@ import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -43,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SubNavigation() {
+export default function TodaysCheckListSubNavigation() {
   const classes = useStyles();
 
   return (
@@ -59,30 +56,43 @@ export default function SubNavigation() {
         anchor="left"
       >
         <List>
-          {[
-            "전체 발주 대기리스트",
-            "전체 금일 출고 제품리스트",
-            "전체 고객 미수령 상품리스트",
-          ].map((text, index) => (
-            <ListItem button key={text}>
+          <Link
+            to="/WaitForOrderGoods"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
+            <ListItem button key={"전체 발주 대기리스트"}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"전체 발주 대기리스트"} />
             </ListItem>
-          ))}
+          </Link>
+
+          <Link
+            to="/TodaysCompleteGoods"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
+            <ListItem button key={"전체 금일 출고 제품리스트"}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"전체 금일 출고 제품리스트"} />
+            </ListItem>
+          </Link>
+
+          <Link
+            to="/NotReciveGoods"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
+            <ListItem button key={"전체 고객 미수령 상품리스트"}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"전체 고객 미수령 상품리스트"} />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
-        <List>
-          {["금값 들어올곳"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     </div>
   );
