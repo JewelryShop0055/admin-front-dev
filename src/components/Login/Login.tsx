@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
@@ -21,13 +22,20 @@ const InputBlock = styled.div`
   height: 260px;
 
   padding-top: 20px;
-
-  div:nth-child(2) {
-    margin-bottom: 10px;
-  }
 `;
 
-const ButtonBlock = styled.div``;
+const ButtonBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  padding-top: 30px;
+
+  &:not(:first-child) {
+    margin: 10px;
+    padding: 20px;
+  }
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,8 +124,9 @@ const Login: React.FC<LoginProps> = () => {
               onChange={handleChangePassword}
               value={userPassword}
             />
-
-            <ButtonBlock>
+          </form>
+          <ButtonBlock>
+            <Stack direction="row" spacing={10}>
               <Button variant="outlined" color="primary" type="submit">
                 <Link
                   to="/TodaysCheckList"
@@ -128,8 +137,8 @@ const Login: React.FC<LoginProps> = () => {
               </Button>
 
               <Signup />
-            </ButtonBlock>
-          </form>
+            </Stack>
+          </ButtonBlock>
         </InputBlock>
       </LoginBlock>
     </>

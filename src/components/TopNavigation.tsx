@@ -9,6 +9,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // TOP NAVIGATION
 const StoreName = styled.div`
@@ -140,8 +141,20 @@ export default function TopNavigation() {
             aria-label="ant example"
           >
             <StoreName>Raviluz</StoreName>
-            <AntTab label="오늘의 체크리스트" />
-            <AntTab label="손님 예약 일정" />
+
+            <AntTab label="오늘의 체크리스트">
+              <Link
+                to="/TodaysCheckList"
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              />
+            </AntTab>
+            <AntTab label="손님 예약 일정">
+              <Link
+                to="/CustomerReservation"
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              />
+            </AntTab>
+
             <AntTab label="상품 관리" />
           </AntTabs>
           <Typography className={classes.padding} />

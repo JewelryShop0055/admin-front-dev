@@ -12,6 +12,12 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/" component={Login} exact />
+
+            {/* 오늘의 체크리스트 라우팅 */}
+            <Route
+              path="/TodaysChecklist" exact
+              component={TodaysCheckListMainPage}
+            />
             <Route
               path="/TodaysChecklist"
               component={TodaysCheckListMainPage}
