@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
+import { LoginAPI } from "../../module/LoginAPI";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -58,13 +59,11 @@ interface LoginProps {
 //tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
-
-  //아이디와 비밀번호를 전부 입력했는지 확인하는값(임시)
-  const [allTyped, setAlltyped] = useState(false);
+  const baseURL = "http://localhost:3001";
 
   //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
-  const [userId, setUserId] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [userId, setUserId] = useState("shopoperator");
+  const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
 
   const handleChangeId: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -80,20 +79,40 @@ const Login: React.FC<LoginProps> = () => {
     setUserPassword(value);
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log("ID입력값:", userId);
     console.log("PW입력값:", userPassword);
+    console.log("클릭해서 로그인");
 
     //id, pw를 전부 입력했는지 확인후, 전부 입력했다면 넘김(임시)
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
-    } else {
-      setAlltyped(true);
     }
-
+    const props = { baseURL, userId, userPassword };
+    const response = LoginAPI(props);
+    console.log(response);
     setUserId("");
     setUserPassword("");
+  };
+
+  const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = (e) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      console.log("ID입력값:", userId);
+      console.log("PW입력값:", userPassword);
+      console.log("엔터로 로그인");
+
+      //id, pw를 전부 입력했는지 확인후, 전부 입력했다면 넘김(임시)
+      if (!userId || !userPassword) {
+        alert("아이디 또는 비밀번호를 입력해주세요");
+      }
+      const props = { baseURL, userId, userPassword };
+      const response = LoginAPI(props);
+      console.log(response);
+      setUserId("");
+      setUserPassword("");
+    }
   };
 
   return (
@@ -106,7 +125,8 @@ const Login: React.FC<LoginProps> = () => {
             className={classes.root}
             noValidate
             autoComplete="off"
-            onSubmit={handleSubmit}
+            // onSubmit={handleSubmit}
+            onKeyPress={handleKeyPress}
           >
             <TextField
               id="outlined-basic"
@@ -124,21 +144,21 @@ const Login: React.FC<LoginProps> = () => {
               onChange={handleChangePassword}
               value={userPassword}
             />
-          </form>
-          <ButtonBlock>
-            <Stack direction="row" spacing={10}>
-              <Button variant="outlined" color="primary" type="submit">
-                <Link
-                  to="/TodaysCheckList"
-                  style={{ color: "inherit", textDecoration: "inherit" }}
+
+            <ButtonBlock>
+              <Stack direction="row" spacing={10}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleClick}
                 >
                   Log in
-                </Link>
-              </Button>
+                </Button>
 
-              <Signup />
-            </Stack>
-          </ButtonBlock>
+                <Signup />
+              </Stack>
+            </ButtonBlock>
+          </form>
         </InputBlock>
       </LoginBlock>
     </>

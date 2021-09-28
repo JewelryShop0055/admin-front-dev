@@ -71,20 +71,20 @@ interface StyledTabsProps {
   onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
 }
 
-const StyledTabs = withStyles({
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    "& > span": {
-      maxWidth: 40,
-      width: "100%",
-      backgroundColor: "#635ee7",
-    },
-  },
-})((props: StyledTabsProps) => (
-  <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />
-));
+// const StyledTabs = withStyles({
+//   indicator: {
+//     display: "flex",
+//     justifyContent: "center",
+//     backgroundColor: "transparent",
+//     "& > span": {
+//       maxWidth: 40,
+//       width: "100%",
+//       backgroundColor: "#635ee7",
+//     },
+//   },
+// })((props: StyledTabsProps) => (
+//   <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />
+// ));
 
 interface StyledTabProps {
   label: string;
@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function TopNavigation() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(3);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -142,20 +142,16 @@ export default function TopNavigation() {
           >
             <StoreName>Raviluz</StoreName>
 
-            <AntTab label="오늘의 체크리스트">
-              <Link
-                to="/TodaysCheckList"
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              />
-            </AntTab>
-            <AntTab label="손님 예약 일정">
-              <Link
-                to="/CustomerReservation"
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              />
-            </AntTab>
+            <AntTab label="오늘의 체크리스트" />
 
-            <AntTab label="상품 관리" />
+            <AntTab label="손님 예약 일정" />
+
+            <Link
+              to="/CustomerReservation"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              <AntTab label="상품 관리" />
+            </Link>
           </AntTabs>
           <Typography className={classes.padding} />
         </div>

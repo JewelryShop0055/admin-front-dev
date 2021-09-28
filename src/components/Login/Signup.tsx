@@ -36,7 +36,7 @@ function Signup() {
             id="name"
             label="입력내용"
             type="email"
-            fullWidth
+            fullWidth={true}
           />
         </DialogContent>
         <DialogActions>
