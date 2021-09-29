@@ -146,12 +146,7 @@ export default function TopNavigation() {
 
             <AntTab label="손님 예약 일정" />
 
-            <Link
-              to="/CustomerReservation"
-              style={{ color: "inherit", textDecoration: "inherit" }}
-            >
-              <AntTab label="상품 관리" />
-            </Link>
+            <AntTab label="상품 관리" />
           </AntTabs>
           <Typography className={classes.padding} />
         </div>

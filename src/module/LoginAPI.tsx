@@ -1,3 +1,5 @@
+import test from "../localTestData.json";
+
 interface LoginProps {
   userId: string;
   userPassword: string;
@@ -7,11 +9,11 @@ interface LoginProps {
 export function LoginAPI({ baseURL, userId, userPassword }: LoginProps) {
   const response = {
     access_token: "",
-    token_type: "Bearer",
-    expires_in: 3599,
+    token_type: "",
+    expires_in: 0,
     refresh_token: "",
   };
-  const URI = baseURL + "/admin/auth/token";
+  const URI = baseURL + test.loginURI;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=shopClient&client_secret=shopClient1234&scope=operator&grant_type=password`;
 
   fetch(URI, {

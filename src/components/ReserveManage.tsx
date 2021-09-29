@@ -1,6 +1,6 @@
 import React from "react";
-import SubNavigation from "./SubNavigation";
-import TopNavigation from "./TopNavigation";
+import SubNavigation from "./Navigations/SubNavigation";
+import TopNavigation from "./Navigations/TopNavigation";
 
 // Sub NAVIGATION
 

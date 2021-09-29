@@ -5,8 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import Signup from "./Signup";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { LoginAPI } from "../../module/LoginAPI";
+
+import test from "../../localTestData.json";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -59,7 +61,8 @@ interface LoginProps {
 //tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
-  const baseURL = "http://localhost:3001";
+  const baseURL = test.baseServerURL;
+  const thisURL = document.location.href;
 
   //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
   const [userId, setUserId] = useState("shopoperator");
@@ -85,33 +88,45 @@ const Login: React.FC<LoginProps> = () => {
     console.log("PW입력값:", userPassword);
     console.log("클릭해서 로그인");
 
-    //id, pw를 전부 입력했는지 확인후, 전부 입력했다면 넘김(임시)
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
+    } else {
+      const props = { baseURL, userId, userPassword };
+      const response = LoginAPI(props);
+      console.log(response);
+
+      if (response.access_token != null && response.refresh_token != null) {
+        return (window.location.href = thisURL + "TodaysChecklist");
+      } else {
+        setUserId("");
+        setUserPassword("");
+        alert("아이디 또는 비밀번호가 잘못되었습니다.");
+      }
     }
-    const props = { baseURL, userId, userPassword };
-    const response = LoginAPI(props);
-    console.log(response);
-    setUserId("");
-    setUserPassword("");
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       e.preventDefault();
       console.log("ID입력값:", userId);
       console.log("PW입력값:", userPassword);
       console.log("엔터로 로그인");
 
-      //id, pw를 전부 입력했는지 확인후, 전부 입력했다면 넘김(임시)
       if (!userId || !userPassword) {
         alert("아이디 또는 비밀번호를 입력해주세요");
+      } else {
+        const props = { baseURL, userId, userPassword };
+        const response = LoginAPI(props);
+        console.log(response);
+
+        if (response.access_token != null && response.refresh_token != null) {
+          return (window.location.href = thisURL + "TodaysChecklist");
+        } else {
+          setUserId("");
+          setUserPassword("");
+          alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        }
       }
-      const props = { baseURL, userId, userPassword };
-      const response = LoginAPI(props);
-      console.log(response);
-      setUserId("");
-      setUserPassword("");
     }
   };
 

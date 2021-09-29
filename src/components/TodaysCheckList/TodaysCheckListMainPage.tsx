@@ -2,7 +2,7 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
-import TopNavigation from "../TopNavigation";
+import TopNavigation from "../Navigations/TopNavigation";
 
 const drawerWidth = 240;
 
