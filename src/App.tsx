@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { TestPage } from "./api/testLogin";
 import Login from "./components/Login/Login";
 import TodaysCheckListMainPage from "./components/TodaysCheckList/TodaysCheckListMainPage";
 // import ReserveManage from "./components/ReserveManage";
@@ -15,13 +16,15 @@ const App: React.FC = () => {
 
             {/* 오늘의 체크리스트 라우팅 */}
             <Route
-              path="/TodaysChecklist" exact
+              path="/TodaysChecklist"
+              exact
               component={TodaysCheckListMainPage}
             />
             <Route
               path="/TodaysChecklist"
               component={TodaysCheckListMainPage}
             />
+            <Route path="/test" exact component={TestPage} />
           </Switch>
         </Router>
       </BrowserView>

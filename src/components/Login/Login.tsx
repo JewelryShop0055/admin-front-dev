@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import Signup from "./Signup";
 import { Link, Route } from "react-router-dom";
-import { LoginAPI } from "../../module/LoginAPI";
+import { LoginAPI, LoginToken } from "../../api/login";
 
 import test from "../../localTestData.json";
 
@@ -61,7 +61,6 @@ interface LoginProps {
 //tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
-  const baseURL = test.baseServerURL;
   const thisURL = document.location.href;
 
   //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
@@ -91,17 +90,21 @@ const Login: React.FC<LoginProps> = () => {
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
     } else {
-      const props = { baseURL, userId, userPassword };
-      const response = LoginAPI(props);
-      console.log(response);
-
-      if (response.access_token != null && response.refresh_token != null) {
-        return (window.location.href = thisURL + "TodaysChecklist");
-      } else {
-        setUserId("");
-        setUserPassword("");
-        alert("아이디 또는 비밀번호가 잘못되었습니다.");
+      const props = { userId, userPassword };
+      async function getToken(props: object) {
+        await LoginAPI(props);
+        if (LoginToken.access_token === "" || LoginToken.refresh_token === "") {
+          console.log("토큰미발급");
+          setUserId("");
+          setUserPassword("");
+          alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        } else {
+          return (window.location.href = thisURL + "TodaysChecklist");
+        }
       }
+      getToken(props);
+
+      console.log("response", LoginToken);
     }
   };
 
@@ -115,17 +118,24 @@ const Login: React.FC<LoginProps> = () => {
       if (!userId || !userPassword) {
         alert("아이디 또는 비밀번호를 입력해주세요");
       } else {
-        const props = { baseURL, userId, userPassword };
-        const response = LoginAPI(props);
-        console.log(response);
-
-        if (response.access_token != null && response.refresh_token != null) {
-          return (window.location.href = thisURL + "TodaysChecklist");
-        } else {
-          setUserId("");
-          setUserPassword("");
-          alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        const props = { userId, userPassword };
+        async function getToken(props: object) {
+          await LoginAPI(props);
+          if (
+            LoginToken.access_token === "" ||
+            LoginToken.refresh_token === ""
+          ) {
+            console.log("토큰미발급");
+            setUserId("");
+            setUserPassword("");
+            alert("아이디 또는 비밀번호가 잘못되었습니다.");
+          } else {
+            return (window.location.href = thisURL + "TodaysChecklist");
+          }
         }
+        getToken(props);
+
+        console.log("response", LoginToken);
       }
     }
   };
