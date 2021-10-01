@@ -4,6 +4,7 @@ import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../Navigations/TopNavigation";
 import { LoginToken } from "../../api/login";
+import { checkTokenEXP, getAuthToken } from "../../api/auth";
 
 const drawerWidth = 240;
 
@@ -37,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
-  console.log(LoginToken);
+  console.log(getAuthToken());
+  console.log(checkTokenEXP());
 
   return (
     <>

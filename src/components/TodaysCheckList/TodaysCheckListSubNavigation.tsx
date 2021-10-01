@@ -8,7 +8,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { eraseAuthToken } from "../../api/auth";
 
 const drawerWidth = 280;
 
@@ -41,7 +42,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function TodaysCheckListSubNavigation() {
+  const baseURL = "http://localhost:3000/";
+
   const classes = useStyles();
+  const handleLogout: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    console.log("로그아웃버튼 클릭");
+    eraseAuthToken();
+    window.location.href = baseURL;
+  };
 
   return (
     <div className={classes.root}>
@@ -56,43 +65,53 @@ export default function TodaysCheckListSubNavigation() {
         anchor="left"
       >
         <List>
-          <Link
-            to="/WaitForOrderGoods"
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
-            <ListItem button key={"전체 발주 대기리스트"}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"전체 발주 대기리스트"} />
-            </ListItem>
-          </Link>
-
-          <Link
-            to="/TodaysCompleteGoods"
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
-            <ListItem button key={"전체 금일 출고 제품리스트"}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"전체 금일 출고 제품리스트"} />
-            </ListItem>
-          </Link>
-
-          <Link
-            to="/NotReciveGoods"
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
-            <ListItem button key={"전체 고객 미수령 상품리스트"}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"전체 고객 미수령 상품리스트"} />
-            </ListItem>
-          </Link>
+          <ListItem button onClick={handleLogout} key={"Logout"}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Logout"} />
+          </ListItem>
         </List>
+
         <Divider />
+
+        <List>
+          <ListItem
+            button
+            // component={RouterLink}
+            // to="/WaitForOrderGoods"
+            key={"전체 발주 대기리스트"}
+          >
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"전체 발주 대기리스트"} />
+          </ListItem>
+
+          <ListItem
+            button
+            // component={RouterLink}
+            // to="/TodaysCompleteGoods"
+            key={"전체 금일 출고 제품리스트"}
+          >
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"전체 금일 출고 제품리스트"} />
+          </ListItem>
+
+          <ListItem
+            button
+            // component={RouterLink}
+            // to="/NotReciveGoods"
+            key={"전체 고객 미수령 상품리스트"}
+          >
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"전체 고객 미수령 상품리스트"} />
+          </ListItem>
+        </List>
       </Drawer>
     </div>
   );

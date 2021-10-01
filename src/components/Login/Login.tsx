@@ -9,7 +9,7 @@ import { Link, Route } from "react-router-dom";
 import { LoginAPI, LoginToken } from "../../api/login";
 
 import test from "../../localTestData.json";
-import { saveRefreshToken } from "../../api/auth";
+import { saveAuthToken } from "../../api/auth";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -62,7 +62,7 @@ interface LoginProps {
 //tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
-  const thisURL = document.location.href;
+  const baseURL = "http://localhost:3000/";
 
   //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
   const [userId, setUserId] = useState("shopoperator");
@@ -100,8 +100,8 @@ const Login: React.FC<LoginProps> = () => {
           setUserPassword("");
           alert("아이디 또는 비밀번호가 잘못되었습니다.");
         } else {
-          saveRefreshToken(LoginToken);
-          return (window.location.href = thisURL + "TodaysChecklist");
+          saveAuthToken(LoginToken);
+          return (window.location.href = baseURL + "TodaysChecklist");
         }
       }
       getToken(props);
@@ -132,7 +132,7 @@ const Login: React.FC<LoginProps> = () => {
             setUserPassword("");
             alert("아이디 또는 비밀번호가 잘못되었습니다.");
           } else {
-            return (window.location.href = thisURL + "TodaysChecklist");
+            return (window.location.href = baseURL + "TodaysChecklist");
           }
         }
         getToken(props);
