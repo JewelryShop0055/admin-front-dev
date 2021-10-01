@@ -3,6 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../Navigations/TopNavigation";
+import { LoginToken } from "../../api/login";
 
 const drawerWidth = 240;
 
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
+  console.log(LoginToken);
 
   return (
     <>

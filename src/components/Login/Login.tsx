@@ -9,6 +9,7 @@ import { Link, Route } from "react-router-dom";
 import { LoginAPI, LoginToken } from "../../api/login";
 
 import test from "../../localTestData.json";
+import { saveRefreshToken } from "../../api/auth";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -99,6 +100,7 @@ const Login: React.FC<LoginProps> = () => {
           setUserPassword("");
           alert("아이디 또는 비밀번호가 잘못되었습니다.");
         } else {
+          saveRefreshToken(LoginToken);
           return (window.location.href = thisURL + "TodaysChecklist");
         }
       }

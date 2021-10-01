@@ -15,13 +15,6 @@ export const LoginToken = {
 };
 
 export async function LoginAPI({ userId, userPassword }: LoginProps) {
-  // const response = {
-  //   access_token: "",
-  //   token_type: "",
-  //   expires_in: 0,
-  //   refresh_token: "",
-  // };
-
   const URI = test.baseServerURL + test.loginURI;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=shopClient&client_secret=shopClient1234&scope=operator&grant_type=password`;
 
@@ -39,17 +32,17 @@ export async function LoginAPI({ userId, userPassword }: LoginProps) {
     });
 }
 
-export function TokenCaching() {
-  const url = test.baseServerURL + test.loginURI;
-  const { data, error, mutate } = useSWR(url, LoginAPI);
+// export function TokenCaching() {
+//   const url = test.baseServerURL + test.loginURI;
+//   const { data, error, mutate } = useSWR(url, LoginAPI);
 
-  if (mutate) return mutate;
-  if (error) {
-    console.log("SWR 에러발생", error);
-    return error;
-  }
-  if (!data) return <div>로딩중</div>;
+//   if (mutate) return mutate;
+//   if (error) {
+//     console.log("SWR 에러발생", error);
+//     return error;
+//   }
+//   if (!data) return <div>로딩중</div>;
 
-  console.log(data);
-  return data;
-}
+//   console.log(data);
+//   return data;
+// }
