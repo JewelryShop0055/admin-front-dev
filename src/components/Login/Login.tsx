@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import Signup from "./Signup";
 import { Link, Route } from "react-router-dom";
@@ -23,17 +22,15 @@ const InputBlock = styled.div`
   border: 0.5px solid black;
   border-radius: 5px;
   width: 512px;
-  height: 260px;
+  height: 280px;
 
-  padding-top: 20px;
+  padding-top: 30px;
 `;
 
 const ButtonBlock = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-
-  padding-top: 30px;
 
   &:not(:first-child) {
     margin: 10px;
@@ -46,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
       width: "45ch",
+    },
+  },
+  button: {
+    "& > *": {
+      margin: theme.spacing(3),
     },
   },
 }));
@@ -172,18 +174,12 @@ const Login: React.FC<LoginProps> = () => {
               value={userPassword}
             />
 
-            <ButtonBlock>
-              <Stack direction="row" spacing={10}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={handleClick}
-                >
-                  Log in
-                </Button>
+            <ButtonBlock className={classes.button}>
+              <Button variant="outlined" color="primary" onClick={handleClick}>
+                SIGN IN
+              </Button>
 
-                <Signup />
-              </Stack>
+              <Signup />
             </ButtonBlock>
           </form>
         </InputBlock>

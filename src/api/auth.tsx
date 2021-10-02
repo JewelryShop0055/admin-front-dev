@@ -24,17 +24,15 @@ export function checkTokenEXP() {
     refresh: false,
   };
 
-  interface tokenDecade {
+  interface tokenDecode {
     tokenType: String;
     scope: String;
     iat: number;
     exp: number;
     iss: String;
   }
-  const accessTokenDecode: tokenDecade = jwt_decode(authToken.access_token);
-  const refreshTokenDecode: tokenDecade = jwt_decode<tokenDecade>(
-    authToken.refresh_token
-  );
+  const accessTokenDecode: tokenDecode = jwt_decode(authToken.access_token);
+  const refreshTokenDecode: tokenDecode = jwt_decode(authToken.refresh_token);
 
   const now = Date.now();
   console.log("현재시간", now);
