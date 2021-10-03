@@ -5,10 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./Signup";
 import { Link, Route } from "react-router-dom";
-import { LoginAPI, LoginToken } from "../../api/login";
+import { LoginAPI, LoginAPI_axios, LoginToken } from "../../api/login";
 
 import test from "../../localTestData.json";
-import { saveAuthToken } from "../../api/auth";
+import { saveAuthToken } from "../../util/auth";
+import Cookies from "universal-cookie";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -52,21 +53,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//RouteIf를 이용한 임시 로그인체크
-// => ID와 PASSWORD항목을 아예 따로 분류해서 상태정리해야함 + id, pw는 정규식처리를 통해 영문, ~!@#$%^&*() 특문 외의 문자입력시 영어로 입력중이 아니라는것을 알리기
-
 interface LoginProps {
   children: React.ReactElement;
   userId: string;
   userPassword: string;
 }
 
-//tsx로 써야 JSX:ELEMENT로 fn 결과값이 출력
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
   const baseURL = "http://localhost:3000/";
 
-  //useState에서 initialate값을 ""로 지정해서 자동 string지정이 되었다.
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
 
@@ -112,35 +108,21 @@ const Login: React.FC<LoginProps> = () => {
     }
   };
 
-  const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = (e) => {
+  const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     if (e.key === "Enter") {
-      e.preventDefault();
       console.log("ID입력값:", userId);
       console.log("PW입력값:", userPassword);
       console.log("엔터로 로그인");
 
       if (!userId || !userPassword) {
         alert("아이디 또는 비밀번호를 입력해주세요");
-      } else {
-        const props = { userId, userPassword };
-        async function getToken(props: object) {
-          await LoginAPI(props);
-          if (
-            LoginToken.access_token === "" ||
-            LoginToken.refresh_token === ""
-          ) {
-            console.log("토큰미발급");
-            setUserId("");
-            setUserPassword("");
-            alert("아이디 또는 비밀번호가 잘못되었습니다.");
-          } else {
-            return (window.location.href = baseURL + "TodaysChecklist");
-          }
-        }
-        getToken(props);
-
-        console.log("response", LoginToken);
       }
+
+      const token = await LoginAPI_axios({ userId, userPassword });
+      document.cookie = "user=admin; max-age=3599; samesite=lax;" + token.data;
+      console.log(token);
     }
   };
 

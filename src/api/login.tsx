@@ -1,5 +1,4 @@
-import fetch from "unfetch";
-import useSWR from "swr";
+import axios from "axios";
 import test from "../localTestData.json";
 
 interface LoginProps {
@@ -15,12 +14,13 @@ export const LoginToken = {
 };
 
 export async function LoginAPI({ userId, userPassword }: LoginProps) {
-  const URI = test.baseServerURL + test.loginURI;
-  const bodyProps = `username=${userId}&password=${userPassword}&client_id=shopClient&client_secret=shopClient1234&scope=operator&grant_type=password`;
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_LOGIN_URL}`;
+  const bodyProps = `username=${userId}&password=${userPassword}${process.env.REACT_APP_LOGIN_BODY_PARAMS}`;
 
-  await fetch(URI, {
+  console.log(`${process.env.REACT_APP_LOGIN_BODY_PARAMS}`);
+  await fetch(URL, {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    headers: { "Content-Type": `${process.env.REACT_APP_LOGIN_HEADER_PARAMS}` },
     body: bodyProps,
   })
     .then((res) => res.json())
@@ -32,17 +32,10 @@ export async function LoginAPI({ userId, userPassword }: LoginProps) {
     });
 }
 
-// export function TokenCaching() {
-//   const url = test.baseServerURL + test.loginURI;
-//   const { data, error, mutate } = useSWR(url, LoginAPI);
-
-//   if (mutate) return mutate;
-//   if (error) {
-//     console.log("SWR 에러발생", error);
-//     return error;
-//   }
-//   if (!data) return <div>로딩중</div>;
-
-//   console.log(data);
-//   return data;
-// }
+export async function LoginAPI_axios({ userId, userPassword }: LoginProps) {
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_LOGIN_URL}`;
+  const bodyProps = `username=${userId}&password=${userPassword}${process.env.REACT_APP_LOGIN_BODY_PARAMS}`;
+  return await axios.post(URL, bodyProps, {
+    headers: { "Content-Type": `${process.env.REACT_APP_LOGIN_HEADER_PARAMS}` },
+  });
+}

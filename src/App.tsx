@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { TestPage } from "./api/testLogin";
-import Login from "./components/Login/Login";
-import TodaysCheckListMainPage from "./components/TodaysCheckList/TodaysCheckListMainPage";
+import Login from "./pages/Login/Login";
+import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 // import ReserveManage from "./components/ReserveManage";
 
 const App: React.FC = () => {
@@ -24,7 +23,6 @@ const App: React.FC = () => {
               path="/TodaysChecklist"
               component={TodaysCheckListMainPage}
             />
-            <Route path="/test" exact component={TestPage} />
           </Switch>
         </Router>
       </BrowserView>

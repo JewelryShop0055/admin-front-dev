@@ -9,7 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Link as RouterLink } from "react-router-dom";
-import { eraseAuthToken } from "../../api/auth";
+import { eraseAuthToken, eraseCookie } from "../../util/auth";
 
 const drawerWidth = 280;
 
@@ -49,6 +49,7 @@ export default function TodaysCheckListSubNavigation() {
     e.preventDefault();
     console.log("로그아웃버튼 클릭");
     eraseAuthToken();
+    eraseCookie();
     window.location.href = baseURL;
   };
 

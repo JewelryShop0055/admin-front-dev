@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 
 const cookies = new Cookies();
 
-export function saveAuthToken(refresh_token: object) {
+export function saveAuthToken(refresh_token: object | string) {
   cookies.set("auth_token", refresh_token, { sameSite: "strict" });
 }
 
@@ -44,4 +44,10 @@ export function checkTokenEXP() {
   }
 
   return EXP;
+}
+
+export function eraseCookie() {
+  console.log("Refresh Token이 있는 cookie를 삭제");
+  window.localStorage.setItem("logout", String(Date.now()));
+  document.cookie = "user=admin; max-age=-1;";
 }
