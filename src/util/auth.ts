@@ -1,5 +1,3 @@
-import jwt_decode from "jwt-decode";
-
 export function saveAuthToken(accessToken: string, refreshToken: string) {
   document.cookie = `user_access_token=${accessToken}; max-age=3599; samesite=lax;`;
   document.cookie = `user_refresh_token=${refreshToken}; max-age=3599; samesite=lax;`;
@@ -48,10 +46,4 @@ export function checkTokenEXP() {
   //   EXP.access = true;
   // }
   // return EXP;
-}
-
-export function eraseCookie() {
-  console.log("Refresh Token이 있는 cookie를 삭제");
-  window.localStorage.setItem("logout", String(Date.now()));
-  document.cookie = "user=admin; max-age=-1;";
 }

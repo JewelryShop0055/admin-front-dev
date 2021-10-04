@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Error404 from "./pages/Error/Error404";
 import Login from "./pages/Login/Login";
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 // import ReserveManage from "./components/ReserveManage";
@@ -23,6 +24,7 @@ const App: React.FC = () => {
               path="/TodaysChecklist"
               component={TodaysCheckListMainPage}
             />
+            <Route component={Error404} />
           </Switch>
         </Router>
       </BrowserView>
