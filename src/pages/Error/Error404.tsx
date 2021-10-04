@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface ErrorPage {
   url: string;
@@ -6,7 +6,7 @@ interface ErrorPage {
 
 const Error404: React.FC<ErrorPage> = () => {
   setTimeout(() => {
-    window.location.href = "http://localhost:3000/";
+    window.location.href = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
   }, 3000);
 
   return (

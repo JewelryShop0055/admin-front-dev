@@ -8,8 +8,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { Link as RouterLink } from "react-router-dom";
-import { eraseAuthToken } from "../../util/auth";
+import {} from "react-router-dom";
+import { logout } from "../../util/auth";
 
 const drawerWidth = 280;
 
@@ -42,14 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function TodaysCheckListSubNavigation() {
-  const baseURL = "http://localhost:3000/";
-
   const classes = useStyles();
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault();
     console.log("로그아웃버튼 클릭");
-    eraseAuthToken();
-    window.location.href = baseURL;
+    logout();
+    // window.location.href = baseURL;
   };
 
   return (

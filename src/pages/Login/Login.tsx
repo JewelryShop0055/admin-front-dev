@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./Signup";
 
-import { Link, Route } from "react-router-dom";
+import {} from "react-router-dom";
 import { LoginAPI } from "../../api/login";
 
 import { saveAuthToken } from "../../util/auth";
@@ -60,7 +60,7 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = () => {
   const classes = useStyles();
-  const baseURL = "http://localhost:3000/";
+  const baseURL = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
 
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
@@ -91,7 +91,7 @@ const Login: React.FC<LoginProps> = () => {
     const token = await LoginAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
 
-    window.location.href = baseURL + "TodaysChecklist";
+    window.location.href = baseURL + "/TodaysChecklist";
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
@@ -110,7 +110,7 @@ const Login: React.FC<LoginProps> = () => {
     const token = await LoginAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
 
-    window.location.href = baseURL + "TodaysChecklist";
+    window.location.href = baseURL + "/TodaysChecklist";
   };
 
   return (

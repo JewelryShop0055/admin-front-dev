@@ -3,12 +3,8 @@ export function saveAuthToken(accessToken: string, refreshToken: string) {
   document.cookie = `user_refresh_token=${refreshToken}; max-age=3599; samesite=lax;`;
 }
 
-export function eraseAuthToken() {
-  const accessToken = getAuthToken("user_access_token");
-  const refreshToken = getAuthToken("user_refresh_token");
-  window.localStorage.setItem("logout", String(Date.now()));
-  document.cookie = `user_access_token=${accessToken}; max-age=-1;`;
-  document.cookie = `user_refresh_token=${refreshToken}; max-age=-1;`;
+export function deleteAuthToken(name: string, value: string) {
+  document.cookie = `${name}=${value}; max-age=-1;`;
 }
 
 export const getAuthToken = (name: string) => {
@@ -22,19 +18,34 @@ export const getAuthToken = (name: string) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
+export async function logout() {
+  await window.localStorage.setItem("logout", String(Date.now()));
+
+  const tokens = [
+    ["user_access_token", getAuthToken("user_access_token")],
+    ["user_refresh_token", getAuthToken("user_refresh_token")],
+  ];
+
+  console.log("쿠키의 토큰값 가져옴", tokens);
+
+  tokens.forEach((token) => {
+    deleteAuthToken(token[0]!.toString(), token[1]!.toString());
+  });
+}
+
 export function checkTokenEXP() {
-  //   const authToken = getAuthToken();
-  //   const EXP = {
-  //     access: false,
-  //     refresh: false,
-  //   };
-  //   interface tokenDecode {
-  //     tokenType: String;
-  //     scope: String;
-  //     iat: number;
-  //     exp: number;
-  //     iss: String;
-  //   }
+  // const authToken = deleteAuthToken();
+  // const EXP = {
+  //   access: false,
+  //   refresh: false,
+  // };
+  // interface tokenDecode {
+  //   tokenType: string;
+  //   scope: string;
+  //   iat: number;
+  //   exp: number;
+  //   iss: string;
+  // }
   // const accessTokenDecode: tokenDecode = jwt_decode(authToken.access_token);
   // const refreshTokenDecode: tokenDecode = jwt_decode(authToken.refresh_token);
   // const now = Date.now();
