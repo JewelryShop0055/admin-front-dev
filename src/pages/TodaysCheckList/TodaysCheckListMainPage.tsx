@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../../components/Navigations/TopNavigation";
-import { LoginToken } from "../../api/login";
+import {} from "../../api/login";
 import { checkTokenEXP, getAuthToken } from "../../util/auth";
 
 const drawerWidth = 240;
@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
-  console.log(getAuthToken());
-  console.log(checkTokenEXP());
+  console.log(getAuthToken("user_access_token"));
+  // console.log(checkTokenEXP());
 
   return (
     <>

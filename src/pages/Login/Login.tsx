@@ -4,12 +4,11 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./Signup";
-import { Link, Route } from "react-router-dom";
-import { LoginAPI, LoginAPI_axios, LoginToken } from "../../api/login";
 
-import test from "../../localTestData.json";
+import { Link, Route } from "react-router-dom";
+import { LoginAPI } from "../../api/login";
+
 import { saveAuthToken } from "../../util/auth";
-import Cookies from "universal-cookie";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -80,32 +79,19 @@ const Login: React.FC<LoginProps> = () => {
     setUserPassword(value);
   };
 
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     console.log("ID입력값:", userId);
     console.log("PW입력값:", userPassword);
     console.log("클릭해서 로그인");
 
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
-    } else {
-      const props = { userId, userPassword };
-      async function getToken(props: object) {
-        await LoginAPI(props);
-        if (LoginToken.access_token === "" || LoginToken.refresh_token === "") {
-          console.log("토큰미발급");
-          setUserId("");
-          setUserPassword("");
-          alert("아이디 또는 비밀번호가 잘못되었습니다.");
-        } else {
-          saveAuthToken(LoginToken);
-          return (window.location.href = baseURL + "TodaysChecklist");
-        }
-      }
-      getToken(props);
-
-      console.log("response", LoginToken);
     }
+
+    const token = await LoginAPI({ userId, userPassword });
+    await saveAuthToken(token.access_token, token.refresh_token);
+
+    window.location.href = baseURL + "TodaysChecklist";
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
@@ -115,15 +101,16 @@ const Login: React.FC<LoginProps> = () => {
       console.log("ID입력값:", userId);
       console.log("PW입력값:", userPassword);
       console.log("엔터로 로그인");
-
-      if (!userId || !userPassword) {
-        alert("아이디 또는 비밀번호를 입력해주세요");
-      }
-
-      const token = await LoginAPI_axios({ userId, userPassword });
-      document.cookie = "user=admin; max-age=3599; samesite=lax;" + token.data;
-      console.log(token);
     }
+
+    if (!userId || !userPassword) {
+      alert("아이디 또는 비밀번호를 입력해주세요");
+    }
+
+    const token = await LoginAPI({ userId, userPassword });
+    await saveAuthToken(token.access_token, token.refresh_token);
+
+    window.location.href = baseURL + "TodaysChecklist";
   };
 
   return (

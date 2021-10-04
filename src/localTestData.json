@@ -1,4 +1,0 @@
-{
-  "baseServerURL": "http://localhost:3001",
-  "loginURI": "/admin/auth/token"
-}
