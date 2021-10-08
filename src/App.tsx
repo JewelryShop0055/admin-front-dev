@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Error404 from "./pages/Error/Error404";
-import Login from "./pages/Login/Login";
+import LoginPage from "./pages/Login";
+import Login from "./pages/Login/components/Login";
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 // import ReserveManage from "./components/ReserveManage";
 
@@ -12,7 +13,7 @@ const App: React.FC = () => {
       <BrowserView>
         <Router>
           <Switch>
-            <Route path="/" component={Login} exact />
+            <Route path="/" component={LoginPage} exact />
 
             {/* 오늘의 체크리스트 라우팅 */}
             <Route

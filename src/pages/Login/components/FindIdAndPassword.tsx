@@ -20,28 +20,47 @@ function Signup() {
   return (
     <>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Sign up
+        Forgot ID/PASSWORD?
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">회원가입양식/인증</DialogTitle>
+        <DialogTitle id="form-dialog-title">Password Reset</DialogTitle>
         <DialogContent>
-          <DialogContentText>여기는 회원가입항목 들어올곳</DialogContentText>
+          <DialogContentText>
+            인증을 통해 가입시 등록된 이메일 주소로 아이디와 임시 비밀번호를
+            발급합니다.
+            <br />
+            재발급시 기존 비밀번호는 발급된 임시 비밀번호로 변경됩니다. <br />
+            임시 비밀번호로 로그인 이후 비밀번호를 바꿔주세요.
+          </DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
-            label="입력내용"
+            label="사용자 이름"
+            type="email"
+            fullWidth={true}
+          />
+          <TextField
+            margin="dense"
+            id="email"
+            label="사용자 이메일 주소"
+            type="email"
+            fullWidth={true}
+          />
+          <TextField
+            margin="dense"
+            id="phoneNumber"
+            label="사용자 휴대폰 번호"
             type="email"
             fullWidth={true}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Sign Up
+            Reset
           </Button>
           <Button onClick={handleClose} color="primary">
             Cancel

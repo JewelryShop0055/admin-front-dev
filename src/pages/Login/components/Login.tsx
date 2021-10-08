@@ -3,12 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
-import Signup from "./Signup";
+import Signup from "./FindIdAndPassword";
 
 import {} from "react-router-dom";
-import { LoginAPI } from "../../api/login";
+import { LoginAPI } from "../../../api/login";
 
-import { saveAuthToken } from "../../util/auth";
+import { saveAuthToken } from "../../../util/auth";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -52,13 +52,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface LoginProps {
-  children: React.ReactElement;
-  userId: string;
-  userPassword: string;
-}
+// interface LoginProps {
+//   children: React.ReactElement;
+//   userId: string;
+//   userPassword: string;
+// }
 
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC = () => {
   const classes = useStyles();
   const baseURL = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
 
