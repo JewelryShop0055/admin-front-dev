@@ -5,10 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./FindIdAndPassword";
 
-import {} from "react-router-dom";
 import { LoginAPI } from "../../../api/login";
 
 import { saveAuthToken } from "../../../util/auth";
+import { StyledLink } from "../../../components/StyledLink";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -52,12 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// interface LoginProps {
-//   children: React.ReactElement;
-//   userId: string;
-//   userPassword: string;
-// }
-
 const Login: React.FC = () => {
   const classes = useStyles();
   const baseURL = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
@@ -91,7 +85,8 @@ const Login: React.FC = () => {
     const token = await LoginAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
 
-    window.location.href = baseURL + "/TodaysChecklist";
+    // window.location.href = baseURL + "/TodaysChecklist";
+    // e.preventDefault();
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
@@ -109,8 +104,6 @@ const Login: React.FC = () => {
 
     const token = await LoginAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
-
-    window.location.href = baseURL + "/TodaysChecklist";
   };
 
   return (
@@ -145,7 +138,7 @@ const Login: React.FC = () => {
 
             <ButtonBlock className={classes.button}>
               <Button variant="outlined" color="primary" onClick={handleClick}>
-                SIGN IN
+                <StyledLink to="/TodaysChecklist">SIGN IN</StyledLink>
               </Button>
 
               <Signup />

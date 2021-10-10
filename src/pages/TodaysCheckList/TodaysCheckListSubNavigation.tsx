@@ -8,8 +8,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import {} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../util/auth";
+import { StyledLink } from "../../components/StyledLink";
 
 const drawerWidth = 280;
 
@@ -62,12 +63,14 @@ export default function TodaysCheckListSubNavigation() {
         anchor="left"
       >
         <List>
-          <ListItem button onClick={handleLogout} key={"Logout"}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Logout"} />
-          </ListItem>
+          <StyledLink to="/">
+            <ListItem button onClick={handleLogout} key={"Logout"}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+          </StyledLink>
         </List>
 
         <Divider />

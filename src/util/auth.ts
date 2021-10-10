@@ -29,7 +29,9 @@ export async function logout() {
   console.log("쿠키의 토큰값 가져옴", tokens);
 
   tokens.forEach((token) => {
-    deleteAuthToken(token[0]!.toString(), token[1]!.toString());
+    if (token[1] !== undefined) {
+      deleteAuthToken(token[0]!.toString(), token[1]!.toString());
+    }
   });
 }
 

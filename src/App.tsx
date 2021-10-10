@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Error404 from "./pages/Error/Error404";
 import LoginPage from "./pages/Login";
 import Login from "./pages/Login/components/Login";
