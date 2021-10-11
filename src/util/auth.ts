@@ -32,7 +32,6 @@ export async function signout() {
     if (token[1] !== undefined) {
       deleteAuthToken(token[0]!.toString(), token[1]!.toString());
       if (token[0] === "user_access_token") {
-        console.log("로그아웃 처리중", token[1]!.toString());
         signoutAPI(token[1]!.toString());
       }
     }

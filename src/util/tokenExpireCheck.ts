@@ -20,11 +20,15 @@ const initialDecodeValue = {
 export function checkTokenExpired(tokenName: string) {
   const token = getAuthToken(tokenName);
 
-  const TokenDecode: tokenDecode =
-    token !== undefined ? jwt_decode(token!.toString()) : initialDecodeValue;
-
-  const now = parseInt(Date.now().toString().substring(0, 10));
-  return now < TokenDecode.exp ? true : false;
+  if (token === undefined) {
+    return false;
+  } else {
+    const tokenDecode: tokenDecode = jwt_decode(token!.toString());
+    const now = parseInt(Date.now().toString().substring(0, 10));
+    return now < tokenDecode.exp ? true : false;
+  }
+  // const tokenDecode: tokenDecode =
+  //   token !== undefined ? jwt_decode(token!.toString()) : initialDecodeValue;
 }
 
 export function getTokenExpiredState() {

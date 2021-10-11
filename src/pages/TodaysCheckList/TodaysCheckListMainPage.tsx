@@ -3,10 +3,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../../components/Navigations/TopNavigation";
-import {} from "../../api/signin";
+import { refreshTokenAPI } from "../../api/signin";
 import { getTokenExpiredState } from "../../util/tokenExpireCheck";
 import { Route } from "react-router";
 import LoginPage from "../Login";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -42,7 +43,15 @@ export default function TodaysCheckListMainPage() {
   const classes = useStyles();
   const tokenState = getTokenExpiredState();
   if (tokenState.user_refresh_token === false) {
-    return <Route component={LoginPage} />;
+    return (
+      <>
+        <Link to="/" />
+        <Route component={LoginPage} />
+      </>
+    );
+  }
+  if (tokenState.user_access_token === true) {
+    console.log("토큰재발급", refreshTokenAPI());
   }
 
   return (

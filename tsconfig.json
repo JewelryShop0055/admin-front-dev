@@ -4,14 +4,10 @@
     "module": "esnext",
     "outDir": "./dist",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "strict": true,
     "skipLibCheck": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
@@ -21,7 +17,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

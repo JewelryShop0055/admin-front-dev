@@ -2,43 +2,14 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import styled from "styled-components";
 import Signup from "./FindIdAndPassword";
-
-import { signinAPI } from "../../../api/signin";
 
 import { saveAuthToken } from "../../../util/auth";
 import { StyledLink } from "../../../components/StyledLink";
-import { Route } from "react-router";
-import { Link } from "react-router-dom";
-
-const LoginBlock = styled.div`
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const InputBlock = styled.div`
-  border: 0.5px solid black;
-  border-radius: 5px;
-  width: 512px;
-  height: 280px;
-
-  padding-top: 30px;
-`;
-
-const ButtonBlock = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-
-  &:not(:first-child) {
-    margin: 10px;
-    padding: 20px;
-  }
-`;
+// import { Link } from "react-router-dom";
+import { refreshTokenAPI, signinAPI } from "../../../api/signin";
+import { ButtonBlock, InputBlock, LoginBlock } from "./LoginBlock_styled";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Login: React.FC = () => {
   const classes = useStyles();
-  const baseURL = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
 
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
@@ -78,11 +48,21 @@ const Login: React.FC = () => {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
+    } else {
+      const token = await signinAPI({ userId, userPassword });
+      await saveAuthToken(token.access_token, token.refresh_token);
     }
-
-    const token = await signinAPI({ userId, userPassword });
-    await saveAuthToken(token.access_token, token.refresh_token);
   };
+
+  // const handleClickTest: React.MouseEventHandler<HTMLButtonElement> = async (
+  //   e
+  // ) => {
+  //   const res = await refreshTokenAPI();
+  //   console.log("토큰재발급", res);
+  //   if (res.access_token !== undefined && res.refresh_token !== undefined) {
+  //     await saveAuthToken(res.access_token, res.refresh_token);
+  //   }
+  // };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
     e
@@ -91,17 +71,23 @@ const Login: React.FC = () => {
       console.log("ID입력값:", userId);
       console.log("PW입력값:", userPassword);
       console.log("엔터로 로그인");
+      if (!userId || !userPassword) {
+        alert("아이디 또는 비밀번호를 입력해주세요");
+      }
+      const token = await signinAPI({ userId, userPassword });
+      if (
+        token.access_token !== undefined &&
+        token.refresh_token !== undefined
+      ) {
+        await saveAuthToken(token.access_token, token.refresh_token);
+      } else {
+        setUserId("");
+        setUserPassword("");
+        alert("아이디 또는 비밀번호가 틀렸습니다");
+      }
     }
 
-    if (!userId || !userPassword) {
-      alert("아이디 또는 비밀번호를 입력해주세요");
-    }
-
-    console.log(window.history);
-
-    const token = await signinAPI({ userId, userPassword });
-    await saveAuthToken(token.access_token, token.refresh_token);
-    return <Link to="/TodaysChecklist" />;
+    // return <Link to="/TodaysChecklist" />;
   };
 
   return (
@@ -134,9 +120,19 @@ const Login: React.FC = () => {
             />
 
             <ButtonBlock className={classes.button}>
+              {/* <StyledLink to="/TodaysChecklist"> */}
               <Button variant="outlined" color="primary" onClick={handleClick}>
-                <StyledLink to="/TodaysChecklist">SIGN IN</StyledLink>
+                SIGN IN
               </Button>
+              {/* </StyledLink> */}
+
+              {/* <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleClickTest}
+              >
+                테스트용 버튼
+              </Button> */}
 
               <Signup />
             </ButtonBlock>
