@@ -4,7 +4,9 @@ import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../../components/Navigations/TopNavigation";
 import {} from "../../api/login";
-import { checkTokenEXP, getAuthToken } from "../../util/auth";
+import { getTokenExpiredState } from "../../util/tokenExpireCheck";
+import { Route } from "react-router";
+import LoginPage from "../Login";
 
 const drawerWidth = 240;
 
@@ -38,8 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
-  console.log(getAuthToken("user_access_token"));
-  // console.log(checkTokenEXP());
+  const tokenState = getTokenExpiredState();
+  if (tokenState.user_refresh_token === false) {
+    return <Route component={LoginPage} />;
+  }
 
   return (
     <>
