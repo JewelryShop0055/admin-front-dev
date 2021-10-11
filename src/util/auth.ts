@@ -1,3 +1,5 @@
+import { signoutAPI } from "../api/signout";
+
 export function saveAuthToken(accessToken: string, refreshToken: string) {
   document.cookie = `user_access_token=${accessToken}; max-age=3599; samesite=lax;`;
   document.cookie = `user_refresh_token=${refreshToken}; max-age=3599; samesite=lax;`;
@@ -18,8 +20,8 @@ export const getAuthToken = (name: string) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
-export async function logout() {
-  await window.localStorage.setItem("logout", String(Date.now()));
+export async function signout() {
+  await window.localStorage.setItem("signout", String(Date.now()));
 
   const tokens = [
     ["user_access_token", getAuthToken("user_access_token")],
@@ -29,6 +31,10 @@ export async function logout() {
   tokens.forEach((token) => {
     if (token[1] !== undefined) {
       deleteAuthToken(token[0]!.toString(), token[1]!.toString());
+      if (token[0] === "user_access_token") {
+        console.log("로그아웃 처리중", token[1]!.toString());
+        signoutAPI(token[1]!.toString());
+      }
     }
   });
 }

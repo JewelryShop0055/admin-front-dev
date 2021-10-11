@@ -9,7 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Link } from "react-router-dom";
-import { logout } from "../../util/auth";
+import { signout } from "../../util/auth";
 import { StyledLink } from "../../components/StyledLink";
 
 const drawerWidth = 280;
@@ -46,7 +46,7 @@ export default function TodaysCheckListSubNavigation() {
   const classes = useStyles();
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = (e) => {
     console.log("로그아웃버튼 클릭");
-    logout();
+    signout();
     // window.location.href = baseURL;
   };
 

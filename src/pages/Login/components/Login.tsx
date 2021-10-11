@@ -5,10 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import Signup from "./FindIdAndPassword";
 
-import { LoginAPI } from "../../../api/login";
+import { signinAPI } from "../../../api/signin";
 
 import { saveAuthToken } from "../../../util/auth";
 import { StyledLink } from "../../../components/StyledLink";
+import { Route } from "react-router";
+import { Link } from "react-router-dom";
 
 const LoginBlock = styled.div`
   text-align: center;
@@ -74,19 +76,12 @@ const Login: React.FC = () => {
   };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    console.log("ID입력값:", userId);
-    console.log("PW입력값:", userPassword);
-    console.log("클릭해서 로그인");
-
     if (!userId || !userPassword) {
       alert("아이디 또는 비밀번호를 입력해주세요");
     }
 
-    const token = await LoginAPI({ userId, userPassword });
+    const token = await signinAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
-
-    // window.location.href = baseURL + "/TodaysChecklist";
-    // e.preventDefault();
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
@@ -102,8 +97,11 @@ const Login: React.FC = () => {
       alert("아이디 또는 비밀번호를 입력해주세요");
     }
 
-    const token = await LoginAPI({ userId, userPassword });
+    console.log(window.history);
+
+    const token = await signinAPI({ userId, userPassword });
     await saveAuthToken(token.access_token, token.refresh_token);
+    return <Link to="/TodaysChecklist" />;
   };
 
   return (
@@ -116,7 +114,6 @@ const Login: React.FC = () => {
             className={classes.root}
             noValidate
             autoComplete="off"
-            // onSubmit={handleSubmit}
             onKeyPress={handleKeyPress}
           >
             <TextField
