@@ -10,6 +10,7 @@ import { StyledLink } from "../../../components/StyledLink";
 import { refreshTokenAPI, signinAPI } from "../../../api/signin";
 import { ButtonBlock, InputBlock, LoginBlock } from "./LoginBlock_styled";
 import { Link } from "@material-ui/core";
+import { signinButtonEvent } from "./signinButtonEvent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,12 +47,7 @@ const Login: React.FC = () => {
   };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    if (!userId || !userPassword) {
-      alert("아이디 또는 비밀번호를 입력해주세요");
-    } else {
-      const token = await signinAPI({ userId, userPassword });
-      await saveAuthToken(token.access_token, token.refresh_token);
-    }
+    signinButtonEvent(userId, userPassword, setUserId, setUserPassword);
   };
 
   // const handleClickTest: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -68,26 +64,8 @@ const Login: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      console.log("ID입력값:", userId);
-      console.log("PW입력값:", userPassword);
-      console.log("엔터로 로그인");
-      if (!userId || !userPassword) {
-        alert("아이디 또는 비밀번호를 입력해주세요");
-      }
-      const token = await signinAPI({ userId, userPassword });
-      if (
-        token.access_token !== undefined &&
-        token.refresh_token !== undefined
-      ) {
-        await saveAuthToken(token.access_token, token.refresh_token);
-      } else {
-        setUserId("");
-        setUserPassword("");
-        alert("아이디 또는 비밀번호가 틀렸습니다");
-      }
+      signinButtonEvent(userId, userPassword, setUserId, setUserPassword);
     }
-
-    // return <Link to="/TodaysChecklist" />;
   };
 
   return (
