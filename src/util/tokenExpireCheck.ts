@@ -27,8 +27,6 @@ export function checkTokenExpired(tokenName: string) {
     const now = parseInt(Date.now().toString().substring(0, 10));
     return now < tokenDecode.exp ? true : false;
   }
-  // const tokenDecode: tokenDecode =
-  //   token !== undefined ? jwt_decode(token!.toString()) : initialDecodeValue;
 }
 
 export function getTokenExpiredState() {

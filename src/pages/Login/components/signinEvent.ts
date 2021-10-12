@@ -1,14 +1,7 @@
 import { signinAPI } from "../../../api/signin";
 import { saveAuthToken } from "../../../util/auth";
 
-interface signinButtonParams {
-  userId: string;
-  userPassword: string;
-  setUserId: Function;
-  setUserPassword: Function;
-}
-
-export async function signinButtonEvent(
+export async function signinEvent(
   userId: string,
   userPassword: string,
   setUserId: Function,

@@ -4,13 +4,11 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Signup from "./FindIdAndPassword";
 
-import { saveAuthToken } from "../../../util/auth";
-import { StyledLink } from "../../../components/StyledLink";
 // import { Link } from "react-router-dom";
-import { refreshTokenAPI, signinAPI } from "../../../api/signin";
+
 import { ButtonBlock, InputBlock, LoginBlock } from "./LoginBlock_styled";
-import { Link } from "@material-ui/core";
-import { signinButtonEvent } from "./signinButtonEvent";
+import { signinEvent } from "./signinEvent";
+import { AppButton } from "./debounceButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +45,7 @@ const Login: React.FC = () => {
   };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    signinButtonEvent(userId, userPassword, setUserId, setUserPassword);
+    signinEvent(userId, userPassword, setUserId, setUserPassword);
   };
 
   // const handleClickTest: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -64,7 +62,7 @@ const Login: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      signinButtonEvent(userId, userPassword, setUserId, setUserPassword);
+      signinEvent(userId, userPassword, setUserId, setUserPassword);
     }
   };
 
@@ -99,9 +97,22 @@ const Login: React.FC = () => {
 
             <ButtonBlock className={classes.button}>
               {/* <StyledLink to="/TodaysChecklist"> */}
-              <Button variant="outlined" color="primary" onClick={handleClick}>
+
+              <AppButton
+                onClick={async () => {
+                  await new Promise((resolve) => {
+                    signinEvent(
+                      userId,
+                      userPassword,
+                      setUserId,
+                      setUserPassword
+                    );
+                    setTimeout(resolve, 500);
+                  });
+                }}
+              >
                 SIGN IN
-              </Button>
+              </AppButton>
               {/* </StyledLink> */}
 
               {/* <Button
