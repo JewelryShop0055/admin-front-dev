@@ -7,7 +7,7 @@ interface appButtonParams {
   children: React.ReactNode;
 }
 
-export const AppButton = ({ onClick, children }: appButtonParams) => {
+export const SigninButton = ({ onClick, children }: appButtonParams) => {
   const asyncOnClick = useAsyncCallback(onClick);
   return (
     <Button

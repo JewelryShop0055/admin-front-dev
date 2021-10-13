@@ -50,7 +50,7 @@ export default function TodaysCheckListMainPage() {
       </>
     );
   }
-  if (tokenState.user_access_token === true) {
+  if (tokenState.user_access_token === false) {
     console.log("토큰재발급", refreshTokenAPI());
   }
 

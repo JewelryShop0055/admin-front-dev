@@ -8,7 +8,7 @@ import Signup from "./FindIdAndPassword";
 
 import { ButtonBlock, InputBlock, LoginBlock } from "./LoginBlock_styled";
 import { signinEvent } from "./signinEvent";
-import { AppButton } from "./debounceButton";
+import { SigninButton } from "./debounceButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,20 +43,6 @@ const Login: React.FC = () => {
     const { value } = e.target;
     setUserPassword(value);
   };
-
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    signinEvent(userId, userPassword, setUserId, setUserPassword);
-  };
-
-  // const handleClickTest: React.MouseEventHandler<HTMLButtonElement> = async (
-  //   e
-  // ) => {
-  //   const res = await refreshTokenAPI();
-  //   console.log("토큰재발급", res);
-  //   if (res.access_token !== undefined && res.refresh_token !== undefined) {
-  //     await saveAuthToken(res.access_token, res.refresh_token);
-  //   }
-  // };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
     e
@@ -96,9 +82,7 @@ const Login: React.FC = () => {
             />
 
             <ButtonBlock className={classes.button}>
-              {/* <StyledLink to="/TodaysChecklist"> */}
-
-              <AppButton
+              <SigninButton
                 onClick={async () => {
                   await new Promise((resolve) => {
                     signinEvent(
@@ -112,16 +96,7 @@ const Login: React.FC = () => {
                 }}
               >
                 SIGN IN
-              </AppButton>
-              {/* </StyledLink> */}
-
-              {/* <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleClickTest}
-              >
-                테스트용 버튼
-              </Button> */}
+              </SigninButton>
 
               <Signup />
             </ButtonBlock>
