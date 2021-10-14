@@ -23,7 +23,7 @@ const App: React.FC = () => {
               exact
               component={TodaysCheckListMainPage}
             />
-            <Route
+            {/* <Route
               path="/TodaysChecklist"
               exact
               component={TodaysCheckListMainPage}
@@ -31,7 +31,7 @@ const App: React.FC = () => {
             <Route
               path="/TodaysChecklist"
               component={TodaysCheckListMainPage}
-            />
+            /> */}
             <Route component={Error404} />
           </Switch>
         </Router>

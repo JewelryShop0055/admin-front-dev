@@ -42,17 +42,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
   const tokenState = getTokenExpiredState();
-  if (tokenState.user_refresh_token === false) {
-    return (
-      <>
-        <Link to="/" />
-        <Route component={LoginPage} />
-      </>
-    );
-  }
-  if (tokenState.user_access_token === false) {
-    console.log("토큰재발급", refreshTokenAPI());
-  }
+  // if (tokenState.user_refresh_token === false) {
+  //   return (
+  //     <>
+  //       <Link to="/" />
+  //       <Route component={LoginPage} />
+  //     </>
+  //   );
+  // }
+  // if (tokenState.user_access_token === false) {
+  //   console.log("토큰재발급", refreshTokenAPI());
+  // }
 
   return (
     <>
