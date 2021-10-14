@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Raviluz admin page (front)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+귀금속 악세서리 매장 Raviluz의 점주 관리자 페이지입니다.
 
-## Available Scripts
+## Mockup
 
-In the project directory, you can run:
+아래의 링크에서 확인할 수 있음
+https://www.figma.com/file/9fxpydne9x5rlm1LbFcf8F/Raviluz-admin-page?node-id=4%3A2
 
-### `yarn start`
+testWebPage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Process
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 2021.09.04 pc버전 웹페이지 필수컨텐츠를 포함한 첫 목업
 
-### `yarn test`
++추후 변경/추가사항시 작성
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Code
 
-### `yarn build`
+React CRA를 이용해서 만드는 SPA
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+기능: admin login / 예약관리 / 매장, 직원관리 / 상품정보관리
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Process
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 2021.09.06 mockup내용을 바탕으로 UI build 시작.
+  첫 로그인 페이지 및 sign up modal window작성중
 
-### `yarn eject`
+- 2021.09.07 JSX => TSX로 작성방향 변경
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 20201.09.09 카카오톡, 네이버, 구글연동 버튼추가 => 제거 (Admin로그인은 ID/PW만 사용한다)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
++추후 변경/추가사항시 작성
