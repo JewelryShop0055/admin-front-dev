@@ -3,11 +3,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 import TopNavigation from "../../components/Navigations/TopNavigation";
-import { refreshTokenAPI } from "../../api/signin";
-import { getTokenExpiredState } from "../../util/tokenExpireCheck";
-import { Route } from "react-router";
-import LoginPage from "../Login";
-import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -29,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: "72px",
       width: drawerWidth,
     },
-    // necessary for content to be below app bar
+
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
@@ -41,18 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListMainPage() {
   const classes = useStyles();
-  const tokenState = getTokenExpiredState();
-  // if (tokenState.user_refresh_token === false) {
-  //   return (
-  //     <>
-  //       <Link to="/" />
-  //       <Route component={LoginPage} />
-  //     </>
-  //   );
-  // }
-  // if (tokenState.user_access_token === false) {
-  //   console.log("토큰재발급", refreshTokenAPI());
-  // }
 
   return (
     <>

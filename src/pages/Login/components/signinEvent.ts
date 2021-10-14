@@ -7,9 +7,6 @@ export async function signinEvent(
   setUserId: Function,
   setUserPassword: Function
 ) {
-  console.log("ID입력값:", userId);
-  console.log("PW입력값:", userPassword);
-  console.log("로그인");
   if (!userId || !userPassword) {
     return alert("아이디 또는 비밀번호를 입력해주세요");
   }

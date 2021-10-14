@@ -8,7 +8,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { Link } from "react-router-dom";
 import { signout } from "../../util/auth";
 import { StyledLink } from "../../components/StyledLink";
 
@@ -44,10 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TodaysCheckListSubNavigation() {
   const classes = useStyles();
-  const handleLogout: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log("로그아웃버튼 클릭");
-    signout();
-    // window.location.href = baseURL;
+  const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
+    await signout();
   };
 
   return (
