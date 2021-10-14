@@ -3,6 +3,8 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthRouth } from "./components/AuthRoute";
 import Error404 from "./pages/Error/Error404";
+import ItemCategoryPage from "./pages/ItemCategory";
+
 import LoginPage from "./pages/Login";
 
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
@@ -19,6 +21,12 @@ const App: React.FC = () => {
               path="/TodaysChecklist"
               exact
               component={TodaysCheckListMainPage}
+            />
+
+            <AuthRouth
+              path="/Category_N_Workshop"
+              exact
+              component={ItemCategoryPage}
             />
 
             <Route component={Error404} />

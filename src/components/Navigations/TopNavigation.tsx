@@ -9,7 +9,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
 
 // TOP NAVIGATION
 const StoreName = styled.div`
@@ -66,44 +67,9 @@ const AntTab = withStyles((theme: Theme) =>
   })
 )((props: StyledTabProps) => <Tab disableRipple {...props} />);
 
-interface StyledTabsProps {
-  value: number;
-  onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-}
-
-// const StyledTabs = withStyles({
-//   indicator: {
-//     display: "flex",
-//     justifyContent: "center",
-//     backgroundColor: "transparent",
-//     "& > span": {
-//       maxWidth: 40,
-//       width: "100%",
-//       backgroundColor: "#635ee7",
-//     },
-//   },
-// })((props: StyledTabsProps) => (
-//   <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />
-// ));
-
 interface StyledTabProps {
   label: string;
 }
-
-const StyledTab = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      textTransform: "none",
-      color: "#fff",
-      fontWeight: theme.typography.fontWeightRegular,
-      fontSize: theme.typography.pxToRem(15),
-      marginRight: theme.spacing(1),
-      "&:focus": {
-        opacity: 1,
-      },
-    },
-  })
-)((props: StyledTabProps) => <Tab disableRipple {...props} />);
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -124,10 +90,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function TopNavigation() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = React.useState(1);
+
+  const history = useHistory();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+    if (newValue === 1) {
+      return history.replace("/TodaysChecklist");
+    }
+    // if (newValue === 2) {
+    //   return history.replace("/TodaysChecklist");
+    // }
+    // if (newValue === 3) {
+    //   return history.replace("/TodaysChecklist");
+    // }
+    // if (newValue === 4) {
+    //   return history.replace("/TodaysChecklist");
+    // }
+    if (newValue === 5) {
+      return history.replace("/Category_N_Workshop");
+    }
   };
 
   return (
@@ -146,7 +129,11 @@ export default function TopNavigation() {
 
             <AntTab label="손님 예약 일정" />
 
-            <AntTab label="상품 관리" />
+            <AntTab label="제품 검색/관리" />
+
+            <AntTab label="제품 등록" />
+
+            <AntTab label="제품카테고리, 공방 관리" />
           </AntTabs>
           <Typography className={classes.padding} />
         </div>

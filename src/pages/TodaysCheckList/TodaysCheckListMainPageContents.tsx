@@ -20,7 +20,11 @@ export default function TodaysCheckListMainPageContents() {
 
   return (
     <div className={classes.root}>
-      <Paper elevation={3}>발주대기리스트 대쉬보드</Paper>
+      <Paper elevation={3}>
+        발주대기리스트 대쉬보드
+        <br />
+        제작일시중단(후순위 제작예정)
+      </Paper>
       <Paper elevation={3}>금일출고물품 대쉬보드</Paper>
       <Paper elevation={3}>미수령제품 대쉬보드</Paper>
     </div>

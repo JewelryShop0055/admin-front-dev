@@ -2,16 +2,14 @@ import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
+
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { StyledLink } from "../StyledLink";
+import { signout } from "../../util/auth";
 
 const drawerWidth = 280;
 
@@ -43,8 +41,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SubNavigation() {
+interface SubNavigationProps {
+  ListItemArray: string[];
+}
+
+export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
   const classes = useStyles();
+
+  const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
+    await signout();
+  };
 
   return (
     <div className={classes.root}>
@@ -59,26 +65,16 @@ export default function SubNavigation() {
         anchor="left"
       >
         <List>
-          {[
-            "전체 발주 대기리스트",
-            "전체 금일 출고 제품리스트",
-            "전체 고객 미수령 상품리스트",
-          ].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+          <StyledLink to="/">
+            <ListItem button onClick={handleLogout} key={"Logout"}>
+              <ListItemText primary={"Logout"} />
             </ListItem>
-          ))}
+          </StyledLink>
         </List>
         <Divider />
         <List>
-          {["금값 들어올곳"].map((text, index) => (
+          {ListItemArray.map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -87,3 +83,7 @@ export default function SubNavigation() {
     </div>
   );
 }
+
+SubNavigation.defaultProps = {
+  ListItemArray: [],
+};
