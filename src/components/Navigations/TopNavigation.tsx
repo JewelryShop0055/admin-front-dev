@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   withStyles,
@@ -11,6 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
+
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { selectState } from "../../util/TopNavigationSlice";
 
 // TOP NAVIGATION
 const StoreName = styled.div`
@@ -86,16 +89,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// Sub NAVIGATION
-
 export default function TopNavigation() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+
+  // const [value, setValue] = useState(1);
+  const value = useAppSelector((state) => state.topNavigation.value);
+  const dispatch = useAppDispatch();
 
   const history = useHistory();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    dispatch(selectState(newValue));
     if (newValue === 1) {
       return history.replace("/TodaysChecklist");
     }
