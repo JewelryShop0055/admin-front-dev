@@ -10,8 +10,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { StyledLink } from "../StyledLink";
 import { signout } from "../../util/auth";
+import { topNavigationHeight } from "./TopNavigation";
 
-const drawerWidth = 280;
+export const drawerWidth = 280;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,13 +24,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: drawerWidth,
     },
     drawer: {
-      width: drawerWidth,
+      width: theme.spacing(20),
       flexShrink: 0,
     },
     drawerPaper: {
       position: "absolute",
       top: "72px",
-      width: drawerWidth,
+      width: `${drawerWidth}px`,
+      height: `calc(100vh - ${topNavigationHeight}px)`,
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,

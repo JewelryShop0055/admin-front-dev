@@ -15,6 +15,8 @@ import { useHistory } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { selectState } from "../../util/TopNavigationSlice";
 
+export const topNavigationHeight = 70;
+
 // TOP NAVIGATION
 const StoreName = styled.div`
   display: block;
@@ -79,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
   },
   padding: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
   },
   topNavigation: {
     backgroundColor: theme.palette.background.paper,

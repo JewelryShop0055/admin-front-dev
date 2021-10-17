@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../util/authSlice";
+
 import topNavigationReducer from "../util/TopNavigationSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
     topNavigation: topNavigationReducer,
   },
 });
