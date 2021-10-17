@@ -3,7 +3,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthRouth } from "./components/AuthRoute";
 import Error404 from "./pages/Error/Error404";
-import ItemCategoryPage from "./pages/ItemCategory";
+import ItemCategoryPage from "./pages/ItemCategory_N_Workshop";
 
 import LoginPage from "./pages/Login";
 
