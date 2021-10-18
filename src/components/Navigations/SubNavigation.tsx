@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { StyledLink } from "../StyledLink";
 import { signout } from "../../util/auth";
 import { topNavigationHeight } from "./TopNavigation";
+import { useHistory } from "react-router-dom";
 
 export const drawerWidth = 280;
 
@@ -44,11 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface SubNavigationProps {
-  ListItemArray: string[];
+  ListItemArray: string[][];
 }
 
 export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
   const classes = useStyles();
+  const history = useHistory();
 
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     await signout();
@@ -75,9 +77,14 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
         </List>
         <Divider />
         <List>
-          {ListItemArray.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          {ListItemArray.map((array) => (
+            <ListItem button key={array[0]}>
+              <ListItemText
+                primary={array[0]}
+                onClick={(e) => {
+                  history.replace(array[1]);
+                }}
+              />
             </ListItem>
           ))}
         </List>
