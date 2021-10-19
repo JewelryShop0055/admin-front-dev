@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
+import { useState } from "react";
+import { addNewCategoryAPI } from "../../../api/category";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +46,15 @@ const buttonTheme = createTheme({
 
 export default function NewCategoryEntry() {
   const classes = useStyles();
+
+  const [CategoryName, setCategoryName] = useState("");
+  const handleChangeCategoryName: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
+    const { value } = e.target;
+    setCategoryName(value);
+  };
+
   return (
     <>
       <div className={classes.root}>
@@ -63,13 +74,22 @@ export default function NewCategoryEntry() {
             variant="outlined"
             name="id"
             size="small"
-            //   onChange={}
-            //   value={}
+            onChange={handleChangeCategoryName}
+            value={CategoryName}
           />
         </form>
         <div className={classes.entryButton}>
           <ThemeProvider theme={buttonTheme}>
-            <Button variant="contained" color="primary" size="large">
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => {
+                console.log("등록버튼 클릭");
+                console.log("등록할 카테고리명:", CategoryName);
+                addNewCategoryAPI(CategoryName);
+              }}
+            >
               등록하기
             </Button>
           </ThemeProvider>
