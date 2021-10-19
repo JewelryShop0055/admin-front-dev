@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export async function signoutAPI(accessToken: string) {
-  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SIGNOUT_URL}`;
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/account/signout`;
   const bodyProps = `access_token=${accessToken}`;
   try {
     const response = await axios.delete(URL, {
       headers: {
-        "Content-Type": `${process.env.REACT_APP_SIGNOUT_HEADER_PARAMS}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       data: bodyProps,
     });

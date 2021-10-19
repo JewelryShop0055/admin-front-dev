@@ -5,6 +5,7 @@ import { signinEvent } from "./signinEvent";
 interface appButtonParams {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
+  loadingMessage?: string;
 }
 
 export const SigninButton = ({ onClick, children }: appButtonParams) => {
@@ -17,6 +18,25 @@ export const SigninButton = ({ onClick, children }: appButtonParams) => {
       disabled={asyncOnClick.loading}
     >
       {asyncOnClick.loading ? "로그인 중" : children}
+    </Button>
+  );
+};
+
+export const DebounceButton = ({
+  onClick,
+  children,
+  loadingMessage,
+}: appButtonParams) => {
+  const asyncOnClick = useAsyncCallback(onClick);
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      size="large"
+      onClick={asyncOnClick.execute}
+      disabled={asyncOnClick.loading}
+    >
+      {asyncOnClick.loading ? loadingMessage : children}
     </Button>
   );
 };

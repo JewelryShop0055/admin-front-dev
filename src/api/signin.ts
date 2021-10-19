@@ -7,12 +7,12 @@ interface LoginProps {
 }
 
 export async function signinAPI({ userId, userPassword }: LoginProps) {
-  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SIGNIN_URL}`;
-  const bodyProps = `username=${userId}&password=${userPassword}${process.env.REACT_APP_SIGNIN_BODY_PARAMS}`;
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
+  const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
   try {
     const response = await axios.post(URL, bodyProps, {
       headers: {
-        "Content-Type": `${process.env.REACT_APP_SIGNIN_HEADER_PARAMS}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
     return Object(response.data);
@@ -27,12 +27,12 @@ export async function signinAPI({ userId, userPassword }: LoginProps) {
 
 export async function refreshTokenAPI() {
   const refreshToken = getAuthToken("user_refresh_token");
-  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_REFRESH_TOKEN_URL}`;
-  const bodyProps = `refresh_token=${refreshToken}${process.env.REACT_APP_REFRESH_TOKEN_BODY_PARAMS}`;
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
+  const bodyProps = `refresh_token=${refreshToken}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=refresh_token`;
   try {
     const response = await axios.post(URL, bodyProps, {
       headers: {
-        "Content-Type": `${process.env.REACT_APP_REFRESH_TOKEN_HEADER_PARAMS}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
     return Object(response.data);

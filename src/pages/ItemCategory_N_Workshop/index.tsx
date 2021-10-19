@@ -18,28 +18,6 @@ export const ItemCategoryPage: React.FC = () => {
       <TopNavigation />
       <SubNavigation ListItemArray={subList} />
 
-      {/* <Switch>
-        <AuthRouth
-          path="/Category_N_Workshop"
-          exact
-          component={CategoryContents}
-        />
-
-        <AuthRouth
-          path="/Category_N_Workshop/Category"
-          exact
-          component={CategoryContents}
-        />
-
-        <AuthRouth
-          path="/Category_N_Workshop/Workshop"
-          exact
-          component={CategoryContents}
-        />
-
-        <Route component={Error404} />
-      </Switch> */}
-
       <CategoryContents />
     </>
   );

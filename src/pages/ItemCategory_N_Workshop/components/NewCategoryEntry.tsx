@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
 import { addNewCategoryAPI } from "../../../api/category";
+import { DebounceButton } from "../../Login/components/debounceButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +48,7 @@ const buttonTheme = createTheme({
 export default function NewCategoryEntry() {
   const classes = useStyles();
 
-  const [CategoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const handleChangeCategoryName: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
@@ -75,23 +76,26 @@ export default function NewCategoryEntry() {
             name="id"
             size="small"
             onChange={handleChangeCategoryName}
-            value={CategoryName}
+            value={categoryName}
           />
         </form>
         <div className={classes.entryButton}>
           <ThemeProvider theme={buttonTheme}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => {
-                console.log("등록버튼 클릭");
-                console.log("등록할 카테고리명:", CategoryName);
-                addNewCategoryAPI(CategoryName);
+            <DebounceButton
+              loadingMessage={"등록중..."}
+              onClick={async () => {
+                await new Promise(async (resolve) => {
+                  console.log("등록버튼 클릭");
+                  console.log("등록할 카테고리명:", categoryName);
+                  await addNewCategoryAPI(categoryName);
+                  setCategoryName("");
+
+                  setTimeout(resolve, 500);
+                });
               }}
             >
               등록하기
-            </Button>
+            </DebounceButton>
           </ThemeProvider>
         </div>
       </div>

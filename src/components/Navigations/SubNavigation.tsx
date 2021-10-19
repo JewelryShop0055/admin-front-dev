@@ -78,13 +78,14 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
         <Divider />
         <List>
           {ListItemArray.map((array) => (
-            <ListItem button key={array[0]}>
-              <ListItemText
-                primary={array[0]}
-                onClick={(e) => {
-                  history.replace(array[1]);
-                }}
-              />
+            <ListItem
+              button
+              key={array[0]}
+              onClick={(e) => {
+                history.replace(array[1]);
+              }}
+            >
+              <ListItemText primary={array[0]} />
             </ListItem>
           ))}
         </List>
