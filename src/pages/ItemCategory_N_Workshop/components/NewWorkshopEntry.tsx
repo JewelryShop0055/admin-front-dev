@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
 import { DebounceButton } from "../../Login/components/debounceButton";
 import { useState } from "react";
-import { Postcode } from "./DaumPostcode";
+import { FindAddresCode, Postcode } from "./DaumPostcode";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,6 +79,9 @@ export default function NewWorkshopEntry() {
           신규 공방 등록하기
         </Typography>
 
+        <FindAddresCode />
+        <div />
+
         <form
           className={classes.categoryForm}
           noValidate
@@ -94,7 +97,7 @@ export default function NewWorkshopEntry() {
             onChange={handleWorkshopName}
             value={workshopName}
           />
-          <TextField
+          {/* <TextField
             id="outlined-basic"
             label="공방 주소"
             variant="outlined"
@@ -102,7 +105,7 @@ export default function NewWorkshopEntry() {
             size="small"
             onChange={handleWorkshopAddress}
             value={workshopAddress}
-          />
+          /> */}
           <TextField
             id="outlined-basic"
             label="공방 연락처"
@@ -138,7 +141,6 @@ export default function NewWorkshopEntry() {
               등록하기
             </DebounceButton>
           </ThemeProvider>
-          <Postcode />
         </div>
       </div>
     </>

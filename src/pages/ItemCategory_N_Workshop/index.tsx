@@ -1,10 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthRouth } from "../../components/AuthRoute";
 import SubNavigation from "../../components/Navigations/SubNavigation";
 import TopNavigation from "../../components/Navigations/TopNavigation";
-import Error404 from "../Error/Error404";
 import CategoryContents from "./components/CategoryContents";
+import { FindAddresCode } from "./components/DaumPostcode";
 import WorkshopContents from "./components/WorkshopContents";
 
 export const ItemCategoryPage: React.FC = () => {
@@ -33,29 +31,6 @@ export const WorkshopPage: React.FC = () => {
     <>
       <TopNavigation />
       <SubNavigation ListItemArray={subList} />
-
-      {/* <Switch>
-        <AuthRouth
-          path="/Category_N_Workshop"
-          exact
-          component={CategoryContents}
-        />
-
-        <AuthRouth
-          path="/Category_N_Workshop/Category"
-          exact
-          component={CategoryContents}
-        />
-
-        <AuthRouth
-          path="/Category_N_Workshop/Workshop"
-          exact
-          component={CategoryContents}
-        />
-
-        <Route component={Error404} />
-      </Switch> */}
-
       <WorkshopContents />
     </>
   );

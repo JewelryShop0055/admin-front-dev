@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Signup from "./components/FindIdAndPassword";
+import FindIdPassword from "./components/FindIdPassword";
 
 import {
   ButtonBlock,
@@ -104,7 +104,7 @@ const LoginPage: React.FC = () => {
                 SIGN IN
               </SigninButton>
 
-              <Signup />
+              <FindIdPassword />
             </ButtonBlock>
           </form>
         </InputBlock>

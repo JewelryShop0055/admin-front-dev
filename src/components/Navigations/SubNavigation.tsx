@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       padding: theme.spacing(3),
     },
+
+    divider: {
+      border: "1px solid lightgray",
+    },
   })
 );
 
@@ -75,10 +79,11 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
             </ListItem>
           </StyledLink>
         </List>
-        <Divider />
+        <Divider className={classes.divider} />
         <List>
           {ListItemArray.map((array) => (
             <ListItem
+              divider
               button
               key={array[0]}
               onClick={(e) => {
