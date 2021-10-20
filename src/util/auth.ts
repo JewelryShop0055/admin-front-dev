@@ -1,4 +1,4 @@
-import { signoutAPI } from "../api/signout";
+import { signOut } from "../api/signOut";
 
 export function saveAuthToken(accessToken: string, refreshToken: string) {
   document.cookie = `user_access_token=${accessToken}; max-age=3599; samesite=lax;`;
@@ -32,7 +32,7 @@ export async function signout() {
     if (token[1] !== undefined) {
       deleteAuthToken(token[0]!.toString(), token[1]!.toString());
       if (token[0] === "user_access_token") {
-        signoutAPI(token[1]!.toString());
+        signOut(token[1]!.toString());
       }
     }
   });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function signoutAPI(accessToken: string) {
+export async function signOut(accessToken: string) {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/account/signout`;
   const bodyProps = `access_token=${accessToken}`;
   try {

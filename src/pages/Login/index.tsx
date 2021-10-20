@@ -8,7 +8,7 @@ import {
   InputBlock,
   LoginBlock,
 } from "./components/LoginBlock_styled";
-import { signinEvent } from "./components/signinEvent";
+import { Authentication } from "./components/Authentication";
 import {} from "./components/AsyncButton";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
@@ -97,42 +97,28 @@ const LoginPage: React.FC = () => {
             />
 
             <ButtonBlock className={classes.button}>
-              {/* <SigninButton
-                onClick={async (e) => {
-                  if timer {
-                    console.log
-                  }
-
-                  })
-                  // const signInAble = await signinEvent(
-                  //   userId,
-                  //   userPassword,
-                  //   setUserId,
-                  //   setUserPassword
-                  // );
-                  // if (signInAble) {
-                  //   history.push("/TodaysChecklist");
-                  // }
-                }}
-              >
-                SIGN IN
-              </SigninButton> */}
               <Button
                 variant="outlined"
                 color="primary"
                 onClick={async (e) => {
                   if (timer) {
-                    console.log("clear timer");
                     clearTimeout(timer);
                   }
                   const newTimer = window.setTimeout(async () => {
                     try {
-                      await console.log("api 호출");
+                      const signInAble = await Authentication(
+                        userId,
+                        userPassword,
+                        setUserId,
+                        setUserPassword
+                      );
+                      if (signInAble) {
+                        history.push("/TodaysChecklist");
+                      }
                     } catch (e) {
                       console.error("error", e);
                     }
-                  }, 800);
-                  console.log(typeof newTimer);
+                  }, 300);
                   setTimer(newTimer);
                 }}
               >

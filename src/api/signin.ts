@@ -6,7 +6,7 @@ interface LoginProps {
   userPassword: string;
 }
 
-interface TokenResponse {
+export interface TokenResponse {
   access_token: string;
   token_type: string;
   expires_in: number;
@@ -16,7 +16,7 @@ interface TokenResponse {
 export async function signIn({
   userId,
   userPassword,
-}: LoginProps): Promise<TokenResponse | AxiosError> {
+}: LoginProps): Promise<TokenResponse> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
 
@@ -30,7 +30,6 @@ export async function signIn({
       responseType: "json",
     }
   );
-
   return response.data;
 }
 
