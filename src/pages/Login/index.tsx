@@ -52,8 +52,15 @@ const LoginPage: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      await signinEvent(userId, userPassword, setUserId, setUserPassword);
-      return history.replace("/TodaysChecklist");
+      const signInAble = await signinEvent(
+        userId,
+        userPassword,
+        setUserId,
+        setUserPassword
+      );
+      if (signInAble) {
+        history.replace("/TodaysChecklist");
+      }
     }
   };
 
@@ -90,13 +97,15 @@ const LoginPage: React.FC = () => {
               <SigninButton
                 onClick={async () => {
                   await new Promise(async (resolve) => {
-                    await signinEvent(
+                    const signInAble = await signinEvent(
                       userId,
                       userPassword,
                       setUserId,
                       setUserPassword
                     );
-                    history.replace("/TodaysChecklist");
+                    if (signInAble) {
+                      history.replace("/TodaysChecklist");
+                    }
                     setTimeout(resolve, 500);
                   });
                 }}

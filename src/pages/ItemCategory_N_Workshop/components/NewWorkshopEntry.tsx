@@ -17,9 +17,7 @@ import { FindAddressCode } from "./FindAddressCode";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "block",
       padding: theme.spacing(2, 6),
-      maxHeight: "20vh",
 
       "& > *": {
         padding: theme.spacing(1, 0, 0, 0),
@@ -27,18 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     workshopForm: {
-      display: "inline-block",
-      width: "600px",
       // padding: theme.spacing(0, 8, 0, 0),
     },
 
     entryButton: {
-      display: "inline-block",
       padding: theme.spacing(2, 0, 0, 0),
-      verticalAlign: "middle",
-      boxSizing: "border-box",
-      width: "200px",
-      height: "auto",
     },
   })
 );

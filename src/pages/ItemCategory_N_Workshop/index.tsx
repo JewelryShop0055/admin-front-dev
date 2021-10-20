@@ -15,7 +15,6 @@ export const ItemCategoryPage: React.FC = () => {
     <>
       <TopNavigation />
       <SubNavigation ListItemArray={subList} />
-
       <CategoryContents />
     </>
   );

@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router-dom";
 import { refreshTokenAPI } from "../api/signin";
 import LoginPage from "../pages/Login";
+import TodaysCheckListMainPage from "../pages/TodaysCheckList/TodaysCheckListMainPage";
 import { saveAuthToken } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";
 
 interface AuthRouteParams {
-  exact: boolean;
+  exact?: boolean;
   path: string;
   component: React.ComponentType<any>;
 }
 
-export const AuthRoute = ({
+export const SignInRoute = ({
   exact = false,
   path,
   component,
@@ -59,8 +60,14 @@ export const AuthRoute = ({
   });
 
   if (authenticated) {
-    return <Route exact={exact} path={path} component={component} />;
+    return (
+      <Route
+        exact={exact}
+        path={"/TodaysCheckList"}
+        component={TodaysCheckListMainPage}
+      />
+    );
   } else {
-    return <Route exact={exact} path={path} component={LoginPage} />;
+    return <Route exact={exact} path={path} component={component} />;
   }
 };

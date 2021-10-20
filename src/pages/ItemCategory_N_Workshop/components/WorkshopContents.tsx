@@ -25,16 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     paper: {
-      display: "block",
-      width: `calc(100%-${drawerWidth}px)`,
-      height: `calc(100vh - ${topNavigationHeight}px)`,
-      // height: "100%",
-      flexShrink: 0,
-
       "& > *": {
-        display: "block",
         padding: theme.spacing(0, 0, 3, 0),
-        flexShrink: 0,
       },
     },
 

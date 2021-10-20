@@ -12,18 +12,12 @@ import { ListItemSecondaryAction } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "block",
-      width: "70%",
-      height: "150%",
-
       // 이거 나중에 minHeight = 100vh - topNavi - workshopEntry로 수정해야함
-      minHeight: "72vh ",
 
       backgroundColor: theme.palette.background.paper,
     },
 
     workshopList: {
-      // display: "block",
       padding: theme.spacing(5, 6),
 
       "& > *": {

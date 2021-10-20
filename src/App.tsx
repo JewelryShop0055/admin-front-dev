@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthRouth } from "./components/AuthRoute";
+import { AuthRoute } from "./components/AuthRoute";
+import { SignInRoute } from "./components/SignInRoute";
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
   WorkshopPage,
@@ -18,26 +19,27 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/" component={LoginPage} exact />
+            {/* <SignInRoute path="/" exact component={LoginPage} /> */}
 
-            <AuthRouth
+            <AuthRoute
               path="/TodaysChecklist"
               exact
               component={TodaysCheckListMainPage}
             />
 
-            <AuthRouth
+            <AuthRoute
               path="/Category_N_Workshop"
               exact
               component={ItemCategoryPage}
             />
 
-            <AuthRouth
+            <AuthRoute
               path="/Category_N_Workshop/Category"
               exact
               component={ItemCategoryPage}
             />
 
-            <AuthRouth
+            <AuthRoute
               path="/Category_N_Workshop/Workshop"
               exact
               component={WorkshopPage}
