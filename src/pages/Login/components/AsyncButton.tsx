@@ -22,7 +22,7 @@ export const SigninButton = ({ onClick, children }: appButtonParams) => {
   );
 };
 
-export const DebounceButton = ({
+export const AsyncButton = ({
   onClick,
   children,
   loadingMessage,

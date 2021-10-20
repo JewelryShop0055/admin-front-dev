@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { getAuthToken } from "../util/auth";
 
 interface LoginProps {
@@ -6,51 +6,33 @@ interface LoginProps {
   userPassword: string;
 }
 
-//generic <any> => 객체로써 반환하도록 정해야함
+interface TokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+}
 
-export async function signinAPI({ userId, userPassword }: LoginProps) {
+export async function signIn({
+  userId,
+  userPassword,
+}: LoginProps): Promise<TokenResponse | AxiosError> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
-  try {
-    const response = await axios.post<any>(URL, bodyProps, {
+
+  const response = await axios.post<string, AxiosResponse<TokenResponse>>(
+    URL,
+    bodyProps,
+    {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       responseType: "json",
-    });
-    return response.data;
-  } catch (e) {
-    console.log("loginAPI 요청에서 문제발생: ", e);
-    return String(e);
-  }
+    }
+  );
+
+  return response.data;
 }
-
-// interface TokenResponse {
-//   access_token: string;
-//   token_type: string;
-//   expires_in: number;
-//   refresh_token: string;
-// }
-// export async function signinAPI({
-//   userId,
-//   userPassword,
-// }: LoginProps): Promise<TokenResponse> {
-//   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
-//   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
-
-//   const response = await axios.post<string, AxiosResponse<TokenResponse>>(
-//     URL,
-//     bodyProps,
-//     {
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//       },
-//       responseType: "json",
-//     }
-//   );
-//   console.log(response);
-//   return response.data;
-// }
 
 //==============================================================================================================
 //재발급 처리시 꼭 쿠키에 재저장처리도 해야 오류(400)나지 않는다

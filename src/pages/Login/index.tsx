@@ -9,8 +9,9 @@ import {
   LoginBlock,
 } from "./components/LoginBlock_styled";
 import { signinEvent } from "./components/signinEvent";
-import { SigninButton } from "./components/debounceButton";
+import {} from "./components/AsyncButton";
 import { useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,8 @@ const LoginPage: React.FC = () => {
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
 
+  const [timer, setTimer] = useState(0);
+
   const history = useHistory();
 
   const handleChangeId: React.ChangeEventHandler<
@@ -52,15 +55,15 @@ const LoginPage: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      const signInAble = await signinEvent(
-        userId,
-        userPassword,
-        setUserId,
-        setUserPassword
-      );
-      if (signInAble) {
-        history.replace("/TodaysChecklist");
-      }
+      // const signInAble = await signinEvent(
+      //   userId,
+      //   userPassword,
+      //   setUserId,
+      //   setUserPassword
+      // );
+      // if (signInAble) {
+      //   history.replace("/TodaysChecklist");
+      // }
     }
   };
 
@@ -94,24 +97,47 @@ const LoginPage: React.FC = () => {
             />
 
             <ButtonBlock className={classes.button}>
-              <SigninButton
-                onClick={async () => {
-                  await new Promise(async (resolve) => {
-                    const signInAble = await signinEvent(
-                      userId,
-                      userPassword,
-                      setUserId,
-                      setUserPassword
-                    );
-                    if (signInAble) {
-                      history.replace("/TodaysChecklist");
-                    }
-                    setTimeout(resolve, 500);
-                  });
+              {/* <SigninButton
+                onClick={async (e) => {
+                  if timer {
+                    console.log
+                  }
+
+                  })
+                  // const signInAble = await signinEvent(
+                  //   userId,
+                  //   userPassword,
+                  //   setUserId,
+                  //   setUserPassword
+                  // );
+                  // if (signInAble) {
+                  //   history.push("/TodaysChecklist");
+                  // }
                 }}
               >
                 SIGN IN
-              </SigninButton>
+              </SigninButton> */}
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={async (e) => {
+                  if (timer) {
+                    console.log("clear timer");
+                    clearTimeout(timer);
+                  }
+                  const newTimer = window.setTimeout(async () => {
+                    try {
+                      await console.log("api 호출");
+                    } catch (e) {
+                      console.error("error", e);
+                    }
+                  }, 800);
+                  console.log(typeof newTimer);
+                  setTimer(newTimer);
+                }}
+              >
+                SIGN IN
+              </Button>
 
               <FindIdPassword />
             </ButtonBlock>

@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
-import { DebounceButton } from "../../Login/components/debounceButton";
+import { AsyncButton } from "../../Login/components/AsyncButton";
 import { useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 
@@ -153,7 +153,7 @@ export default function NewWorkshopEntry() {
         </form>
         <div className={classes.entryButton}>
           <ThemeProvider theme={buttonTheme}>
-            <DebounceButton
+            <AsyncButton
               loadingMessage={"등록중..."}
               onClick={async () => {
                 await new Promise(async (resolve) => {
@@ -174,7 +174,7 @@ export default function NewWorkshopEntry() {
               }}
             >
               등록하기
-            </DebounceButton>
+            </AsyncButton>
           </ThemeProvider>
         </div>
       </div>

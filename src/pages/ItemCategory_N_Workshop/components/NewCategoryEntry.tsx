@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
 import { addNewCategoryAPI, ProductType } from "../../../api/category";
-import { DebounceButton } from "../../Login/components/debounceButton";
+import { AsyncButton } from "../../Login/components/AsyncButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,7 +81,7 @@ export default function NewCategoryEntry() {
         </form>
         <div className={classes.entryButton}>
           <ThemeProvider theme={buttonTheme}>
-            <DebounceButton
+            <AsyncButton
               loadingMessage={"등록중..."}
               onClick={async () => {
                 await new Promise(async (resolve) => {
@@ -96,7 +96,7 @@ export default function NewCategoryEntry() {
               }}
             >
               등록하기
-            </DebounceButton>
+            </AsyncButton>
           </ThemeProvider>
         </div>
       </div>
