@@ -21,7 +21,6 @@ import WorkshopList from "./WorkshopList";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // display: "flex",
       margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
     },
 
@@ -29,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "block",
       width: `calc(100%-${drawerWidth}px)`,
       height: `calc(100vh - ${topNavigationHeight}px)`,
+      // height: "100%",
       flexShrink: 0,
 
       "& > *": {
@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: theme.spacing(0, 0, 3, 0),
         flexShrink: 0,
       },
+    },
+
+    paperElements: {
+      padding: theme.spacing(0, 0, 3, 0),
     },
   })
 );
@@ -47,7 +51,7 @@ export default function WorkshopContents() {
     <>
       <div className={classes.root}>
         <div className={classes.paper}>
-          <Paper elevation={3}>
+          <Paper elevation={0} className={classes.paperElements}>
             <NewWorkshopEntry />
             <WorkshopList />
           </Paper>

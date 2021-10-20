@@ -2,20 +2,22 @@ import axios from "axios";
 import { getAuthToken } from "../util/auth";
 
 interface LoginProps {
-  userId?: string;
-  userPassword?: string;
+  userId: string;
+  userPassword: string;
 }
 
+//generic <any> => 객체로써 반환하도록 정해야함
 export async function signinAPI({ userId, userPassword }: LoginProps) {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
   try {
-    const response = await axios.post(URL, bodyProps, {
+    const response = await axios.post<any>(URL, bodyProps, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
+      responseType: "json",
     });
-    return Object(response.data);
+    return response.data;
   } catch (e) {
     console.log("loginAPI 요청에서 문제발생: ", e);
     return String(e);

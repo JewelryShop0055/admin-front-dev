@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
 import { DebounceButton } from "../../Login/components/debounceButton";
 import { useState } from "react";
-import { FindAddresCode, Postcode } from "./DaumPostcode";
+import { FindAddressCode } from "./FindAddressCode";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,12 +20,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "block",
       padding: theme.spacing(2, 6),
       maxHeight: "20vh",
+
+      "& > *": {
+        padding: theme.spacing(1, 0, 0, 0),
+      },
     },
 
-    categoryForm: {
+    workshopForm: {
       display: "inline-block",
-      width: "auto",
-      padding: theme.spacing(0, 8, 0, 0),
+      width: "600px",
+      // padding: theme.spacing(0, 8, 0, 0),
     },
 
     entryButton: {
@@ -78,16 +82,56 @@ export default function NewWorkshopEntry() {
         <Typography variant="h5" gutterBottom>
           신규 공방 등록하기
         </Typography>
+        <form className={classes.workshopForm} noValidate autoComplete="off">
+          <TextField
+            id="outlined-basic"
+            label="우편번호"
+            variant="outlined"
+            name="id"
+            size="small"
+            disabled
+            // onChange={handleWorkshopName}
+            // value={workshopName}
+          />
+          <FindAddressCode />
+          <div />
+          <TextField
+            id="outlined-basic"
+            label="주소"
+            variant="outlined"
+            name="id"
+            size="small"
+            disabled
+            fullWidth
+            // onChange={handleWorkshopName}
+            // value={workshopName}
+          />
+          <div />
+          <TextField
+            id="outlined-basic"
+            label="상세주소"
+            variant="outlined"
+            name="id"
+            size="small"
 
-        <FindAddresCode />
+            // onChange={handleWorkshopName}
+            // value={workshopName}
+          />
+          <TextField
+            id="outlined-basic"
+            label="참고항목"
+            variant="outlined"
+            name="id"
+            size="small"
+            disabled
+            // onChange={handleWorkshopName}
+            // value={workshopName}
+          />
+        </form>
+
         <div />
 
-        <form
-          className={classes.categoryForm}
-          noValidate
-          autoComplete="off"
-          // onKeyPress={handleKeyPress}
-        >
+        <form className={classes.workshopForm} noValidate autoComplete="off">
           <TextField
             id="outlined-basic"
             label="공방 이름"

@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "70%",
       height: "150%",
 
-      //이거 나중에 minHeight = 100vh - topNavi - workshopEntry로 수정해야함
+      // 이거 나중에 minHeight = 100vh - topNavi - workshopEntry로 수정해야함
       minHeight: "72vh ",
 
       backgroundColor: theme.palette.background.paper,
     },
 
     workshopList: {
-      display: "block",
+      // display: "block",
       padding: theme.spacing(5, 6),
 
       "& > *": {
@@ -80,7 +80,7 @@ export default function WorkshopList() {
           미분류 카테고리는 삭제가 불가능하며, 기존 카테고리 삭제시 미분류
           상품으로 자동 이동됩니다.
         </Typography>
-        <Paper elevation={5}>
+        <Paper elevation={3}>
           <FixedSizeList
             height={400}
             width={"100%"}

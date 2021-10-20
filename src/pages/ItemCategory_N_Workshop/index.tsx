@@ -2,7 +2,7 @@ import React from "react";
 import SubNavigation from "../../components/Navigations/SubNavigation";
 import TopNavigation from "../../components/Navigations/TopNavigation";
 import CategoryContents from "./components/CategoryContents";
-import { FindAddresCode } from "./components/DaumPostcode";
+
 import WorkshopContents from "./components/WorkshopContents";
 
 export const ItemCategoryPage: React.FC = () => {

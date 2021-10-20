@@ -34,7 +34,7 @@ export default function CategoryContents() {
     <>
       <div className={classes.root}>
         <div className={classes.paper}>
-          <Paper elevation={3}>
+          <Paper elevation={0}>
             <NewCategoryEntry />
 
             <CategoryList />

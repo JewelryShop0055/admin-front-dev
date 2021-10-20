@@ -18,6 +18,6 @@ export async function addNewCategoryAPI(categoryName: string) {
     return Object(response.data);
   } catch (e) {
     console.log("addNewCategoryAPI 요청에서 문제발생", e);
-    return String(e);
+    return e;
   }
 }
