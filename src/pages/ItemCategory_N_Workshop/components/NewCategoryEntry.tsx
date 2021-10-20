@@ -11,7 +11,7 @@ import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
-import { addNewCategoryAPI } from "../../../api/category";
+import { addNewCategoryAPI, ProductType } from "../../../api/category";
 import { DebounceButton } from "../../Login/components/debounceButton";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -87,7 +87,8 @@ export default function NewCategoryEntry() {
                 await new Promise(async (resolve) => {
                   console.log("등록버튼 클릭");
                   console.log("등록할 카테고리명:", categoryName);
-                  await addNewCategoryAPI(categoryName);
+
+                  await addNewCategoryAPI(categoryName, ProductType.product);
                   setCategoryName("");
 
                   setTimeout(resolve, 500);

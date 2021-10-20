@@ -7,6 +7,7 @@ interface LoginProps {
 }
 
 //generic <any> => 객체로써 반환하도록 정해야함
+
 export async function signinAPI({ userId, userPassword }: LoginProps) {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
@@ -23,6 +24,33 @@ export async function signinAPI({ userId, userPassword }: LoginProps) {
     return String(e);
   }
 }
+
+// interface TokenResponse {
+//   access_token: string;
+//   token_type: string;
+//   expires_in: number;
+//   refresh_token: string;
+// }
+// export async function signinAPI({
+//   userId,
+//   userPassword,
+// }: LoginProps): Promise<TokenResponse> {
+//   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/auth/token`;
+//   const bodyProps = `username=${userId}&password=${userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`;
+
+//   const response = await axios.post<string, AxiosResponse<TokenResponse>>(
+//     URL,
+//     bodyProps,
+//     {
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       responseType: "json",
+//     }
+//   );
+//   console.log(response);
+//   return response.data;
+// }
 
 //==============================================================================================================
 //재발급 처리시 꼭 쿠키에 재저장처리도 해야 오류(400)나지 않는다

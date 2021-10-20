@@ -1,8 +1,15 @@
 import axios from "axios";
 import { getAuthToken } from "../util/auth";
 
-export async function addNewCategoryAPI(categoryName: string) {
-  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/product`;
+export enum ProductType {
+  product = "product",
+  parts = "parts",
+}
+export async function addNewCategoryAPI(
+  categoryName: string,
+  categoryGroup: ProductType
+) {
+  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/${categoryGroup}`;
   const accessToken = getAuthToken("user_access_token");
   const bodyProps = {
     name: categoryName,
