@@ -63,12 +63,7 @@ export default function NewCategoryEntry() {
           신규 카테고리 등록하기
         </Typography>
 
-        <form
-          className={classes.categoryForm}
-          noValidate
-          autoComplete="off"
-          // onKeyPress={handleKeyPress}
-        >
+        <form className={classes.categoryForm} noValidate autoComplete="off">
           <TextField
             id="outlined-basic"
             label="카테고리명 입력"

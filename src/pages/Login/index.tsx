@@ -8,7 +8,7 @@ import {
   InputBlock,
   LoginBlock,
 } from "./components/LoginBlock_styled";
-import { Authentication } from "./components/Authentication";
+import { Authorized } from "./components/Authentication";
 import {} from "./components/AsyncButton";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
@@ -106,7 +106,7 @@ const LoginPage: React.FC = () => {
                   }
                   const newTimer = window.setTimeout(async () => {
                     try {
-                      const signInAble = await Authentication(
+                      const signInAble = await Authorized(
                         userId,
                         userPassword,
                         setUserId,

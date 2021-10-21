@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
 export const LoginBlock = styled.div`
+  display: flex;
   text-align: center;
-  position: absolute;
-  left: 50%;
+  flex-direction: column;
+
+  align-items: center;
+
+  padding-top: 200px;
+
+  /* position: absolute; */
+  /* left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 `;
 
 export const InputBlock = styled.div`

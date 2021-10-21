@@ -2,7 +2,7 @@ import { signIn, TokenResponse } from "../../../api/signIn";
 import { saveAuthToken } from "../../../util/auth";
 import axios, { AxiosError } from "axios";
 
-export async function Authentication(
+export async function Authorized(
   userId: string,
   userPassword: string,
   setUserId: Function,

@@ -6,7 +6,7 @@ import { SignInRoute } from "./components/SignInRoute";
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
   WorkshopPage,
-} from "./pages/ItemCategory_N_Workshop";
+} from "./pages/ItemCategoryWorkshopManage";
 
 import LoginPage from "./pages/Login";
 
