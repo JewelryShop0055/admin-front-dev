@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthRoute } from "./components/AuthRoute";
-import { SignInRoute } from "./components/SignInRoute";
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
   WorkshopPage,

@@ -12,8 +12,6 @@ import { ListItemSecondaryAction } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // 이거 나중에 minHeight = 100vh - topNavi - workshopEntry로 수정해야함
-
       backgroundColor: theme.palette.background.paper,
     },
 

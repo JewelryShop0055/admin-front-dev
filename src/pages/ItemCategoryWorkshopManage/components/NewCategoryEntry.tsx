@@ -17,14 +17,11 @@ import { AsyncButton } from "../../Login/components/AsyncButton";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "block",
       padding: theme.spacing(2, 6),
-      maxHeight: "20vh",
     },
 
     categoryForm: {
       display: "inline-block",
-      width: "auto",
       padding: theme.spacing(0, 8, 0, 0),
     },
 

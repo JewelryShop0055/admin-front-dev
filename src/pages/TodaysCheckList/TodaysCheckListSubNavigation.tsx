@@ -49,8 +49,6 @@ export default function TodaysCheckListSubNavigation() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-
       <Drawer
         className={classes.drawer}
         variant="permanent"

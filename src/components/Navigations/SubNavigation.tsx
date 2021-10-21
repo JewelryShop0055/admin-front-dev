@@ -1,7 +1,6 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 
 import Divider from "@material-ui/core/Divider";
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(3),
+      // padding: theme.spacing(3),
     },
 
     divider: {
@@ -58,14 +57,13 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
 
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     await signout();
+    history.push("/");
   };
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-
       <Drawer
-        className={classes.drawer}
+        // className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
@@ -73,11 +71,9 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
         anchor="left"
       >
         <List>
-          <StyledLink to="/">
-            <ListItem button onClick={handleLogout} key={"Logout"}>
-              <ListItemText primary={"Logout"} />
-            </ListItem>
-          </StyledLink>
+          <ListItem button onClick={handleLogout} key={"Logout"}>
+            <ListItemText primary={"Logout"} />
+          </ListItem>
         </List>
         <Divider className={classes.divider} />
         <List>
@@ -87,7 +83,7 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
               button
               key={array[0]}
               onClick={(e) => {
-                history.replace(array[1]);
+                history.push(array[1]);
               }}
             >
               <ListItemText primary={array[0]} />
