@@ -55,15 +55,25 @@ const LoginPage: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      // const signInAble = await signinEvent(
-      //   userId,
-      //   userPassword,
-      //   setUserId,
-      //   setUserPassword
-      // );
-      // if (signInAble) {
-      //   history.replace("/TodaysChecklist");
-      // }
+      if (timer) {
+        clearTimeout(timer);
+      }
+      const newTimer = window.setTimeout(async () => {
+        try {
+          const signInAble = await Authorized(
+            userId,
+            userPassword,
+            setUserId,
+            setUserPassword
+          );
+          if (signInAble) {
+            history.push("/TodaysChecklist");
+          }
+        } catch (e) {
+          console.error("error", e);
+        }
+      }, 300);
+      setTimer(newTimer);
     }
   };
 

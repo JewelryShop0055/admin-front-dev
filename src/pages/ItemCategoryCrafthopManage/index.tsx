@@ -2,13 +2,12 @@ import React from "react";
 import SubNavigation from "../../components/Navigations/SubNavigation";
 import TopNavigation from "../../components/Navigations/TopNavigation";
 import CategoryContents from "./components/CategoryContents";
-
-import WorkshopContents from "./components/WorkshopContents";
+import CraftshopContents from "./components/CraftshopContents";
 
 export const ItemCategoryPage: React.FC = () => {
   const subList = [
-    ["카테고리 관리", "/Category_N_Workshop/Category"],
-    ["공방 관리", "/Category_N_Workshop/Workshop"],
+    ["카테고리 관리", "/ItemCategoryCrafthopManage/Category"],
+    ["공방 관리", "/ItemCategoryCrafthopManage/Craftshop"],
   ];
 
   return (
@@ -20,17 +19,17 @@ export const ItemCategoryPage: React.FC = () => {
   );
 };
 
-export const WorkshopPage: React.FC = () => {
+export const CraftshopPage: React.FC = () => {
   const subList = [
-    ["카테고리 관리", "/Category_N_Workshop/Category"],
-    ["공방 관리", "/Category_N_Workshop/Workshop"],
+    ["카테고리 관리", "/ItemCategoryCrafthopManage/Category"],
+    ["공방 관리", "/ItemCategoryCrafthopManage/Craftshop"],
   ];
 
   return (
     <>
       <TopNavigation />
       <SubNavigation ListItemArray={subList} />
-      <WorkshopContents />
+      <CraftshopContents />
     </>
   );
 };

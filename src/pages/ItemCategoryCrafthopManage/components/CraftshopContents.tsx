@@ -15,8 +15,8 @@ import { topNavigationHeight } from "../../../components/Navigations/TopNavigati
 import { lightBlue, blue } from "@material-ui/core/colors";
 import CategoryList from "./CategoryList";
 import NewCategoryEntry from "./NewCategoryEntry";
-import NewWorkshopEntry from "./NewWorkshopEntry";
-import WorkshopList from "./WorkshopList";
+import NewCraftshopEntry from "./NewCraftshopEntry";
+import CraftshopList from "./CraftshopList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function WorkshopContents() {
+export default function CraftshopContents() {
   const classes = useStyles();
 
   return (
@@ -44,8 +44,8 @@ export default function WorkshopContents() {
       <div className={classes.root}>
         <div className={classes.paper}>
           <Paper elevation={0} className={classes.paperElements}>
-            <NewWorkshopEntry />
-            <WorkshopList />
+            <NewCraftshopEntry />
+            <CraftshopList />
           </Paper>
         </div>
       </div>

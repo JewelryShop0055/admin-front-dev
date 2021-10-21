@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthRoute } from "./components/AuthRoute";
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
-  WorkshopPage,
-} from "./pages/ItemCategoryWorkshopManage";
+  CraftshopPage,
+} from "./pages/ItemCategoryCrafthopManage";
 
 import LoginPage from "./pages/Login";
 
@@ -26,21 +26,21 @@ const App: React.FC = () => {
             />
 
             <AuthRoute
-              path="/Category_N_Workshop"
+              path="/ItemCategoryCrafthopManage"
               exact
               component={ItemCategoryPage}
             />
 
             <AuthRoute
-              path="/Category_N_Workshop/Category"
+              path="/ItemCategoryCrafthopManage/Category"
               exact
               component={ItemCategoryPage}
             />
 
             <AuthRoute
-              path="/Category_N_Workshop/Workshop"
+              path="/ItemCategoryCrafthopManage/Craftshop"
               exact
-              component={WorkshopPage}
+              component={CraftshopPage}
             />
 
             <Route component={Error404} />

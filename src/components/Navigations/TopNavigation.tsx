@@ -94,7 +94,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function TopNavigation() {
   const classes = useStyles();
 
-  // const [value, setValue] = useState(1);
   const value = useAppSelector((state) => state.topNavigation.value);
   const dispatch = useAppDispatch();
 
@@ -115,7 +114,7 @@ export default function TopNavigation() {
     //   return history.replace("/TodaysChecklist");
     // }
     if (newValue === 5) {
-      return history.replace("/Category_N_Workshop");
+      return history.replace("/ItemCategoryCrafthopManage");
     }
   };
 

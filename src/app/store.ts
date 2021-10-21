@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import topNavigationReducer from "../util/TopNavigationSlice";
+import CraftshopAddressSlice from "../util/CraftshopAddressSlice";
 
 export const store = configureStore({
   reducer: {
     topNavigation: topNavigationReducer,
+    craftshopAddress: CraftshopAddressSlice,
   },
 });
 
