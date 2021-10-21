@@ -1,30 +1,45 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getAuthToken } from "../util/auth";
 
 export enum ProductType {
   product = "product",
   parts = "parts",
 }
-export async function addNewCategory(
-  categoryName: string,
-  categoryGroup: ProductType
-) {
+
+interface NewCategoryProps {
+  categoryName: string;
+  categoryGroup: ProductType;
+}
+
+interface Response {
+  id: string;
+  name: string;
+  type: string;
+  depth: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export async function addNewCategory({
+  categoryName,
+  categoryGroup,
+}: NewCategoryProps): Promise<Response> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/${categoryGroup}`;
   const accessToken = getAuthToken("user_access_token");
   const bodyProps = {
     name: categoryName,
   };
-  try {
-    const response = await axios.post(URL, JSON.stringify(bodyProps), {
+
+  const response = await axios.post<string, AxiosResponse<Response>>(
+    URL,
+    JSON.stringify(bodyProps),
+    {
       headers: {
         "Content-Type": `application/json`,
         Authorization: `Bearer ${accessToken}`,
       },
-    });
-    console.log(Object(response.data));
-    return Object(response.data);
-  } catch (e) {
-    console.log("addNewCategoryAPI 요청에서 문제발생", e);
-    return e;
-  }
+    }
+  );
+  console.log(response.data);
+  return response.data;
 }

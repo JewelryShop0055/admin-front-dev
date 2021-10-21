@@ -10,7 +10,7 @@ interface NewCraftshopProps {
   phoneNumber: string;
 }
 
-interface TokenResponse {
+interface Response {
   id: string;
   name: string;
   postCode: string;
@@ -28,7 +28,7 @@ export async function addNewCraftshop({
   addtionalAddress,
   detailAddress,
   phoneNumber,
-}: NewCraftshopProps): Promise<TokenResponse> {
+}: NewCraftshopProps): Promise<Response> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/craftshop`;
   const accessToken = getAuthToken("user_access_token");
   const bodyProps = {
@@ -39,7 +39,7 @@ export async function addNewCraftshop({
     phone: phoneNumber,
   };
 
-  const response = await axios.post<string, AxiosResponse<TokenResponse>>(
+  const response = await axios.post<string, AxiosResponse<Response>>(
     URL,
     JSON.stringify(bodyProps),
     {
