@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
 
-    craftshopForm: {
-      // padding: theme.spacing(0, 8, 0, 0),
-    },
-
     entryButton: {
       padding: theme.spacing(2, 0, 0, 0),
     },
@@ -96,7 +92,7 @@ export default function NewCraftshopEntry() {
         <Typography variant="h5" gutterBottom>
           신규 공방 등록하기
         </Typography>
-        <form className={classes.craftshopForm} noValidate autoComplete="off">
+        <form noValidate autoComplete="off">
           <TextField
             id="outlined-basic"
             label="우편번호"
@@ -142,7 +138,7 @@ export default function NewCraftshopEntry() {
 
         <div />
 
-        <form className={classes.craftshopForm} noValidate autoComplete="off">
+        <form noValidate autoComplete="off">
           <TextField
             id="outlined-basic"
             label="공방 이름"
@@ -173,13 +169,6 @@ export default function NewCraftshopEntry() {
                 }
                 const newTimer = window.setTimeout(async () => {
                   try {
-                    console.log("등록버튼 클릭");
-                    console.log(
-                      "등록할 공방정보:",
-                      craftshopName,
-                      CraftshopDetailAddress,
-                      craftshopPhoneNumber
-                    );
                     await addNewCraftshop({
                       craftshopName: craftshopName,
                       zoneCode: zoneCode,

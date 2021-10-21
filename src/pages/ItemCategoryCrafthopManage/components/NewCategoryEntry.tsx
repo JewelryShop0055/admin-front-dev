@@ -82,7 +82,10 @@ export default function NewCategoryEntry() {
                 }
                 const newTimer = window.setTimeout(async () => {
                   try {
-                    await addNewCategory(categoryName, ProductType.product);
+                    await addNewCategory({
+                      categoryName: categoryName,
+                      categoryGroup: ProductType.product,
+                    });
                     setCategoryName("");
                   } catch (e) {
                     console.error("error", e);
