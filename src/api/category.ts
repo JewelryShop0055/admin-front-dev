@@ -5,7 +5,7 @@ export enum ProductType {
   product = "product",
   parts = "parts",
 }
-export async function addNewCategoryAPI(
+export async function addNewCategory(
   categoryName: string,
   categoryGroup: ProductType
 ) {

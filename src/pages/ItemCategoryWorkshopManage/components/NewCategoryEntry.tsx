@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { TextField } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
-import { addNewCategoryAPI, ProductType } from "../../../api/category";
+import { addNewCategory, ProductType } from "../../../api/category";
 import { AsyncButton } from "../../Login/components/AsyncButton";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,6 +52,8 @@ export default function NewCategoryEntry() {
     setCategoryName(value);
   };
 
+  const [timer, setTimer] = useState(0);
+
   return (
     <>
       <div className={classes.root}>
@@ -74,16 +76,19 @@ export default function NewCategoryEntry() {
           <ThemeProvider theme={buttonTheme}>
             <AsyncButton
               loadingMessage={"등록중..."}
-              onClick={async () => {
-                await new Promise(async (resolve) => {
-                  console.log("등록버튼 클릭");
-                  console.log("등록할 카테고리명:", categoryName);
-
-                  await addNewCategoryAPI(categoryName, ProductType.product);
-                  setCategoryName("");
-
-                  setTimeout(resolve, 500);
-                });
+              onClick={async (e) => {
+                if (timer) {
+                  clearTimeout(timer);
+                }
+                const newTimer = window.setTimeout(async () => {
+                  try {
+                    await addNewCategory(categoryName, ProductType.product);
+                    setCategoryName("");
+                  } catch (e) {
+                    console.error("error", e);
+                  }
+                }, 300);
+                setTimer(newTimer);
               }}
             >
               등록하기
