@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router-dom";
-import { refreshTokenAPI } from "../api/signIn";
+import { signIn } from "../api/signIn";
 import LoginPage from "../pages/Login";
-import { saveAuthToken } from "../util/auth";
+import { getAuthToken, saveAuthToken } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";
 
 interface AuthRouteParams {
@@ -33,7 +33,10 @@ export const AuthRoute = ({
       tokenState.user_access_token === false &&
       tokenState.user_refresh_token === true
     ) {
-      const newToken = await refreshTokenAPI();
+      const newToken = await signIn({
+        grantType: "refresh_token",
+        refreshToken: getAuthToken("user_refresh_token"),
+      });
       if (
         newToken.access_token !== undefined &&
         newToken.refresh_token !== undefined

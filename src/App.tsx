@@ -18,7 +18,6 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/" component={LoginPage} exact />
-            {/* <SignInRoute path="/" exact component={LoginPage} /> */}
 
             <AuthRoute
               path="/TodaysChecklist"

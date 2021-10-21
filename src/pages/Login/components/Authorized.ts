@@ -1,6 +1,6 @@
 import { signIn, TokenResponse } from "../../../api/signIn";
 import { saveAuthToken } from "../../../util/auth";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export async function Authorized(
   userId: string,
@@ -14,7 +14,11 @@ export async function Authorized(
   }
 
   try {
-    const token: TokenResponse = await signIn({ userId, userPassword });
+    const token: TokenResponse = await signIn({
+      grantType: "password",
+      userId,
+      userPassword,
+    });
     if (token.access_token !== undefined && token.refresh_token !== undefined) {
       await saveAuthToken(token.access_token, token.refresh_token);
       return true;
