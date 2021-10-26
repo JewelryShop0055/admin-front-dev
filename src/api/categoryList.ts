@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { ApiConfigProps } from "../types";
 
 import { getAuthToken } from "../util/auth";
 import { createAxiosInstance } from "./utils/apiForm";
@@ -44,24 +45,16 @@ export async function getCategoryList({
   return response.data;
 }
 
-interface ConfigProps {
-  options?: object;
-  token?: string;
-  categoryGroup?: string;
-  page?: number;
-  limit?: number;
-  headers: object;
-}
-
-const callApi = (config: ConfigProps) => {
+const callApi = (config: ApiConfigProps) => {
   const instance = createAxiosInstance(config);
   console.log(instance);
   return instance;
 };
 
-export const getCategoryList_New = async (config: ConfigProps) => {
+export const getCategoryList_New = async (config: ApiConfigProps) => {
   const response = await callApi(config).get(
-    `/admin/category/${config.categoryGroup}?page=${config.page}&limit=${config.limit}`
+    // `/admin/category/product?page=${config.page}&limit=${config.limit}`
+    `/admin/category/product?page=0&limit=10`
   );
   console.log(response);
   return response;

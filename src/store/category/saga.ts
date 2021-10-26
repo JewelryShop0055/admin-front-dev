@@ -5,6 +5,7 @@ import axios from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList, getCategoryList_New } from "../../api/categoryList";
 import { getAuthToken } from "../../util/auth";
+import { ApiConfigProps } from "../../types";
 
 export const fetchData = categorySlice;
 
@@ -66,8 +67,9 @@ interface Response {
 }
 
 function* getCategory(action: PayloadAction<string>) {
-  const config = {
-    categoryGroup: ProductType.product,
+  const config: ApiConfigProps = {
+    // categoryGroup: ProductType.product,
+    contentsType: "application/json",
     headers: {
       Authorization: `Bearer ${getAuthToken("user_access_token")}`,
     },

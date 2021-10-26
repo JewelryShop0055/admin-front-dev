@@ -11,6 +11,8 @@ import {
 import { Authorized } from "./components/Authorized";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { useAppDispatch } from "../../app/hooks";
+import { actions } from "../../store/signIn/slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +35,8 @@ const LoginPage: React.FC = () => {
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
 
   const [timer, setTimer] = useState(0);
+
+  const dispatch = useAppDispatch();
 
   const history = useHistory();
 
@@ -110,25 +114,33 @@ const LoginPage: React.FC = () => {
                 variant="outlined"
                 color="primary"
                 onClick={async (e) => {
-                  if (timer) {
-                    clearTimeout(timer);
-                  }
-                  const newTimer = window.setTimeout(async () => {
-                    try {
-                      const signInAble = await Authorized(
-                        userId,
-                        userPassword,
-                        setUserId,
-                        setUserPassword
-                      );
-                      if (signInAble) {
-                        history.push("/TodaysChecklist");
-                      }
-                    } catch (e) {
-                      console.error("error", e);
-                    }
-                  }, 300);
-                  setTimer(newTimer);
+                  // if (timer) {
+                  //   clearTimeout(timer);
+                  // }
+                  // const newTimer = window.setTimeout(async () => {
+                  //   try {
+                  //     const signInAble = await Authorized(
+                  //       userId,
+                  //       userPassword,
+                  //       setUserId,
+                  //       setUserPassword
+                  //     );
+                  //     if (signInAble) {
+                  //       history.push("/TodaysChecklist");
+                  //     }
+                  //   } catch (e) {
+                  //     console.error("error", e);
+                  //   }
+                  // }, 300);
+                  // setTimer(newTimer);
+
+                  console.log("로그인버튼 클릭");
+                  await dispatch(
+                    actions.getAuthTokenPending({
+                      userId: userId,
+                      userPassword: userPassword,
+                    })
+                  );
                 }}
               >
                 SIGN IN

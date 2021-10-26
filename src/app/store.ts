@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import topNavigationSlice from "../util/TopNavigationSlice";
 import CraftshopAddressSlice from "../util/CraftshopAddressSlice";
 import categorySlice from "../store/category/slice";
+import signInSlice from "../store/signIn/slice";
 
 import { rootSaga } from "../modules/sagaActions";
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     topNavigation: topNavigationSlice,
     craftshopAddress: CraftshopAddressSlice,
     category: categorySlice,
+    signIn: signInSlice,
   },
 
   middleware: [sagaMiddleware],

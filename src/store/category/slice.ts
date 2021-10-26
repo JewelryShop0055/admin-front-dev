@@ -19,7 +19,9 @@ export const categorySlice = createSlice({
       state.isLoadingCategory = true;
     },
     getCategoryFullFilled: (state, action) => {
+      console.log("slice전", state.category, action.payload);
       state.category = action.payload;
+      console.log("slice후", state.category, action.payload);
       state.isLoadingCategory = false;
     },
     getCategoryRejected: (state) => {

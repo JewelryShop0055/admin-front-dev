@@ -92,7 +92,9 @@ export default function NewCategoryEntry() {
               color="primary"
               onClick={async (e) => {
                 console.log("123");
-                dispatch(categoryActions.getCategoryPending(categoryName));
+                await dispatch(
+                  categoryActions.getCategoryPending(categoryName)
+                );
                 console.log(categoryActions.getCategoryPending);
               }}
             >
