@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 
 import {
-  addtionalAddressState,
-  baseAddressState,
-  zoneCodeState,
+  setAddtionalAddress,
+  setBaseAddress,
+  setZoneCode,
 } from "../../../util/CraftshopAddressSlice";
 import { useAppDispatch } from "../../../app/hooks";
 
@@ -77,9 +77,9 @@ export function FindAddressCode() {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    dispatch(baseAddressState(data.address));
-    dispatch(addtionalAddressState(`(${data.bname} ${data.buildingName})`));
-    dispatch(zoneCodeState(data.zonecode));
+    dispatch(setBaseAddress(data.address));
+    dispatch(setAddtionalAddress(`(${data.bname} ${data.buildingName})`));
+    dispatch(setZoneCode(data.zonecode));
 
     setOpen(false);
   };

@@ -7,11 +7,12 @@ import {
 } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
-import { addNewCategory, ProductType } from "../../../api/category";
-import { AsyncButton } from "../../Login/components/AsyncButton";
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { actions as categoryActions } from "../../../store/category/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +53,10 @@ export default function NewCategoryEntry() {
     setCategoryName(value);
   };
 
-  const [timer, setTimer] = useState(0);
+  //true일때 빙글빙글, false일때 로딩다된 평소화면
+  const { isLoadingCategory } = useAppSelector((state) => state.category);
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -74,28 +78,26 @@ export default function NewCategoryEntry() {
         </form>
         <div className={classes.entryButton}>
           <ThemeProvider theme={buttonTheme}>
-            <AsyncButton
-              loadingMessage={"등록중..."}
+            <Button
+              variant="contained"
+              color="primary"
               onClick={async (e) => {
-                if (timer) {
-                  clearTimeout(timer);
-                }
-                const newTimer = window.setTimeout(async () => {
-                  try {
-                    await addNewCategory({
-                      categoryName: categoryName,
-                      categoryGroup: ProductType.product,
-                    });
-                    setCategoryName("");
-                  } catch (e) {
-                    console.error("error", e);
-                  }
-                }, 300);
-                setTimer(newTimer);
+                // dispatch(categoryActions.getCategoryPending(categoryName));
               }}
             >
               등록하기
-            </AsyncButton>
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={async (e) => {
+                console.log("123");
+                dispatch(categoryActions.getCategoryPending(categoryName));
+                console.log(categoryActions.getCategoryPending);
+              }}
+            >
+              리스트불러오기버튼
+            </Button>
           </ThemeProvider>
         </div>
       </div>

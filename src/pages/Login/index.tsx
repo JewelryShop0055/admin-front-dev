@@ -9,7 +9,6 @@ import {
   LoginBlock,
 } from "./components/LoginBlock_styled";
 import { Authorized } from "./components/Authorized";
-import {} from "./components/AsyncButton";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 

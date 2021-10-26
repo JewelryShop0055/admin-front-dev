@@ -14,9 +14,9 @@ import { useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
-  addtionalAddressState,
-  baseAddressState,
-  zoneCodeState,
+  setBaseAddress,
+  setAddtionalAddress,
+  setZoneCode,
 } from "../../../util/CraftshopAddressSlice";
 import { addNewCraftshop } from "../../../api/workshop";
 
@@ -46,12 +46,8 @@ export default function NewCraftshopEntry() {
   const classes = useStyles();
 
   const [craftshopName, setCraftshopName] = useState("");
-
-  // const [CraftshopBaseAddress, setCraftshopBaseAddress] = useState("주소");
-  // const [CraftshopAddionalAddress, setCraftshopAddionalAddress] =
-  //   useState("참고항목");
-  // const [CraftshopZoneCode, setCraftshopZoneCode] = useState("우편번호");
   const [CraftshopDetailAddress, setCraftshopDetailAddress] = useState("");
+  const [craftshopPhoneNumber, setCraftshopPhoneNumber] = useState("");
 
   const baseAddress = useAppSelector(
     (state) => state.craftshopAddress.baseAddress
@@ -61,8 +57,6 @@ export default function NewCraftshopEntry() {
   );
   const zoneCode = useAppSelector((state) => state.craftshopAddress.zoneCode);
   const dispatch = useAppDispatch();
-
-  const [craftshopPhoneNumber, setCraftshopPhoneNumber] = useState("");
 
   const [timer, setTimer] = useState(0);
 
@@ -177,9 +171,9 @@ export default function NewCraftshopEntry() {
                       detailAddress: CraftshopDetailAddress,
                       phoneNumber: craftshopPhoneNumber,
                     });
-                    dispatch(baseAddressState(""));
-                    dispatch(addtionalAddressState(""));
-                    dispatch(zoneCodeState(""));
+                    dispatch(setBaseAddress(""));
+                    dispatch(setAddtionalAddress(""));
+                    dispatch(setZoneCode(""));
 
                     setCraftshopName("");
                     setCraftshopDetailAddress("");

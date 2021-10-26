@@ -16,19 +16,19 @@ export const addressSlice = createSlice({
   name: "address",
   initialState,
   reducers: {
-    baseAddressState: (state, action: PayloadAction<string>) => {
+    setBaseAddress: (state, action: PayloadAction<string>) => {
       state.baseAddress = action.payload;
     },
-    addtionalAddressState: (state, action: PayloadAction<string>) => {
+    setAddtionalAddress: (state, action: PayloadAction<string>) => {
       state.addtionalAddress = action.payload;
     },
-    zoneCodeState: (state, action: PayloadAction<string>) => {
+    setZoneCode: (state, action: PayloadAction<string>) => {
       state.zoneCode = action.payload;
     },
   },
 });
 
-export const { baseAddressState, addtionalAddressState, zoneCodeState } =
+export const { setBaseAddress, setAddtionalAddress, setZoneCode } =
   addressSlice.actions;
 
 export default addressSlice.reducer;

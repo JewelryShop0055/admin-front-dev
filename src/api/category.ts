@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+
 import { getAuthToken } from "../util/auth";
 
 export enum ProductType {
@@ -40,6 +41,14 @@ export async function addNewCategory({
       },
     }
   );
-  console.log(response.data);
   return response.data;
 }
+
+///===
+
+// const testInstance = (config) =>
+//   axios.create({
+//     baseURL: "dasdasd/asdjasd",
+//     timeout: 20 * 1000,
+//     headers: { "X-Custom-Header": `${config.header}` },
+//   });
