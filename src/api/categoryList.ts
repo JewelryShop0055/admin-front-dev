@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { ApiConfigProps } from "../types";
 
 import { getAuthToken } from "../util/auth";
-import { createAxiosInstance } from "./utils/apiForm";
+import { axiosInstance } from "./utils/apiForm";
 
 export enum ProductType {
   product = "product",
@@ -46,7 +46,7 @@ export async function getCategoryList({
 }
 
 const callApi = (config: ApiConfigProps) => {
-  const instance = createAxiosInstance(config);
+  const instance = axiosInstance(config);
   console.log(instance);
   return instance;
 };

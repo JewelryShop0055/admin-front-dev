@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { ApiConfigProps } from "../types";
 import { getAuthToken } from "../util/auth";
-import { createAxiosInstance } from "./utils/apiForm";
+import { axiosInstance } from "./utils/apiForm";
 
 interface SignInProps {
   grantType: "password" | "refresh_token";
@@ -56,13 +56,8 @@ export async function signIn({
 
 //==repactoring
 
-const callApi = (config: ApiConfigProps) => {
-  const instance = createAxiosInstance(config);
-  return instance;
-};
-
 export const getAuthToken_New = async (config: ApiConfigProps) => {
-  const response = await callApi(config).post(
+  const response = await axiosInstance(config).post(
     `/admin/auth/token`,
     config.bodyProps
   );

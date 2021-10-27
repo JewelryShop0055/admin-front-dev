@@ -1,6 +1,8 @@
+import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { history } from "./app/store";
 import { AuthRoute } from "./components/AuthRoute";
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
@@ -15,37 +17,39 @@ const App: React.FC = () => {
   return (
     <div>
       {/* <BrowserView> */}
-      <Router>
-        <Switch>
-          <Route path="/" component={LoginPage} exact />
+      {/* <ConnectedRouter history={history}> */}
+      {/* <Router> */}
+      <Switch>
+        <Route path="/" component={LoginPage} exact />
 
-          <AuthRoute
-            path="/TodaysChecklist"
-            exact
-            component={TodaysCheckListMainPage}
-          />
+        <AuthRoute
+          path="/TodaysChecklist"
+          exact
+          component={TodaysCheckListMainPage}
+        />
 
-          <AuthRoute
-            path="/ItemCategoryCrafthopManage"
-            exact
-            component={ItemCategoryPage}
-          />
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage"
+          exact
+          component={ItemCategoryPage}
+        />
 
-          <AuthRoute
-            path="/ItemCategoryCrafthopManage/Category"
-            exact
-            component={ItemCategoryPage}
-          />
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Category"
+          exact
+          component={ItemCategoryPage}
+        />
 
-          <AuthRoute
-            path="/ItemCategoryCrafthopManage/Craftshop"
-            exact
-            component={CraftshopPage}
-          />
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Craftshop"
+          exact
+          component={CraftshopPage}
+        />
 
-          <Route component={Error404} />
-        </Switch>
-      </Router>
+        <Route component={Error404} />
+      </Switch>
+      {/* </Router> */}
+      {/* </ConnectedRouter> */}
       {/* </BrowserView> */}
 
       {/* <MobileView>

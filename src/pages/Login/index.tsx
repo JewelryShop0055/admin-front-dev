@@ -134,6 +134,8 @@ const LoginPage: React.FC = () => {
                   // }, 300);
                   // setTimer(newTimer);
 
+                  //historyStore의 middle웨어로 넘겨서 라우팅하게해야함
+                  history.push("/TodaysChecklist");
                   console.log("로그인버튼 클릭");
                   await dispatch(
                     actions.getAuthTokenPending({
