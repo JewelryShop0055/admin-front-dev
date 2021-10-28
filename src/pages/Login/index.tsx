@@ -8,7 +8,6 @@ import {
   InputBlock,
   LoginBlock,
 } from "./components/LoginBlock_styled";
-import { Authorized } from "./components/Authorized";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { useAppDispatch } from "../../app/hooks";
@@ -34,8 +33,6 @@ const LoginPage: React.FC = () => {
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
 
-  const [timer, setTimer] = useState(0);
-
   const dispatch = useAppDispatch();
 
   const history = useHistory();
@@ -58,25 +55,12 @@ const LoginPage: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      if (timer) {
-        clearTimeout(timer);
-      }
-      const newTimer = window.setTimeout(async () => {
-        try {
-          const signInAble = await Authorized(
-            userId,
-            userPassword,
-            setUserId,
-            setUserPassword
-          );
-          if (signInAble) {
-            history.push("/TodaysChecklist");
-          }
-        } catch (e) {
-          console.error("error", e);
-        }
-      }, 300);
-      setTimer(newTimer);
+      await dispatch(
+        actions.getAuthTokenPending({
+          userId: userId,
+          userPassword: userPassword,
+        })
+      );
     }
   };
 

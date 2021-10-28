@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { getAuthToken } from "../util/auth";
+import { getAuthTokenFromCookies } from "../util/auth";
 
 interface NewCraftshopProps {
   craftshopName: string;
@@ -30,7 +30,7 @@ export async function addNewCraftshop({
   phoneNumber,
 }: NewCraftshopProps): Promise<Response> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/craftshop`;
-  const accessToken = getAuthToken("user_access_token");
+  const accessToken = getAuthTokenFromCookies("user_access_token");
   const bodyProps = {
     name: craftshopName,
     postCode: zoneCode,

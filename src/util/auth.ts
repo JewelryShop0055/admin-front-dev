@@ -9,7 +9,7 @@ export function deleteAuthToken(name: string, value: string) {
   document.cookie = `${name}=${value}; max-age=-1;`;
 }
 
-export const getAuthToken = (name: string) => {
+export const getAuthTokenFromCookies = (name: string) => {
   let matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
@@ -24,8 +24,8 @@ export async function signout() {
   await window.localStorage.setItem("signout", String(Date.now()));
 
   const tokens = [
-    ["user_access_token", getAuthToken("user_access_token")],
-    ["user_refresh_token", getAuthToken("user_refresh_token")],
+    ["user_access_token", getAuthTokenFromCookies("user_access_token")],
+    ["user_refresh_token", getAuthTokenFromCookies("user_refresh_token")],
   ];
 
   tokens.forEach((token) => {

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { ApiConfigProps } from "../types";
 
-import { getAuthToken } from "../util/auth";
+import { getAuthTokenFromCookies } from "../util/auth";
 import { axiosInstance } from "./utils/apiForm";
 
 export enum ProductType {
@@ -34,7 +34,7 @@ export async function getCategoryList({
   categoryGroup,
 }: NewCategoryProps): Promise<Response> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/${categoryGroup}?page=${page}&limit=${limit}`;
-  const accessToken = getAuthToken("user_access_token");
+  const accessToken = getAuthTokenFromCookies("user_access_token");
 
   const response = await axios.get<string, AxiosResponse<Response>>(URL, {
     headers: {

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-import { getAuthToken } from "../util/auth";
+import { getAuthTokenFromCookies } from "../util/auth";
 
 export enum ProductType {
   product = "product",
@@ -26,7 +26,7 @@ export async function addNewCategory({
   categoryGroup,
 }: NewCategoryProps): Promise<Response> {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/${categoryGroup}`;
-  const accessToken = getAuthToken("user_access_token");
+  const accessToken = getAuthTokenFromCookies("user_access_token");
   const bodyProps = {
     name: categoryName,
   };

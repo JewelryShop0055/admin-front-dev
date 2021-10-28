@@ -10,6 +10,10 @@ export type SignIn = {
   userPassword: string;
 };
 
+export type RefreshToken = {
+  token: string;
+};
+
 export type Category = {
   id: number;
   name: string;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthToken, SignIn } from "../../types";
+import { AuthToken, RefreshToken, SignIn } from "../../types";
 
 export interface AuthTokenSliceState {
   authToken?: AuthToken;
@@ -11,22 +11,17 @@ const initialState: AuthTokenSliceState = {
   isLoadingAuthToken: false,
 };
 
-interface inputForm {
-  username: string;
-  password: string;
-}
-
-interface PayloadForm {
-  username: string;
-  password: string;
-}
-
 export const authTokenSlice = createSlice({
   name: "authToken",
   initialState,
   reducers: {
     getAuthTokenPending: (state, action: PayloadAction<SignIn>) => {
-      console.log("pending실행", action.payload);
+      state.isLoadingAuthToken = true;
+    },
+    getAuthTokenRefreshPending: (
+      state,
+      action: PayloadAction<RefreshToken>
+    ) => {
       state.isLoadingAuthToken = true;
     },
     getAuthTokenFullFilled: (state, action: PayloadAction<AuthToken>) => {

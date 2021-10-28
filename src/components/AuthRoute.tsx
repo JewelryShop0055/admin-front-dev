@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router";
-import { signIn } from "../api/signIn";
+import { useAppDispatch } from "../app/hooks";
 import LoginPage from "../pages/Login";
-import { getAuthToken, saveAuthToken } from "../util/auth";
+import { actions } from "../store/signIn/slice";
+import { getAuthTokenFromCookies } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";
 
 interface AuthRouteParams {
@@ -18,6 +19,7 @@ export const AuthRoute = ({
 }: AuthRouteParams) => {
   const [authenticated, setAuthenticated] = useState(false);
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const authCheck = async () => {
     const tokenState = await getTokenExpiredState();
@@ -33,16 +35,11 @@ export const AuthRoute = ({
       tokenState.user_access_token === false &&
       tokenState.user_refresh_token === true
     ) {
-      const newToken = await signIn({
-        grantType: "refresh_token",
-        refreshToken: getAuthToken("user_refresh_token"),
-      });
-      if (
-        newToken.access_token !== undefined &&
-        newToken.refresh_token !== undefined
-      ) {
-        await saveAuthToken(newToken.access_token, newToken.refresh_token);
-      }
+      await dispatch(
+        actions.getAuthTokenRefreshPending({
+          token: getAuthTokenFromCookies("user_refresh_token")!.toString(),
+        })
+      );
       const newTokenState = await getTokenExpiredState();
       if (
         newTokenState.user_access_token === true &&

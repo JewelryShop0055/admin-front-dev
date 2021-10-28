@@ -4,7 +4,7 @@ import { actions, categorySlice } from "./slice";
 import axios from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList, getCategoryList_New } from "../../api/categoryList";
-import { getAuthToken } from "../../util/auth";
+import { getAuthTokenFromCookies } from "../../util/auth";
 import { ApiConfigProps } from "../../types";
 
 export const fetchData = categorySlice;
@@ -18,7 +18,7 @@ interface AddCategoryResponse {
 
 export function* CategoryCreate(action: PayloadAction<string>) {
   //     const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/category/${categoryGroup}`;
-  //   const accessToken = getAuthToken("user_access_token");
+  //   const accessToken = getAuthTokenFromCookies("user_access_token");
   //   const bodyProps = {
   //     name: categoryName,
   //   }; => 이걸 여기서 만들고 saga의 yield call에 박게함. api call은 진짜 딲 api콜만
@@ -71,7 +71,7 @@ function* getCategory(action: PayloadAction<string>) {
     // categoryGroup: ProductType.product,
     contentsType: "application/json",
     headers: {
-      Authorization: `Bearer ${getAuthToken("user_access_token")}`,
+      Authorization: `Bearer ${getAuthTokenFromCookies("user_access_token")}`,
     },
   };
   try {
