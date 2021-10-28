@@ -61,7 +61,7 @@ export const getAuthToken_New = async (config: ApiConfigProps) => {
     `/admin/auth/token`,
     config.bodyProps
   );
-  return response;
+  return response.data;
 };
 
 // (url: string, data?: undefined, config?: AxiosRequestConfig<never> | undefined)

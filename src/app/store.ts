@@ -1,17 +1,11 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { applyMiddleware, createStore } from "redux";
 import topNavigationSlice from "../util/TopNavigationSlice";
 import CraftshopAddressSlice from "../util/CraftshopAddressSlice";
 import categorySlice from "../store/category/slice";
 import signInSlice from "../store/signIn/slice";
 
 import { rootSaga } from "../modules/sagaActions";
-
-import { createBrowserHistory } from "history";
-import { routerMiddleware } from "connected-react-router";
-
-export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,7 +18,6 @@ export const store = configureStore({
     signIn: signInSlice,
   },
 
-  // middleware: [sagaMiddleware, routerMiddleware(history)],
   middleware: [sagaMiddleware],
 });
 

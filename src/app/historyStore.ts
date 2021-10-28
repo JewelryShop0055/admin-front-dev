@@ -3,6 +3,7 @@ import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import { RouteComponentProps } from "react-router-dom";
 
 export const history = createBrowserHistory();
 
@@ -17,5 +18,7 @@ export const historyStore = function configureStore() {
     createRootReducer(history),
     compose(applyMiddleware(routerMiddleware(history), thunk))
   );
+
+  console.log("historyStore", history);
   return store;
 };

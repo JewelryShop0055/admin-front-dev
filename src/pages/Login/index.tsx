@@ -113,29 +113,7 @@ const LoginPage: React.FC = () => {
               <Button
                 variant="outlined"
                 color="primary"
-                onClick={async (e) => {
-                  // if (timer) {
-                  //   clearTimeout(timer);
-                  // }
-                  // const newTimer = window.setTimeout(async () => {
-                  //   try {
-                  //     const signInAble = await Authorized(
-                  //       userId,
-                  //       userPassword,
-                  //       setUserId,
-                  //       setUserPassword
-                  //     );
-                  //     if (signInAble) {
-                  //       history.push("/TodaysChecklist");
-                  //     }
-                  //   } catch (e) {
-                  //     console.error("error", e);
-                  //   }
-                  // }, 300);
-                  // setTimer(newTimer);
-
-                  //historyStore의 middle웨어로 넘겨서 라우팅하게해야함
-                  history.push("/TodaysChecklist");
+                onClick={async () => {
                   console.log("로그인버튼 클릭");
                   await dispatch(
                     actions.getAuthTokenPending({
