@@ -1,4 +1,6 @@
 import axios from "axios";
+import { ApiConfigProps } from "../types";
+import { axiosInstance } from "./utils/apiForm";
 
 export async function signOut(accessToken: string) {
   const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/account/signout`;
@@ -12,3 +14,11 @@ export async function signOut(accessToken: string) {
   });
   return response.data;
 }
+
+export const deleteAuthToken = async (config: ApiConfigProps) => {
+  const response = await axiosInstance(config).delete(
+    "/admin/account/signout",
+    config.options
+  );
+  return response.data;
+};

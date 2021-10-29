@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 export type AuthToken = {
   access_token: string;
   refresh_token: string;
@@ -19,17 +21,21 @@ export type Category = {
   name: string;
   type: string;
   depth: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type AxiosHeaderProps = {
+  Authorization: string;
 };
 
 export type ApiConfigProps = {
-  options?: object;
-  token?: string;
+  contentsType: string;
+  options?: AxiosRequestConfig<string>;
+  headers?: AxiosHeaderProps;
+
+  //category URL Query
   categoryGroup?: string;
   page?: number;
   limit?: number;
-  headers?: object;
-  contentsType: string;
-  bodyProps?: string | object;
 };
