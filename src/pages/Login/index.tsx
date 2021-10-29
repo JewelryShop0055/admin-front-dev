@@ -8,10 +8,19 @@ import {
   InputBlock,
   LoginBlock,
 } from "./components/LoginBlock_styled";
-import { useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@material-ui/core";
 import { useAppDispatch } from "../../app/hooks";
 import { actions } from "../../store/signIn/slice";
+
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +41,9 @@ const LoginPage: React.FC = () => {
 
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
-
-  const history = useHistory();
 
   const handleChangeId: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -49,6 +57,16 @@ const LoginPage: React.FC = () => {
   > = (e) => {
     const { value } = e.target;
     setUserPassword(value);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
@@ -76,22 +94,38 @@ const LoginPage: React.FC = () => {
             autoComplete="off"
             onKeyPress={handleKeyPress}
           >
-            <TextField
-              id="outlined-basic"
-              label="ID"
-              variant="outlined"
-              name="id"
-              onChange={handleChangeId}
-              value={userId}
-            />
-            <TextField
-              id="outlined-basic"
-              label="PASSWORD"
-              variant="outlined"
-              name="password"
-              onChange={handleChangePassword}
-              value={userPassword}
-            />
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="id">ID</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-id"
+                value={userId}
+                onChange={handleChangeId}
+                labelWidth={70}
+              />
+            </FormControl>
+
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                value={userPassword}
+                onChange={handleChangePassword}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+              />
+            </FormControl>
 
             <ButtonBlock className={classes.button}>
               <Button
