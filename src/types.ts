@@ -13,7 +13,16 @@ export type SignIn = {
 };
 
 export type RefreshToken = {
-  token: string;
+  refreshToken: string;
+};
+
+export type SignInParams = {
+  userId: string;
+  userPassword: string;
+};
+
+export type RefreshTokenParams = {
+  refreshToken: string;
 };
 
 export type Category = {
@@ -30,8 +39,8 @@ type AxiosHeaderProps = {
 };
 
 export type ApiConfigProps = {
-  contentsType: string;
-  options?: AxiosRequestConfig<string>;
+  contentsType?: string;
+  options?: AxiosRequestConfig; // 이거는 이제 bodyprops를 만들기위한것 이외에만 사용하게해야함
   headers?: AxiosHeaderProps;
 
   //category URL Query

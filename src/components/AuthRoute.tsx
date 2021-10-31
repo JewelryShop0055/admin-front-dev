@@ -37,7 +37,8 @@ export const AuthRoute = ({
     ) {
       await dispatch(
         actions.getAuthTokenRefreshPending({
-          token: getAuthTokenFromCookies("user_refresh_token")!.toString(),
+          refreshToken:
+            getAuthTokenFromCookies("user_refresh_token")!.toString(),
         })
       );
       const newTokenState = await getTokenExpiredState();

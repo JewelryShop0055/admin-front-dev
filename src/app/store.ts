@@ -1,24 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import topNavigationSlice from "../util/TopNavigationSlice";
-import CraftshopAddressSlice from "../util/CraftshopAddressSlice";
-import categorySlice from "../store/category/slice";
-import signInSlice from "../store/signIn/slice";
 
-import { rootSaga } from "../modules/sagaActions";
+import { reducers, rootSaga } from "../modules";
 
+import { createBrowserHistory, History } from "history";
+import { routerMiddleware } from "connected-react-router";
+
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+
+const createRootReducer = (history: History) =>
+  combineReducers({
+    router: connectRouter(history),
+    ...reducers,
+  });
+
+export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-  reducer: {
-    //slice 통합용 파일 따로 만들어놓기 => 공식문서에 묶어놓는방법 나와있음
-    topNavigation: topNavigationSlice,
-    craftshopAddress: CraftshopAddressSlice,
-    category: categorySlice,
-    signIn: signInSlice,
-  },
+  reducer: createRootReducer(history),
 
-  middleware: [sagaMiddleware],
+  middleware: [sagaMiddleware, routerMiddleware(history)],
 });
 
 sagaMiddleware.run(rootSaga);
