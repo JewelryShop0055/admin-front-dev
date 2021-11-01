@@ -11,6 +11,8 @@ import { StyledLink } from "../StyledLink";
 import { signout } from "../../util/auth";
 import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { actions } from "../../store/signOut/slice";
 
 export const drawerWidth = 280;
 
@@ -54,10 +56,10 @@ interface SubNavigationProps {
 export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
-    await signout();
-    history.push("/");
+    await dispatch(actions.getSignOutPending());
   };
 
   return (

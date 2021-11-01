@@ -56,4 +56,5 @@ export type ApiConfigProps = {
 export enum ErrorEnvironment {
   SignIn = "SignIn",
   RefreshToken = "RefreshToken",
+  SignOut = "SignOut",
 }

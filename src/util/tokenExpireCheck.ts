@@ -9,25 +9,14 @@ interface tokenDecode {
   iss: string;
 }
 
-const initialDecodeValue = {
-  tokenType: "none",
-  scope: "none",
-  iat: 0,
-  exp: 0,
-  iss: "none",
-};
-
 export function checkTokenExpired(tokenName: string) {
   const token = getAuthTokenFromCookies(tokenName);
 
-  console.log("asf");
   if (token === undefined) {
-    console.log("asdfgqw");
     return false;
   } else {
     const tokenDecode: tokenDecode = jwt_decode(token!.toString());
     const now = parseInt(Date.now().toString().substring(0, 10));
-    console.log(now < tokenDecode.exp ? true : false);
     return now < tokenDecode.exp ? true : false;
   }
 }

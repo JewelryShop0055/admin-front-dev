@@ -6,6 +6,7 @@ import signInSaga from "../store/signIn/saga";
 import craftshopAddress from "../util/CraftshopAddressSlice";
 import topNavigation from "../util/TopNavigationSlice";
 import signIn from "../store/signIn/slice";
+import signOut from "../store/signOut/slice";
 
 //object
 export const reducers = {
@@ -13,6 +14,7 @@ export const reducers = {
   craftshopAddress,
   category,
   signIn,
+  signOut,
 };
 
 export function* rootSaga() {

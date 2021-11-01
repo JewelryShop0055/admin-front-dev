@@ -25,13 +25,12 @@ function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
   };
   try {
     const result: AuthToken = yield call(() => passwordGrantAuth(params));
-    console.log(result);
     yield saveAuthToken(result.access_token, result.refresh_token);
     yield history.push("/TodaysChecklist");
     yield put(actions.getAuthTokenFullFilled(result));
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
-      yield ErrorControl({ error: e, errorType: ErrorEnvironment.SignIn });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      yield ErrorControl({ error: error, errorType: ErrorEnvironment.SignIn });
     }
     //토스트메시지 reject액션을 통해서 상태 => 나오게하고, 토스트메시지 떠있고(아마걍 무조건 떠있게 컴포넌트 되어있을듯. 아니면 시간할당해야지) => 다시 집어넣게
     yield put(actions.getAuthTokenRejected());
@@ -46,10 +45,10 @@ function* refreshAuthTokenSaga(action: PayloadAction<RefreshToken>) {
     const result: AuthToken = yield call(() => refreshTokenGrantAuth(params));
     yield saveAuthToken(result.access_token, result.refresh_token);
     yield put(actions.getAuthTokenFullFilled(result));
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
       yield ErrorControl({
-        error: e,
+        error: error,
         errorType: ErrorEnvironment.RefreshToken,
       });
     }
