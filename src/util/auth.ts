@@ -32,7 +32,7 @@ export async function signout() {
     if (token[1] !== undefined) {
       deleteAuthToken(token[0]!.toString(), token[1]!.toString());
       if (token[0] === "user_access_token") {
-        signOut(token[1]!.toString());
+        signOut({ accessToken: token[1]!.toString() });
       }
     }
   });

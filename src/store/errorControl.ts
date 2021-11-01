@@ -23,7 +23,7 @@ export const ErrorControl = ({ error, errorType }: ErrorParams) => {
       break;
 
     default:
-      if (error.response!.status > 500) {
+      if (error.response!.status >= 500) {
         alert("서버의 상태가 좋지 않습니다. 관리자에게 연락바랍니다.");
       } else {
         alert("알 수 없는 에러입니다. 관리자에게 연락바랍니다.");

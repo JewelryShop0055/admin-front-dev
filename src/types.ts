@@ -25,6 +25,10 @@ export type RefreshTokenParams = {
   refreshToken: string;
 };
 
+export type AccessTokenParams = {
+  accessToken: string;
+};
+
 export type Category = {
   id: number;
   name: string;

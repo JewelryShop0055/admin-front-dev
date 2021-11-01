@@ -1,24 +1,18 @@
-import axios from "axios";
-import { ApiConfigProps } from "../types";
+import { AccessTokenParams } from "../types";
 import { axiosInstance } from "./utils/apiForm";
+import { AxiosRequestConfig } from "axios";
 
-export async function signOut(accessToken: string) {
-  const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/admin/account/signout`;
-  const bodyProps = `access_token=${accessToken}`;
-
-  const response = await axios.delete(URL, {
+export const signOut = async (params: AccessTokenParams) => {
+  const config: AxiosRequestConfig = {
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": `application/x-www-form-urlencoded`,
     },
-    data: bodyProps,
-  });
-  return response.data;
-}
+  };
 
-export const deleteAuthToken = async (config: ApiConfigProps) => {
   const response = await axiosInstance(config).delete(
     "/admin/account/signout",
-    config.options
+    { data: `access_token=${params.accessToken}` }
   );
+
   return response.data;
 };
