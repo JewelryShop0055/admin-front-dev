@@ -5,6 +5,7 @@ import { passwordGrantAuth } from "../../api/signIn";
 import { actions } from "./slice";
 import {
   AuthToken,
+  ErrorEnvironment,
   RefreshToken,
   RefreshTokenParams,
   SignIn,
@@ -15,6 +16,7 @@ import { saveAuthToken } from "../../util/auth";
 import axios from "axios";
 import { history } from "../../app/store";
 import { refreshTokenGrantAuth } from "../../api/refreshToken";
+import { ErrorControl } from "../errorControl";
 
 function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
   const params: SignInParams = {
@@ -29,13 +31,7 @@ function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
     yield put(actions.getAuthTokenFullFilled(result));
   } catch (e) {
     if (axios.isAxiosError(e)) {
-      if (e.response!.status >= 400 && e.response!.status < 500) {
-        alert("아이디 또는 비밀번호가 잘못되었습니다.");
-      } else if (e.response!.status > 500) {
-        alert("서버의 상태가 좋지 않습니다. 관리자에게 연락바랍니다.");
-      } else {
-        alert("알 수 없는 에러입니다. 관리자에게 연락바랍니다.");
-      }
+      yield ErrorControl({ error: e, errorType: ErrorEnvironment.SignIn });
     }
     //토스트메시지 reject액션을 통해서 상태 => 나오게하고, 토스트메시지 떠있고(아마걍 무조건 떠있게 컴포넌트 되어있을듯. 아니면 시간할당해야지) => 다시 집어넣게
     yield put(actions.getAuthTokenRejected());
@@ -48,19 +44,14 @@ function* refreshAuthTokenSaga(action: PayloadAction<RefreshToken>) {
   };
   try {
     const result: AuthToken = yield call(() => refreshTokenGrantAuth(params));
-    saveAuthToken(result.access_token, result.refresh_token);
+    yield saveAuthToken(result.access_token, result.refresh_token);
     yield put(actions.getAuthTokenFullFilled(result));
   } catch (e) {
     if (axios.isAxiosError(e)) {
-      //에러처리용 추상화 필요
-      if (e.response!.status >= 400 && e.response!.status < 500) {
-        alert("인증토큰에 오류가 발생했습니다. 로그인 페이지로 이동합니다.");
-        yield history.push("/");
-      } else if (e.response!.status > 500) {
-        alert("서버의 상태가 좋지 않습니다. 관리자에게 연락바랍니다.");
-      } else {
-        alert("알 수 없는 에러입니다. 관리자에게 연락바랍니다.");
-      }
+      yield ErrorControl({
+        error: e,
+        errorType: ErrorEnvironment.RefreshToken,
+      });
     }
     yield put(actions.getAuthTokenRejected());
   }

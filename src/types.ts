@@ -48,3 +48,8 @@ export type ApiConfigProps = {
   page?: number;
   limit?: number;
 };
+
+export enum ErrorEnvironment {
+  SignIn = "SignIn",
+  RefreshToken = "RefreshToken",
+}

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { ApiConfigProps, RefreshTokenParams, SignInParams } from "../types";
+import { SignInParams } from "../types";
 import { axiosInstance } from "./utils/apiForm";
 
 export const passwordGrantAuth = async (params: SignInParams) => {

@@ -20,11 +20,14 @@ const initialDecodeValue = {
 export function checkTokenExpired(tokenName: string) {
   const token = getAuthTokenFromCookies(tokenName);
 
+  console.log("asf");
   if (token === undefined) {
+    console.log("asdfgqw");
     return false;
   } else {
     const tokenDecode: tokenDecode = jwt_decode(token!.toString());
     const now = parseInt(Date.now().toString().substring(0, 10));
+    console.log(now < tokenDecode.exp ? true : false);
     return now < tokenDecode.exp ? true : false;
   }
 }
