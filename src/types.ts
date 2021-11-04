@@ -16,6 +16,17 @@ export type RefreshToken = {
   refreshToken: string;
 };
 
+export type AddNewCategory = {
+  categoryName: string;
+};
+
+export type ProductCategoryList = {
+  page: string;
+  limit: string;
+};
+
+//Params Types
+
 export type SignInParams = {
   userId: string;
   userPassword: string;
@@ -28,6 +39,37 @@ export type RefreshTokenParams = {
 export type AccessTokenParams = {
   accessToken: string;
 };
+
+export type AddNewCategoryParams = {
+  categoryGroup: ProductType;
+  categoryName: string;
+};
+
+export type ProductCategoryListParams = {
+  categoryGroup: ProductType;
+  page: string;
+  limit: string;
+};
+
+//Response Types
+
+export type AddNewCategoryResponse = {
+  id: number;
+  name: string;
+  type: string;
+  depth: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type getCategoryListResponse = {
+  CategoryList: Category[];
+};
+
+export enum ProductType {
+  product = "product",
+  parts = "parts",
+}
 
 export type Category = {
   id: number;
@@ -57,4 +99,6 @@ export enum ErrorEnvironment {
   SignIn = "SignIn",
   RefreshToken = "RefreshToken",
   SignOut = "SignOut",
+  AddNewCategory = "AddNewCategory",
+  GetCategoryList = "GetCategoryList",
 }

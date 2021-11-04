@@ -1,0 +1,53 @@
+import { call, delay, put, takeLatest, all } from "@redux-saga/core/effects";
+import { PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { addNewCategory } from "../../api/addNewCategory";
+import {
+  AddNewCategory,
+  AddNewCategoryParams,
+  AddNewCategoryResponse,
+  ErrorEnvironment,
+  ProductType,
+} from "../../types";
+import { ErrorControl } from "../errorControl";
+import { actions } from "./slice";
+import snackNotifications from "../../util/snackBarUitls";
+
+export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
+  const params: AddNewCategoryParams = {
+    categoryGroup: ProductType.product,
+    categoryName: action.payload.categoryName,
+  };
+  try {
+    const result: AddNewCategoryResponse = yield call(() =>
+      addNewCategory(params)
+    );
+    snackNotifications.success(
+      `신규 카테고리 "${action.payload.categoryName}"을 추가했습니다.`
+    );
+    yield put(
+      actions.addNewCategoryFullfilled({
+        categoryName: result.name,
+      })
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      ErrorControl({
+        error: error,
+        errorType: ErrorEnvironment.AddNewCategory,
+      });
+    }
+    snackNotifications.error(
+      `"${action.payload.categoryName}"등록에 실패했습니다.`
+    );
+    yield put(actions.addNewCategoryRejected());
+  }
+}
+
+export function* watchAddNewCategory() {
+  yield takeLatest(actions.addNewCategoryPending.type, addNewCategorySaga);
+}
+
+export default function* rootsaga() {
+  yield all([watchAddNewCategory()]);
+}

@@ -14,9 +14,10 @@ import {
 import { saveAuthToken } from "../../util/auth";
 
 import axios from "axios";
-import { history } from "../../app/store";
+import { history } from "../../modules/store";
 import { refreshTokenGrantAuth } from "../../api/refreshToken";
 import { ErrorControl } from "../errorControl";
+import snackNotifications from "../../util/snackBarUitls";
 
 function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
   const params: SignInParams = {
@@ -27,12 +28,13 @@ function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
     const result: AuthToken = yield call(() => passwordGrantAuth(params));
     yield saveAuthToken(result.access_token, result.refresh_token);
     yield history.push("/TodaysChecklist");
+    snackNotifications.success("로그인 성공");
     yield put(actions.getAuthTokenFullFilled(result));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       yield ErrorControl({ error: error, errorType: ErrorEnvironment.SignIn });
     }
-    //토스트메시지 reject액션을 통해서 상태 => 나오게하고, 토스트메시지 떠있고(아마걍 무조건 떠있게 컴포넌트 되어있을듯. 아니면 시간할당해야지) => 다시 집어넣게
+    snackNotifications.error("로그인에 실패했습니다.");
     yield put(actions.getAuthTokenRejected());
   }
 }

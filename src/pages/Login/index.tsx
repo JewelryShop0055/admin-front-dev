@@ -15,7 +15,7 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@material-ui/core";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signIn/slice";
 
 import Visibility from "@material-ui/icons/Visibility";

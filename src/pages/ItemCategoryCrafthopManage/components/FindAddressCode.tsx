@@ -9,7 +9,7 @@ import {
   setBaseAddress,
   setZoneCode,
 } from "../../../util/CraftshopAddressSlice";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch } from "../../../modules/hooks";
 
 interface Address {
   zonecode: string;

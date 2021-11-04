@@ -11,7 +11,7 @@ import { StyledLink } from "../StyledLink";
 import { signout } from "../../util/auth";
 import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
 
 export const drawerWidth = 280;

@@ -14,5 +14,3 @@ export const passwordGrantAuth = async (params: SignInParams) => {
   );
   return response.data;
 };
-
-//userID, userPassword, grant_type= password... 이런형식으로만 넣어도 post에서 알아먹게끔

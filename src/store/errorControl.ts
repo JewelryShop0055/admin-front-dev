@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { history } from "../app/store";
+import { history } from "../modules/store";
 import { ErrorEnvironment } from "../types";
 
 interface ErrorParams {

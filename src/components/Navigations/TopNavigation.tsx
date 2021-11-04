@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
 
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../modules/hooks";
 import { selectState } from "../../util/TopNavigationSlice";
 
 export const topNavigationHeight = 70;

@@ -11,8 +11,8 @@ import { Button, TextField } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import { useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { actions as categoryActions } from "../../../store/category/slice";
+import { useAppDispatch } from "../../../modules/hooks";
+import { actions as addNewCategoryActions } from "../../../store/addNewCategory/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +54,7 @@ export default function NewCategoryEntry() {
   };
 
   //true일때 빙글빙글, false일때 로딩다된 평소화면
-  const { isLoadingCategory } = useAppSelector((state) => state.category);
+  // const { isLoadingCategory } = useAppSelector((state) => state.category);
 
   const dispatch = useAppDispatch();
 
@@ -82,23 +82,16 @@ export default function NewCategoryEntry() {
               variant="contained"
               color="primary"
               onClick={async (e) => {
-                // dispatch(categoryActions.getCategoryPending(categoryName));
+                console.log("addNew카테고리클릭");
+                dispatch(
+                  addNewCategoryActions.addNewCategoryPending({
+                    categoryName: categoryName,
+                  })
+                );
+                setCategoryName("");
               }}
             >
               등록하기
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={async (e) => {
-                console.log("123");
-                await dispatch(
-                  categoryActions.getCategoryPending(categoryName)
-                );
-                console.log(categoryActions.getCategoryPending);
-              }}
-            >
-              리스트불러오기버튼
             </Button>
           </ThemeProvider>
         </div>
