@@ -8,10 +8,11 @@ import {
   AddNewCategoryResponse,
   ErrorEnvironment,
   ProductType,
+  SnackBarMessageType,
 } from "../../types";
+import alertSnackBarMessage from "../../util/snackBarUitls";
 import { ErrorControl } from "../errorControl";
 import { actions } from "./slice";
-import snackNotifications from "../../util/snackBarUitls";
 
 export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
   const params: AddNewCategoryParams = {
@@ -22,9 +23,10 @@ export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
     const result: AddNewCategoryResponse = yield call(() =>
       addNewCategory(params)
     );
-    snackNotifications.success(
-      `신규 카테고리 "${action.payload.categoryName}"을 추가했습니다.`
-    );
+    alertSnackBarMessage({
+      message: `신규 카테고리 "${action.payload.categoryName}"을 추가했습니다.`,
+      type: SnackBarMessageType.SUCCESS,
+    });
     yield put(
       actions.addNewCategoryFullfilled({
         categoryName: result.name,
@@ -37,9 +39,10 @@ export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
         errorType: ErrorEnvironment.AddNewCategory,
       });
     }
-    snackNotifications.error(
-      `"${action.payload.categoryName}"등록에 실패했습니다.`
-    );
+    alertSnackBarMessage({
+      message: `"${action.payload.categoryName}"등록에 실패했습니다.`,
+      type: SnackBarMessageType.ERROR,
+    });
     yield put(actions.addNewCategoryRejected());
   }
 }

@@ -10,6 +10,7 @@ import {
   RefreshTokenParams,
   SignIn,
   SignInParams,
+  SnackBarMessageType,
 } from "../../types";
 import { saveAuthToken } from "../../util/auth";
 
@@ -17,7 +18,7 @@ import axios from "axios";
 import { history } from "../../modules/store";
 import { refreshTokenGrantAuth } from "../../api/refreshToken";
 import { ErrorControl } from "../errorControl";
-import snackNotifications from "../../util/snackBarUitls";
+import alertSnackBarMessage from "../../util/snackBarUitls";
 
 function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
   const params: SignInParams = {
@@ -28,13 +29,19 @@ function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
     const result: AuthToken = yield call(() => passwordGrantAuth(params));
     yield saveAuthToken(result.access_token, result.refresh_token);
     yield history.push("/TodaysChecklist");
-    snackNotifications.success("로그인 성공");
+    alertSnackBarMessage({
+      message: "로그인 성공",
+      type: SnackBarMessageType.SUCCESS,
+    });
     yield put(actions.getAuthTokenFullFilled(result));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       yield ErrorControl({ error: error, errorType: ErrorEnvironment.SignIn });
     }
-    snackNotifications.error("로그인에 실패했습니다.");
+    alertSnackBarMessage({
+      message: "로그인에 실패했습니다.",
+      type: SnackBarMessageType.ERROR,
+    });
     yield put(actions.getAuthTokenRejected());
   }
 }

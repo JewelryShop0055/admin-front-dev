@@ -8,10 +8,11 @@ import {
   ProductCategoryList,
   ProductCategoryListParams,
   ProductType,
+  SnackBarMessageType,
 } from "../../types";
 import { ErrorControl } from "../errorControl";
 import axios from "axios";
-import snackNotifications from "../../util/snackBarUitls";
+import alertSnackBarMessage from "../../util/snackBarUitls";
 
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
   const config: ProductCategoryListParams = {
@@ -31,7 +32,10 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
         errorType: ErrorEnvironment.GetCategoryList,
       });
     }
-    snackNotifications.error("카테고리 리스트를 가져오는데 실패했습니다.");
+    alertSnackBarMessage({
+      message: "카테고리 리스트를 가져오는데 실패했습니다.",
+      type: SnackBarMessageType.ERROR,
+    });
     yield put(actions.getCategoryListRejected());
   }
 }

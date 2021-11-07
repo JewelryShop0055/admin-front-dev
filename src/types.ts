@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import { OptionsObject } from "notistack";
 
 export type AuthToken = {
   access_token: string;
@@ -24,6 +25,28 @@ export type ProductCategoryList = {
   page: string;
   limit: string;
 };
+
+//enums
+
+export enum SnackBarMessageType {
+  SUCCESS = "success",
+  WARNING = "warning",
+  INFO = "info",
+  ERROR = "error",
+}
+
+export enum ProductType {
+  product = "product",
+  parts = "parts",
+}
+
+export enum ErrorEnvironment {
+  SignIn = "SignIn",
+  RefreshToken = "RefreshToken",
+  SignOut = "SignOut",
+  AddNewCategory = "AddNewCategory",
+  GetCategoryList = "GetCategoryList",
+}
 
 //Params Types
 
@@ -51,6 +74,12 @@ export type ProductCategoryListParams = {
   limit: string;
 };
 
+export type SnackBarParams = {
+  type: SnackBarMessageType;
+  message: string;
+  options?: OptionsObject;
+};
+
 //Response Types
 
 export type AddNewCategoryResponse = {
@@ -65,11 +94,6 @@ export type AddNewCategoryResponse = {
 export type getCategoryListResponse = {
   CategoryList: Category[];
 };
-
-export enum ProductType {
-  product = "product",
-  parts = "parts",
-}
 
 export type Category = {
   id: number;
@@ -94,11 +118,3 @@ export type ApiConfigProps = {
   page?: number;
   limit?: number;
 };
-
-export enum ErrorEnvironment {
-  SignIn = "SignIn",
-  RefreshToken = "RefreshToken",
-  SignOut = "SignOut",
-  AddNewCategory = "AddNewCategory",
-  GetCategoryList = "GetCategoryList",
-}
