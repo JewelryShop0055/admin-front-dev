@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface asdf {
-  index: number;
+interface ListItemElementsParams {
+  itemIndex: number;
 }
 
-function ListItemElements({ index }: asdf) {
+function ListItemElements({ itemIndex }: ListItemElementsParams) {
   const Response = useAppSelector((state) => state.categoryList.categoryList);
-  console.log(index, Response);
+  console.log(itemIndex, Response);
   const initialCategoryList: Category[] = [
     {
       id: 0,
@@ -58,7 +58,11 @@ function ListItemElements({ index }: asdf) {
       <>
         <ListItemText
           id="0"
-          primary={`카테고리 ${index} ${categoryList(Response)[index].name} `}
+          primary={`카테고리명 : ${categoryList(Response)[itemIndex].name}`}
+        />
+        <ListItemText
+          id="1"
+          primary={`id_index :${categoryList(Response)[itemIndex].id}`}
         />
         <ListItemSecondaryAction>
           <Button
@@ -75,7 +79,7 @@ function ListItemElements({ index }: asdf) {
   } else {
     return (
       <>
-        <ListItemText id="0" primary={`카테고리 ${index}`} />
+        <ListItemText id="0" primary={`카테고리 ${itemIndex}`} />
         <ListItemSecondaryAction>
           <Button
             variant="contained"
@@ -97,7 +101,7 @@ function renderRow(props: ListChildComponentProps) {
   return (
     <>
       <ListItem style={style} key={index} divider>
-        <ListItemElements index={index} />
+        <ListItemElements itemIndex={index} />
         {/* <div>{index}</div> */}
       </ListItem>
     </>
