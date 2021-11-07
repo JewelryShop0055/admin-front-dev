@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: theme.spacing(0, 0, 1, 0),
       },
     },
+
+    categoryListElements: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
   })
 );
 
@@ -33,14 +38,29 @@ interface ListItemElementsParams {
 }
 
 function ListItemElements({ itemIndex }: ListItemElementsParams) {
+  const classes = useStyles();
+
   const Response = useAppSelector((state) => state.categoryList.categoryList);
+  const listLength = useAppSelector((state) => state.categoryList.listLength);
   console.log(itemIndex, Response);
+
+  const dispatch = useAppDispatch();
+  if (itemIndex === listLength - 10) {
+    dispatch(
+      actions.getCategoryListPending({
+        page: "1",
+        limit: "20",
+      })
+    );
+  }
+
   const initialCategoryList: Category[] = [
     {
       id: 0,
       name: "blank",
       type: "",
       depth: 0,
+      itemCount: 0,
       createdAt: "",
       updatedAt: "",
     },
@@ -53,43 +73,37 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
     }
   };
 
-  if (Response !== undefined) {
+  if (categoryList(Response)[itemIndex] !== undefined) {
     return (
       <>
-        <ListItemText
-          id="0"
-          primary={`카테고리명 : ${categoryList(Response)[itemIndex].name}`}
-        />
-        <ListItemText
-          id="1"
-          primary={`id_index :${categoryList(Response)[itemIndex].id}`}
-        />
-        <ListItemSecondaryAction>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            startIcon={<DeleteIcon />}
-          >
-            Delete
-          </Button>
-        </ListItemSecondaryAction>
+        <div className={classes.categoryListElements}>
+          <ListItemText
+            primary={`${itemIndex} 카테고리명 : ${
+              categoryList(Response)[itemIndex].name
+            }`}
+          />
+          <ListItemText
+            primary={`소속 제품 수 : ${
+              categoryList(Response)[itemIndex].itemCount
+            }`}
+          />
+          <ListItemSecondaryAction>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
+          </ListItemSecondaryAction>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <ListItemText id="0" primary={`카테고리 ${itemIndex}`} />
-        <ListItemSecondaryAction>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            startIcon={<DeleteIcon />}
-          >
-            Delete
-          </Button>
-        </ListItemSecondaryAction>
+        <ListItemText id="0" primary={`리스트가 더 이상 없습니다.`} />
       </>
     );
   }
@@ -102,7 +116,6 @@ function renderRow(props: ListChildComponentProps) {
     <>
       <ListItem style={style} key={index} divider>
         <ListItemElements itemIndex={index} />
-        {/* <div>{index}</div> */}
       </ListItem>
     </>
   );
@@ -116,6 +129,7 @@ function renderRow(props: ListChildComponentProps) {
 export default function CategoryList() {
   const classes = useStyles();
   const dispatch = useAppDispatch();
+  const listLength = useAppSelector((state) => state.categoryList.listLength);
 
   useEffect(() => {
     console.log("카테고리 리스트처음 렌더링");
@@ -150,7 +164,7 @@ export default function CategoryList() {
             height={400}
             width={"100%"}
             itemSize={60}
-            itemCount={20}
+            itemCount={listLength}
           >
             {renderRow}
           </FixedSizeList>

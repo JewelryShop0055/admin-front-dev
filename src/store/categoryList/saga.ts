@@ -3,6 +3,7 @@ import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList } from "../../api/categoryList";
 import {
+  Category,
   ErrorEnvironment,
   getCategoryListResponse,
   ProductCategoryList,
@@ -22,10 +23,15 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
   };
   console.log("카테고리리스트를 가져오는 api를 보냈습니다.");
   try {
-    const result: getCategoryListResponse = yield call(() =>
-      getCategoryList(config)
+    const result: Category[] = yield call(() => getCategoryList(config));
+
+    //받은 배열길이가 요청한 길이보다 짧을시, 마지막 undefined index까지의 배열을 다시 만들어서 result로 put
+    yield put(
+      actions.getCategoryListFullFilled({
+        categoryList: result,
+        listLength: result.length,
+      })
     );
-    yield put(actions.getCategoryListFullFilled(result));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({

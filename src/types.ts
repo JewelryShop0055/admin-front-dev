@@ -87,6 +87,7 @@ export type AddNewCategoryResponse = {
   name: string;
   type: string;
   depth: number;
+  itemCount: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -100,6 +101,7 @@ export type Category = {
   name: string;
   type: string;
   depth: number;
+  itemCount: number;
   createdAt: string;
   updatedAt: string;
 };

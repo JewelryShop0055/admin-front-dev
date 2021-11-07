@@ -2,12 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category, ProductCategoryList } from "../../types";
 
 export interface CategoryListSliceState {
-  categoryList?: Category[];
+  categoryList: Category[];
+  listLength: number;
   isLoadingCategory: boolean;
 }
 
+export interface CategoryListSliceParams {
+  categoryList: Category[];
+  listLength: number;
+}
+
 const initialState: CategoryListSliceState = {
-  categoryList: undefined,
+  categoryList: [],
+  listLength: 0,
   isLoadingCategory: false,
 };
 
@@ -21,8 +28,14 @@ export const categoryListSlice = createSlice({
     ) => {
       state.isLoadingCategory = true;
     },
-    getCategoryListFullFilled: (state, action) => {
-      state.categoryList = action.payload;
+    getCategoryListFullFilled: (
+      state,
+      action: PayloadAction<CategoryListSliceParams>
+    ) => {
+      state.categoryList = state.categoryList.concat(
+        action.payload.categoryList
+      );
+      state.listLength += action.payload.listLength;
       state.isLoadingCategory = false;
     },
     getCategoryListRejected: (state) => {
