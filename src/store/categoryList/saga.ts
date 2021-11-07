@@ -3,6 +3,7 @@ import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList } from "../../api/categoryList";
 import {
+  Category,
   ErrorEnvironment,
   getCategoryListResponse,
   ProductCategoryList,
@@ -20,6 +21,7 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
     page: action.payload.page,
     limit: action.payload.limit,
   };
+  console.log("카테고리리스트를 가져오는 api를 보냈습니다.");
   try {
     const result: getCategoryListResponse = yield call(() =>
       getCategoryList(config)
