@@ -21,9 +21,14 @@ export type AddNewCategory = {
   categoryName: string;
 };
 
+export type DeleteCategory = {
+  categoryId: number;
+  categoryName: string;
+};
+
 export type ProductCategoryList = {
-  page: string;
-  limit: string;
+  page: number;
+  limit: number;
 };
 
 //enums
@@ -46,6 +51,7 @@ export enum ErrorEnvironment {
   SignOut = "SignOut",
   AddNewCategory = "AddNewCategory",
   GetCategoryList = "GetCategoryList",
+  DeleteCategory = "DeleteCategory",
 }
 
 //Params Types
@@ -70,14 +76,19 @@ export type AddNewCategoryParams = {
 
 export type ProductCategoryListParams = {
   categoryGroup: ProductType;
-  page: string;
-  limit: string;
+  page: number;
+  limit: number;
 };
 
 export type SnackBarParams = {
   type: SnackBarMessageType;
   message: string;
   options?: OptionsObject;
+};
+
+export type DeleteCategoryParams = {
+  categoryId: number;
+  categoryGroup: ProductType;
 };
 
 //Response Types

@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from "@redux-saga/core/effects";
+import { call, put, takeLatest, all, delay } from "@redux-saga/core/effects";
 import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList } from "../../api/categoryList";
@@ -16,6 +16,7 @@ import axios from "axios";
 import alertSnackBarMessage from "../../util/snackBarUitls";
 
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
+  yield delay(100);
   const config: ProductCategoryListParams = {
     categoryGroup: ProductType.product,
     page: action.payload.page,
@@ -30,8 +31,10 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
       actions.getCategoryListFullFilled({
         categoryList: result,
         listLength: result.length,
+        page: action.payload.page,
       })
     );
+    console.log(result);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({

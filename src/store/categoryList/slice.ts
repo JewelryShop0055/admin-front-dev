@@ -1,20 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import { Category, ProductCategoryList } from "../../types";
 
 export interface CategoryListSliceState {
   categoryList: Category[];
   listLength: number;
+  page: number;
   isLoadingCategory: boolean;
 }
 
 export interface CategoryListSliceParams {
   categoryList: Category[];
   listLength: number;
+  page: number;
 }
 
 const initialState: CategoryListSliceState = {
   categoryList: [],
   listLength: 0,
+  page: 0,
   isLoadingCategory: false,
 };
 
@@ -36,6 +40,7 @@ export const categoryListSlice = createSlice({
         action.payload.categoryList
       );
       state.listLength += action.payload.listLength;
+      state.page = action.payload.page;
       state.isLoadingCategory = false;
     },
     getCategoryListRejected: (state) => {
