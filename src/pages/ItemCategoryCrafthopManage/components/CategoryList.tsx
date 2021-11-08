@@ -54,8 +54,6 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
     (state) => state.categoryList.isCategoryListLoadComplete
   );
 
-  //맨마지막페이지 로딩시 더이상 api콜하지 않도록해야함
-  //신규 카테고리 등록시 바로 맨밑에 추가되어서 보이도록 해야함
   const dispatch = useAppDispatch();
   if (itemIndex === listLength - 10 && !listLoadComplete) {
     dispatch(

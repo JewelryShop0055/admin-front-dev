@@ -37,12 +37,9 @@ export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
       ErrorControl({
         error: error,
         errorType: ErrorEnvironment.AddNewCategory,
+        referenceTextData: action.payload.categoryName,
       });
     }
-    alertSnackBarMessage({
-      message: `"${action.payload.categoryName}"등록에 실패했습니다.`,
-      type: SnackBarMessageType.ERROR,
-    });
     yield put(actions.addNewCategoryRejected());
   }
 }
