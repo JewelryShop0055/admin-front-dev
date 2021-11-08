@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
     },
+
+    categoryListEnd: {
+      color: "gray",
+      display: "flex",
+      justifyContent: "center",
+    },
   })
 );
 
@@ -44,12 +50,14 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
   const Response = useAppSelector((state) => state.categoryList.categoryList);
   const listLength = useAppSelector((state) => state.categoryList.listLength);
   const pageState = useAppSelector((state) => state.categoryList.page);
-  // console.log(itemIndex);
+  const listLoadComplete = useAppSelector(
+    (state) => state.categoryList.isCategoryListLoadComplete
+  );
 
   //맨마지막페이지 로딩시 더이상 api콜하지 않도록해야함
   //신규 카테고리 등록시 바로 맨밑에 추가되어서 보이도록 해야함
   const dispatch = useAppDispatch();
-  if (itemIndex === listLength - 10) {
+  if (itemIndex === listLength - 10 && !listLoadComplete) {
     dispatch(
       getCategoryListActions.getCategoryListPending({
         page: pageState + 1,
@@ -115,7 +123,10 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
   } else {
     return (
       <>
-        <ListItemText id="0" primary={`리스트가 더 이상 없습니다.`} />
+        <ListItemText
+          className={classes.categoryListEnd}
+          primary={`모든 리스트를 불러왔습니다.`}
+        />
       </>
     );
   }
@@ -176,7 +187,7 @@ export default function CategoryList() {
             height={400}
             width={"100%"}
             itemSize={60}
-            itemCount={listLength}
+            itemCount={listLength + 1}
           >
             {renderRow}
           </FixedSizeList>

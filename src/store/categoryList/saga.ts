@@ -32,6 +32,8 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
         categoryList: result,
         listLength: result.length,
         page: action.payload.page,
+        isCategoryListLoadComplete:
+          result.length !== action.payload.limit ? true : false,
       })
     );
     console.log(result);

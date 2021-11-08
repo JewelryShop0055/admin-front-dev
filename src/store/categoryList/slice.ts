@@ -7,12 +7,14 @@ export interface CategoryListSliceState {
   listLength: number;
   page: number;
   isLoadingCategory: boolean;
+  isCategoryListLoadComplete: boolean;
 }
 
 export interface CategoryListSliceParams {
   categoryList: Category[];
   listLength: number;
   page: number;
+  isCategoryListLoadComplete: boolean;
 }
 
 const initialState: CategoryListSliceState = {
@@ -20,6 +22,7 @@ const initialState: CategoryListSliceState = {
   listLength: 0,
   page: 0,
   isLoadingCategory: false,
+  isCategoryListLoadComplete: false,
 };
 
 export const categoryListSlice = createSlice({
@@ -42,6 +45,8 @@ export const categoryListSlice = createSlice({
       state.listLength += action.payload.listLength;
       state.page = action.payload.page;
       state.isLoadingCategory = false;
+      state.isCategoryListLoadComplete =
+        action.payload.isCategoryListLoadComplete;
     },
     getCategoryListRejected: (state) => {
       state.isLoadingCategory = false;
