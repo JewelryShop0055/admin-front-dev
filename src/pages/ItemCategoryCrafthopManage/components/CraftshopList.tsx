@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ListItemSecondaryAction } from "@material-ui/core";
+import { PaperElevation } from "../../../styleTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,7 +73,7 @@ export default function CraftshopList() {
           미분류 카테고리는 삭제가 불가능하며, 기존 카테고리 삭제시 미분류
           상품으로 자동 이동됩니다.
         </Typography>
-        <Paper elevation={3}>
+        <Paper elevation={PaperElevation.LOW}>
           <FixedSizeList
             height={400}
             width={"100%"}

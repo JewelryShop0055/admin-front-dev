@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../../modules/hooks";
 import { actions as getCategoryListActions } from "../../../store/categoryList/slice";
 import { actions as deleteCategoryActions } from "../../../store/deleteCategory/slice";
 import { Category } from "../../../types";
+import { PaperElevation } from "../../../styleTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -82,7 +83,7 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
       return categoryListResponse;
     }
   };
-  window.scrollTo(0, 1000);
+
   if (categoryList(Response)[itemIndex] !== undefined) {
     return (
       <>
@@ -172,7 +173,7 @@ export default function CategoryList() {
           상품으로 자동 이동됩니다.
         </Typography>
 
-        <Paper elevation={5}>
+        <Paper elevation={PaperElevation.MIDDLE}>
           <FixedSizeList
             height={400}
             width={"100%"}

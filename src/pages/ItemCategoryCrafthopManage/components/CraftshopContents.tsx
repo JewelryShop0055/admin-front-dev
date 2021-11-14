@@ -17,6 +17,7 @@ import CategoryList from "./CategoryList";
 import NewCategoryEntry from "./NewCategoryEntry";
 import NewCraftshopEntry from "./NewCraftshopEntry";
 import CraftshopList from "./CraftshopList";
+import { PaperElevation } from "../../../styleTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +44,10 @@ export default function CraftshopContents() {
     <>
       <div className={classes.root}>
         <div className={classes.paper}>
-          <Paper elevation={0} className={classes.paperElements}>
+          <Paper
+            elevation={PaperElevation.BOTTOM}
+            className={classes.paperElements}
+          >
             <NewCraftshopEntry />
             <CraftshopList />
           </Paper>

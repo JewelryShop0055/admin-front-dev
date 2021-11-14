@@ -3,6 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import CategoryList from "./CategoryList";
 import NewCategoryEntry from "./NewCategoryEntry";
+import { PaperElevation } from "../../../styleTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,7 @@ export default function CategoryContents() {
     <>
       <div className={classes.root}>
         <div className={classes.paper}>
-          <Paper elevation={0}>
+          <Paper elevation={PaperElevation.BOTTOM}>
             <NewCategoryEntry />
 
             <CategoryList />
