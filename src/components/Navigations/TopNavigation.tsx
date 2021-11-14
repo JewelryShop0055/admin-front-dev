@@ -102,19 +102,19 @@ export default function TopNavigation() {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     dispatch(selectState(newValue));
     if (newValue === 1) {
-      return history.replace("/TodaysChecklist");
+      return history.push("/TodaysChecklist");
     }
     // if (newValue === 2) {
-    //   return history.replace("/TodaysChecklist");
+    //   return history.push("/TodaysChecklist");
     // }
     // if (newValue === 3) {
-    //   return history.replace("/TodaysChecklist");
+    //   return history.push("/TodaysChecklist");
     // }
     // if (newValue === 4) {
-    //   return history.replace("/TodaysChecklist");
+    //   return history.push("/TodaysChecklist");
     // }
     if (newValue === 5) {
-      return history.replace("/ItemCategoryCrafthopManage");
+      return history.push("/ItemCategoryCrafthopManage");
     }
   };
 

@@ -7,8 +7,6 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 
 import ListItemText from "@material-ui/core/ListItemText";
-import { StyledLink } from "../StyledLink";
-import { signout } from "../../util/auth";
 import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../modules/hooks";

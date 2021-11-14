@@ -82,7 +82,7 @@ function ListItemElements({ itemIndex }: ListItemElementsParams) {
       return categoryListResponse;
     }
   };
-
+  window.scrollTo(0, 1000);
   if (categoryList(Response)[itemIndex] !== undefined) {
     return (
       <>
@@ -142,11 +142,6 @@ function renderRow(props: ListChildComponentProps) {
   );
 }
 
-//처음에는 30개의 리스트를 가져오고, 그다음에는 스크롤할때 이미가져온것 외의 추가 리스트를 랜더링 해야할때
-//다시 api요청을 해서 가져오는 형식으로...
-//ex 현재 list페이지의 최하단이 index10이며 보유가이드라인이 10개일때 가지고있는것이 15까지라면 5개가 부족하기에 추가 요청필요
-//=> api 추가 요청을 통해 리스트 배열에 추가해야한다.
-
 export default function CategoryList() {
   const classes = useStyles();
   const dispatch = useAppDispatch();
@@ -154,18 +149,15 @@ export default function CategoryList() {
 
   useEffect(() => {
     console.log("카테고리 리스트처음 렌더링");
-    //여기서 카테고리 리스트 0번째 페이지 (20개)를 api콜로 요청한다.
-    //이후 리스트를 스크롤하면서 맨밑인덱스가 10에 도달해서 잔여갯수가 10이하가 되는순간 api콜을 위에서 또 보내서 20개를 보충한다
-    //다만, 처음랜더링할때는 로딩된 element의 인덱스 외의 21번째~부터는 Loading...이라는 문구로 표시하도록 설정한다
     dispatch(
       getCategoryListActions.getCategoryListPending({
         page: 0,
         limit: 20,
       })
     );
-    return () => {
-      console.log("카테고리 리스트페이지에서 떠남");
-    };
+    // return () => {
+    //   console.log("카테고리 리스트페이지에서 떠남");
+    // };
   }, []);
 
   return (
