@@ -51,29 +51,11 @@ function renderRow(props: ListChildComponentProps) {
 }
 
 //pagination
-// function renderList() {
-//   // const { index, style } = props;
-//   const testList = ["a", "b", "c"];
-
-//   return testList.map((value) => {
-//     return (
-//       // <div key={index} style={style}>
-//       <div>{value}</div>
-//       // </div>
-//     );
-//   });
-// }
-
-const renderList = (
-  elements = ["a", "b", "c", "b", "c", "b", "c", "b", "c", "b"]
-) => {
-  elements.map((value, index) => {
-    return <ListItemElements key={index} itemIndex={index} />;
-  });
-};
 
 export default function CategoryList() {
   /* {리스트에 해당하는 값을 받아와서 재사용성있게} */
+  //여기서는 리스트값만 받고, ListItemElements => 이걸 각 항목에 대한 CSS Form으로 만들어서 값이 들어가면 자동으로
+  //pagination이 형성되도록 만든다. 또한 CategoryList에 limit값을 받아서 한페이지에 몇개씩 받아올지도 설정할 수 있다면 좋겠지...
 
   // props: ListChildComponentProps
   const classes = useStyles();

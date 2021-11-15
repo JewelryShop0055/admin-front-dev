@@ -43,9 +43,14 @@ interface ListItemElementsParams {
 export function ListItemElements({ itemIndex }: ListItemElementsParams) {
   const classes = useStyles();
 
+  //구조분해할당으로 state.categoryList에서 가져와서 쓰기
+  //Response => categorylist
   const Response = useAppSelector((state) => state.categoryList.categoryList);
   const listLength = useAppSelector((state) => state.categoryList.listLength);
   const pageState = useAppSelector((state) => state.categoryList.page);
+
+  //전체 리스트를 다 가져왔는지 표기하지말고, 그냥 바닥에 도달해도 api를 또 요청하게함
+  // => 왜냐하면 다른 유저가 그리스트에 추가했는지 그 여부를 알방법이없다
   const listLoadComplete = useAppSelector(
     (state) => state.categoryList.isCategoryListLoadComplete
   );
@@ -54,6 +59,9 @@ export function ListItemElements({ itemIndex }: ListItemElementsParams) {
   if (itemIndex === listLength - 10 && !listLoadComplete) {
     dispatch(
       getCategoryListActions.getCategoryListPending({
+        //page를 따로관리하지않고 전체 리스트에서 limit로 나눠서 그 몫으로 사용하든지
+        //한번에 여러가지를
+        //현재 페이지상태값이 다른페이지갔다오면 0에서부터 시작하도록 초기화해야함
         page: pageState + 1,
         limit: 20,
       })
@@ -125,5 +133,3 @@ export function ListItemElements({ itemIndex }: ListItemElementsParams) {
     </>
   );
 }
-
-export const ListItemElementsMemo = React.memo(ListItemElements);

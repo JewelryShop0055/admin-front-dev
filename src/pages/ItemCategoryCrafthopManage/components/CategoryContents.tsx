@@ -4,6 +4,8 @@ import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import CategoryList from "./CategoryList";
 import NewCategoryEntry from "./NewCategoryEntry";
 import { PaperElevation } from "../../../styleTypes";
+import Pagonation from "./Pagination";
+import { useAppSelector } from "../../../modules/hooks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CategoryContents() {
   const classes = useStyles();
+  const CategoryList = useAppSelector(
+    (state) => state.categoryList.categoryList
+  );
 
   return (
     <>
@@ -33,7 +38,7 @@ export default function CategoryContents() {
           <Paper elevation={PaperElevation.BOTTOM}>
             <NewCategoryEntry />
 
-            <CategoryList />
+            <Pagonation CategoryList={CategoryList} />
           </Paper>
         </div>
       </div>
