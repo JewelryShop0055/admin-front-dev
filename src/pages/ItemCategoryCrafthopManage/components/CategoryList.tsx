@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { ListItemSecondaryAction } from "@material-ui/core";
 import { useAppDispatch, useAppSelector } from "../../../modules/hooks";
 import { actions as getCategoryListActions } from "../../../store/categoryList/slice";
-import { actions as deleteCategoryActions } from "../../../store/deleteCategory/slice";
-import { Category } from "../../../types";
 import { PaperElevation } from "../../../styleTypes";
+import { ListItemElements } from "./CategoryListElements";
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,98 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface ListItemElementsParams {
-  itemIndex: number;
-}
-
-function ListItemElements({ itemIndex }: ListItemElementsParams) {
-  const classes = useStyles();
-
-  const Response = useAppSelector((state) => state.categoryList.categoryList);
-  const listLength = useAppSelector((state) => state.categoryList.listLength);
-  const pageState = useAppSelector((state) => state.categoryList.page);
-  const listLoadComplete = useAppSelector(
-    (state) => state.categoryList.isCategoryListLoadComplete
-  );
-
-  const dispatch = useAppDispatch();
-  if (itemIndex === listLength - 10 && !listLoadComplete) {
-    dispatch(
-      getCategoryListActions.getCategoryListPending({
-        page: pageState + 1,
-        limit: 20,
-      })
-    );
-  }
-
-  const initialCategoryList: Category[] = [
-    {
-      id: 0,
-      name: "blank",
-      type: "",
-      depth: 0,
-      itemCount: 0,
-      createdAt: "",
-      updatedAt: "",
-    },
-  ];
-  const categoryList = (categoryListResponse: Category[] | undefined) => {
-    if (categoryListResponse === undefined) {
-      return initialCategoryList;
-    } else {
-      return categoryListResponse;
-    }
-  };
-
-  if (categoryList(Response)[itemIndex] !== undefined) {
-    return (
-      <>
-        <div className={classes.categoryListElements}>
-          <ListItemText
-            primary={`${itemIndex} 카테고리명 : ${
-              categoryList(Response)[itemIndex].name
-            }`}
-          />
-          <ListItemText
-            primary={`소속 제품 수 : ${
-              categoryList(Response)[itemIndex].itemCount
-            } 고유id : ${categoryList(Response)[itemIndex].id}`}
-          />
-          <ListItemSecondaryAction>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              startIcon={<DeleteIcon />}
-              onClick={() => {
-                dispatch(
-                  deleteCategoryActions.deleteCategoryPending({
-                    categoryId: categoryList(Response)[itemIndex].id,
-                    categoryName: categoryList(Response)[itemIndex].name,
-                  })
-                );
-              }}
-            >
-              Delete
-            </Button>
-          </ListItemSecondaryAction>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <ListItemText
-          className={classes.categoryListEnd}
-          primary={`모든 리스트를 불러왔습니다.`}
-        />
-      </>
-    );
-  }
-}
-
 function renderRow(props: ListChildComponentProps) {
   const { index, style } = props;
+  //여기서의 index는 유니크한 값이 필요함 from Props
 
   return (
     <>
@@ -143,10 +50,37 @@ function renderRow(props: ListChildComponentProps) {
   );
 }
 
+//pagination
+// function renderList() {
+//   // const { index, style } = props;
+//   const testList = ["a", "b", "c"];
+
+//   return testList.map((value) => {
+//     return (
+//       // <div key={index} style={style}>
+//       <div>{value}</div>
+//       // </div>
+//     );
+//   });
+// }
+
+const renderList = (
+  elements = ["a", "b", "c", "b", "c", "b", "c", "b", "c", "b"]
+) => {
+  elements.map((value, index) => {
+    return <ListItemElements key={index} itemIndex={index} />;
+  });
+};
+
 export default function CategoryList() {
+  /* {리스트에 해당하는 값을 받아와서 재사용성있게} */
+
+  // props: ListChildComponentProps
   const classes = useStyles();
   const dispatch = useAppDispatch();
+
   const listLength = useAppSelector((state) => state.categoryList.listLength);
+  //list상태값만 가져와서 .length로 listLength값을 만들어서 사용하기
 
   useEffect(() => {
     console.log("카테고리 리스트처음 렌더링");
@@ -161,6 +95,11 @@ export default function CategoryList() {
     // };
   }, []);
 
+  console.log("현재 리스트길이: ", listLength);
+
+  const elements = ["a", "b", "c", "b", "c", "b", "c", "b", "c", "b"];
+  // const { index, style } = props;
+
   return (
     <div className={classes.root}>
       <div className={classes.categoryList}>
@@ -173,15 +112,12 @@ export default function CategoryList() {
           상품으로 자동 이동됩니다.
         </Typography>
 
-        <Paper elevation={PaperElevation.MIDDLE}>
-          <FixedSizeList
-            height={400}
-            width={"100%"}
-            itemSize={60}
-            itemCount={listLength + 1}
-          >
-            {renderRow}
-          </FixedSizeList>
+        <Paper elevation={PaperElevation.LOW}>
+          {elements.map((value, index) => {
+            return <ListItemElements key={index} itemIndex={index} />;
+          })}
+
+          <Pagination count={10} showFirstButton showLastButton />
         </Paper>
       </div>
     </div>
