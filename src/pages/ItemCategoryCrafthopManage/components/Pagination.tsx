@@ -9,11 +9,21 @@ import { PaperElevation } from "../../../styleTypes";
 import Pagination from "@material-ui/lab/Pagination";
 import PagonationElementForm from "./PagonationElementForm";
 import { Category, getCategoryListResponse } from "../../../types";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.background.paper,
+      padding: "50px 48px 0 48px",
+    },
+    paginationPage: {
+      display: "grid",
+      gridRow: "repeat(11, 1fr)",
+    },
+    paginationNavigation: {
+      display: "flex",
+      justifyContent: "center",
     },
   })
 );
@@ -21,6 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
 //PagonationElements : 입력받을 한페이지에 보여줄 내용을 담은 리스트
 export default function Pagonation({ CategoryList }: getCategoryListResponse) {
   const classes = useStyles();
+  console.log(CategoryList);
+  const [nowPage, setNowPage] = useState(1);
+
+  const paginationNavigationHandler = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setNowPage(value);
+  };
 
   return (
     <div className={classes.root}>
@@ -33,15 +52,24 @@ export default function Pagonation({ CategoryList }: getCategoryListResponse) {
         상품으로 자동 이동됩니다.
       </Typography>
 
-      <Paper elevation={PaperElevation.LOW}>
-        {CategoryList.map((value: Category, index: number) => {
-          //여기에 PagonationElementForm에 value, 넣고 키값으로 index사용
-          //<PagonationElementForm key={index} value={value}>
-          const { id, name, type, depth, itemCount, createdAt, updatedAt } =
-            value;
-          return <PagonationElementForm key={index} />;
+      <Paper elevation={PaperElevation.LOW} className={classes.paginationPage}>
+        {CategoryList.map((value: Category) => {
+          return (
+            <>
+              <div key={value.id}>
+                <PagonationElementForm value={value} />
+              </div>
+            </>
+          );
         })}
-        <Pagination count={10} showFirstButton showLastButton />
+        <Pagination
+          className={classes.paginationNavigation}
+          count={10}
+          showFirstButton
+          showLastButton
+          page={nowPage}
+          onChange={paginationNavigationHandler}
+        />
       </Paper>
     </div>
   );

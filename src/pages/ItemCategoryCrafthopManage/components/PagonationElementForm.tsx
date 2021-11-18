@@ -1,5 +1,6 @@
 import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import React from "react";
 import { Category, getCategoryListResponse } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -7,24 +8,27 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       backgroundColor: theme.palette.background.paper,
     },
+    paginationElements: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-around",
+    },
   })
 );
 
-interface Key {
-  key: number;
+interface ElementsProps {
+  value: Category;
 }
 
-export default function PagonationElementForm(
-  { key }: Key,
-  { id, name, type, depth, itemCount, createdAt, updatedAt }: Category
-) {
+export default function PagonationElementForm({ value }: ElementsProps) {
   const classes = useStyles();
+  console.log("PagonationElementForm", value);
 
   return (
-    <div className={classes.root}>
-      <div>{"고유 번호:" + id}</div>
-      <div>{"카테고리명:" + name}</div>
-      <div>{"소속 제품 수" + itemCount}</div>
+    <div className={classes.paginationElements}>
+      <div>{"고유 번호:" + value.id}</div>
+      <div>{"카테고리명:" + value.name}</div>
+      <div>{"소속 제품 수" + value.itemCount}</div>
       <Button
         variant="contained"
         color="secondary"

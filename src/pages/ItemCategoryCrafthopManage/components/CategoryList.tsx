@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
 
-    categoryListElements: {
-      display: "flex",
-      justifyContent: "space-between",
+    paginationElements: {
+      display: "grid",
+      gridRow: "repeat(11, 1fr)",
     },
 
     categoryListEnd: {
@@ -94,7 +94,10 @@ export default function CategoryList() {
           상품으로 자동 이동됩니다.
         </Typography>
 
-        <Paper elevation={PaperElevation.LOW}>
+        <Paper
+          elevation={PaperElevation.LOW}
+          className={classes.paginationElements}
+        >
           {elements.map((value, index) => {
             return <ListItemElements key={index} itemIndex={index} />;
           })}
