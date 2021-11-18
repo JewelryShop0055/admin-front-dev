@@ -30,22 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CategoryContents() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { categoryList, isCategoryListLoadComplete } = useAppSelector(
-    (state) => state.categoryList
-  );
-
-  useEffect(() => {
-    // while (!isCategoryListLoadComplete) {
-    dispatch(
-      actions.getCategoryListPending({
-        page: 0,
-        limit: 10,
-      })
-    );
-    // }
-    console.log(isCategoryListLoadComplete);
-  }, []);
 
   return (
     <>
@@ -53,7 +37,7 @@ export default function CategoryContents() {
         <div className={classes.paper}>
           <Paper elevation={PaperElevation.BOTTOM}>
             <NewCategoryEntry />
-            <Pagonation CategoryList={categoryList} />
+            <Pagonation />
           </Paper>
         </div>
       </div>

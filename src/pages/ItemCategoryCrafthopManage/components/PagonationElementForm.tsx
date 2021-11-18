@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
     },
     paginationElements: {
+      borderBottom: "black solid 0.5px",
+      padding: "5px 0 5px 0",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-around",
@@ -22,7 +24,6 @@ interface ElementsProps {
 
 export default function PagonationElementForm({ value }: ElementsProps) {
   const classes = useStyles();
-  console.log("PagonationElementForm", value);
 
   return (
     <div className={classes.paginationElements}>

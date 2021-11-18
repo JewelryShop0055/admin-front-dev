@@ -9,7 +9,10 @@ import { PaperElevation } from "../../../styleTypes";
 import Pagination from "@material-ui/lab/Pagination";
 import PagonationElementForm from "./PagonationElementForm";
 import { Category, getCategoryListResponse } from "../../../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../modules/hooks";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../store/categoryList/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,17 +32,37 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 //PagonationElements : 입력받을 한페이지에 보여줄 내용을 담은 리스트
-export default function Pagonation({ CategoryList }: getCategoryListResponse) {
+export default function Pagonation() {
   const classes = useStyles();
-  console.log(CategoryList);
+
   const [nowPage, setNowPage] = useState(1);
+
+  const { categoryList } = useAppSelector((state) => state.categoryList);
+  const dispatch = useDispatch();
 
   const paginationNavigationHandler = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
+    console.log("페이지 버튼 클릭하여 해당 페이지 로딩");
     setNowPage(value);
+    dispatch(
+      actions.getCategoryListPending({
+        page: value - 1,
+        limit: 10,
+      })
+    );
   };
+
+  useEffect(() => {
+    console.log("최초 1페이지 로딩");
+    dispatch(
+      actions.getCategoryListPending({
+        page: 0,
+        limit: 10,
+      })
+    );
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -53,7 +76,7 @@ export default function Pagonation({ CategoryList }: getCategoryListResponse) {
       </Typography>
 
       <Paper elevation={PaperElevation.LOW} className={classes.paginationPage}>
-        {CategoryList.map((value: Category) => {
+        {categoryList.map((value: Category) => {
           return (
             <>
               <div key={value.id}>

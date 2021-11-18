@@ -38,11 +38,9 @@ export const categoryListSlice = createSlice({
       state,
       action: PayloadAction<CategoryListSliceParams>
     ) => {
-      state.categoryList = state.categoryList.concat(
-        action.payload.categoryList
-      );
-      state.listLength += action.payload.listLength;
-      state.page = action.payload.page;
+      state.categoryList = action.payload.categoryList;
+      // state.listLength += action.payload.listLength;
+      // state.page = action.payload.page;
       state.isLoadingCategory = false;
       state.isCategoryListLoadComplete =
         action.payload.isCategoryListLoadComplete;
