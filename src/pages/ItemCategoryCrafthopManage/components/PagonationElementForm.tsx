@@ -1,6 +1,8 @@
 import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../store/deleteCategory/slice";
 import { Category, getCategoryListResponse } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,25 +26,25 @@ interface ElementsProps {
 
 export default function PagonationElementForm({ value }: ElementsProps) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.paginationElements}>
-      <div>{"고유 번호:" + value.id}</div>
+      <div>{"고유번호:" + value.id}</div>
       <div>{"카테고리명:" + value.name}</div>
-      <div>{"소속 제품 수" + value.itemCount}</div>
+      <div>{"소속제품수:" + value.itemCount}</div>
       <Button
         variant="contained"
         color="secondary"
         size="small"
         startIcon={<DeleteIcon />}
         onClick={() => {
-          // dispatch(
-          //   deleteCategoryActions.deleteCategoryPending({
-          //     categoryId: categoryList(Response)[itemIndex].id,
-          //     categoryName: categoryList(Response)[itemIndex].name,
-          //   })
-          // );
-          console.log("삭제버튼 클릭");
+          dispatch(
+            actions.deleteCategoryPending({
+              categoryId: value.id,
+              categoryName: value.name,
+            })
+          );
         }}
       >
         Delete
