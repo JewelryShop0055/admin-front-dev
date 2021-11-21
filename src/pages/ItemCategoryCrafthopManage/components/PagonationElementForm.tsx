@@ -2,8 +2,9 @@ import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { actions } from "../../../store/deleteCategory/slice";
-import { Category, getCategoryListResponse } from "../../../types";
+import { actions } from "../../../store/categoryList/slice";
+import { actions as deleteActions } from "../../../store/deleteCategory/slice";
+import { Category } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,14 +41,42 @@ export default function PagonationElementForm({ value }: ElementsProps) {
         startIcon={<DeleteIcon />}
         onClick={() => {
           dispatch(
-            actions.deleteCategoryPending({
+            deleteActions.deleteCategoryPending({
               categoryId: value.id,
               categoryName: value.name,
+            })
+          );
+          dispatch(
+            actions.getCategoryListPending({
+              page: 0,
+              limit: 10,
             })
           );
         }}
       >
         Delete
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        // startIcon={<DeleteIcon />}
+        onClick={() => {
+          dispatch(
+            deleteActions.deleteCategoryPending({
+              categoryId: value.id,
+              categoryName: value.name,
+            })
+          );
+          dispatch(
+            actions.getCategoryListPending({
+              page: 0,
+              limit: 10,
+            })
+          );
+        }}
+      >
+        수정하기
       </Button>
     </div>
   );

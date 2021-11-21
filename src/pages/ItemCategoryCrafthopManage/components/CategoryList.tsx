@@ -61,7 +61,7 @@ export default function CategoryList() {
   const classes = useStyles();
   const dispatch = useAppDispatch();
 
-  const listLength = useAppSelector((state) => state.categoryList.listLength);
+  // const listLength = useAppSelector((state) => state.categoryList.listLength);
   //list상태값만 가져와서 .length로 listLength값을 만들어서 사용하기
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function CategoryList() {
     // };
   }, []);
 
-  console.log("현재 리스트길이: ", listLength);
+  // console.log("현재 리스트길이: ", listLength);
 
   const elements = ["a", "b", "c", "b", "c", "b", "c", "b", "c", "b"];
   // const { index, style } = props;

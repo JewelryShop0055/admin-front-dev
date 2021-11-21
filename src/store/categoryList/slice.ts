@@ -3,25 +3,25 @@ import { Category, ProductCategoryList } from "../../types";
 
 export interface CategoryListSliceState {
   categoryList: Category[];
-  listLength: number;
-  page: number;
+  currentPage: number;
+  maxPage: number;
   isLoadingCategory: boolean;
-  isCategoryListLoadComplete: boolean;
+  // isCategoryListLoadComplete: boolean;
 }
 
 export interface CategoryListSliceParams {
   categoryList: Category[];
-  listLength: number;
-  page: number;
-  isCategoryListLoadComplete: boolean;
+  currentPage: number;
+  maxPage: number;
+  // isCategoryListLoadComplete: boolean;
 }
 
 const initialState: CategoryListSliceState = {
   categoryList: [],
-  listLength: 0,
-  page: 0,
+  currentPage: 0,
+  maxPage: 0,
   isLoadingCategory: false,
-  isCategoryListLoadComplete: false,
+  // isCategoryListLoadComplete: false,
 };
 
 export const categoryListSlice = createSlice({
@@ -39,11 +39,13 @@ export const categoryListSlice = createSlice({
       action: PayloadAction<CategoryListSliceParams>
     ) => {
       state.categoryList = action.payload.categoryList;
+      state.currentPage = action.payload.currentPage;
+      state.maxPage = action.payload.maxPage;
       // state.listLength += action.payload.listLength;
       // state.page = action.payload.page;
       state.isLoadingCategory = false;
-      state.isCategoryListLoadComplete =
-        action.payload.isCategoryListLoadComplete;
+      // state.isCategoryListLoadComplete =
+      //   action.payload.isCategoryListLoadComplete;
     },
     getCategoryListRejected: (state) => {
       state.isLoadingCategory = false;

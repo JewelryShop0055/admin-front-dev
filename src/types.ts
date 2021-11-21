@@ -103,8 +103,10 @@ export type AddNewCategoryResponse = {
   updatedAt: string;
 };
 
-export type getCategoryListResponse = {
-  CategoryList: Category[];
+export type GetCategoryListResponse = {
+  data: Category[];
+  currentPage: number;
+  maxPage: number;
 };
 
 export type Category = {

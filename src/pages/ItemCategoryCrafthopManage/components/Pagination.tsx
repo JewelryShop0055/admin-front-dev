@@ -8,7 +8,7 @@ import {
 import { PaperElevation } from "../../../styleTypes";
 import Pagination from "@material-ui/lab/Pagination";
 import PagonationElementForm from "./PagonationElementForm";
-import { Category, getCategoryListResponse } from "../../../types";
+import { Category } from "../../../types";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
 import { useDispatch } from "react-redux";
@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//PagonationElements : 입력받을 한페이지에 보여줄 내용을 담은 리스트
 export default function Pagonation() {
   const classes = useStyles();
 
   const [nowPage, setNowPage] = useState(1);
 
-  const { categoryList } = useAppSelector((state) => state.categoryList);
+  const { categoryList, maxPage } = useAppSelector(
+    (state) => state.categoryList
+  );
   const dispatch = useDispatch();
 
   const paginationNavigationHandler = (
@@ -48,7 +49,7 @@ export default function Pagonation() {
     setNowPage(value);
     dispatch(
       actions.getCategoryListPending({
-        page: value - 1,
+        page: value,
         limit: 10,
       })
     );
@@ -58,7 +59,7 @@ export default function Pagonation() {
     console.log("최초 1페이지 로딩");
     dispatch(
       actions.getCategoryListPending({
-        page: 0,
+        page: 1,
         limit: 10,
       })
     );
@@ -87,7 +88,7 @@ export default function Pagonation() {
         })}
         <Pagination
           className={classes.paginationNavigation}
-          count={10}
+          count={maxPage}
           showFirstButton
           showLastButton
           page={nowPage}
