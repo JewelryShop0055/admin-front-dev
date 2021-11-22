@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import NewCategoryEntry from "./NewCategoryEntry";
 import { PaperElevation } from "../../../styleTypes";
-import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
 
 import { useAppSelector } from "../../../modules/hooks";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
@@ -13,6 +13,8 @@ import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
 import { actions as deleteActions } from "../../../store/deleteCategory/slice";
 import { ProductCategoryList } from "../../../types";
+import { useHistory } from "react-router";
+import { actions as putCategoryActions } from "../../../store/putCurrentCategory/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "space-around",
     },
+    paginationAddButton: {
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: "10px 0 10px 0",
+    },
   })
 );
 
@@ -54,13 +61,13 @@ export default function CategoryContents() {
   );
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
-    dispatch(
-      getListActions.getCategoryListPending({
-        page: 1,
-        limit: 10,
-      })
-    );
+    getCategoryList({
+      page: 1,
+      limit: 10,
+    });
   }, []);
 
   function getCategoryList({ page, limit }: ProductCategoryList) {
@@ -91,13 +98,13 @@ export default function CategoryContents() {
       <div className={classes.root}>
         <div className={classes.paper}>
           <Paper elevation={PaperElevation.BOTTOM}>
-            <NewCategoryEntry />
+            {/* <NewCategoryEntry /> */}
 
             <div className={classes.paginationBlock}>
               <PaginationTexts
                 headerText={"등록된 제품 카테고리"}
                 mainText={
-                  "미분류 카테고리는 삭제가 불가능하며, 기존 카테고리 삭제시 미분류 상품으로 이동됩니다."
+                  "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
                 }
               />
               {/* <PaginationContents
@@ -113,29 +120,52 @@ export default function CategoryContents() {
                       <div>{"소속제품수:" + value.itemCount}</div>
                       <Button
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                         size="small"
-                        startIcon={<DeleteIcon />}
+                        startIcon={<CreateIcon />}
                         onClick={() => {
+                          // dispatch(
+                          //   deleteActions.deleteCategoryPending({
+                          //     categoryId: value.id,
+                          //     categoryName: value.name,
+                          //   })
+                          // );
+                          // getCategoryList({
+                          //   page: nowPage,
+                          //   limit: 10,
+                          // });
+                          history.push(
+                            "/ItemCategoryCrafthopManage/CreateRevise"
+                          );
                           dispatch(
-                            deleteActions.deleteCategoryPending({
-                              categoryId: value.id,
-                              categoryName: value.name,
+                            putCategoryActions.putCurrentCategoryStandBy({
+                              targetId: value.id,
+                              currentCategoryName: value.name,
+                              putCategoryName: "",
                             })
                           );
-                          getCategoryList({
-                            page: nowPage,
-                            limit: 10,
-                          });
                         }}
                       >
-                        Delete
+                        수정/삭제
                       </Button>
                     </div>
                   </>
                 );
               })}
 
+              <div className={classes.paginationAddButton}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  startIcon={<CreateIcon />}
+                  onClick={() => {
+                    history.push("/ItemCategoryCrafthopManage/CreateRevise");
+                  }}
+                >
+                  추가하기
+                </Button>
+              </div>
               <Pagination
                 className={classes.paginationNavigation}
                 count={maxPage}
