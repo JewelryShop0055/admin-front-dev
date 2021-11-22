@@ -11,6 +11,7 @@ import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
+import { SubNavigationParams } from "../../types";
 
 export const drawerWidth = 280;
 
@@ -47,11 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface SubNavigationProps {
-  ListItemArray: string[][];
-}
-
-export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
+export default function SubNavigation({ elementsArray }: SubNavigationParams) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useAppDispatch();
@@ -77,16 +74,16 @@ export default function SubNavigation({ ListItemArray }: SubNavigationProps) {
         </List>
         <Divider className={classes.divider} />
         <List>
-          {ListItemArray.map((array) => (
+          {elementsArray.map((element) => (
             <ListItem
               divider
               button
-              key={array[0]}
-              onClick={(e) => {
-                history.push(array[1]);
+              key={element.elementName}
+              onClick={() => {
+                history.push(element.elementLink);
               }}
             >
-              <ListItemText primary={array[0]} />
+              <ListItemText primary={element.elementName} />
             </ListItem>
           ))}
         </List>

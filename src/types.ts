@@ -31,6 +31,11 @@ export type ProductCategoryList = {
   limit: number;
 };
 
+export type SubNavigationElements = {
+  elementName: string;
+  elementLink: string;
+};
+
 //enums
 
 export enum SnackBarMessageType {
@@ -93,6 +98,10 @@ export type DeleteCategoryParams = {
 
 export type PaginationContentsArrayParams = {
   contentsArray: Category[];
+};
+
+export type SubNavigationParams = {
+  elementsArray: SubNavigationElements[];
 };
 
 //Response Types
