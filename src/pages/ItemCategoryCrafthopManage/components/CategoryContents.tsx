@@ -6,14 +6,11 @@ import { PaperElevation } from "../../../styleTypes";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import { useAppSelector } from "../../../modules/hooks";
-import { Category, GetCategoryListResponse } from "../../../types";
-import PagonationElementForm from "../../../components/Pagination/PagonationElementForm";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { actions } from "../../../store/categoryList/slice";
+import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
-import PaginationContents from "../../../components/Pagination/PaginationContents";
 import { actions as deleteActions } from "../../../store/deleteCategory/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,10 +51,11 @@ export default function CategoryContents() {
   const { categoryList, maxPage } = useAppSelector(
     (state) => state.categoryList
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      actions.getCategoryListPending({
+      getListActions.getCategoryListPending({
         page: 1,
         limit: 10,
       })
@@ -72,8 +70,8 @@ export default function CategoryContents() {
     console.log("페이지 버튼 클릭하여 해당 페이지 로딩");
     setNowPage(value);
     dispatch(
-      actions.getCategoryListPending({
-        page: value,
+      getListActions.getCategoryListPending({
+        page: nowPage,
         limit: 10,
       })
     );
@@ -114,6 +112,12 @@ export default function CategoryContents() {
                             deleteActions.deleteCategoryPending({
                               categoryId: value.id,
                               categoryName: value.name,
+                            })
+                          );
+                          dispatch(
+                            getListActions.getCategoryListPending({
+                              page: nowPage,
+                              limit: 10,
                             })
                           );
                         }}
