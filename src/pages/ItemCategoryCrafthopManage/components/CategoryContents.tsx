@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
 import { actions as deleteActions } from "../../../store/deleteCategory/slice";
+import { ProductCategoryList } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,19 +63,27 @@ export default function CategoryContents() {
     );
   }, []);
 
+  function getCategoryList({ page, limit }: ProductCategoryList) {
+    dispatch(
+      getListActions.getCategoryListPending({
+        page: page,
+        limit: limit,
+      })
+    );
+  }
+
   const [nowPage, setNowPage] = useState(1);
+
   const paginationNavigationHandler = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    console.log("페이지 버튼 클릭하여 해당 페이지 로딩");
+    console.log(value, "클릭");
     setNowPage(value);
-    dispatch(
-      getListActions.getCategoryListPending({
-        page: nowPage,
-        limit: 10,
-      })
-    );
+    getCategoryList({
+      page: value,
+      limit: 10,
+    });
   };
 
   return (
@@ -114,12 +123,10 @@ export default function CategoryContents() {
                               categoryName: value.name,
                             })
                           );
-                          dispatch(
-                            getListActions.getCategoryListPending({
-                              page: nowPage,
-                              limit: 10,
-                            })
-                          );
+                          getCategoryList({
+                            page: nowPage,
+                            limit: 10,
+                          });
                         }}
                       >
                         Delete
