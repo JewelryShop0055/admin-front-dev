@@ -91,6 +91,10 @@ export type DeleteCategoryParams = {
   categoryGroup: ProductType;
 };
 
+export type contentsArrayParams = {
+  contentsArray: Category[];
+};
+
 //Response Types
 
 export type AddNewCategoryResponse = {

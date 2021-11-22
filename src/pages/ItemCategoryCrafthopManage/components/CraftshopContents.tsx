@@ -13,7 +13,6 @@ import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { topNavigationHeight } from "../../../components/Navigations/TopNavigation";
 import { lightBlue, blue } from "@material-ui/core/colors";
-import CategoryList from "./CategoryList";
 import NewCategoryEntry from "./NewCategoryEntry";
 import NewCraftshopEntry from "./NewCraftshopEntry";
 import CraftshopList from "./CraftshopList";
