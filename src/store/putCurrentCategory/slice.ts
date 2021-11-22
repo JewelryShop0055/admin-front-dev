@@ -47,11 +47,13 @@ export const putCurrentCategorySlice = createSlice({
       state
       //   action: PayloadAction<putCurrentCategoryParams>
     ) => {
+      state.putCategoryName = "";
       state.isStandByPutCategoryName = false;
       state.isLoadingPutCategoryName = false;
       state.isPutCategoryName = true;
     },
     putCurrentCategoryRejected: (state) => {
+      state.putCategoryName = "";
       state.isStandByPutCategoryName = false;
       state.isLoadingPutCategoryName = false;
     },

@@ -9,10 +9,14 @@ export const putCurrentCategory = async (params: putCurrentCategoryParams) => {
     headers: {
       Authorization: `Bearer ${getAuthTokenFromCookies("user_access_token")}`,
     },
+    data: {
+      name: params.putCategoryName,
+    },
   };
 
   const response = await axiosInstance(config).put(
-    `/admin/category/${ProductType.product}/${params.targetId}`
+    `/admin/category/${ProductType.product}/${params.targetId}`,
+    config.data
   );
 
   return response.data;

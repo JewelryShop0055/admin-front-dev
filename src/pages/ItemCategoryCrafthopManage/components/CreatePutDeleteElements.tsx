@@ -53,7 +53,7 @@ export default function CreatePutDeleteElements() {
     targetId,
   } = useAppSelector((state) => state.putCurrentCategory);
 
-  const [newCategoryName, setNewCategoryName] = useState(putCategoryName);
+  const [newCategoryName, setNewCategoryName] = useState("");
 
   const handleChangeCategoryName: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -101,6 +101,7 @@ export default function CreatePutDeleteElements() {
                     putCategoryName: newCategoryName,
                   })
                 );
+                setNewCategoryName("");
                 history.push("/ItemCategoryCrafthopManage/Category");
               }}
             >
