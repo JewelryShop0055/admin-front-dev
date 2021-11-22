@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import PagonationElementForm from "./PagonationElementForm";
-import { contentsArrayParams } from "../../types";
+import { Category, PaginationContentsArrayParams } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,18 +15,47 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function PaginationContents({
-  contentsArray,
-}: contentsArrayParams) {
+// function List<ItemType extends { id: string }>(props: {
+//   items: ItemType[];
+//   renderItem: (item: ItemType) => React.ReactNode;
+// }) {
+//   return (
+//     <ul>
+//       {props.items.map((item) => (
+//         <li key={item.id}>{props.renderItem(item)}</li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+type Categorytest = {
+  id: number;
+  name: string;
+  type: string;
+  depth: number;
+  itemCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type ArrayTypeForms = Category | Categorytest;
+
+export default function PaginationContents<
+  ArrayType extends ArrayTypeForms
+>(props: {
+  contentsArray: ArrayType[];
+  contentsRenderComponent: (value: ArrayType) => JSX.Element;
+}) {
   const classes = useStyles();
 
   return (
     <div className={classes.paginationContents}>
-      {contentsArray.map((value) => {
+      {props.contentsArray.map((value) => {
         return (
           <>
             <div key={value.id}>
-              <PagonationElementForm value={value} />
+              {props.contentsRenderComponent(value)}
+              {/* <PagonationElementForm contentsArray={value} /> */}
             </div>
           </>
         );

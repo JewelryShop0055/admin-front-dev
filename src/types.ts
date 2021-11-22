@@ -91,7 +91,7 @@ export type DeleteCategoryParams = {
   categoryGroup: ProductType;
 };
 
-export type contentsArrayParams = {
+export type PaginationContentsArrayParams = {
   contentsArray: Category[];
 };
 
