@@ -1,16 +1,18 @@
 import { AxiosRequestConfig } from "axios";
-import { putCurrentCategoryParams } from "../store/putCurrentCategory/slice";
+import { replaceCurrentCategoryParams } from "../store/replaceCurrentCategory/slice";
 import { ProductType } from "../types";
 import { getAuthTokenFromCookies } from "../util/auth";
 import { axiosInstance } from "./utils/apiForm";
 
-export const putCurrentCategory = async (params: putCurrentCategoryParams) => {
+export const replaceCurrentCategory = async (
+  params: replaceCurrentCategoryParams
+) => {
   const config: AxiosRequestConfig = {
     headers: {
       Authorization: `Bearer ${getAuthTokenFromCookies("user_access_token")}`,
     },
     data: {
-      name: params.putCategoryName,
+      name: params.newCategoryName,
     },
   };
 

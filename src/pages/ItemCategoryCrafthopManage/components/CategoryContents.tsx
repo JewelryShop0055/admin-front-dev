@@ -1,7 +1,6 @@
 import { Button, Theme, createStyles, makeStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
-import NewCategoryEntry from "./NewCategoryEntry";
 import { PaperElevation } from "../../../styleTypes";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -11,10 +10,10 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
-import { actions as deleteActions } from "../../../store/deleteCategory/slice";
 import { ProductCategoryList } from "../../../types";
 import { useHistory } from "react-router";
-import { actions as putCategoryActions } from "../../../store/putCurrentCategory/slice";
+
+import renderCategoryElements from "./renderCategoryElements";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -107,51 +106,8 @@ export default function CategoryContents() {
                   "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
                 }
               />
-              {/* <PaginationContents
-                contentsArray={categoryList}
-                contentsRenderComponent={CategoryPaginationElementRender}
-                /> */}
-              {categoryList.map((value) => {
-                return (
-                  <>
-                    <div className={classes.paginationElements}>
-                      <div>{"고유번호:" + value.id}</div>
-                      <div>{"카테고리명:" + value.name}</div>
-                      <div>{"소속제품수:" + value.itemCount}</div>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        startIcon={<CreateIcon />}
-                        onClick={() => {
-                          // dispatch(
-                          //   deleteActions.deleteCategoryPending({
-                          //     categoryId: value.id,
-                          //     categoryName: value.name,
-                          //   })
-                          // );
-                          // getCategoryList({
-                          //   page: nowPage,
-                          //   limit: 10,
-                          // });
-                          history.push(
-                            "/ItemCategoryCrafthopManage/CreateRevise"
-                          );
-                          dispatch(
-                            putCategoryActions.putCurrentCategoryStandBy({
-                              targetId: value.id,
-                              currentCategoryName: value.name,
-                              putCategoryName: "",
-                            })
-                          );
-                        }}
-                      >
-                        수정/삭제
-                      </Button>
-                    </div>
-                  </>
-                );
-              })}
+
+              {renderCategoryElements(categoryList)}
 
               <div className={classes.paginationAddButton}>
                 <Button
@@ -160,7 +116,7 @@ export default function CategoryContents() {
                   size="small"
                   startIcon={<CreateIcon />}
                   onClick={() => {
-                    history.push("/ItemCategoryCrafthopManage/CreateRevise");
+                    history.push("/ItemCategoryCrafthopManage/CreateReplace");
                   }}
                 >
                   추가하기

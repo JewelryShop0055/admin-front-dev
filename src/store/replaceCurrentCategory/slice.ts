@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type putCurrentCategoryParams = {
+export type replaceCurrentCategoryParams = {
   targetId: number;
   currentCategoryName: string;
-  putCategoryName: string;
+  newCategoryName: string;
 };
 
 interface putCurrentCategoryState {
   targetId: number;
   currentCategoryName: string;
-  putCategoryName: string;
+  newCategoryName: string;
   isStandByPutCategoryName: boolean;
   isLoadingPutCategoryName: boolean;
   isPutCategoryName: boolean;
@@ -18,48 +18,48 @@ interface putCurrentCategoryState {
 const initialState: putCurrentCategoryState = {
   targetId: 0,
   currentCategoryName: "",
-  putCategoryName: "",
+  newCategoryName: "",
   isStandByPutCategoryName: false,
   isLoadingPutCategoryName: false,
   isPutCategoryName: false,
 };
 
-export const putCurrentCategorySlice = createSlice({
-  name: "putCurrentCategory",
+export const replaceCurrentCategorySlice = createSlice({
+  name: "replaceCurrentCategory",
   initialState,
   reducers: {
-    putCurrentCategoryStandBy: (
+    replaceCurrentCategoryStandBy: (
       state,
-      action: PayloadAction<putCurrentCategoryParams>
+      action: PayloadAction<replaceCurrentCategoryParams>
     ) => {
       state.targetId = action.payload.targetId;
       state.currentCategoryName = action.payload.currentCategoryName;
       state.isStandByPutCategoryName = true;
     },
-    putCurrentCategoryPending: (
+    replaceCurrentCategoryPending: (
       state,
-      action: PayloadAction<putCurrentCategoryParams>
+      action: PayloadAction<replaceCurrentCategoryParams>
     ) => {
-      state.putCategoryName = action.payload.putCategoryName;
+      state.newCategoryName = action.payload.newCategoryName;
       state.isLoadingPutCategoryName = true;
     },
-    putCurrentCategoryFullfilled: (
+    replaceCurrentCategoryFullfilled: (
       state
-      //   action: PayloadAction<putCurrentCategoryParams>
+      //   action: PayloadAction<replaceCurrentCategoryParams>
     ) => {
-      state.putCategoryName = "";
+      state.newCategoryName = "";
       state.isStandByPutCategoryName = false;
       state.isLoadingPutCategoryName = false;
       state.isPutCategoryName = true;
     },
-    putCurrentCategoryRejected: (state) => {
-      state.putCategoryName = "";
+    replaceCurrentCategoryRejected: (state) => {
+      state.newCategoryName = "";
       state.isStandByPutCategoryName = false;
       state.isLoadingPutCategoryName = false;
     },
   },
 });
 
-export const { actions } = putCurrentCategorySlice;
+export const { actions } = replaceCurrentCategorySlice;
 
-export default putCurrentCategorySlice.reducer;
+export default replaceCurrentCategorySlice.reducer;

@@ -1,28 +1,28 @@
 import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { putCurrentCategory } from "../../api/putCurrentCategory";
+import { replaceCurrentCategory } from "../../api/replaceCurrentCategory";
 import { ErrorEnvironment, SnackBarMessageType } from "../../types";
 import alertSnackBarMessage from "../../util/snackBarUitls";
 import { ErrorControl } from "../errorControl";
-import { actions, putCurrentCategoryParams } from "./slice";
+import { actions, replaceCurrentCategoryParams } from "./slice";
 
-function* putCurrentCategorySaga(
-  action: PayloadAction<putCurrentCategoryParams>
+function* replaceCurrentCategorySaga(
+  action: PayloadAction<replaceCurrentCategoryParams>
 ) {
   console.log("수정 사가");
-  const params: putCurrentCategoryParams = {
+  const params: replaceCurrentCategoryParams = {
     targetId: action.payload.targetId,
     currentCategoryName: action.payload.currentCategoryName,
-    putCategoryName: action.payload.putCategoryName,
+    newCategoryName: action.payload.newCategoryName,
   };
   try {
-    yield call(() => putCurrentCategory(params));
+    yield call(() => replaceCurrentCategory(params));
     alertSnackBarMessage({
-      message: `카테고리명 "${action.payload.currentCategoryName}"을 "${action.payload.putCategoryName}"으로 수정했습니다.`,
+      message: `카테고리명 "${action.payload.currentCategoryName}"을 "${action.payload.newCategoryName}"으로 수정했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
-    yield put(actions.putCurrentCategoryFullfilled());
+    yield put(actions.replaceCurrentCategoryFullfilled());
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({
@@ -34,14 +34,14 @@ function* putCurrentCategorySaga(
       message: `카테고리를 수정하지 못했습니다.`,
       type: SnackBarMessageType.ERROR,
     });
-    yield put(actions.putCurrentCategoryRejected());
+    yield put(actions.replaceCurrentCategoryRejected());
   }
 }
 
 function* watchPutCurrentCategory() {
   yield takeLatest(
-    actions.putCurrentCategoryPending.type,
-    putCurrentCategorySaga
+    actions.replaceCurrentCategoryPending.type,
+    replaceCurrentCategorySaga
   );
 }
 

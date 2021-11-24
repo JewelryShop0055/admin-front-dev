@@ -4,7 +4,7 @@ import TopNavigation from "../../components/Navigations/TopNavigation";
 import { SubNavigationElements } from "../../types";
 import CategoryContents from "./components/CategoryContents";
 import CraftshopContents from "./components/CraftshopContents";
-import CreatePutDeleteElements from "./components/CreatePutDeleteElements";
+import CreateReplaceDeleteElements from "./components/CreateReplaceDeleteElements";
 
 const subNaviElements: Array<SubNavigationElements> = [
   {
@@ -17,7 +17,7 @@ const subNaviElements: Array<SubNavigationElements> = [
   },
   {
     elementName: "카테고리/공방 등록하기",
-    elementLink: "/ItemCategoryCrafthopManage/CreateRevise",
+    elementLink: "/ItemCategoryCrafthopManage/CreateReplace",
   },
 ];
 
@@ -46,7 +46,7 @@ export const AddCategoryElementsPage: React.FC = () => {
     <>
       <TopNavigation />
       <SubNavigation elementsArray={subNaviElements} />
-      <CreatePutDeleteElements />
+      <CreateReplaceDeleteElements />
     </>
   );
 };

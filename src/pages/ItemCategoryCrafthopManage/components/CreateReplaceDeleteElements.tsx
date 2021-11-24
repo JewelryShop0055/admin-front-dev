@@ -19,7 +19,7 @@ import CraftshopList from "./CraftshopList";
 import { PaperElevation } from "../../../styleTypes";
 import { useAppSelector } from "../../../modules/hooks";
 import { useState } from "react";
-import { actions as putCurrentCategoryActions } from "../../../store/putCurrentCategory/slice";
+import { actions as replaceCurrentCategoryActions } from "../../../store/replaceCurrentCategory/slice";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function CreatePutDeleteElements() {
+export default function CreateReplaceDeleteElements() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -49,17 +49,17 @@ export default function CreatePutDeleteElements() {
   const {
     isStandByPutCategoryName,
     currentCategoryName,
-    putCategoryName,
+    newCategoryName,
     targetId,
-  } = useAppSelector((state) => state.putCurrentCategory);
+  } = useAppSelector((state) => state.replaceCurrentCategory);
 
-  const [newCategoryName, setNewCategoryName] = useState("");
+  const [inputNameValue, setInputNameValue] = useState("");
 
   const handleChangeCategoryName: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
     const { value } = e.target;
-    setNewCategoryName(value);
+    setInputNameValue(value);
   };
 
   const isDeleting = false;
@@ -84,7 +84,7 @@ export default function CreatePutDeleteElements() {
               name="id"
               size="small"
               onChange={handleChangeCategoryName}
-              value={newCategoryName}
+              value={inputNameValue}
             />
           </form>
           <div>
@@ -95,13 +95,13 @@ export default function CreatePutDeleteElements() {
               onClick={async (e) => {
                 console.log("카테고리수정버튼 클릭");
                 dispatch(
-                  putCurrentCategoryActions.putCurrentCategoryPending({
+                  replaceCurrentCategoryActions.replaceCurrentCategoryPending({
                     targetId: targetId,
                     currentCategoryName: currentCategoryName,
-                    putCategoryName: newCategoryName,
+                    newCategoryName: inputNameValue,
                   })
                 );
-                setNewCategoryName("");
+                setInputNameValue("");
                 history.push("/ItemCategoryCrafthopManage/Category");
               }}
             >

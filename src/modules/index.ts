@@ -13,8 +13,8 @@ import categoryList from "../store/categoryList/slice";
 import categoryListSaga from "../store/categoryList/saga";
 import deleteCategory from "../store/deleteCategory/slice";
 import deleteCategorySaga from "../store/deleteCategory/saga";
-import putCurrentCategory from "../store/putCurrentCategory/slice";
-import putCurrentCategorySaga from "../store/putCurrentCategory/saga";
+import replaceCurrentCategory from "../store/replaceCurrentCategory/slice";
+import replaceCurrentCategorySaga from "../store/replaceCurrentCategory/saga";
 
 export const reducers = {
   topNavigation,
@@ -23,7 +23,7 @@ export const reducers = {
   addNewCategory,
   categoryList,
   deleteCategory,
-  putCurrentCategory,
+  replaceCurrentCategory,
 
   craftshopAddress,
 };
@@ -34,7 +34,7 @@ export function* rootSaga() {
     signOutSaga(),
     addNewCategorySaga(),
     categoryListSaga(),
-    putCurrentCategorySaga(),
+    replaceCurrentCategorySaga(),
 
     deleteCategorySaga(),
   ]);

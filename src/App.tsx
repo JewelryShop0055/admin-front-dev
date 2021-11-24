@@ -43,7 +43,7 @@ const App: React.FC = () => {
         />
 
         <AuthRoute
-          path="/ItemCategoryCrafthopManage/CreateRevise"
+          path="/ItemCategoryCrafthopManage/CreateReplace"
           exact
           component={AddCategoryElementsPage}
         />
