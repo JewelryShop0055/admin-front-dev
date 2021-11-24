@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { PaperElevation } from "../../../styleTypes";
 import CreateIcon from "@material-ui/icons/Create";
+import AddIcon from "@material-ui/icons/Add";
 
 import { useAppSelector } from "../../../modules/hooks";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
@@ -72,7 +73,7 @@ export default function CategoryContents() {
                 variant="contained"
                 color="primary"
                 size="small"
-                startIcon={<CreateIcon />}
+                startIcon={<AddIcon />}
                 onClick={() => {
                   history.push("/ItemCategoryCrafthopManage/CreateReplace");
                 }}

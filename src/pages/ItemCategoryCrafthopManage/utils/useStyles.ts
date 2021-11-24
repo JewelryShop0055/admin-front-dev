@@ -1,4 +1,4 @@
-import { Button, Theme, createStyles, makeStyles } from "@material-ui/core";
+import { Theme, createStyles, makeStyles } from "@material-ui/core";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 
 //여기도 정리가 필요함
@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderBottom: "black solid 0.5px",
       padding: "5px 0 5px 0",
       display: "grid",
-      gridAutoColumns: "2fr 5fr 2fr 2fr",
+      gridAutoColumns: "2fr 5fr 2fr 1.5fr 1.5fr",
       gridTemplateAreas: `"id name itemCount button"`,
     },
 

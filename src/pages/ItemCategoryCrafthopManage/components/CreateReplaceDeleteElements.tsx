@@ -46,12 +46,8 @@ export default function CreateReplaceDeleteElements() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const {
-    isStandByPutCategoryName,
-    currentCategoryName,
-    newCategoryName,
-    targetId,
-  } = useAppSelector((state) => state.replaceCurrentCategory);
+  const { isStandByPutCategoryName, currentCategoryName, targetId } =
+    useAppSelector((state) => state.replaceCurrentCategory);
 
   const [inputNameValue, setInputNameValue] = useState("");
 
@@ -62,9 +58,9 @@ export default function CreateReplaceDeleteElements() {
     setInputNameValue(value);
   };
 
-  const isDeleting = false;
+  const isStandByDeleteCategory = true;
 
-  if (isStandByPutCategoryName) {
+  if (isStandByPutCategoryName || isStandByDeleteCategory) {
     return (
       <>
         <div className={classes.root}>
@@ -88,35 +84,47 @@ export default function CreateReplaceDeleteElements() {
             />
           </form>
           <div>
-            {/* <ThemeProvider theme={buttonTheme}> */}
             <Button
               variant="contained"
               color="primary"
-              onClick={async (e) => {
+              onClick={() => {
                 console.log("카테고리수정버튼 클릭");
+                if (inputNameValue === "") {
+                  alert("바꿀 이름을 입력해주세요");
+                } else {
+                  dispatch(
+                    replaceCurrentCategoryActions.replaceCurrentCategoryPending(
+                      {
+                        targetId: targetId,
+                        currentCategoryName: currentCategoryName,
+                        newCategoryName: inputNameValue,
+                      }
+                    )
+                  );
+                  setInputNameValue("");
+                  history.push("/ItemCategoryCrafthopManage/Category");
+                }
+              }}
+            >
+              수정하기
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                console.log("카테고리수정취소버튼 클릭");
                 dispatch(
-                  replaceCurrentCategoryActions.replaceCurrentCategoryPending({
-                    targetId: targetId,
-                    currentCategoryName: currentCategoryName,
-                    newCategoryName: inputNameValue,
-                  })
+                  replaceCurrentCategoryActions.replaceCurrentCategoryCancel()
                 );
                 setInputNameValue("");
                 history.push("/ItemCategoryCrafthopManage/Category");
               }}
             >
-              등록하기
+              취소하기
             </Button>
-            {/* </ThemeProvider> */}
           </div>
         </div>
       </>
-    );
-  }
-
-  if (isDeleting) {
-    return (
-      <>{/* <대충 삭제할 내용 보여주면서 삭제하시겠습니까?하는 컴포넌트/> */}</>
     );
   }
 

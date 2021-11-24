@@ -43,14 +43,17 @@ export const replaceCurrentCategorySlice = createSlice({
       state.newCategoryName = action.payload.newCategoryName;
       state.isLoadingPutCategoryName = true;
     },
-    replaceCurrentCategoryFullfilled: (
-      state
-      //   action: PayloadAction<replaceCurrentCategoryParams>
-    ) => {
+    replaceCurrentCategoryFullfilled: (state) => {
       state.newCategoryName = "";
       state.isStandByPutCategoryName = false;
       state.isLoadingPutCategoryName = false;
       state.isPutCategoryName = true;
+    },
+    replaceCurrentCategoryCancel: (state) => {
+      state.targetId = 0;
+      state.currentCategoryName = "";
+      state.isStandByPutCategoryName = false;
+      state.isLoadingPutCategoryName = false;
     },
     replaceCurrentCategoryRejected: (state) => {
       state.newCategoryName = "";
