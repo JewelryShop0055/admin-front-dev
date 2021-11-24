@@ -1,6 +1,5 @@
-import { Button, Theme, createStyles, makeStyles } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import { PaperElevation } from "../../../styleTypes";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -14,44 +13,7 @@ import { ProductCategoryList } from "../../../types";
 import { useHistory } from "react-router";
 
 import renderCategoryElements from "./renderCategoryElements";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
-    },
-
-    paper: {
-      "& > *": {
-        padding: theme.spacing(0, 0, 3, 0),
-      },
-    },
-
-    paperElements: {
-      padding: theme.spacing(0, 0, 3, 0),
-    },
-    paginationBlock: {
-      backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
-    },
-    paginationNavigation: {
-      display: "flex",
-      justifyContent: "center",
-    },
-    paginationElements: {
-      borderBottom: "black solid 0.5px",
-      padding: "5px 0 5px 0",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
-    paginationAddButton: {
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
-    },
-  })
-);
+import { useStyles } from "../utils/useStyles";
 
 export default function CategoryContents() {
   const classes = useStyles();
@@ -84,7 +46,6 @@ export default function CategoryContents() {
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    console.log(value, "클릭");
     setNowPage(value);
     getCategoryList({
       page: value,
@@ -94,45 +55,42 @@ export default function CategoryContents() {
 
   return (
     <>
-      <div className={classes.root}>
-        <div className={classes.paper}>
-          <Paper elevation={PaperElevation.BOTTOM}>
-            {/* <NewCategoryEntry /> */}
+      <div className={classes.CategoryContentsBase}>
+        <Paper elevation={PaperElevation.BOTTOM}>
+          <div className={classes.paginationBlock}>
+            <PaginationTexts
+              headerText={"등록된 제품 카테고리"}
+              mainText={
+                "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
+              }
+            />
 
-            <div className={classes.paginationBlock}>
-              <PaginationTexts
-                headerText={"등록된 제품 카테고리"}
-                mainText={
-                  "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
-                }
-              />
+            {renderCategoryElements(categoryList)}
 
-              {renderCategoryElements(categoryList)}
-
-              <div className={classes.paginationAddButton}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  startIcon={<CreateIcon />}
-                  onClick={() => {
-                    history.push("/ItemCategoryCrafthopManage/CreateReplace");
-                  }}
-                >
-                  추가하기
-                </Button>
-              </div>
-              <Pagination
-                className={classes.paginationNavigation}
-                count={maxPage}
-                showFirstButton
-                showLastButton
-                page={nowPage}
-                onChange={paginationNavigationHandler}
-              />
+            <div className={classes.paginationAddButton}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                startIcon={<CreateIcon />}
+                onClick={() => {
+                  history.push("/ItemCategoryCrafthopManage/CreateReplace");
+                }}
+              >
+                추가하기
+              </Button>
             </div>
-          </Paper>
-        </div>
+
+            <Pagination
+              className={classes.paginationNavigation}
+              count={maxPage}
+              showFirstButton
+              showLastButton
+              page={nowPage}
+              onChange={paginationNavigationHandler}
+            />
+          </div>
+        </Paper>
       </div>
     </>
   );

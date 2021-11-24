@@ -6,18 +6,7 @@ import { useDispatch } from "react-redux";
 import { Category } from "../../../types";
 import { useHistory } from "react-router";
 import { actions as replaceCurrentCategoryActions } from "../../../store/replaceCurrentCategory/slice";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paginationElements: {
-      borderBottom: "black solid 0.5px",
-      padding: "5px 0 5px 0",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
-  })
-);
+import { useStyles } from "../utils/useStyles";
 
 function CategoryElementsForm({
   id,
@@ -29,11 +18,16 @@ function CategoryElementsForm({
   const dispatch = useDispatch();
   return (
     <>
-      <div className={classes.paginationElements}>
-        <div>{"고유번호:" + id}</div>
-        <div>{"카테고리명:" + name}</div>
-        <div>{"소속제품수:" + itemCount}</div>
+      <div className={classes.paginationCategoryElements}>
+        <div className={classes.paginationElementId}>{"고유번호:" + id}</div>
+        <div className={classes.paginationElementName}>
+          {"카테고리명:" + name}
+        </div>
+        <div className={classes.paginationElementItemCount}>
+          {"소속제품수:" + itemCount}
+        </div>
         <Button
+          className={classes.paginationElementButton}
           variant="contained"
           color="primary"
           size="small"

@@ -1,6 +1,5 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import PagonationElementForm from "./PagonationElementForm";
-import { Category, PaginationContentsArrayParams } from "../../types";
+import { Category } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,19 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-// function List<ItemType extends { id: string }>(props: {
-//   items: ItemType[];
-//   renderItem: (item: ItemType) => React.ReactNode;
-// }) {
-//   return (
-//     <ul>
-//       {props.items.map((item) => (
-//         <li key={item.id}>{props.renderItem(item)}</li>
-//       ))}
-//     </ul>
-//   );
-// }
 
 type Categorytest = {
   id: number;
@@ -53,10 +39,7 @@ export default function PaginationContents<
       {props.contentsArray.map((value) => {
         return (
           <>
-            <div key={value.id}>
-              {props.contentsRenderComponent(value)}
-              {/* <PagonationElementForm contentsArray={value} /> */}
-            </div>
+            <div key={value.id}>{props.contentsRenderComponent(value)}</div>
           </>
         );
       })}
