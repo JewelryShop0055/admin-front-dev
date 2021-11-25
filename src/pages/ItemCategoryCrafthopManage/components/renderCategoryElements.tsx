@@ -15,6 +15,12 @@ function CategoryElementsForm({
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+
+  // if (name.length > 14) {
+  //   name = name.slice(0, 14) + "...";
+  //   //css로 처리할수있음 이걸로하면 너무느려짐
+  // }
+
   return (
     <>
       <div className={classes.paginationCategoryElements}>
@@ -49,10 +55,12 @@ function CategoryElementsForm({
   );
 }
 
-export default function renderCategoryElements(categoryList: Category[]) {
-  return categoryList.map((value) => {
-    return (
-      <>
+const RenderCategoryElements: React.FC<{
+  categoryList: Category[];
+}> = ({ categoryList }) => {
+  return (
+    <>
+      {categoryList.map((value) => (
         <div key={value.id}>
           <CategoryElementsForm
             id={value.id}
@@ -60,7 +68,9 @@ export default function renderCategoryElements(categoryList: Category[]) {
             itemCount={value.itemCount}
           />
         </div>
-      </>
-    );
-  });
-}
+      ))}
+    </>
+  );
+};
+
+export default RenderCategoryElements;

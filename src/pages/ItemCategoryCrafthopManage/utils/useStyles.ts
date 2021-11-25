@@ -12,6 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0, 0, 3, 0),
     },
 
+    //공통으로 빼는 스타일이 아니면 그냥 거기놔두는 것도 좋을지도?
     paginationBlock: {
       backgroundColor: theme.palette.background.paper,
       padding: "50px 48px 0 48px",
@@ -39,8 +40,12 @@ export const useStyles = makeStyles((theme: Theme) =>
 
     paginationElementName: {
       gridArea: "name",
-      display: "flex",
-      alignItems: "center",
+      display: "block",
+      width: "80%",
+      margin: "auto",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
     },
 
     paginationElementItemCount: {

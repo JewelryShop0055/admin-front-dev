@@ -46,6 +46,7 @@ export default function CreateReplaceDeleteElements() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  //페이지 넘나드는 행위에서 상태관리쓰면 구림 => 그냥 history로 go/back
   const { isStandByPutCategoryName, currentCategoryName, targetId } =
     useAppSelector((state) => state.replaceCurrentCategory);
 

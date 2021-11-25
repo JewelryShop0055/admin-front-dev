@@ -13,7 +13,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { ProductCategoryList } from "../../../types";
 import { useHistory } from "react-router";
 
-import renderCategoryElements from "./renderCategoryElements";
+import RenderCategoryElements from "./renderCategoryElements";
 import { useStyles } from "../utils/useStyles";
 
 export default function CategoryContents() {
@@ -66,7 +66,7 @@ export default function CategoryContents() {
               }
             />
 
-            {renderCategoryElements(categoryList)}
+            <RenderCategoryElements categoryList={categoryList} />
 
             <div className={classes.paginationAddButton}>
               <Button
