@@ -106,7 +106,9 @@ export default function CategoryContents() {
         onClose={() => dispatch(toggleModalAction.toggleModal())}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">카테고리 추가하기</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          카테고리 추가하기(수정,삭제분리필요)
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             추가할 카테고리이름을 입력하세요

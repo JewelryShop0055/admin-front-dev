@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -9,6 +10,13 @@ import { useStyles } from "../utils/useStyles";
 
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
 
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Fade from "@material-ui/core/Fade";
+
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+
 function CategoryElementsForm({
   id,
   name,
@@ -17,6 +25,19 @@ function CategoryElementsForm({
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+
+  //===transition menuHander
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    dispatch(toggleModalAction.toggleModal());
+  };
 
   return (
     <>
@@ -28,7 +49,27 @@ function CategoryElementsForm({
         <div className={classes.paginationElementItemCount}>
           {"소속제품수:" + itemCount}
         </div>
-        <Button
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="fade-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={handleClose}>카테고리 수정</MenuItem>
+          <MenuItem onClick={handleClose}>카테고리 삭제</MenuItem>
+        </Menu>
+
+        {/* <Button
           className={classes.paginationElementButton}
           variant="contained"
           color="primary"
@@ -37,7 +78,7 @@ function CategoryElementsForm({
           onClick={() => dispatch(toggleModalAction.toggleModal())}
         >
           수정/삭제
-        </Button>
+        </Button> */}
       </div>
     </>
   );
