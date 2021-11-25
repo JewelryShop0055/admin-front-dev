@@ -7,6 +7,8 @@ import { useHistory } from "react-router";
 import { actions as replaceCurrentCategoryActions } from "../../../store/replaceCurrentCategory/slice";
 import { useStyles } from "../utils/useStyles";
 
+import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
+
 function CategoryElementsForm({
   id,
   name,
@@ -15,11 +17,6 @@ function CategoryElementsForm({
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // if (name.length > 14) {
-  //   name = name.slice(0, 14) + "...";
-  //   //css로 처리할수있음 이걸로하면 너무느려짐
-  // }
 
   return (
     <>
@@ -37,16 +34,7 @@ function CategoryElementsForm({
           color="primary"
           size="small"
           startIcon={<CreateIcon />}
-          onClick={() => {
-            history.push("/ItemCategoryCrafthopManage/CreateReplace");
-            dispatch(
-              replaceCurrentCategoryActions.replaceCurrentCategoryStandBy({
-                targetId: id,
-                currentCategoryName: name,
-                newCategoryName: "",
-              })
-            );
-          }}
+          onClick={() => dispatch(toggleModalAction.toggleModal())}
         >
           수정/삭제
         </Button>

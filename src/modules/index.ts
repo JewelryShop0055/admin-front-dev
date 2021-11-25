@@ -15,6 +15,8 @@ import deleteCategory from "../store/deleteCategory/slice";
 import deleteCategorySaga from "../store/deleteCategory/saga";
 import replaceCurrentCategory from "../store/replaceCurrentCategory/slice";
 import replaceCurrentCategorySaga from "../store/replaceCurrentCategory/saga";
+import categoryModal from "../store/categoryModal/slice";
+import categoryModalSaga from "../store/categoryModal/saga";
 
 export const reducers = {
   topNavigation,
@@ -24,6 +26,7 @@ export const reducers = {
   categoryList,
   deleteCategory,
   replaceCurrentCategory,
+  categoryModal,
 
   craftshopAddress,
 };
@@ -35,6 +38,7 @@ export function* rootSaga() {
     addNewCategorySaga(),
     categoryListSaga(),
     replaceCurrentCategorySaga(),
+    categoryModalSaga(),
 
     deleteCategorySaga(),
   ]);

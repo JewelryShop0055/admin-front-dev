@@ -13,8 +13,16 @@ import Pagination from "@material-ui/lab/Pagination";
 import { ProductCategoryList } from "../../../types";
 import { useHistory } from "react-router";
 
-import RenderCategoryElements from "./renderCategoryElements";
+import RenderCategoryElements from "./RenderCategoryElements";
 import { useStyles } from "../utils/useStyles";
+
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
 
 export default function CategoryContents() {
   const classes = useStyles();
@@ -54,6 +62,7 @@ export default function CategoryContents() {
     });
   };
 
+  const openModal = useAppSelector((state) => state.categoryModal.isOpen);
   return (
     <>
       <div className={classes.CategoryContentsBase}>
@@ -74,9 +83,7 @@ export default function CategoryContents() {
                 color="primary"
                 size="small"
                 startIcon={<AddIcon />}
-                onClick={() => {
-                  history.push("/ItemCategoryCrafthopManage/CreateReplace");
-                }}
+                onClick={() => dispatch(toggleModalAction.toggleModal())}
               >
                 추가하기
               </Button>
@@ -93,6 +100,40 @@ export default function CategoryContents() {
           </div>
         </Paper>
       </div>
+
+      <Dialog
+        open={openModal}
+        onClose={() => dispatch(toggleModalAction.toggleModal())}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">카테고리 추가하기</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            추가할 카테고리이름을 입력하세요
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            // id="newCategoryName"
+            label="새 카테고리 이름"
+            type="text"
+            fullWidth={true}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => dispatch(toggleModalAction.toggleModal())}
+            color="primary"
+          >
+            Reset
+          </Button>
+          <Button
+            onClick={() => dispatch(toggleModalAction.toggleModal())}
+            color="primary"
+          >
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
