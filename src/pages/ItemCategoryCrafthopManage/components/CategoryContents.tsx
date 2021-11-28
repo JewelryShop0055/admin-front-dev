@@ -1,7 +1,6 @@
 import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { PaperElevation } from "../../../styleTypes";
-import CreateIcon from "@material-ui/icons/Create";
 import AddIcon from "@material-ui/icons/Add";
 
 import { useAppSelector } from "../../../modules/hooks";
@@ -10,19 +9,13 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
-import { ProductCategoryList } from "../../../types";
-import { useHistory } from "react-router";
+import { ModalType, ProductCategoryList } from "../../../types";
 
-import RenderCategoryElements from "./RenderCategoryElements";
+import RenderCategoryElements from "./renderCategoryElements";
 import { useStyles } from "../utils/useStyles";
 
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
+import CategoryModal from "./CategoryModal";
 
 export default function CategoryContents() {
   const classes = useStyles();
@@ -31,7 +24,6 @@ export default function CategoryContents() {
   );
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     getCategoryList({
@@ -63,6 +55,17 @@ export default function CategoryContents() {
   };
 
   const openModal = useAppSelector((state) => state.categoryModal.isOpen);
+
+  const [open, setopen] = useState(false);
+  // useEffect(() => {
+  //   return () => {
+  //     if (openModal) {
+  //       dispatch(toggleModalAction.closeModal());
+  //       //모달내부내용 지우는것도 수행해야함
+  //     }
+  //   };
+  // }, [dispatch, openModal]);
+
   return (
     <>
       <div className={classes.CategoryContentsBase}>
@@ -84,6 +87,18 @@ export default function CategoryContents() {
                 size="small"
                 startIcon={<AddIcon />}
                 onClick={() => dispatch(toggleModalAction.toggleModal())}
+                // onClick={() => {
+                // dispatch(
+                //   toggleModalAction.openModal({
+                //     isOpen: true,
+                //     handleType: ModalType.CREATE,
+                //     id: 0,
+                //     name: "",
+                //     itemCount: 0,
+                //   })
+                // );
+                // setopen(true);
+                // }}
               >
                 추가하기
               </Button>
@@ -101,41 +116,8 @@ export default function CategoryContents() {
         </Paper>
       </div>
 
-      <Dialog
-        open={openModal}
-        onClose={() => dispatch(toggleModalAction.toggleModal())}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          카테고리 추가하기(수정,삭제분리필요)
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            추가할 카테고리이름을 입력하세요
-          </DialogContentText>
-          <TextField
-            margin="dense"
-            // id="newCategoryName"
-            label="새 카테고리 이름"
-            type="text"
-            fullWidth={true}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => dispatch(toggleModalAction.toggleModal())}
-            color="primary"
-          >
-            Reset
-          </Button>
-          <Button
-            onClick={() => dispatch(toggleModalAction.toggleModal())}
-            color="primary"
-          >
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <CategoryModal openModal={open} />
+      {/* <CategoryModal openModal={openModal} /> */}
     </>
   );
 }

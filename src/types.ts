@@ -59,6 +59,12 @@ export enum ErrorEnvironment {
   DeleteCategory = "DeleteCategory",
 }
 
+export enum ModalType {
+  CREATE = "create",
+  REPLACE = "replace",
+  DELETE = "delete",
+}
+
 //Params Types
 
 export type SignInParams = {

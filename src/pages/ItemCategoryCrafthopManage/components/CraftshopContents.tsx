@@ -1,19 +1,6 @@
-import {
-  Theme,
-  createStyles,
-  createTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
-import Typography from "@material-ui/core/Typography";
-import { InputBlock } from "../../Login/components/LoginBlock_styled";
-import { TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { topNavigationHeight } from "../../../components/Navigations/TopNavigation";
-import { lightBlue, blue } from "@material-ui/core/colors";
-import NewCategoryEntry from "./NewCategoryEntry";
 import NewCraftshopEntry from "./NewCraftshopEntry";
 import CraftshopList from "./CraftshopList";
 import { PaperElevation } from "../../../styleTypes";
