@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -23,18 +23,21 @@ function CategoryElementsForm({
   itemCount,
 }: Pick<Category, "id" | "name" | "itemCount">) {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   //===transition menuHander
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemButton = () => {
     setAnchorEl(null);
     dispatch(toggleModalAction.toggleModal());
   };
@@ -43,12 +46,13 @@ function CategoryElementsForm({
     <>
       <div className={classes.paginationCategoryElements}>
         <div className={classes.paginationElementId}>{"고유번호:" + id}</div>
-        <div className={classes.paginationElementName}>
+        <div className={classes.paginationElementName} title={name}>
           {"카테고리명:" + name}
         </div>
         <div className={classes.paginationElementItemCount}>
           {"소속제품수:" + itemCount}
         </div>
+
         <IconButton
           aria-label="more"
           aria-controls="long-menu"
@@ -61,24 +65,13 @@ function CategoryElementsForm({
           id="fade-menu"
           anchorEl={anchorEl}
           keepMounted
-          open={open}
-          onClose={handleClose}
+          open={menuOpen}
+          onClose={handleMenuClose}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={handleClose}>카테고리 수정</MenuItem>
-          <MenuItem onClick={handleClose}>카테고리 삭제</MenuItem>
+          <MenuItem onClick={handleMenuItemButton}>카테고리 수정</MenuItem>
+          <MenuItem onClick={handleMenuItemButton}>카테고리 삭제</MenuItem>
         </Menu>
-
-        {/* <Button
-          className={classes.paginationElementButton}
-          variant="contained"
-          color="primary"
-          size="small"
-          startIcon={<CreateIcon />}
-          onClick={() => dispatch(toggleModalAction.toggleModal())}
-        >
-          수정/삭제
-        </Button> */}
       </div>
     </>
   );
