@@ -60,15 +60,15 @@ function* watchGetCategory() {
     deleteAction.deleteCategoryFullfilled.type,
     getCategoryListSaga
   );
-  //신규 추가 및 수정시 현재 리스트 리랜더링은 수정사항
-  // yield takeLatest(
-  //   replaceAction.replaceCurrentCategoryFullfilled.type,
-  //   getCategoryListSaga
-  // );
-  // yield takeLatest(
-  //   addAction.addNewCategoryFullfilled.type,
-  //   getCategoryListSaga
-  // );
+
+  yield takeLatest(
+    replaceAction.replaceCurrentCategoryFullfilled.type,
+    getCategoryListSaga
+  );
+  yield takeLatest(
+    addAction.addNewCategoryFullfilled.type,
+    getCategoryListSaga
+  );
 }
 
 export default function* rootSaga() {

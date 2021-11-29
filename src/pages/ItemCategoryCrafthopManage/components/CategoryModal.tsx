@@ -9,7 +9,6 @@ import { actions as modalAction } from "../../../store/categoryModal/slice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
-import { ModalType } from "../../../types";
 import { actions as addNewCategoryAction } from "../../../store/addNewCategory/slice";
 import { actions as replaceCategoryAction } from "../../../store/replaceCurrentCategory/slice";
 import { actions as deleteCategoryAction } from "../../../store/deleteCategory/slice";

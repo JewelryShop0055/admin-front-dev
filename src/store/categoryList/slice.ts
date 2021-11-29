@@ -6,14 +6,12 @@ export interface CategoryListSliceState {
   currentPage: number;
   maxPage: number;
   isLoadingCategory: boolean;
-  // isCategoryListLoadComplete: boolean;
 }
 
 export interface CategoryListSliceParams {
   categoryList: Category[];
   currentPage: number;
   maxPage: number;
-  // isCategoryListLoadComplete: boolean;
 }
 
 const initialState: CategoryListSliceState = {
@@ -21,7 +19,6 @@ const initialState: CategoryListSliceState = {
   currentPage: 0,
   maxPage: 0,
   isLoadingCategory: false,
-  // isCategoryListLoadComplete: false,
 };
 
 export const categoryListSlice = createSlice({
@@ -41,19 +38,13 @@ export const categoryListSlice = createSlice({
       state.categoryList = action.payload.categoryList;
       state.currentPage = action.payload.currentPage;
       state.maxPage = action.payload.maxPage;
-      // state.listLength += action.payload.listLength;
-      // state.page = action.payload.page;
       state.isLoadingCategory = false;
-      // state.isCategoryListLoadComplete =
-      //   action.payload.isCategoryListLoadComplete;
     },
     getCategoryListRejected: (state) => {
       state.isLoadingCategory = false;
     },
   },
 });
-
-// export const { getCategoryPandding } = categorySlice.actions;
 
 export const { actions } = categoryListSlice;
 

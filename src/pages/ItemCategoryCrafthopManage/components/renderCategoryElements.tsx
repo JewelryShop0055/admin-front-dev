@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
-import CreateIcon from "@material-ui/icons/Create";
 
 import { useDispatch } from "react-redux";
 import { Category, ModalType } from "../../../types";
-import { useHistory } from "react-router";
-import { actions as replaceCurrentCategoryActions } from "../../../store/replaceCurrentCategory/slice";
 import { useStyles } from "../utils/useStyles";
 
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
