@@ -15,8 +15,12 @@ import { ErrorControl } from "../errorControl";
 import axios from "axios";
 import alertSnackBarMessage from "../../util/snackBarUitls";
 
+import { actions as deleteAction } from "../deleteCategory/slice";
+import { actions as replaceAction } from "../replaceCurrentCategory/slice";
+import { actions as addAction } from "../addNewCategory/slice";
+
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
-  yield delay(200);
+  delay(300);
   const config: ProductCategoryListParams = {
     categoryGroup: ProductType.product,
     page: action.payload.page,
@@ -33,14 +37,8 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
         categoryList: result.data,
         currentPage: result.currentPage,
         maxPage: result.maxPage,
-        // isCategoryListLoadComplete:
-        //   result.length !== action.payload.limit ? true : false,
       })
     );
-    // if (result.length !== action.payload.limit) {
-    //   return true;
-    // }
-    // return false;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({
@@ -58,6 +56,19 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
 
 function* watchGetCategory() {
   yield takeLatest(actions.getCategoryListPending.type, getCategoryListSaga);
+  yield takeLatest(
+    deleteAction.deleteCategoryFullfilled.type,
+    getCategoryListSaga
+  );
+  //신규 추가 및 수정시 현재 리스트 리랜더링은 수정사항
+  // yield takeLatest(
+  //   replaceAction.replaceCurrentCategoryFullfilled.type,
+  //   getCategoryListSaga
+  // );
+  // yield takeLatest(
+  //   addAction.addNewCategoryFullfilled.type,
+  //   getCategoryListSaga
+  // );
 }
 
 export default function* rootSaga() {

@@ -33,7 +33,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
   const modalRenderValues: ModalContents = {
     title: "",
     content: "",
-    buttons: <div></div>,
+    buttons: <div />,
   };
 
   const [inputValue, setInputValue] = useState("");
@@ -110,13 +110,17 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
         <>
           <Button
             onClick={() => {
-              dispatch(
-                deleteCategoryAction.deleteCategoryPending({
-                  categoryId: id,
-                  categoryName: inputValue,
-                })
-              );
-              dispatch(modalAction.closeModal());
+              if (inputValue === name) {
+                dispatch(
+                  deleteCategoryAction.deleteCategoryPending({
+                    categoryId: id,
+                    categoryName: inputValue,
+                  })
+                );
+                dispatch(modalAction.closeModal());
+              } else {
+                alert("입력문자가 틀렸습니다.");
+              }
             }}
             color="primary"
           >
