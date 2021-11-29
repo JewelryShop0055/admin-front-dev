@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
 import { useDispatch } from "react-redux";
-import { Category } from "../../../types";
+import { Category, ModalType } from "../../../types";
 import { useHistory } from "react-router";
 import { actions as replaceCurrentCategoryActions } from "../../../store/replaceCurrentCategory/slice";
 import { useStyles } from "../utils/useStyles";
@@ -37,9 +37,28 @@ function CategoryElementsForm({
     setAnchorEl(null);
   };
 
-  const handleMenuItemButton = () => {
+  const handleReplaceButton = () => {
     setAnchorEl(null);
-    dispatch(toggleModalAction.openModal());
+    dispatch(
+      toggleModalAction.openModal({
+        modalType: ModalType.REPLACE,
+        id: id,
+        name: name,
+        itemCount: itemCount,
+      })
+    );
+  };
+
+  const handleDeleteButton = () => {
+    setAnchorEl(null);
+    dispatch(
+      toggleModalAction.openModal({
+        modalType: ModalType.DELETE,
+        id: id,
+        name: name,
+        itemCount: itemCount,
+      })
+    );
   };
 
   return (
@@ -69,8 +88,8 @@ function CategoryElementsForm({
           onClose={handleMenuClose}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={handleMenuItemButton}>카테고리 수정</MenuItem>
-          <MenuItem onClick={handleMenuItemButton}>카테고리 삭제</MenuItem>
+          <MenuItem onClick={handleReplaceButton}>카테고리 수정</MenuItem>
+          <MenuItem onClick={handleDeleteButton}>카테고리 삭제</MenuItem>
         </Menu>
       </div>
     </>

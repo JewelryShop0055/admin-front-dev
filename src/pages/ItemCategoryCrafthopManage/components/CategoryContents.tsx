@@ -69,9 +69,6 @@ export default function CategoryContents() {
       <div className={classes.CategoryContentsBase}>
         <Paper elevation={PaperElevation.BOTTOM}>
           <div className={classes.paginationBlock}>
-            <Button onClick={() => console.log(openModal)} color="primary">
-              모달상태
-            </Button>
             <PaginationTexts
               headerText={"등록된 제품 카테고리"}
               mainText={
@@ -87,7 +84,16 @@ export default function CategoryContents() {
                 color="primary"
                 size="small"
                 startIcon={<AddIcon />}
-                onClick={() => dispatch(toggleModalAction.openModal())}
+                onClick={() =>
+                  dispatch(
+                    toggleModalAction.openModal({
+                      modalType: ModalType.CREATE,
+                      id: 0,
+                      name: "",
+                      itemCount: 0,
+                    })
+                  )
+                }
                 // onClick={() => {
                 // dispatch(
                 //   toggleModalAction.openModal({
