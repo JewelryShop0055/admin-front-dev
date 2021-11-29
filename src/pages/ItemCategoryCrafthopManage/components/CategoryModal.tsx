@@ -7,6 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Button } from "@material-ui/core";
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 interface CategoryModalProps {
   openModal: boolean;
@@ -14,12 +15,15 @@ interface CategoryModalProps {
 
 const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
   const dispatch = useDispatch();
-
+  // const [open, setOpen] = useState(openModal);
   return (
     <>
       <Dialog
         open={openModal}
-        onClose={() => dispatch(toggleModalAction.toggleModal())}
+        onClose={() => {
+          dispatch(toggleModalAction.closeModal());
+          // setOpen(false);
+        }}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
@@ -41,16 +45,19 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => dispatch(toggleModalAction.toggleModal())}
+            onClick={() => dispatch(toggleModalAction.closeModal())}
             color="primary"
           >
             Reset
           </Button>
           <Button
-            onClick={() => dispatch(toggleModalAction.toggleModal())}
+            onClick={() => dispatch(toggleModalAction.closeModal())}
             color="primary"
           >
             Cancel
+          </Button>
+          <Button onClick={() => console.log(openModal)} color="primary">
+            모달상태
           </Button>
         </DialogActions>
       </Dialog>

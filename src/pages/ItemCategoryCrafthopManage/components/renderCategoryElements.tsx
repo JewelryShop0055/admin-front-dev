@@ -39,7 +39,7 @@ function CategoryElementsForm({
 
   const handleMenuItemButton = () => {
     setAnchorEl(null);
-    dispatch(toggleModalAction.toggleModal());
+    dispatch(toggleModalAction.openModal());
   };
 
   return (

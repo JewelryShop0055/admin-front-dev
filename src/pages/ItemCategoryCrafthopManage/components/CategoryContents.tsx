@@ -11,7 +11,7 @@ import { actions as getListActions } from "../../../store/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
 import { ModalType, ProductCategoryList } from "../../../types";
 
-import RenderCategoryElements from "./renderCategoryElements";
+import RenderCategoryElements from "./RenderCategoryElements";
 import { useStyles } from "../utils/useStyles";
 
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
@@ -22,6 +22,7 @@ export default function CategoryContents() {
   const { categoryList, maxPage } = useAppSelector(
     (state) => state.categoryList
   );
+  const openModal = useAppSelector((state) => state.categoryModal.isOpen);
 
   const dispatch = useDispatch();
 
@@ -54,23 +55,23 @@ export default function CategoryContents() {
     });
   };
 
-  const openModal = useAppSelector((state) => state.categoryModal.isOpen);
-
-  const [open, setopen] = useState(false);
-  // useEffect(() => {
-  //   return () => {
-  //     if (openModal) {
-  //       dispatch(toggleModalAction.closeModal());
-  //       //모달내부내용 지우는것도 수행해야함
-  //     }
-  //   };
-  // }, [dispatch, openModal]);
+  useEffect(() => {
+    return () => {
+      if (openModal) {
+        dispatch(toggleModalAction.closeModal());
+        //모달내부내용 지우는것도 수행해야함
+      }
+    };
+  }, [dispatch, openModal]);
 
   return (
     <>
       <div className={classes.CategoryContentsBase}>
         <Paper elevation={PaperElevation.BOTTOM}>
           <div className={classes.paginationBlock}>
+            <Button onClick={() => console.log(openModal)} color="primary">
+              모달상태
+            </Button>
             <PaginationTexts
               headerText={"등록된 제품 카테고리"}
               mainText={
@@ -86,7 +87,7 @@ export default function CategoryContents() {
                 color="primary"
                 size="small"
                 startIcon={<AddIcon />}
-                onClick={() => dispatch(toggleModalAction.toggleModal())}
+                onClick={() => dispatch(toggleModalAction.openModal())}
                 // onClick={() => {
                 // dispatch(
                 //   toggleModalAction.openModal({
@@ -116,8 +117,7 @@ export default function CategoryContents() {
         </Paper>
       </div>
 
-      <CategoryModal openModal={open} />
-      {/* <CategoryModal openModal={openModal} /> */}
+      <CategoryModal openModal={openModal} />
     </>
   );
 }
