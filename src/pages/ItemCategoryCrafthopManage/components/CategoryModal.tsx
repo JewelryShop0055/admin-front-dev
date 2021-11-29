@@ -58,13 +58,17 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
                 })
               );
               dispatch(modalAction.closeModal());
+              setInputValue("");
             }}
             color="primary"
           >
             추가하기
           </Button>
           <Button
-            onClick={() => dispatch(modalAction.closeModal())}
+            onClick={() => {
+              dispatch(modalAction.closeModal());
+              setInputValue("");
+            }}
             color="primary"
           >
             취소하기
@@ -88,13 +92,17 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
                 })
               );
               dispatch(modalAction.closeModal());
+              setInputValue("");
             }}
             color="primary"
           >
             수정하기
           </Button>
           <Button
-            onClick={() => dispatch(modalAction.closeModal())}
+            onClick={() => {
+              dispatch(modalAction.closeModal());
+              setInputValue("");
+            }}
             color="primary"
           >
             취소하기
@@ -118,6 +126,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
                   })
                 );
                 dispatch(modalAction.closeModal());
+                setInputValue("");
               } else {
                 alert("입력문자가 틀렸습니다.");
               }
@@ -127,7 +136,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
             삭제하기
           </Button>
           <Button
-            onClick={() => dispatch(modalAction.closeModal())}
+            onClick={() => {
+              dispatch(modalAction.closeModal());
+              setInputValue("");
+            }}
             color="primary"
           >
             취소하기
@@ -148,6 +160,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
         open={openModal}
         onClose={() => {
           dispatch(modalAction.closeModal());
+          setInputValue("");
         }}
         aria-labelledby="form-dialog-title"
       >
