@@ -48,16 +48,31 @@ export default function CategoryContents() {
   };
 
   useEffect(() => {
-    if (!openModal && nowPage === 1) {
+    // if (!openModal && nowPage === 1) {
+    //   console.log("1페이지인곳에서 모달을 닫을때", currentPage, nowPage);
+    //   getCategoryList({
+    //     page: 1,
+    //     limit: 10,
+    //   });
+    // } else if (!openModal && nowPage !== 1) {
+    //   console.log("1페이지가 아닌곳에서 모달을 닫을때", currentPage, nowPage);
+    //   getCategoryList({
+    //     page: nowPage,
+    //     limit: 10,
+    //   });
+    // }
+
+    if (!openModal) {
+      console.log("모달을 닫을때", currentPage, nowPage);
       getCategoryList({
-        page: 1,
+        page: nowPage,
         limit: 10,
       });
     }
+
     return () => {
       if (openModal) {
         dispatch(toggleModalAction.closeModal());
-        setNowPage(1);
       }
     };
   }, [dispatch, openModal]);

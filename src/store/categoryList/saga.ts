@@ -20,15 +20,12 @@ import { actions as replaceAction } from "../replaceCurrentCategory/slice";
 import { actions as addAction } from "../addNewCategory/slice";
 
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
-  // delay(300);
-
-  console.log("카테고리 리스트saga 가져오기시작");
+  yield delay(200);
   const config: ProductCategoryListParams = {
     categoryGroup: ProductType.product,
     page: action.payload.page,
     limit: action.payload.limit,
   };
-  console.log("카테고리리스트를 가져오는 api를 보냈습니다.");
   try {
     const result: GetCategoryListResponse = yield call(() =>
       getCategoryList(config)
@@ -59,18 +56,18 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
 function* watchGetCategory() {
   yield takeLatest(actions.getCategoryListPending.type, getCategoryListSaga);
 
-  yield takeLatest(
-    deleteAction.deleteCategoryFullfilled.type,
-    getCategoryListSaga
-  );
-  yield takeLatest(
-    replaceAction.replaceCurrentCategoryFullfilled.type,
-    getCategoryListSaga
-  );
-  yield takeLatest(
-    addAction.addNewCategoryFullfilled.type,
-    getCategoryListSaga
-  );
+  // yield takeLatest(
+  //   deleteAction.deleteCategoryFullfilled.type,
+  //   getCategoryListSaga
+  // );
+  // yield takeLatest(
+  //   replaceAction.replaceCurrentCategoryFullfilled.type,
+  //   getCategoryListSaga
+  // );
+  // yield takeLatest(
+  //   addAction.addNewCategoryFullfilled.type,
+  //   getCategoryListSaga
+  // );
 }
 
 export default function* rootSaga() {
