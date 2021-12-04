@@ -17,7 +17,6 @@ function* getInnerModalValueSaga(
   );
 }
 
-//toggle 자체가 watch당하는 액션이므로, 이것으로 사가를 직접돌려버리면 무한히 반복되어 프리징걸림
 function* watchOpenModalSaga() {
   yield takeLatest(actions.openModal.type, getInnerModalValueSaga);
 }

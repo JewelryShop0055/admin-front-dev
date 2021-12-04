@@ -22,7 +22,7 @@ function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {
   try {
     yield call(() => deleteCategory(params));
     alertSnackBarMessage({
-      message: `카테고리를 삭제했습니다.`,
+      message: `"${action.payload.categoryName}"를 삭제했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
     yield put(
