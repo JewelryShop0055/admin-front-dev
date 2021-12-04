@@ -19,19 +19,11 @@ import CategoryModal from "./CategoryModal";
 
 export default function CategoryContents() {
   const classes = useStyles();
-  const { categoryList, maxPage } = useAppSelector(
+  const dispatch = useDispatch();
+  const { categoryList, maxPage, currentPage } = useAppSelector(
     (state) => state.categoryList
   );
   const openModal = useAppSelector((state) => state.categoryModal.isOpen);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    getCategoryList({
-      page: 1,
-      limit: 10,
-    });
-  }, []);
 
   function getCategoryList({ page, limit }: ProductCategoryList) {
     dispatch(
@@ -56,9 +48,16 @@ export default function CategoryContents() {
   };
 
   useEffect(() => {
+    if (!openModal && nowPage === 1) {
+      getCategoryList({
+        page: 1,
+        limit: 10,
+      });
+    }
     return () => {
       if (openModal) {
         dispatch(toggleModalAction.closeModal());
+        setNowPage(1);
       }
     };
   }, [dispatch, openModal]);
