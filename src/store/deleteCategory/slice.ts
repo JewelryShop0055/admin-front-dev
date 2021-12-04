@@ -5,6 +5,7 @@ interface deleteCategoryParams {
   categoryType: ProductType;
   categoryId: number;
   categoryName: string;
+  page: number;
   isDeleteCategory: boolean;
   isLoadingDeleteCategory: boolean;
 }
@@ -13,6 +14,7 @@ const initialState: deleteCategoryParams = {
   categoryType: ProductType.product,
   categoryId: -1,
   categoryName: "",
+  page: 1,
   isDeleteCategory: false,
   isLoadingDeleteCategory: false,
 };
@@ -28,7 +30,7 @@ export const deleteCategorySlice = createSlice({
     },
     deleteCategoryFullfilled: (
       state,
-      action: PayloadAction<AddNewCategory>
+      action: PayloadAction<DeleteCategory>
     ) => {
       state.isDeleteCategory = true;
       state.isLoadingDeleteCategory = false;

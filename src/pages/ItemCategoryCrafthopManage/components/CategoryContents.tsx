@@ -2,6 +2,8 @@ import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { PaperElevation } from "../../../styleTypes";
 import AddIcon from "@material-ui/icons/Add";
+import { Theme, createStyles, makeStyles } from "@material-ui/core";
+import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 
 import { useAppSelector } from "../../../modules/hooks";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
@@ -12,15 +14,36 @@ import Pagination from "@material-ui/lab/Pagination";
 import { ModalType, ProductCategoryList } from "../../../types";
 
 import RenderCategoryElements from "./RenderCategoryElements";
-import { useStyles } from "../utils/useStyles";
 
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
 import CategoryModal from "./CategoryModal";
 
+export const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    CategoryContentsBase: {
+      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
+    },
+    paginationBlock: {
+      backgroundColor: theme.palette.background.paper,
+      padding: "50px 48px 0 48px",
+      minWidth: "600px",
+    },
+    paginationAddButton: {
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: "10px 0 10px 0",
+    },
+    paginationNavigation: {
+      display: "flex",
+      justifyContent: "center",
+    },
+  })
+);
+
 export default function CategoryContents() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { categoryList, maxPage, currentPage } = useAppSelector(
+  const { categoryList, maxPage } = useAppSelector(
     (state) => state.categoryList
   );
   const openModal = useAppSelector((state) => state.categoryModal.isOpen);
@@ -48,22 +71,7 @@ export default function CategoryContents() {
   };
 
   useEffect(() => {
-    // if (!openModal && nowPage === 1) {
-    //   console.log("1페이지인곳에서 모달을 닫을때", currentPage, nowPage);
-    //   getCategoryList({
-    //     page: 1,
-    //     limit: 10,
-    //   });
-    // } else if (!openModal && nowPage !== 1) {
-    //   console.log("1페이지가 아닌곳에서 모달을 닫을때", currentPage, nowPage);
-    //   getCategoryList({
-    //     page: nowPage,
-    //     limit: 10,
-    //   });
-    // }
-
     if (!openModal) {
-      console.log("모달을 닫을때", currentPage, nowPage);
       getCategoryList({
         page: nowPage,
         limit: 10,
@@ -124,7 +132,7 @@ export default function CategoryContents() {
         </Paper>
       </div>
 
-      <CategoryModal openModal={openModal} />
+      <CategoryModal openModal={openModal} page={nowPage} />
     </>
   );
 }

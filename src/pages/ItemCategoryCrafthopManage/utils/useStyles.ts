@@ -13,10 +13,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
 
     //공통으로 빼는 스타일이 아니면 그냥 거기놔두는 것도 좋을지도?
-    paginationBlock: {
-      backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
-    },
 
     paginationNavigation: {
       display: "flex",
@@ -58,12 +54,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       gridArea: "button",
       display: "flex",
       alignItems: "center",
-    },
-
-    paginationAddButton: {
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
     },
   })
 );

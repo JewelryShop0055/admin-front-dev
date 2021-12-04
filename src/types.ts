@@ -24,6 +24,7 @@ export type AddNewCategory = {
 export type DeleteCategory = {
   categoryId: number;
   categoryName: string;
+  page: number;
 };
 
 export type ProductCategoryList = {
