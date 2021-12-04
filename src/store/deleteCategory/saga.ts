@@ -14,7 +14,7 @@ import { ErrorControl } from "../errorControl";
 import { actions } from "./slice";
 
 function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {
-  console.log("삭제 사가");
+  console.log("삭제 사가 시작");
   const params: DeleteCategoryParams = {
     categoryGroup: ProductType.product,
     categoryId: action.payload.categoryId,
@@ -25,6 +25,7 @@ function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {
       message: `"${action.payload.categoryName}"를 삭제했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
+    console.log("삭제 사가 끝");
     yield put(
       actions.deleteCategoryFullfilled({
         categoryName: action.payload.categoryName,

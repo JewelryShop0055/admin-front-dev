@@ -34,7 +34,10 @@ export const replaceCurrentCategorySlice = createSlice({
       state.newCategoryName = action.payload.newCategoryName;
       state.isLoadingPutCategoryName = true;
     },
-    replaceCurrentCategoryFullfilled: (state) => {
+    replaceCurrentCategoryFullfilled: (
+      state,
+      action: PayloadAction<replaceCurrentCategoryParams>
+    ) => {
       state.newCategoryName = "";
       state.isLoadingPutCategoryName = false;
       state.isPutCategoryName = true;

@@ -59,7 +59,6 @@ export default function CategoryContents() {
     return () => {
       if (openModal) {
         dispatch(toggleModalAction.closeModal());
-        //모달내부내용 지우는것도 수행해야함
       }
     };
   }, [dispatch, openModal]);
@@ -94,18 +93,6 @@ export default function CategoryContents() {
                     })
                   )
                 }
-                // onClick={() => {
-                // dispatch(
-                //   toggleModalAction.openModal({
-                //     isOpen: true,
-                //     handleType: ModalType.CREATE,
-                //     id: 0,
-                //     name: "",
-                //     itemCount: 0,
-                //   })
-                // );
-                // setopen(true);
-                // }}
               >
                 추가하기
               </Button>

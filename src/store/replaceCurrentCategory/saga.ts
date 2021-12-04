@@ -22,7 +22,13 @@ function* replaceCurrentCategorySaga(
       message: `카테고리명 "${action.payload.currentCategoryName}"을 "${action.payload.newCategoryName}"으로 수정했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
-    yield put(actions.replaceCurrentCategoryFullfilled());
+    yield put(
+      actions.replaceCurrentCategoryFullfilled({
+        targetId: action.payload.targetId,
+        currentCategoryName: action.payload.currentCategoryName,
+        newCategoryName: action.payload.newCategoryName,
+      })
+    );
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({
