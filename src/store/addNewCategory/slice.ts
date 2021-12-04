@@ -22,7 +22,6 @@ export const addNewCategorySlice = createSlice({
       state.isLoadingAddCategory = true;
     },
     addNewCategoryFullfilled: (state, action: PayloadAction<Category>) => {
-      console.log("새로 추가된 카테고리:", action.payload.name);
       state.categoryName = action.payload.name;
       state.categoryResponse = action.payload;
       state.isLoadingAddCategory = false;

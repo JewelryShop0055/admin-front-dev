@@ -15,7 +15,6 @@ import { actions as deleteCategoryAction } from "../../../store/deleteCategory/s
 
 interface CategoryModalProps {
   openModal: boolean;
-  page: number;
 }
 
 interface ModalContents {
@@ -24,7 +23,7 @@ interface ModalContents {
   buttons: JSX.Element;
 }
 
-const CategoryModal: React.FC<CategoryModalProps> = ({ openModal, page }) => {
+const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
   const dispatch = useDispatch();
   const { modalType, id, name, itemCount } = useAppSelector(
     (state) => state.categoryModal
@@ -123,7 +122,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal, page }) => {
                   deleteCategoryAction.deleteCategoryPending({
                     categoryId: id,
                     categoryName: inputValue,
-                    page: page,
                   })
                 );
                 dispatch(modalAction.closeModal());

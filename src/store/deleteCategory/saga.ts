@@ -28,7 +28,6 @@ function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {
       actions.deleteCategoryFullfilled({
         categoryId: action.payload.categoryId,
         categoryName: action.payload.categoryName,
-        page: action.payload.page,
       })
     );
     yield console.log("삭제 fullfilled처리 끝");

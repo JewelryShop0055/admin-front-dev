@@ -9,7 +9,7 @@ export interface CategoryListSliceState {
 }
 
 export interface CategoryListSliceParams {
-  categoryList: Category[];
+  data: Category[];
   currentPage: number;
   maxPage: number;
 }
@@ -35,7 +35,7 @@ export const categoryListSlice = createSlice({
       state,
       action: PayloadAction<CategoryListSliceParams>
     ) => {
-      state.categoryList = action.payload.categoryList;
+      state.categoryList = action.payload.data;
       state.currentPage = action.payload.currentPage;
       state.maxPage = action.payload.maxPage;
       state.isLoadingCategory = false;

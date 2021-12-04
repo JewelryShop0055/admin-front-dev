@@ -1,4 +1,11 @@
-import { call, put, takeLatest, all, delay } from "@redux-saga/core/effects";
+import {
+  call,
+  put,
+  takeLatest,
+  all,
+  delay,
+  takeEvery,
+} from "@redux-saga/core/effects";
 import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList } from "../../api/categoryList";
@@ -20,26 +27,23 @@ import { actions as replaceAction } from "../replaceCurrentCategory/slice";
 import { actions as addAction } from "../addNewCategory/slice";
 
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
-  // yield delay(200);
-
   const config: ProductCategoryListParams = {
     categoryGroup: ProductType.product,
-    page: action.payload.page,
-    limit: action.payload.limit,
+    page: yield action.type === "categoryList/getCategoryListPending"
+      ? 1
+      : action.payload.page,
+    limit: 10,
   };
+  //신규추가일때만 1, 나머지는 페이지입력값을 받도록하자...그냥... 답이없다...
+  yield console.log(action.type);
+
   try {
     const result: GetCategoryListResponse = yield call(() =>
       getCategoryList(config)
     );
     yield console.log("새로가져왔지롱", result, action.payload);
 
-    yield put(
-      actions.getCategoryListFullFilled({
-        categoryList: result.data,
-        currentPage: result.currentPage,
-        maxPage: result.maxPage,
-      })
-    );
+    yield put(actions.getCategoryListFullFilled(result));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({
@@ -55,15 +59,22 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
   }
 }
 
-function* getNewCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
-  yield console.log("삭제했죠?");
+function* getNewCategoryListSaga(action: PayloadAction) {
+  yield console.log("모달에서의 액션", action.type);
+  yield console.log(
+    action.type === "replaceCurrentCategory/replaceCurrentCategoryFullfilled"
+  );
 }
 
 function* watchGetCategory() {
   yield takeLatest(actions.getCategoryListPending.type, getCategoryListSaga);
-  yield takeLatest(
-    deleteAction.deleteCategoryFullfilled.type,
-    getCategoryListSaga
+  yield takeEvery(
+    [
+      deleteAction.deleteCategoryFullfilled.type,
+      replaceAction.replaceCurrentCategoryFullfilled.type,
+      addAction.addNewCategoryFullfilled.type,
+    ],
+    getNewCategoryListSaga
   );
 }
 
