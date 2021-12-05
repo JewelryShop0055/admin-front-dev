@@ -51,6 +51,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
         <>
           <Button
             onClick={() => {
+              if (inputValue === "") {
+                alert("공백은 등록할 수 없습니다.");
+                return;
+              }
               dispatch(
                 addNewCategoryAction.addNewCategoryPending({
                   categoryName: inputValue,
