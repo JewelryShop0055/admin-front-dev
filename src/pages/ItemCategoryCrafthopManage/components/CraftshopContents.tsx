@@ -10,13 +10,17 @@ import RenderCraftshopElements from "./RenderCraftshopElements";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
-import { Craftshop } from "../../../types";
+import { Craftshop, ModalType } from "../../../types";
 import Pagination from "@material-ui/lab/Pagination";
 import { useState } from "react";
-import CraftshopModal from "./CategoryModal";
+import CraftshopModal from "./CraftshopModal";
+import { useAppSelector } from "../../../modules/hooks";
+import { actions as modalAction } from "../../../store/craftshopModal/slice";
+
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
+  const openModal = useAppSelector((state) => state.craftshopModal.isOpen);
 
   //임시값
   const craftshopList: Craftshop[] = [
@@ -89,15 +93,14 @@ export default function CraftshopContents() {
                 size="small"
                 startIcon={<AddIcon />}
                 onClick={() =>
-                  // dispatch(
-                  //   toggleModalAction.openModal({
-                  //     modalType: ModalType.CREATE,
-                  //     id: 0,
-                  //     name: "",
-                  //     itemCount: 0,
-                  //   })
-                  // )
-                  console.log("공방추가버튼 클릭")
+                  dispatch(
+                    modalAction.openModal({
+                      modalType: ModalType.CREATE,
+                      name: "",
+                      address: "",
+                      phone: "",
+                    })
+                  )
                 }
               >
                 추가하기
@@ -118,7 +121,7 @@ export default function CraftshopContents() {
           {/* <CraftshopList /> */}
         </Paper>
       </div>
-      <CraftshopModal openModal={false} />
+      <CraftshopModal openModal={openModal} />
     </>
   );
 }

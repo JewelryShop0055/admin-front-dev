@@ -5,10 +5,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Button } from "@material-ui/core";
-import { actions as modalAction } from "../../../store/categoryModal/slice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
+import { actions as modalAction } from "../../../store/craftshopModal/slice";
 
 interface CraftshopModalProps {
   openModal: boolean;
@@ -43,20 +43,23 @@ const CraftshopModal: React.FC<CraftshopModalProps> = ({ openModal }) => {
         onClose={() => {
           dispatch(modalAction.closeModal());
           setInputValue("");
+          console.log("닫자");
         }}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {modalRenderValues.title}
+          {/* {modalRenderValues.title} */}
+          빌드중
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {modalRenderValues.content.split("\n").map((line) => (
+            {/* {modalRenderValues.content.split("\n").map((line) => (
               <span>
                 {line}
                 <br />
               </span>
-            ))}
+            ))} */}
+            내용미작성
           </DialogContentText>
           <TextField
             margin="dense"
@@ -67,7 +70,7 @@ const CraftshopModal: React.FC<CraftshopModalProps> = ({ openModal }) => {
             fullWidth={true}
           />
         </DialogContent>
-        <DialogActions>{modalRenderValues.buttons}</DialogActions>
+        <DialogActions>{/* {modalRenderValues.buttons} */}</DialogActions>
       </Dialog>
     </>
   );

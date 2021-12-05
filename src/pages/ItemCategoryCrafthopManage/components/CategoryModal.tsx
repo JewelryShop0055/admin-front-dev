@@ -152,7 +152,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ openModal }) => {
       break;
 
     default:
-      modalRenderValues.title = "불러오는중...";
+      modalRenderValues.title = "불러오는중......";
       modalRenderValues.content = "불러오는중...";
       break;
   }
