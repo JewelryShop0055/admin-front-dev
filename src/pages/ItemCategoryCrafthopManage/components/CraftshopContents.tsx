@@ -114,7 +114,7 @@ export default function CraftshopContents() {
             />
           </div>
 
-          <NewCraftshopEntry />
+          {/* <NewCraftshopEntry /> */}
           {/* <CraftshopList /> */}
         </Paper>
       </div>

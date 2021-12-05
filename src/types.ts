@@ -85,6 +85,14 @@ export type AddNewCategoryParams = {
   categoryName: string;
 };
 
+export type AddNewCraftshopParams = {
+  name: string;
+  postCode: string;
+  address: string;
+  detailAddress: string;
+  phone: string;
+};
+
 export type ProductCategoryListParams = {
   categoryGroup: ProductType;
   page: number;
