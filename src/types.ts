@@ -57,6 +57,8 @@ export enum ErrorEnvironment {
   AddNewCategory = "AddNewCategory",
   GetCategoryList = "GetCategoryList",
   DeleteCategory = "DeleteCategory",
+
+  ADDNEWCRAFTSHOP = "AddNewCraftShop",
 }
 
 export enum ModalType {
