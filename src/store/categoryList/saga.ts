@@ -54,13 +54,6 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
   }
 }
 
-function* getNewCategoryListSaga(action: PayloadAction) {
-  yield console.log("모달에서의 액션", action.type);
-  yield console.log(
-    action.type === "replaceCurrentCategory/replaceCurrentCategoryFullfilled"
-  );
-}
-
 function* watchGetCategory() {
   yield takeLatest(actions.getCategoryListPending.type, getCategoryListSaga);
   yield takeEvery(
@@ -69,7 +62,7 @@ function* watchGetCategory() {
       replaceAction.replaceCurrentCategoryFullfilled.type,
       addAction.addNewCategoryFullfilled.type,
     ],
-    getNewCategoryListSaga
+    getCategoryListSaga
   );
 }
 

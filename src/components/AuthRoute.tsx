@@ -41,14 +41,11 @@ export const AuthRoute = ({
             getAuthTokenFromCookies("user_refresh_token")!.toString(),
         })
       );
-      await console.log("토큰 리프레쉬1", authenticated, tokenState);
       const newTokenState = await getTokenExpiredState();
-      await console.log("토큰 리프레쉬1.5", newTokenState);
       if (
         newTokenState.user_access_token === true &&
         newTokenState.user_refresh_token === true
       ) {
-        console.log("토큰 리프레쉬2", authenticated);
         setAuthenticated(true);
       }
     }

@@ -49,7 +49,5 @@ export async function addNewCraftshop({
       },
     }
   );
-
-  console.log(response.data);
   return response.data;
 }

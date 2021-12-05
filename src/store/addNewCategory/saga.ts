@@ -23,15 +23,11 @@ export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {
     const result: AddNewCategoryResponse = yield call(() =>
       addNewCategory(params)
     );
-    console.log(result);
     alertSnackBarMessage({
       message: `신규 카테고리 "${action.payload.categoryName}"을 추가했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
-    yield console.log("추가");
     yield put(actions.addNewCategoryFullfilled(result));
-
-    yield console.log("추가 반영완료");
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({

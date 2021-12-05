@@ -11,7 +11,7 @@ export const getCategoryList = async (params: ProductCategoryListParams) => {
     },
   };
   const response = await axiosInstance(config).get(
-    `/admin/category/${params.categoryGroup}?page=${params.page}&limit=${params.limit}`
+    `/admin/category/${params.categoryGroup}?page=${params.page}&limit=${params.limit}&order=id_desc`
   );
   return response.data;
 };

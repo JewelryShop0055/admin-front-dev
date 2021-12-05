@@ -131,7 +131,6 @@ const LoginPage: React.FC = () => {
                 variant="outlined"
                 color="primary"
                 onClick={async () => {
-                  console.log("로그인버튼 클릭");
                   await dispatch(
                     actions.getAuthTokenPending({
                       userId: userId,

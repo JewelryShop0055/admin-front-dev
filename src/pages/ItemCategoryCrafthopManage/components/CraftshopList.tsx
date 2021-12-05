@@ -27,9 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function ListItemElements() {
-  const craftshops = ["목걸이", "팔찌", "반지"].map((props) => {
-    // console.log(props);
-  });
+  const craftshops = ["목걸이", "팔찌", "반지"].map((props) => {});
   return (
     <>
       {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
