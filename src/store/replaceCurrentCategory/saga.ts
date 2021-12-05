@@ -10,7 +10,6 @@ import { actions, replaceCurrentCategoryParams } from "./slice";
 function* replaceCurrentCategorySaga(
   action: PayloadAction<replaceCurrentCategoryParams>
 ) {
-  console.log("수정 사가");
   const params: replaceCurrentCategoryParams = {
     targetId: action.payload.targetId,
     currentCategoryName: action.payload.currentCategoryName,

@@ -27,22 +27,17 @@ import { actions as replaceAction } from "../replaceCurrentCategory/slice";
 import { actions as addAction } from "../addNewCategory/slice";
 
 function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
+  yield delay(100);
   const config: ProductCategoryListParams = {
     categoryGroup: ProductType.product,
-    page: yield action.type === "categoryList/getCategoryListPending"
-      ? 1
-      : action.payload.page,
+    page: action.payload.page,
     limit: 10,
   };
-  //신규추가일때만 1, 나머지는 페이지입력값을 받도록하자...그냥... 답이없다...
-  yield console.log(action.type);
 
   try {
     const result: GetCategoryListResponse = yield call(() =>
       getCategoryList(config)
     );
-    yield console.log("새로가져왔지롱", result, action.payload);
-
     yield put(actions.getCategoryListFullFilled(result));
   } catch (error) {
     if (axios.isAxiosError(error)) {

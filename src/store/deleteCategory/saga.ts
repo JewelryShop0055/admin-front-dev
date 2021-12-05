@@ -30,7 +30,6 @@ function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {
         categoryName: action.payload.categoryName,
       })
     );
-    yield console.log("삭제 fullfilled처리 끝");
   } catch (error) {
     if (axios.isAxiosError(error)) {
       ErrorControl({

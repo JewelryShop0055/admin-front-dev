@@ -55,15 +55,6 @@ export default function CategoryContents() {
         limit: limit,
       })
     );
-    console.log(
-      "dispatch가 반환하는것",
-      dispatch(
-        getListActions.getCategoryListPending({
-          page: page,
-          limit: limit,
-        })
-      )
-    );
   }
 
   const [nowPage, setNowPage] = useState(1);

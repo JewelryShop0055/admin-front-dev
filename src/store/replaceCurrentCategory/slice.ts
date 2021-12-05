@@ -26,7 +26,6 @@ export const replaceCurrentCategorySlice = createSlice({
   name: "replaceCurrentCategory",
   initialState,
   reducers: {
-    //스텐바이사용하는건 엄청 구리니까 다 지우고 다시하기
     replaceCurrentCategoryPending: (
       state,
       action: PayloadAction<replaceCurrentCategoryParams>
