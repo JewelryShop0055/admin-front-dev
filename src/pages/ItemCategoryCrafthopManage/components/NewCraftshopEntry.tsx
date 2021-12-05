@@ -18,7 +18,6 @@ import {
   setAddtionalAddress,
   setZoneCode,
 } from "../../../util/CraftshopAddressSlice";
-import { addNewCraftshop } from "../../../api/workshop";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -163,14 +162,14 @@ export default function NewCraftshopEntry() {
                 }
                 const newTimer = window.setTimeout(async () => {
                   try {
-                    await addNewCraftshop({
-                      craftshopName: craftshopName,
-                      zoneCode: zoneCode,
-                      baseAddress: baseAddress,
-                      addtionalAddress: addtionalAddress,
-                      detailAddress: CraftshopDetailAddress,
-                      phoneNumber: craftshopPhoneNumber,
-                    });
+                    // await addNewCraftshop({
+                    //   craftshopName: craftshopName,
+                    //   zoneCode: zoneCode,
+                    //   baseAddress: baseAddress,
+                    //   addtionalAddress: addtionalAddress,
+                    //   detailAddress: CraftshopDetailAddress,
+                    //   phoneNumber: craftshopPhoneNumber,
+                    // });
                     dispatch(setBaseAddress(""));
                     dispatch(setAddtionalAddress(""));
                     dispatch(setZoneCode(""));

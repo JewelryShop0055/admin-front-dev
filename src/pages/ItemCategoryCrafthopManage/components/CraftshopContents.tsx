@@ -13,7 +13,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Craftshop } from "../../../types";
 import Pagination from "@material-ui/lab/Pagination";
 import { useState } from "react";
-
+import CraftshopModal from "./CategoryModal";
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
@@ -118,6 +118,7 @@ export default function CraftshopContents() {
           {/* <CraftshopList /> */}
         </Paper>
       </div>
+      <CraftshopModal openModal={false} />
     </>
   );
 }
