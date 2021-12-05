@@ -138,6 +138,17 @@ export type Category = {
   updatedAt: string;
 };
 
+export type Craftshop = {
+  id: string;
+  name: string;
+  postCode: string;
+  address: string;
+  detailAddress: string;
+  phone: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
 type AxiosHeaderProps = {
   Authorization: string;
 };

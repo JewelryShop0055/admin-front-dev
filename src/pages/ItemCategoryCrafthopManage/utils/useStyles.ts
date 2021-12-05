@@ -57,3 +57,25 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+export const ContentsBaseStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    ContentsBase: {
+      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
+    },
+    paginationBlock: {
+      backgroundColor: theme.palette.background.paper,
+      padding: "50px 48px 0 48px",
+      minWidth: "600px",
+    },
+    paginationAddButton: {
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: "10px 0 10px 0",
+    },
+    paginationNavigation: {
+      display: "flex",
+      justifyContent: "center",
+    },
+  })
+);

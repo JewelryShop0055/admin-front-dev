@@ -18,35 +18,17 @@ import RenderCategoryElements from "./RenderCategoryElements";
 import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
 import CategoryModal from "./CategoryModal";
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    CategoryContentsBase: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
-    },
-    paginationBlock: {
-      backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
-      minWidth: "600px",
-    },
-    paginationAddButton: {
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
-    },
-    paginationNavigation: {
-      display: "flex",
-      justifyContent: "center",
-    },
-  })
-);
+import { ContentsBaseStyles } from "../utils/useStyles";
 
 export default function CategoryContents() {
-  const classes = useStyles();
+  const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
+  const openModal = useAppSelector((state) => state.categoryModal.isOpen);
   const { categoryList, maxPage } = useAppSelector(
     (state) => state.categoryList
   );
-  const openModal = useAppSelector((state) => state.categoryModal.isOpen);
+
+  const [nowPage, setNowPage] = useState(1);
 
   function getCategoryList({ page, limit }: ProductCategoryList) {
     dispatch(
@@ -56,8 +38,6 @@ export default function CategoryContents() {
       })
     );
   }
-
-  const [nowPage, setNowPage] = useState(1);
 
   const paginationNavigationHandler = (
     event: React.ChangeEvent<unknown>,
@@ -77,7 +57,6 @@ export default function CategoryContents() {
         limit: 10,
       });
     }
-
     return () => {
       if (openModal) {
         dispatch(toggleModalAction.closeModal());
@@ -87,7 +66,7 @@ export default function CategoryContents() {
 
   return (
     <>
-      <div className={classes.CategoryContentsBase}>
+      <div className={classes.ContentsBase}>
         <Paper elevation={PaperElevation.BOTTOM}>
           <div className={classes.paginationBlock}>
             <PaginationTexts
