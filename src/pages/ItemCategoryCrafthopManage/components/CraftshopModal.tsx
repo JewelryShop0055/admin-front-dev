@@ -43,7 +43,6 @@ const CraftshopModal: React.FC<CraftshopModalProps> = ({ openModal }) => {
         onClose={() => {
           dispatch(modalAction.closeModal());
           setInputValue("");
-          console.log("닫자");
         }}
         aria-labelledby="form-dialog-title"
       >
