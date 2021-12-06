@@ -3,19 +3,12 @@ import DaumPostcode, { Address } from "react-daum-postcode";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-
-import {
-  setAddtionalAddress,
-  setBaseAddress,
-  setZoneCode,
-} from "../../../util/CraftshopAddressSlice";
-import { useAppDispatch } from "../../../modules/hooks";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../store/findAddress/slice";
 
 export function FindAddressCode() {
   const [open, setOpen] = React.useState(false);
-
-  const dispatch = useAppDispatch();
-
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -25,9 +18,17 @@ export function FindAddressCode() {
   };
 
   const handleComplete = (data: Address) => {
-    dispatch(setBaseAddress(data.address));
-    dispatch(setAddtionalAddress(`(${data.bname} ${data.buildingName})`));
-    dispatch(setZoneCode(data.zonecode));
+    if (!data) {
+      alert("다음 주소 찾기 서비스장애입니다. 잠시 후 이용해주세요.");
+      return;
+    }
+    const getValue = {
+      baseAddress: data.address,
+      addtionalAddress: data.bname.toString() + data.buildingName.toString(),
+      zoneCode: data.zonecode,
+    };
+    console.log(getValue);
+    dispatch(actions.getAddressValueFullfilled(getValue));
 
     setOpen(false);
   };

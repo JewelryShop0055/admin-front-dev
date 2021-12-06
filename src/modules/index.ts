@@ -23,6 +23,7 @@ import craftshopModal from "../store/craftshop/craftshopModal/slice";
 import craftshopModalSaga from "../store/craftshop/craftshopModal/saga";
 import craftshopList from "../store/craftshop/craftshopList/slice";
 import craftshopListSaga from "../store/craftshop/craftshopList/saga";
+import findAddress from "../store/findAddress/slice";
 
 export const reducers = {
   topNavigation,
@@ -39,7 +40,7 @@ export const reducers = {
   craftshopModal,
   craftshopList,
 
-  craftshopAddress,
+  findAddress,
 };
 
 export function* rootSaga() {

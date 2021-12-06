@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 
 import { AuthRoute } from "./components/AuthRoute";
 
-import Error404 from "./pages/Error/Error404";
+import Error404 from "./pages/ErrorPage/Error404";
 import ItemCategoryPage, {
   AddNewCraftshopPage,
   CraftshopPage,

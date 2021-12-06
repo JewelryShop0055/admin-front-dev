@@ -55,7 +55,7 @@ export default function AddNewCraftshop() {
   const { craftshopName, CraftshopDetailAddress, craftshopPhoneNumber } =
     craftshopValue;
   const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
-    (state) => state.craftshopAddress
+    (state) => state.findAddress
   );
 
   const handleCraftshopValue: React.ChangeEventHandler<
@@ -83,10 +83,11 @@ export default function AddNewCraftshop() {
               name="id"
               size="small"
               disabled
-              value={`${zoneCode}`}
+              value={zoneCode}
             />
 
             <FindAddressCode />
+
             <div />
             <TextField
               id="outlined-basic"
@@ -96,7 +97,7 @@ export default function AddNewCraftshop() {
               size="small"
               disabled
               fullWidth
-              value={`${baseAddress}`}
+              value={baseAddress}
             />
             <div />
             <TextField
@@ -115,7 +116,7 @@ export default function AddNewCraftshop() {
               name="id"
               size="small"
               disabled
-              value={`${addtionalAddress}`}
+              value={addtionalAddress}
             />
           </form>
 
