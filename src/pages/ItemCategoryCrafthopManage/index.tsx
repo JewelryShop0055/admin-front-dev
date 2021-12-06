@@ -2,6 +2,7 @@ import React from "react";
 import SubNavigation from "../../components/Navigations/SubNavigation";
 import TopNavigation from "../../components/Navigations/TopNavigation";
 import { SubNavigationElements } from "../../types";
+import AddNewCraftshop from "./components/AddNewCraftshop";
 import CategoryContents from "./components/CategoryContents";
 import CraftshopContents from "./components/CraftshopContents";
 
@@ -32,6 +33,16 @@ export const CraftshopPage: React.FC = () => {
       <TopNavigation />
       <SubNavigation elementsArray={subNaviElements} />
       <CraftshopContents />
+    </>
+  );
+};
+
+export const AddNewCraftshopPage: React.FC = () => {
+  return (
+    <>
+      <TopNavigation />
+      <SubNavigation elementsArray={subNaviElements} />
+      <AddNewCraftshop />
     </>
   );
 };

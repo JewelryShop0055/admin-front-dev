@@ -5,6 +5,7 @@ import { AuthRoute } from "./components/AuthRoute";
 
 import Error404 from "./pages/Error/Error404";
 import ItemCategoryPage, {
+  AddNewCraftshopPage,
   CraftshopPage,
 } from "./pages/ItemCategoryCrafthopManage";
 import LoginPage from "./pages/Login";
@@ -38,6 +39,12 @@ const App: React.FC = () => {
           path="/ItemCategoryCrafthopManage/Craftshop"
           exact
           component={CraftshopPage}
+        />
+
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Craftshop/add"
+          exact
+          component={AddNewCraftshopPage}
         />
 
         <Route component={Error404} />

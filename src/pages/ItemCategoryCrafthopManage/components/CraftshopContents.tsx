@@ -1,7 +1,7 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
-import NewCraftshopEntry from "./NewCraftshopEntry";
+import NewCraftshopEntry from "./AddNewCraftshop";
 import CraftshopList from "./CraftshopList";
 import { PaperElevation } from "../../../styleTypes";
 import { ContentsBaseStyles } from "../utils/useStyles";
@@ -17,11 +17,13 @@ import CraftshopModal from "./CraftshopModal";
 import { useAppSelector } from "../../../modules/hooks";
 import { actions as modalAction } from "../../../store/craftshop/craftshopModal/slice";
 import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
+import { useHistory } from "react-router";
 
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
   const openModal = useAppSelector((state) => state.craftshopModal.isOpen);
+  const history = useHistory();
 
   const { craftshopList, maxPage } = useAppSelector(
     (state) => state.craftshopList
@@ -37,13 +39,18 @@ export default function CraftshopContents() {
   };
 
   useEffect(() => {
-    dispatch(
-      craftshopListAction.getCraftshopListPending({
-        page: nowPage,
-        limit: 10,
-      })
-    );
-    return;
+    if (!openModal) {
+      dispatch(
+        craftshopListAction.getCraftshopListPending({
+          page: nowPage,
+          limit: 10,
+        })
+      );
+    }
+    return () => {
+      if (openModal) {
+      }
+    };
   }, []);
 
   // useEffect(() => {
@@ -79,14 +86,15 @@ export default function CraftshopContents() {
                 size="small"
                 startIcon={<AddIcon />}
                 onClick={() =>
-                  dispatch(
-                    modalAction.openModal({
-                      modalType: ModalType.CREATE,
-                      name: "",
-                      address: "",
-                      phone: "",
-                    })
-                  )
+                  // dispatch(
+                  //   modalAction.openModal({
+                  //     modalType: ModalType.CREATE,
+                  //     name: "",
+                  //     address: "",
+                  //     phone: "",
+                  //   })
+                  // )
+                  history.push("/ItemCategoryCrafthopManage/Craftshop/add")
                 }
               >
                 추가하기
