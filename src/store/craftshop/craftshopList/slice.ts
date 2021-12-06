@@ -1,8 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CraftshopList, CraftshopListParams } from "../../../types";
-import { categoryListSlice } from "../../category/categoryList/slice";
+import {
+  Craftshop,
+  CraftshopList,
+  CraftshopListParams,
+  GetCraftshopListResponse,
+} from "../../../types";
 
-interface CraftshopListState extends CraftshopList {
+interface CraftshopListState {
+  craftshopList: Craftshop[];
+  currentPage: number;
+  maxPage: number;
   isLoadingCraftshopList: boolean;
 }
 
@@ -25,9 +32,9 @@ export const craftshopListSlice = createSlice({
     },
     getCraftshopListFullfilled: (
       state,
-      action: PayloadAction<CraftshopList>
+      action: PayloadAction<GetCraftshopListResponse>
     ) => {
-      state.craftshopList = action.payload.craftshopList;
+      state.craftshopList = action.payload.data;
       state.currentPage = action.payload.currentPage;
       state.maxPage = action.payload.maxPage;
       state.isLoadingCraftshopList = false;
@@ -39,4 +46,4 @@ export const craftshopListSlice = createSlice({
 });
 
 export const { actions } = craftshopListSlice;
-export default categoryListSlice.reducer;
+export default craftshopListSlice.reducer;

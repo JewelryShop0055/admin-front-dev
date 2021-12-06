@@ -10,7 +10,7 @@ export const getCraftshopList = async (params: CraftshopListParams) => {
     },
   };
   const response = await axiosInstance(config).get(
-    `/admin/craftshop?page=${params.page}&limit=${params.limit}&order=id_desc`
+    `/admin/craftshop?page=${params.page}&limit=${params.limit}&order=createdAt_desc`
   );
   return response.data;
 };

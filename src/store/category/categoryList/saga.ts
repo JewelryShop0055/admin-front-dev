@@ -54,7 +54,7 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
   }
 }
 
-function* watchGetCategory() {
+function* watchGetCategoryList() {
   yield takeLatest(actions.getCategoryListPending.type, getCategoryListSaga);
   yield takeEvery(
     [
@@ -67,5 +67,5 @@ function* watchGetCategory() {
 }
 
 export default function* rootSaga() {
-  yield all([watchGetCategory()]);
+  yield all([watchGetCategoryList()]);
 }

@@ -27,9 +27,9 @@ function* getCraftshopListSaga(action: PayloadAction<CraftshopListParams>) {
   };
 
   try {
-    const result: GetCraftshopListResponse = yield call(() => {
-      getCraftshopList(config);
-    });
+    const result: GetCraftshopListResponse = yield call(() =>
+      getCraftshopList(config)
+    );
     yield put(actions.getCraftshopListFullfilled(result));
   } catch (e) {
     if (axios.isAxiosError(e)) {
@@ -46,11 +46,11 @@ function* getCraftshopListSaga(action: PayloadAction<CraftshopListParams>) {
   }
 }
 
-function* watchGetCategory() {
+function* watchGetCraftshopList() {
   yield takeLatest(actions.getCraftshopListPending.type, getCraftshopListSaga);
   // yield takeEvery([/**추가/삭제/수정액션 올곳 */], getCraftshopListSaga)
 }
 
 export default function* rootSaga() {
-  yield all([watchGetCategory]);
+  yield all([watchGetCraftshopList()]);
 }

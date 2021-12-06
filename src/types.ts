@@ -172,7 +172,7 @@ export type GetCategoryListResponse = {
 };
 
 export type GetCraftshopListResponse = {
-  craftshopList: Craftshop[];
+  data: Craftshop[];
   currentPage: number;
   maxPage: number;
 };

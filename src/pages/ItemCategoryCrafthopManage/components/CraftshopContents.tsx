@@ -12,41 +12,21 @@ import { useDispatch } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import { Craftshop, ModalType } from "../../../types";
 import Pagination from "@material-ui/lab/Pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CraftshopModal from "./CraftshopModal";
 import { useAppSelector } from "../../../modules/hooks";
 import { actions as modalAction } from "../../../store/craftshop/craftshopModal/slice";
+import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
 
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
   const openModal = useAppSelector((state) => state.craftshopModal.isOpen);
 
-  //임시값
-  const craftshopList: Craftshop[] = [
-    {
-      id: "0010",
-      name: "공방이름",
-      postCode: "11234",
-      address: "경기도",
-      detailAddress: "판교동",
-      phone: "010-2342-2452",
-      updatedAt: "2021-12-05",
-      createdAt: "2021-12-05",
-    },
-    {
-      id: "0011",
-      name: "공방공방",
-      postCode: "11234",
-      address: "경기도",
-      detailAddress: "판교동",
-      phone: "010-2342-2452",
-      updatedAt: "2021-12-05",
-      createdAt: "2021-12-05",
-    },
-  ];
+  const { craftshopList, maxPage } = useAppSelector(
+    (state) => state.craftshopList
+  );
 
-  //====
   const [nowPage, setNowPage] = useState(1);
 
   const paginationNavigationHandler = (
@@ -54,11 +34,17 @@ export default function CraftshopContents() {
     value: number
   ) => {
     setNowPage(value);
-    // getCategoryList({
-    //   page: value,
-    //   limit: 10,
-    // });
   };
+
+  useEffect(() => {
+    dispatch(
+      craftshopListAction.getCraftshopListPending({
+        page: nowPage,
+        limit: 10,
+      })
+    );
+    return;
+  }, []);
 
   // useEffect(() => {
   //   if (!openModal) {
@@ -109,10 +95,10 @@ export default function CraftshopContents() {
 
             <Pagination
               className={classes.paginationNavigation}
-              count={5}
+              count={maxPage}
               showFirstButton
               showLastButton
-              page={1}
+              page={nowPage}
               onChange={paginationNavigationHandler}
             />
           </div>
