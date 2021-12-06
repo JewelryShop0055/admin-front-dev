@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { replaceCurrentCategoryParams } from "../store/replaceCurrentCategory/slice";
+import { replaceCurrentCategoryParams } from "../store/category/replaceCurrentCategory/slice";
 import { ProductType } from "../types";
 import { getAuthTokenFromCookies } from "../util/auth";
 import { axiosInstance } from "./utils/apiForm";

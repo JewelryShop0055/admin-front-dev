@@ -9,13 +9,13 @@ import { useAppSelector } from "../../../modules/hooks";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { actions as getListActions } from "../../../store/categoryList/slice";
+import { actions as getListActions } from "../../../store/category/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
 import { ModalType, ProductCategoryList } from "../../../types";
 
 import RenderCategoryElements from "./RenderCategoryElements";
 
-import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
+import { actions as toggleModalAction } from "../../../store/category/categoryModal/slice";
 import CategoryModal from "./CategoryModal";
 
 import { ContentsBaseStyles } from "../utils/useStyles";

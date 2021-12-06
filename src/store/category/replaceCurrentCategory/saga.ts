@@ -1,10 +1,10 @@
 import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { replaceCurrentCategory } from "../../api/replaceCurrentCategory";
-import { ErrorEnvironment, SnackBarMessageType } from "../../types";
-import alertSnackBarMessage from "../../util/snackBarUitls";
-import { ErrorControl } from "../errorControl";
+import { replaceCurrentCategory } from "../../../api/replaceCurrentCategory";
+import { ErrorEnvironment, SnackBarMessageType } from "../../../types";
+import alertSnackBarMessage from "../../../util/snackBarUitls";
+import { ErrorControl } from "../../errorControl";
 import { actions, replaceCurrentCategoryParams } from "./slice";
 
 function* replaceCurrentCategorySaga(

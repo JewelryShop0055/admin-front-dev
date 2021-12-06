@@ -1,16 +1,16 @@
 import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { deleteCategory } from "../../api/deleteCategory";
+import { deleteCategory } from "../../../api/deleteCategory";
 import {
   DeleteCategory,
   DeleteCategoryParams,
   ErrorEnvironment,
   ProductType,
   SnackBarMessageType,
-} from "../../types";
-import alertSnackBarMessage from "../../util/snackBarUitls";
-import { ErrorControl } from "../errorControl";
+} from "../../../types";
+import alertSnackBarMessage from "../../../util/snackBarUitls";
+import { ErrorControl } from "../../errorControl";
 import { actions } from "./slice";
 
 function* deleteCategorySaga(action: PayloadAction<DeleteCategory>) {

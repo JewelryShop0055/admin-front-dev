@@ -5,13 +5,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Button } from "@material-ui/core";
-import { actions as modalAction } from "../../../store/categoryModal/slice";
+import { actions as modalAction } from "../../../store/category/categoryModal/slice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
-import { actions as addNewCategoryAction } from "../../../store/addNewCategory/slice";
-import { actions as replaceCategoryAction } from "../../../store/replaceCurrentCategory/slice";
-import { actions as deleteCategoryAction } from "../../../store/deleteCategory/slice";
+import { actions as addNewCategoryAction } from "../../../store/category/addNewCategory/slice";
+import { actions as replaceCategoryAction } from "../../../store/category/replaceCurrentCategory/slice";
+import { actions as deleteCategoryAction } from "../../../store/category/deleteCategory/slice";
 
 interface CategoryModalProps {
   openModal: boolean;

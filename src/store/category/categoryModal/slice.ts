@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category, ModalType } from "../../types";
+import { Category, ModalType } from "../../../types";
 
 export interface CategoryModalParams
   extends Pick<Category, "id" | "name" | "itemCount"> {

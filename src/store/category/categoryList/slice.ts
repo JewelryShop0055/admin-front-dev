@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category, ProductCategoryList } from "../../types";
+import { Category, ProductCategoryList } from "../../../types";
 
 export interface CategoryListSliceState {
   categoryList: Category[];

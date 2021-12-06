@@ -8,7 +8,7 @@ import {
 } from "@redux-saga/core/effects";
 import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { getCategoryList } from "../../api/categoryList";
+import { getCategoryList } from "../../../api/categoryList";
 import {
   Category,
   ErrorEnvironment,
@@ -17,10 +17,10 @@ import {
   ProductCategoryListParams,
   ProductType,
   SnackBarMessageType,
-} from "../../types";
-import { ErrorControl } from "../errorControl";
+} from "../../../types";
+import { ErrorControl } from "../../errorControl";
 import axios from "axios";
-import alertSnackBarMessage from "../../util/snackBarUitls";
+import alertSnackBarMessage from "../../../util/snackBarUitls";
 
 import { actions as deleteAction } from "../deleteCategory/slice";
 import { actions as replaceAction } from "../replaceCurrentCategory/slice";

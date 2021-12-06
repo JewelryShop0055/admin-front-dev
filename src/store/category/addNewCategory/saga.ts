@@ -1,7 +1,7 @@
 import { call, delay, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addNewCategory } from "../../api/addNewCategory";
+import { addNewCategory } from "../../../api/addNewCategory";
 import {
   AddNewCategory,
   AddNewCategoryParams,
@@ -9,9 +9,9 @@ import {
   ErrorEnvironment,
   ProductType,
   SnackBarMessageType,
-} from "../../types";
-import alertSnackBarMessage from "../../util/snackBarUitls";
-import { ErrorControl } from "../errorControl";
+} from "../../../types";
+import alertSnackBarMessage from "../../../util/snackBarUitls";
+import { ErrorControl } from "../../errorControl";
 import { actions } from "./slice";
 
 export function* addNewCategorySaga(action: PayloadAction<AddNewCategory>) {

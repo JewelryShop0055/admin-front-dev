@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Category, ModalType } from "../../../types";
 import { useStyles } from "../utils/useStyles";
 
-import { actions as toggleModalAction } from "../../../store/categoryModal/slice";
+import { actions as toggleModalAction } from "../../../store/category/categoryModal/slice";
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
