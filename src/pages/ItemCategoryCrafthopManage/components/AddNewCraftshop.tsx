@@ -14,6 +14,8 @@ import { useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 import { useAppSelector } from "../../../modules/hooks";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
+import { useDispatch } from "react-redux";
+import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +47,7 @@ const buttonTheme = createTheme({
 
 export default function AddNewCraftshop() {
   const classes = addNewCraftshopStyles();
-
+  const dispatch = useDispatch();
   const [craftshopValue, setCraftshopValue] = useState({
     craftshopName: "",
     CraftshopDetailAddress: "",
@@ -148,6 +150,15 @@ export default function AddNewCraftshop() {
                 variant="outlined"
                 color="primary"
                 onClick={() => {
+                  dispatch(
+                    addNewCraftshopActions.addNewCraftshopPending({
+                      address: baseAddress + addtionalAddress,
+                      detailAddress: CraftshopDetailAddress,
+                      name: craftshopName,
+                      phone: craftshopPhoneNumber,
+                      postCode: zoneCode,
+                    })
+                  );
                   setCraftshopValue({
                     craftshopName: "",
                     CraftshopDetailAddress: "",

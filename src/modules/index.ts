@@ -1,6 +1,5 @@
 import { all } from "@redux-saga/core/effects";
 
-import craftshopAddress from "../util/CraftshopAddressSlice";
 import topNavigation from "../util/TopNavigationSlice";
 
 import signInSaga from "../store/signIn/saga";

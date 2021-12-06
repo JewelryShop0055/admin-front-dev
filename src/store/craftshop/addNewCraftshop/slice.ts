@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AddNewCraftshopParams } from "../../../types";
 
 interface AddNewCraftshopState extends AddNewCraftshopParams {
-  isLoadingAddCategory: boolean;
+  isLoadingAddNewCraftshop: boolean;
 }
 
 const initialState: AddNewCraftshopState = {
@@ -11,7 +11,7 @@ const initialState: AddNewCraftshopState = {
   address: "",
   detailAddress: "",
   phone: "",
-  isLoadingAddCategory: false,
+  isLoadingAddNewCraftshop: false,
 };
 
 export const addNewCraftshopSlice = createSlice({
@@ -20,9 +20,11 @@ export const addNewCraftshopSlice = createSlice({
   reducers: {
     addNewCraftshopPending: (
       state,
-      action: PayloadAction<AddNewCraftshopState>
+      action: PayloadAction<
+        Omit<AddNewCraftshopState, "isLoadingAddNewCraftshop">
+      >
     ) => {
-      state.isLoadingAddCategory = true;
+      state.isLoadingAddNewCraftshop = true;
     },
     addNewCraftshopFullfilled: (
       state,
@@ -33,10 +35,10 @@ export const addNewCraftshopSlice = createSlice({
       state.address = action.payload.address;
       state.detailAddress = action.payload.detailAddress;
       state.phone = action.payload.phone;
-      state.isLoadingAddCategory = false;
+      state.isLoadingAddNewCraftshop = false;
     },
     addNewCraftshopRejected: (state) => {
-      state.isLoadingAddCategory = false;
+      state.isLoadingAddNewCraftshop = false;
     },
   },
 });
