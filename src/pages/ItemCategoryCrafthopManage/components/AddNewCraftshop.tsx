@@ -12,12 +12,7 @@ import { blue } from "@material-ui/core/colors";
 
 import { useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
-import { useAppDispatch, useAppSelector } from "../../../modules/hooks";
-import {
-  setBaseAddress,
-  setAddtionalAddress,
-  setZoneCode,
-} from "../../../util/CraftshopAddressSlice";
+import { useAppSelector } from "../../../modules/hooks";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
@@ -51,39 +46,26 @@ const buttonTheme = createTheme({
 export default function AddNewCraftshop() {
   const classes = addNewCraftshopStyles();
 
-  const [craftshopName, setCraftshopName] = useState("");
-  const [CraftshopDetailAddress, setCraftshopDetailAddress] = useState("");
-  const [craftshopPhoneNumber, setCraftshopPhoneNumber] = useState("");
+  const [craftshopValue, setCraftshopValue] = useState({
+    craftshopName: "",
+    CraftshopDetailAddress: "",
+    craftshopPhoneNumber: "",
+  });
 
-  const baseAddress = useAppSelector(
-    (state) => state.craftshopAddress.baseAddress
+  const { craftshopName, CraftshopDetailAddress, craftshopPhoneNumber } =
+    craftshopValue;
+  const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
+    (state) => state.craftshopAddress
   );
-  const addtionalAddress = useAppSelector(
-    (state) => state.craftshopAddress.addtionalAddress
-  );
-  const zoneCode = useAppSelector((state) => state.craftshopAddress.zoneCode);
-  const dispatch = useAppDispatch();
 
-  const [timer, setTimer] = useState(0);
-
-  //재사용성있게 바꾸기
-  const handleCraftshopName: React.ChangeEventHandler<
+  const handleCraftshopValue: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
-    const { value } = e.target;
-    setCraftshopName(value);
-  };
-  const handleCraftshopDetailAddress: React.ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
-    const { value } = e.target;
-    setCraftshopDetailAddress(value);
-  };
-  const handleCraftshopPhoneNumber: React.ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
-    const { value } = e.target;
-    setCraftshopPhoneNumber(value);
+    const { name, value } = e.target;
+    setCraftshopValue({
+      ...craftshopValue,
+      [name]: value,
+    });
   };
 
   return (
@@ -121,9 +103,9 @@ export default function AddNewCraftshop() {
               id="outlined-basic"
               label="상세주소"
               variant="outlined"
-              name="id"
+              name="CraftshopDetailAddress"
               size="small"
-              onChange={handleCraftshopDetailAddress}
+              onChange={handleCraftshopValue}
               value={CraftshopDetailAddress}
             />
             <TextField
@@ -144,18 +126,18 @@ export default function AddNewCraftshop() {
               id="outlined-basic"
               label="공방 이름"
               variant="outlined"
-              name="id"
+              name="craftshopName"
               size="small"
-              onChange={handleCraftshopName}
+              onChange={handleCraftshopValue}
               value={craftshopName}
             />
             <TextField
               id="outlined-basic"
               label="공방 연락처"
               variant="outlined"
-              name="id"
+              name="craftshopPhoneNumber"
               size="small"
-              onChange={handleCraftshopPhoneNumber}
+              onChange={handleCraftshopValue}
               value={craftshopPhoneNumber}
             />
           </form>
@@ -164,32 +146,12 @@ export default function AddNewCraftshop() {
               <Button
                 variant="outlined"
                 color="primary"
-                onClick={async (e) => {
-                  if (timer) {
-                    clearTimeout(timer);
-                  }
-                  const newTimer = window.setTimeout(async () => {
-                    try {
-                      // await addNewCraftshop({
-                      //   craftshopName: craftshopName,
-                      //   zoneCode: zoneCode,
-                      //   baseAddress: baseAddress,
-                      //   addtionalAddress: addtionalAddress,
-                      //   detailAddress: CraftshopDetailAddress,
-                      //   phoneNumber: craftshopPhoneNumber,
-                      // });
-                      dispatch(setBaseAddress(""));
-                      dispatch(setAddtionalAddress(""));
-                      dispatch(setZoneCode(""));
-
-                      setCraftshopName("");
-                      setCraftshopDetailAddress("");
-                      setCraftshopPhoneNumber("");
-                    } catch (e) {
-                      console.error("error", e);
-                    }
-                  }, 300);
-                  setTimer(newTimer);
+                onClick={() => {
+                  setCraftshopValue({
+                    craftshopName: "",
+                    CraftshopDetailAddress: "",
+                    craftshopPhoneNumber: "",
+                  });
                 }}
               >
                 등록하기
