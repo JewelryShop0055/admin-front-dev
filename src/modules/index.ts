@@ -17,22 +17,27 @@ import replaceCurrentCategory from "../store/category/replaceCurrentCategory/sli
 import replaceCurrentCategorySaga from "../store/category/replaceCurrentCategory/saga";
 import categoryModal from "../store/category/categoryModal/slice";
 import categoryModalSaga from "../store/category/categoryModal/saga";
-import addNewCraftshop from "../store/addNewCraftshop/slice";
-import addNewCraftshopSaga from "../store/addNewCraftshop/saga";
-import craftshopModal from "../store/craftshopModal/slice";
-import craftshopModalSaga from "../store/craftshopModal/saga";
+import addNewCraftshop from "../store/craftshop/addNewCraftshop/slice";
+import addNewCraftshopSaga from "../store/craftshop/addNewCraftshop/saga";
+import craftshopModal from "../store/craftshop/craftshopModal/slice";
+import craftshopModalSaga from "../store/craftshop/craftshopModal/saga";
+import craftshopList from "../store/craftshop/craftshopList/slice";
+import craftshopListSaga from "../store/craftshop/craftshopList/saga";
 
 export const reducers = {
   topNavigation,
   signIn,
   signOut,
+
   addNewCategory,
   categoryList,
   deleteCategory,
   replaceCurrentCategory,
   categoryModal,
+
   addNewCraftshop,
   craftshopModal,
+  craftshopList,
 
   craftshopAddress,
 };
@@ -41,12 +46,15 @@ export function* rootSaga() {
   yield all([
     signInSaga(),
     signOutSaga(),
+
     addNewCategorySaga(),
     categoryListSaga(),
     replaceCurrentCategorySaga(),
     categoryModalSaga(),
     addNewCraftshopSaga(),
+
     craftshopModalSaga(),
+    craftshopListSaga(),
 
     deleteCategorySaga(),
   ]);

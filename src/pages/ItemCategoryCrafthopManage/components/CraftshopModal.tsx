@@ -8,7 +8,7 @@ import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
-import { actions as modalAction } from "../../../store/craftshopModal/slice";
+import { actions as modalAction } from "../../../store/craftshop/craftshopModal/slice";
 
 interface CraftshopModalProps {
   openModal: boolean;

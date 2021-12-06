@@ -1,7 +1,7 @@
 import { call, delay, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addNewCategory } from "../../../api/addNewCategory";
+import { addNewCategory } from "../../../api/category/addNewCategory";
 import {
   AddNewCategory,
   AddNewCategoryParams,

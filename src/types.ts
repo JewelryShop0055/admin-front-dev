@@ -36,6 +36,33 @@ export type SubNavigationElements = {
   elementLink: string;
 };
 
+export type Category = {
+  id: number;
+  name: string;
+  type: string;
+  depth: number;
+  itemCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Craftshop = {
+  id: string;
+  name: string;
+  postCode: string;
+  address: string;
+  detailAddress: string;
+  phone: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
+export type CraftshopList = {
+  craftshopList: Craftshop[];
+  currentPage: number;
+  maxPage: number;
+};
+
 //enums
 
 export enum SnackBarMessageType {
@@ -58,7 +85,8 @@ export enum ErrorEnvironment {
   GetCategoryList = "GetCategoryList",
   DeleteCategory = "DeleteCategory",
 
-  ADDNEWCRAFTSHOP = "AddNewCraftShop",
+  ADD_NEWCRAFT_SHOP = "AddNewCraftShop",
+  GET_CRAFTSHOP_LIST = "GetCraftshopList",
 }
 
 export enum ModalType {
@@ -101,6 +129,11 @@ export type ProductCategoryListParams = {
   limit: number;
 };
 
+export type CraftshopListParams = {
+  page: number;
+  limit: number;
+};
+
 export type SnackBarParams = {
   type: SnackBarMessageType;
   message: string;
@@ -138,25 +171,10 @@ export type GetCategoryListResponse = {
   maxPage: number;
 };
 
-export type Category = {
-  id: number;
-  name: string;
-  type: string;
-  depth: number;
-  itemCount: number;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type Craftshop = {
-  id: string;
-  name: string;
-  postCode: string;
-  address: string;
-  detailAddress: string;
-  phone: string;
-  updatedAt: string;
-  createdAt: string;
+export type GetCraftshopListResponse = {
+  craftshopList: Craftshop[];
+  currentPage: number;
+  maxPage: number;
 };
 
 type AxiosHeaderProps = {

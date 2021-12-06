@@ -1,7 +1,7 @@
-import { getAuthTokenFromCookies } from "../util/auth";
+import { getAuthTokenFromCookies } from "../../util/auth";
 import { AxiosRequestConfig } from "axios";
-import { AddNewCategoryParams } from "../types";
-import { axiosInstance } from "./utils/apiForm";
+import { AddNewCategoryParams } from "../../types";
+import { axiosInstance } from "../utils/apiForm";
 
 export const addNewCategory = async (params: AddNewCategoryParams) => {
   const config: AxiosRequestConfig = {

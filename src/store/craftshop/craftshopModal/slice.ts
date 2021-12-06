@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Craftshop, ModalType } from "../../types";
+import { Craftshop, ModalType } from "../../../types";
 
 export interface CraftshopModalParams
   extends Pick<Craftshop, "name" | "address" | "phone"> {

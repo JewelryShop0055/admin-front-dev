@@ -1,7 +1,7 @@
-import { getAuthTokenFromCookies } from "../util/auth";
+import { getAuthTokenFromCookies } from "../../util/auth";
 import { AxiosRequestConfig } from "axios";
-import { AddNewCraftshopParams } from "../types";
-import { axiosInstance } from "./utils/apiForm";
+import { AddNewCraftshopParams } from "../../types";
+import { axiosInstance } from "../utils/apiForm";
 
 export const addNewCraftshop = async (params: AddNewCraftshopParams) => {
   const config: AxiosRequestConfig = {

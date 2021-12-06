@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddNewCraftshopParams } from "../../types";
+import { AddNewCraftshopParams } from "../../../types";
 
 interface AddNewCraftshopState extends AddNewCraftshopParams {
   isLoadingAddCategory: boolean;

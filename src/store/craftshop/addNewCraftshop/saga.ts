@@ -1,12 +1,12 @@
 import { call, delay, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ErrorEnvironment, SnackBarMessageType } from "../../types";
-import alertSnackBarMessage from "../../util/snackBarUitls";
-import { ErrorControl } from "../errorControl";
+import { ErrorEnvironment, SnackBarMessageType } from "../../../types";
+import alertSnackBarMessage from "../../../util/snackBarUitls";
+import { ErrorControl } from "../../errorControl";
 import { actions } from "./slice";
-import { AddNewCraftshopParams, Craftshop } from "../../types";
-import { addNewCraftshop } from "../../api/addNewCraftshop";
+import { AddNewCraftshopParams, Craftshop } from "../../../types";
+import { addNewCraftshop } from "../../../api/craftshop/addNewCraftshop";
 
 export function* addNewCraftshopSaga(
   action: PayloadAction<AddNewCraftshopParams>
@@ -31,7 +31,7 @@ export function* addNewCraftshopSaga(
     if (axios.isAxiosError(e)) {
       ErrorControl({
         error: e,
-        errorType: ErrorEnvironment.ADDNEWCRAFTSHOP,
+        errorType: ErrorEnvironment.ADD_NEWCRAFT_SHOP,
         referenceTextData: action.payload.name,
       });
     }

@@ -1,7 +1,7 @@
 import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { replaceCurrentCategory } from "../../../api/replaceCurrentCategory";
+import { replaceCurrentCategory } from "../../../api/category/replaceCurrentCategory";
 import { ErrorEnvironment, SnackBarMessageType } from "../../../types";
 import alertSnackBarMessage from "../../../util/snackBarUitls";
 import { ErrorControl } from "../../errorControl";

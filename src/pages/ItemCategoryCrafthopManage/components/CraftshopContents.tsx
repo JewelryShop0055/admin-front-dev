@@ -15,7 +15,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { useState } from "react";
 import CraftshopModal from "./CraftshopModal";
 import { useAppSelector } from "../../../modules/hooks";
-import { actions as modalAction } from "../../../store/craftshopModal/slice";
+import { actions as modalAction } from "../../../store/craftshop/craftshopModal/slice";
 
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();

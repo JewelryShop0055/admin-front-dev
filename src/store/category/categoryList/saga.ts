@@ -8,7 +8,7 @@ import {
 } from "@redux-saga/core/effects";
 import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { getCategoryList } from "../../../api/categoryList";
+import { getCategoryList } from "../../../api/category/categoryList";
 import {
   Category,
   ErrorEnvironment,
@@ -39,10 +39,10 @@ function* getCategoryListSaga(action: PayloadAction<ProductCategoryList>) {
       getCategoryList(config)
     );
     yield put(actions.getCategoryListFullFilled(result));
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
       ErrorControl({
-        error: error,
+        error: e,
         errorType: ErrorEnvironment.GetCategoryList,
       });
     }

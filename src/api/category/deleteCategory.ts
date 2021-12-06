@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
-import { DeleteCategoryParams } from "../types";
-import { getAuthTokenFromCookies } from "../util/auth";
-import { axiosInstance } from "./utils/apiForm";
+import { DeleteCategoryParams } from "../../types";
+import { getAuthTokenFromCookies } from "../../util/auth";
+import { axiosInstance } from "../utils/apiForm";
 
 export const deleteCategory = async (params: DeleteCategoryParams) => {
   const config: AxiosRequestConfig = {
