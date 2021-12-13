@@ -56,20 +56,6 @@ export default function CraftshopContents() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (!openModal) {
-  //     getCategoryList({
-  //       page: nowPage,
-  //       limit: 10,
-  //     });
-  //   }
-  //   return () => {
-  //     if (openModal) {
-  //       dispatch(toggleModalAction.closeModal());
-  //     }
-  //   };
-  // }, [dispatch, openModal]);
-
   return (
     <>
       <div className={classes.ContentsBase}>

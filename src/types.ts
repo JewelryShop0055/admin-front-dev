@@ -87,6 +87,7 @@ export enum ErrorEnvironment {
 
   ADD_NEWCRAFT_SHOP = "AddNewCraftShop",
   GET_CRAFTSHOP_LIST = "GetCraftshopList",
+  DELETE_CRAFTSHOP = "DeleteCraftshop",
 }
 
 export enum ModalType {

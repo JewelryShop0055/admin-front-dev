@@ -23,6 +23,8 @@ import craftshopModalSaga from "../store/craftshop/craftshopModal/saga";
 import craftshopList from "../store/craftshop/craftshopList/slice";
 import craftshopListSaga from "../store/craftshop/craftshopList/saga";
 import findAddress from "../store/findAddress/slice";
+import deleteCraftshop from "../store/craftshop/deleteCraftshop/slice";
+import deleteCraftshopSaga from "../store/craftshop/deleteCraftshop/saga";
 
 export const reducers = {
   topNavigation,
@@ -38,6 +40,7 @@ export const reducers = {
   addNewCraftshop,
   craftshopModal,
   craftshopList,
+  deleteCraftshop,
 
   findAddress,
 };
@@ -55,6 +58,7 @@ export function* rootSaga() {
 
     craftshopModalSaga(),
     craftshopListSaga(),
+    deleteCraftshopSaga(),
 
     deleteCategorySaga(),
   ]);
