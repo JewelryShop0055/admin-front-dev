@@ -16,6 +16,7 @@ import { useAppSelector } from "../../../modules/hooks";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import { useDispatch } from "react-redux";
 import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
+import { useHistory } from "react-router";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +49,7 @@ const buttonTheme = createTheme({
 export default function AddNewCraftshop() {
   const classes = addNewCraftshopStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const [craftshopValue, setCraftshopValue] = useState({
     craftshopName: "",
     CraftshopDetailAddress: "",
@@ -164,6 +166,7 @@ export default function AddNewCraftshop() {
                     CraftshopDetailAddress: "",
                     craftshopPhoneNumber: "",
                   });
+                  history.push("/ItemCategoryCrafthopManage/Craftshop");
                 }}
               >
                 등록하기
