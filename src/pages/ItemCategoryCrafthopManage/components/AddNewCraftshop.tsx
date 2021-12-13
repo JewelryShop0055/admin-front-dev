@@ -10,13 +10,14 @@ import Typography from "@material-ui/core/Typography";
 import { Button, TextField } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 import { useAppSelector } from "../../../modules/hooks";
 import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import { useDispatch } from "react-redux";
 import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
 import { useHistory } from "react-router";
+import { actions as findAddressActions } from "../../../store/findAddress/slice";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +72,12 @@ export default function AddNewCraftshop() {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(findAddressActions.getAddressValueReset());
+    };
+  }, []);
 
   return (
     <>
@@ -161,6 +168,7 @@ export default function AddNewCraftshop() {
                       postCode: zoneCode,
                     })
                   );
+                  dispatch(findAddressActions.getAddressValueReset());
                   setCraftshopValue({
                     craftshopName: "",
                     CraftshopDetailAddress: "",

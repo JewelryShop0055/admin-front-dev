@@ -17,10 +17,15 @@ const findAddressSlice = createSlice({
   name: "findAddress",
   initialState,
   reducers: {
-    getAddressValueFullfilled: (state, action: PayloadAction<Address>) => {
+    getAddressValuePending: (state, action: PayloadAction<Address>) => {
       state.baseAddress = action.payload.baseAddress;
       state.addtionalAddress = action.payload.addtionalAddress;
       state.zoneCode = action.payload.zoneCode;
+    },
+    getAddressValueReset: (state) => {
+      state.baseAddress = "";
+      state.addtionalAddress = "";
+      state.zoneCode = "";
     },
   },
 });

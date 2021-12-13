@@ -28,7 +28,7 @@ export function FindAddressCode() {
       zoneCode: data.zonecode,
     };
     console.log(getValue);
-    dispatch(actions.getAddressValueFullfilled(getValue));
+    dispatch(actions.getAddressValuePending(getValue));
 
     setOpen(false);
   };
@@ -48,7 +48,6 @@ export function FindAddressCode() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {/* 나중에 검색페이지 크기 최적화추가하기 DaumPostcode width props... */}
         <DaumPostcode onComplete={handleComplete} />
       </Dialog>
     </>
