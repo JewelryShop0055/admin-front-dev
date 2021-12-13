@@ -9,16 +9,13 @@ import { useDispatch } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import Pagination from "@material-ui/lab/Pagination";
 import { useEffect, useState } from "react";
-import CraftshopModal from "./CraftshopModal";
 import { useAppSelector } from "../../../modules/hooks";
-import { actions as modalAction } from "../../../store/craftshop/craftshopModal/slice";
 import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
 import { useHistory } from "react-router";
 
 export default function CraftshopContents() {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
-  const openModal = useAppSelector((state) => state.craftshopModal.isOpen);
   const history = useHistory();
 
   const { craftshopList, maxPage } = useAppSelector(
@@ -41,19 +38,12 @@ export default function CraftshopContents() {
   };
 
   useEffect(() => {
-    if (!openModal) {
-      dispatch(
-        craftshopListAction.getCraftshopListPending({
-          page: nowPage,
-          limit: 10,
-        })
-      );
-    }
-    return () => {
-      if (openModal) {
-        //모달이 열려있을때 언마운트시 수행할 내용
-      }
-    };
+    dispatch(
+      craftshopListAction.getCraftshopListPending({
+        page: nowPage,
+        limit: 10,
+      })
+    );
   }, []);
 
   return (
@@ -95,7 +85,6 @@ export default function CraftshopContents() {
           {/* <NewCraftshopEntry /> */}
         </Paper>
       </div>
-      <CraftshopModal openModal={openModal} />
     </>
   );
 }

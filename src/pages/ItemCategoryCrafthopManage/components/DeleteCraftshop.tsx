@@ -45,6 +45,14 @@ export default function DeleteCraftshop() {
   const classes = DeleteCraftshopStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const selectCraftshopValue = useAppSelector((state) => state.selectCraftshop);
+
+  const [inputValue, setInputValue] = useState("");
+  const handleChangeInputValue: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
+    setInputValue(e.target.value);
+  };
 
   useEffect(() => {
     return () => {};
@@ -62,6 +70,30 @@ export default function DeleteCraftshop() {
             삭제 후 되돌릴 수 없습니다. 삭제하시려면 공방명을 입력해주세요.
           </Typography>
 
+          <Typography variant="subtitle1" gutterBottom color="textSecondary">
+            {"공방명: " + selectCraftshopValue.name}
+          </Typography>
+
+          <Typography variant="subtitle1" gutterBottom color="textSecondary">
+            {"주소: " + selectCraftshopValue.address}
+          </Typography>
+
+          <Typography variant="subtitle1" gutterBottom color="textSecondary">
+            {"전화번호: " + selectCraftshopValue.phone}
+          </Typography>
+
+          <form noValidate autoComplete="off">
+            <TextField
+              id="outlined-basic"
+              label="공방 이름"
+              variant="outlined"
+              name="craftshopName"
+              size="medium"
+              onChange={handleChangeInputValue}
+              value={inputValue}
+            />
+          </form>
+
           <div className={classes.deleteButton}>
             <ThemeProvider theme={buttonTheme}>
               <Button
@@ -70,7 +102,8 @@ export default function DeleteCraftshop() {
                 onClick={() => {
                   dispatch(
                     actions.deleteCraftshopPending({
-                      id: "21312",
+                      id: selectCraftshopValue.id,
+                      name: selectCraftshopValue.name,
                     })
                   );
                   history.push("/ItemCategoryCrafthopManage/Craftshop");

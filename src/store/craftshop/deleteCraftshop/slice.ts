@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Craftshop } from "../../../types";
 
-interface DeleteCraftshopState extends Pick<Craftshop, "id"> {
+interface DeleteCraftshopState extends Pick<Craftshop, "id" | "name"> {
   isLoadingDeleteCraftshop: boolean;
 }
 
 const initialState: DeleteCraftshopState = {
   id: "",
+  name: "",
   isLoadingDeleteCraftshop: false,
 };
 

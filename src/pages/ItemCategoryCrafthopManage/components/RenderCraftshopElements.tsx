@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Craftshop } from "../../../types";
 import { useHistory } from "react-router-dom";
+import { actions as selectAction } from "../../../store/craftshop/selectedCraftshop/slice";
 
 export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,11 +46,7 @@ export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function CraftshopElementsForm({
-  name,
-  address,
-  phone,
-}: Pick<Craftshop, "name" | "address" | "phone">) {
+const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
   const classes = CraftshopElementsStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,26 +76,32 @@ function CraftshopElementsForm({
 
   const handleDeleteButton = () => {
     setAnchorEl(null);
+    dispatch(
+      selectAction.selectElementPending({
+        id: props.id,
+        name: props.name,
+        postCode: props.postCode,
+        address: props.address,
+        detailAddress: props.detailAddress,
+        phone: props.phone,
+        updatedAt: props.updatedAt,
+        createdAt: props.createdAt,
+      })
+    );
     history.push("/ItemCategoryCrafthopManage/Craftshop/delete");
-    //   dispatch(
-    //     toggleModalAction.openModal({
-    //       modalType: ModalType.DELETE,
-    //       id: id,
-    //       name: name,
-    //       itemCount: itemCount,
-    //     })
-    //   );
   };
 
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
-        <div className={classes.paginationElementName}>{"공방명:" + name}</div>
+        <div className={classes.paginationElementName}>
+          {"공방명:" + props.name}
+        </div>
         <div className={classes.paginationElementAddress}>
-          {"공방주소:" + address}
+          {"공방주소:" + props.address}
         </div>
         <div className={classes.paginationElementPhone}>
-          {"공방연락처:" + phone}
+          {"공방연락처:" + props.phone}
         </div>
 
         <IconButton
@@ -123,7 +126,7 @@ function CraftshopElementsForm({
       </div>
     </>
   );
-}
+};
 
 const RenderCraftshopElements: React.FC<{ craftshopList: Craftshop[] }> = ({
   craftshopList,
@@ -132,11 +135,7 @@ const RenderCraftshopElements: React.FC<{ craftshopList: Craftshop[] }> = ({
     <>
       {craftshopList.map((value) => (
         <div key={value.id}>
-          <CraftshopElementsForm
-            name={value.name}
-            address={value.address}
-            phone={value.phone}
-          />
+          <CraftshopElementsForm props={value} />
         </div>
       ))}
     </>
