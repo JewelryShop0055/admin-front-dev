@@ -11,6 +11,7 @@ import Fade from "@material-ui/core/Fade";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Craftshop } from "../../../types";
+import { useHistory } from "react-router-dom";
 
 export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ function CraftshopElementsForm({
 }: Pick<Craftshop, "name" | "address" | "phone">) {
   const classes = CraftshopElementsStyles();
   const dispatch = useDispatch();
-
+  const history = useHistory();
   //===transition menuHander
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
@@ -78,6 +79,7 @@ function CraftshopElementsForm({
 
   const handleDeleteButton = () => {
     setAnchorEl(null);
+    history.push("/ItemCategoryCrafthopManage/Craftshop/delete");
     //   dispatch(
     //     toggleModalAction.openModal({
     //       modalType: ModalType.DELETE,

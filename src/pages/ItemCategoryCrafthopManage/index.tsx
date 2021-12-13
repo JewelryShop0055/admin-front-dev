@@ -5,6 +5,7 @@ import { SubNavigationElements } from "../../types";
 import AddNewCraftshop from "./components/AddNewCraftshop";
 import CategoryContents from "./components/CategoryContents";
 import CraftshopContents from "./components/CraftshopContents";
+import DeleteCraftshop from "./components/DeleteCraftshop";
 
 const subNaviElements: Array<SubNavigationElements> = [
   {
@@ -37,14 +38,50 @@ export const CraftshopPage: React.FC = () => {
   );
 };
 
-export const AddNewCraftshopPage: React.FC = () => {
-  return (
-    <>
-      <TopNavigation />
-      <SubNavigation elementsArray={subNaviElements} />
-      <AddNewCraftshop />
-    </>
-  );
+export enum CraftshopManageType {
+  ADD = "Add",
+  DELETE = "Delete",
+  REPLACE = "Replace",
+}
+
+export const CraftshopManagePage: React.FC = () => {
+  switch (globalThis.location.pathname) {
+    case "/ItemCategoryCrafthopManage/Craftshop/add":
+      return (
+        <>
+          <TopNavigation />
+          <SubNavigation elementsArray={subNaviElements} />
+          <AddNewCraftshop />
+        </>
+      );
+
+    case "/ItemCategoryCrafthopManage/Craftshop/delete":
+      return (
+        <>
+          <TopNavigation />
+          <SubNavigation elementsArray={subNaviElements} />
+          <DeleteCraftshop />
+        </>
+      );
+
+    case "/ItemCategoryCrafthopManage/Craftshop/replace":
+      return (
+        <>
+          <TopNavigation />
+          <SubNavigation elementsArray={subNaviElements} />
+          {/* <RelplaceCraftshop /> */}
+        </>
+      );
+
+    default:
+      return (
+        <>
+          <TopNavigation />
+          <SubNavigation elementsArray={subNaviElements} />
+          <AddNewCraftshop />
+        </>
+      );
+  }
 };
 
 export default ItemCategoryPage;

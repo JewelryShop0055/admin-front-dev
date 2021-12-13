@@ -7,7 +7,7 @@ import { getAuthTokenFromCookies } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";
 
 interface AuthRouteParams {
-  exact: boolean;
+  exact?: boolean;
   path: string;
   component: React.ComponentType<any>;
 }
