@@ -1,8 +1,5 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
-import NewCraftshopEntry from "./AddNewCraftshop";
-import CraftshopList from "./CraftshopList";
 import { PaperElevation } from "../../../styleTypes";
 import { ContentsBaseStyles } from "../utils/useStyles";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
@@ -10,7 +7,6 @@ import RenderCraftshopElements from "./RenderCraftshopElements";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
-import { Craftshop, ModalType } from "../../../types";
 import Pagination from "@material-ui/lab/Pagination";
 import { useEffect, useState } from "react";
 import CraftshopModal from "./CraftshopModal";
@@ -33,9 +29,15 @@ export default function CraftshopContents() {
 
   const paginationNavigationHandler = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    page: number
   ) => {
-    setNowPage(value);
+    setNowPage(page);
+    dispatch(
+      craftshopListAction.getCraftshopListPending({
+        page: page,
+        limit: 10,
+      })
+    );
   };
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function CraftshopContents() {
     }
     return () => {
       if (openModal) {
+        //모달이 열려있을때 언마운트시 수행할 내용
       }
     };
   }, []);
@@ -86,14 +89,6 @@ export default function CraftshopContents() {
                 size="small"
                 startIcon={<AddIcon />}
                 onClick={() =>
-                  // dispatch(
-                  //   modalAction.openModal({
-                  //     modalType: ModalType.CREATE,
-                  //     name: "",
-                  //     address: "",
-                  //     phone: "",
-                  //   })
-                  // )
                   history.push("/ItemCategoryCrafthopManage/Craftshop/add")
                 }
               >
@@ -112,7 +107,6 @@ export default function CraftshopContents() {
           </div>
 
           {/* <NewCraftshopEntry /> */}
-          {/* <CraftshopList /> */}
         </Paper>
       </div>
       <CraftshopModal openModal={openModal} />
