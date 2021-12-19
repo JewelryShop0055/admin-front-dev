@@ -20,26 +20,32 @@ export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
       borderBottom: "black solid 0.5px",
       padding: "5px 0 5px 0",
       display: "grid",
-      gridAutoColumns: "2fr 5fr 2fr 1.5fr 1.5fr",
-      gridTemplateAreas: `"id name itemCount button"`,
+      gridAutoColumns: "2fr 5fr 2fr 1fr",
+      gridTemplateAreas: `"name address phone menuBtn"`,
     },
     paginationElementName: {
-      gridArea: "id",
+      gridArea: "name",
       display: "flex",
       alignItems: "center",
       paddingLeft: "10px",
     },
     paginationElementAddress: {
-      gridArea: "name",
+      gridArea: "address",
       display: "block",
       width: "80%",
-      margin: "auto",
+      marginTop: "auto",
+      marginBottom: "auto",
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
     },
     paginationElementPhone: {
-      gridArea: "itemCount",
+      gridArea: "phone",
+      display: "flex",
+      alignItems: "center",
+    },
+    paginationElementBtn: {
+      gridArea: "menuBtn",
       display: "flex",
       alignItems: "center",
     },
@@ -64,14 +70,6 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
 
   const handleReplaceButton = () => {
     setAnchorEl(null);
-    //   dispatch(
-    //     toggleModalAction.openModal({
-    //       modalType: ModalType.REPLACE,
-    //       id: id,
-    //       name: name,
-    //       itemCount: itemCount,
-    //     })
-    //   );
   };
 
   const handleDeleteButton = () => {
@@ -94,21 +92,16 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
-        <div className={classes.paginationElementName}>
-          {"공방명:" + props.name}
-        </div>
-        <div className={classes.paginationElementAddress}>
-          {"공방주소:" + props.address}
-        </div>
-        <div className={classes.paginationElementPhone}>
-          {"공방연락처:" + props.phone}
-        </div>
+        <div className={classes.paginationElementName}>{props.name}</div>
+        <div className={classes.paginationElementAddress}>{props.address}</div>
+        <div className={classes.paginationElementPhone}>{props.phone}</div>
 
         <IconButton
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
           onClick={handleClick}
+          className={classes.paginationElementBtn}
         >
           <MoreVertIcon />
         </IconButton>

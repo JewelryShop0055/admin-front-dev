@@ -63,6 +63,35 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
     ContentsBase: {
       margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
     },
+    craftShopListContainer: {
+      marginTop: "20px",
+      display: "grid",
+      gridTemplateRows: "1fr auto",
+      gridTemplateColumns: "2fr 5fr 2fr 1fr",
+      gridTemplateAreas: `
+      "headerCraftName headerCraftAddress headerCraftPhone none"
+      "elements elements elements elements"`,
+    },
+    headerCraftName: {
+      gridArea: "headerCraftName",
+      paddingLeft: "10px",
+      fontWeight: "bold",
+      marginBottom: "10px",
+    },
+    headerCraftAddress: {
+      gridArea: "headerCraftAddress",
+      fontWeight: "bold",
+      marginBottom: "10px",
+    },
+    headerCraftPhone: {
+      gridArea: "headerCraftPhone",
+      fontWeight: "bold",
+      marginBottom: "10px",
+    },
+    craftElements: {
+      gridArea: "elements",
+      borderTop: "1px solid black",
+    },
     paginationBlock: {
       backgroundColor: theme.palette.background.paper,
       padding: "50px 48px 0 48px",

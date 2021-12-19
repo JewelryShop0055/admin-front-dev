@@ -56,7 +56,14 @@ export default function CraftshopContents() {
               mainText={"등록된 공방 리스트입니다."}
             />
 
-            <RenderCraftshopElements craftshopList={craftshopList} />
+            <div className={classes.craftShopListContainer}>
+              <div className={classes.headerCraftName}>공방이름</div>
+              <div className={classes.headerCraftAddress}>주소</div>
+              <div className={classes.headerCraftPhone}>연락처</div>
+              <div className={classes.craftElements}>
+                <RenderCraftshopElements craftshopList={craftshopList} />
+              </div>
+            </div>
 
             <div className={classes.paginationAddButton}>
               <Button
@@ -81,8 +88,6 @@ export default function CraftshopContents() {
               onChange={paginationNavigationHandler}
             />
           </div>
-
-          {/* <NewCraftshopEntry /> */}
         </Paper>
       </div>
     </>
