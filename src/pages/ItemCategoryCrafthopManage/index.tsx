@@ -70,7 +70,7 @@ export const CraftshopManagePage: React.FC = () => {
         <>
           <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
-          <ReplaceCraftshop />
+          <AddNewCraftshop />
         </>
       );
 

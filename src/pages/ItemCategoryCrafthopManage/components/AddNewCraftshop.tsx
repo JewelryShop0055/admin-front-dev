@@ -24,28 +24,52 @@ const addNewCraftshopStyles = makeStyles((theme: Theme) =>
     contentsBase: {
       margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
     },
-    inputBlock: {
-      backgroundColor: theme.palette.background.paper,
+    inputContainer: {
       padding: "50px 48px 0 48px",
-      minWidth: "600px",
+
+      display: "grid",
+      gridAutoRows: "1fr 1fr 1fr 1fr 1fr 1fr",
+      gridAutoColumns: "150px 150px 200px 200px",
+      gridGap: "10px",
+      gridTemplateAreas: `
+      "inputHeader inputHeader inputHeader inputHeader"
+      "craftshopName craftshopName . ."
+      "craftshopPhoneNumber craftshopPhoneNumber . ."
+      "craftshopPostCode findAddressCode . ."
+      "craftshopAddress craftshopAddress craftshopAddress craftshopAddress"
+      "craftshopDetailAddress craftshopDetailAddress craftshopAddressRef ."
+      `,
     },
-    paginationAddButton: {
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
+    inputHeader: {
+      gridArea: "inputHeader",
     },
-    paginationNavigation: {
-      display: "flex",
-      justifyContent: "center",
+    craftshopName: {
+      gridArea: "craftshopName",
+    },
+    craftshopPhoneNumber: {
+      gridArea: "craftshopPhoneNumber",
+    },
+    craftshopPostCode: {
+      gridArea: "craftshopPostCode",
+    },
+    findAddressCode: {
+      gridArea: "findAddressCode",
+    },
+    craftshopAddress: {
+      gridArea: "craftshopAddress",
+    },
+    craftshopDetailAddress: {
+      gridArea: "craftshopDetailAddress",
+    },
+    craftshopAddressRef: {
+      gridArea: "craftshopAddressRef",
+    },
+    submitBtn: {
+      margin: "20px 0 0 680px ",
+      minWidth: "100px",
     },
   })
 );
-
-const buttonTheme = createTheme({
-  palette: {
-    primary: blue,
-  },
-});
 
 export default function AddNewCraftshop() {
   const classes = addNewCraftshopStyles();
@@ -62,6 +86,12 @@ export default function AddNewCraftshop() {
   const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
     (state) => state.findAddress
   );
+
+  if (
+    globalThis.location.pathname ===
+    "/ItemCategoryCrafthopManage/Craftshop/replace"
+  ) {
+  }
 
   const handleCraftshopValue: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -82,107 +112,105 @@ export default function AddNewCraftshop() {
   return (
     <>
       <div className={classes.contentsBase}>
-        <div className={classes.inputBlock}>
-          <Typography variant="h5" gutterBottom>
+        <div className={classes.inputContainer}>
+          <Typography variant="h5" gutterBottom className={classes.inputHeader}>
             신규 공방 등록하기
           </Typography>
 
-          <form noValidate autoComplete="off">
-            <TextField
-              id="outlined-basic"
-              label="우편번호"
-              variant="outlined"
-              name="id"
-              size="small"
-              disabled
-              value={zoneCode}
-            />
+          <TextField
+            className={classes.craftshopName}
+            label="공방 이름"
+            variant="outlined"
+            name="craftshopName"
+            size="small"
+            onChange={handleCraftshopValue}
+            value={craftshopName}
+          />
 
+          <TextField
+            className={classes.craftshopPhoneNumber}
+            label="공방 연락처"
+            variant="outlined"
+            name="craftshopPhoneNumber"
+            size="small"
+            onChange={handleCraftshopValue}
+            value={craftshopPhoneNumber}
+          />
+
+          <TextField
+            className={classes.craftshopPostCode}
+            label="우편번호"
+            variant="outlined"
+            name="craftshopPostCode"
+            size="small"
+            disabled
+            value={zoneCode}
+          />
+
+          <div className={classes.findAddressCode}>
             <FindAddressCode />
-
-            <div />
-            <TextField
-              id="outlined-basic"
-              label="주소"
-              variant="outlined"
-              name="id"
-              size="small"
-              disabled
-              fullWidth
-              value={baseAddress}
-            />
-            <div />
-            <TextField
-              id="outlined-basic"
-              label="상세주소"
-              variant="outlined"
-              name="CraftshopDetailAddress"
-              size="small"
-              onChange={handleCraftshopValue}
-              value={CraftshopDetailAddress}
-            />
-            <TextField
-              id="outlined-basic"
-              label="참고항목"
-              variant="outlined"
-              name="id"
-              size="small"
-              disabled
-              value={addtionalAddress}
-            />
-          </form>
-
-          <div />
-
-          <form noValidate autoComplete="off">
-            <TextField
-              id="outlined-basic"
-              label="공방 이름"
-              variant="outlined"
-              name="craftshopName"
-              size="small"
-              onChange={handleCraftshopValue}
-              value={craftshopName}
-            />
-            <TextField
-              id="outlined-basic"
-              label="공방 연락처"
-              variant="outlined"
-              name="craftshopPhoneNumber"
-              size="small"
-              onChange={handleCraftshopValue}
-              value={craftshopPhoneNumber}
-            />
-          </form>
-          <div className={classes.paginationAddButton}>
-            <ThemeProvider theme={buttonTheme}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => {
-                  dispatch(
-                    addNewCraftshopActions.addNewCraftshopPending({
-                      address: baseAddress + addtionalAddress,
-                      detailAddress: CraftshopDetailAddress,
-                      name: craftshopName,
-                      phone: craftshopPhoneNumber,
-                      postCode: zoneCode,
-                    })
-                  );
-                  dispatch(findAddressActions.getAddressValueReset());
-                  setCraftshopValue({
-                    craftshopName: "",
-                    CraftshopDetailAddress: "",
-                    craftshopPhoneNumber: "",
-                  });
-                  history.push("/ItemCategoryCrafthopManage/Craftshop");
-                }}
-              >
-                등록하기
-              </Button>
-            </ThemeProvider>
           </div>
+
+          <TextField
+            className={classes.craftshopAddress}
+            label="주소"
+            variant="outlined"
+            name="craftshopAddress"
+            size="small"
+            disabled
+            // fullWidth
+            value={baseAddress}
+          />
+
+          <TextField
+            className={classes.craftshopDetailAddress}
+            label="상세주소"
+            variant="outlined"
+            name="craftshopDetailAddress"
+            size="small"
+            onChange={handleCraftshopValue}
+            value={CraftshopDetailAddress}
+          />
+          <TextField
+            className={classes.craftshopAddressRef}
+            label="참고항목"
+            variant="outlined"
+            name="craftshopAddressRef"
+            size="small"
+            disabled
+            value={addtionalAddress}
+          />
         </div>
+
+        <Button
+          className={classes.submitBtn}
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            if (craftshopName === "" || craftshopPhoneNumber === "") {
+              alert("공방 이름과 연락처는 필수로 입력해야합니다!");
+              return;
+            }
+            dispatch(
+              addNewCraftshopActions.addNewCraftshopPending({
+                address: baseAddress + addtionalAddress,
+                detailAddress: CraftshopDetailAddress,
+                name: craftshopName,
+                phone: craftshopPhoneNumber,
+                postCode: zoneCode,
+              })
+            );
+            dispatch(findAddressActions.getAddressValueReset());
+            setCraftshopValue({
+              craftshopName: "",
+              CraftshopDetailAddress: "",
+              craftshopPhoneNumber: "",
+            });
+            history.push("/ItemCategoryCrafthopManage/Craftshop");
+          }}
+        >
+          등록하기
+        </Button>
       </div>
     </>
   );

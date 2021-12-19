@@ -20,7 +20,7 @@ export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
       borderBottom: "black solid 0.5px",
       padding: "5px 0 5px 0",
       display: "grid",
-      gridAutoColumns: "2fr 5fr 2fr 1fr",
+      gridTemplateColumns: "2fr 5fr 2fr 1fr",
       gridTemplateAreas: `"name address phone menuBtn"`,
     },
     paginationElementName: {
