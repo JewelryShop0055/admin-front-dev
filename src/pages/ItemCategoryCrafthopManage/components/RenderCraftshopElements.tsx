@@ -70,6 +70,19 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
 
   const handleReplaceButton = () => {
     setAnchorEl(null);
+    dispatch(
+      selectAction.selectElementPending({
+        id: props.id,
+        name: props.name,
+        postCode: props.postCode,
+        address: props.address,
+        detailAddress: props.detailAddress,
+        phone: props.phone,
+        updatedAt: props.updatedAt,
+        createdAt: props.createdAt,
+      })
+    );
+    history.push("/ItemCategoryCrafthopManage/Craftshop/replace");
   };
 
   const handleDeleteButton = () => {

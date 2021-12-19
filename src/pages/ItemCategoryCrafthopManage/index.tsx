@@ -6,6 +6,7 @@ import AddNewCraftshop from "./components/AddNewCraftshop";
 import CategoryContents from "./components/CategoryContents";
 import CraftshopContents from "./components/CraftshopContents";
 import DeleteCraftshop from "./components/DeleteCraftshop";
+import ReplaceCraftshop from "./components/ReplaceCraftshop";
 
 const subNaviElements: Array<SubNavigationElements> = [
   {
@@ -69,7 +70,7 @@ export const CraftshopManagePage: React.FC = () => {
         <>
           <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
-          {/* <RelplaceCraftshop /> */}
+          <ReplaceCraftshop />
         </>
       );
 
