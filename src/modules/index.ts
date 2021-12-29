@@ -25,6 +25,8 @@ import deleteCraftshop from "../store/craftshop/deleteCraftshop/slice";
 import deleteCraftshopSaga from "../store/craftshop/deleteCraftshop/saga";
 import selectCraftshop from "../store/craftshop/selectedCraftshop/slice";
 import selectCraftshopSaga from "../store/craftshop/selectedCraftshop/saga";
+import updateCraftshop from "../store/craftshop/updateCraftshop/slice";
+import updateCraftshopSaga from "../store/craftshop/updateCraftshop/saga";
 
 export const reducers = {
   topNavigation,
@@ -41,6 +43,7 @@ export const reducers = {
   craftshopList,
   deleteCraftshop,
   selectCraftshop,
+  updateCraftshop,
 
   findAddress,
 };
@@ -59,6 +62,7 @@ export function* rootSaga() {
     craftshopListSaga(),
     deleteCraftshopSaga(),
     selectCraftshopSaga(),
+    updateCraftshopSaga(),
 
     deleteCategorySaga(),
   ]);

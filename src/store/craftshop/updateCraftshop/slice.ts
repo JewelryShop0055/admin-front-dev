@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddNewCraftshopParams, Craftshop } from "../../../types";
+import { Craftshop } from "../../../types";
 
-interface UpdateCraftshopState
+export interface UpdateCraftshopState
   extends Omit<Craftshop, "updatedAt" | "createdAt"> {
   isLoadingUpdateCraftshop: boolean;
 }
@@ -30,7 +30,9 @@ export const updateCraftshopSlice = createSlice({
     },
     updateCraftshopFullfilled: (
       state,
-      action: PayloadAction<UpdateCraftshopState>
+      action: PayloadAction<
+        Omit<UpdateCraftshopState, "isLoadingUpdateCraftshop">
+      >
     ) => {
       state.id = action.payload.id;
       state.name = action.payload.name;
@@ -45,3 +47,6 @@ export const updateCraftshopSlice = createSlice({
     },
   },
 });
+
+export const { actions } = updateCraftshopSlice;
+export default updateCraftshopSlice.reducer;

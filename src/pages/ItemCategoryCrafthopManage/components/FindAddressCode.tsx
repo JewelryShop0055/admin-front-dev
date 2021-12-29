@@ -27,7 +27,6 @@ export function FindAddressCode() {
       addtionalAddress: data.bname.toString() + data.buildingName.toString(),
       zoneCode: data.zonecode,
     };
-    console.log(getValue);
     dispatch(actions.getAddressValuePending(getValue));
 
     setOpen(false);

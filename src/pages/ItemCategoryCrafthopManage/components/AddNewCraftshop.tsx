@@ -1,14 +1,7 @@
-import {
-  Theme,
-  createStyles,
-  createTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
 import { Button, TextField } from "@material-ui/core";
-import { blue } from "@material-ui/core/colors";
 
 import { useEffect, useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
@@ -18,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
 import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
+import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,13 +85,11 @@ export default function AddNewCraftshop() {
   const selectedCraftshopValue = useAppSelector(
     (state) => state.selectCraftshop
   );
-  console.log("선택된공방값", selectedCraftshopValue);
   const isReplace: boolean =
     globalThis.location.pathname ===
     "/ItemCategoryCrafthopManage/Craftshop/replace"
       ? true
       : false;
-  //
 
   const handleCraftshopValue: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -117,9 +109,16 @@ export default function AddNewCraftshop() {
 
     //수정과정
     if (isReplace) {
-      // dispatch(updateCraftshopActions.updateCraftshopPending({
-      //   ...대충 수정할 내용들
-      // }))
+      dispatch(
+        updateCraftshopActions.updateCraftshopPending({
+          id: selectedCraftshopValue.id,
+          name: craftshopName,
+          postCode: zoneCode,
+          address: baseAddress + addtionalAddress,
+          detailAddress: craftshopDetailAddress,
+          phone: craftshopPhoneNumber,
+        })
+      );
     }
 
     //신규등록과정
@@ -135,7 +134,6 @@ export default function AddNewCraftshop() {
       );
     }
 
-    //두과정이 끝난후 상태값 초기화
     dispatch(findAddressActions.getAddressValueReset());
     setCraftshopValue({
       craftshopName: "",
