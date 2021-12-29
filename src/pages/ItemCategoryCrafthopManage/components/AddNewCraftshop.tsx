@@ -77,21 +77,27 @@ export default function AddNewCraftshop() {
   const history = useHistory();
   const [craftshopValue, setCraftshopValue] = useState({
     craftshopName: "",
-    CraftshopDetailAddress: "",
+    craftshopDetailAddress: "",
     craftshopPhoneNumber: "",
   });
 
-  const { craftshopName, CraftshopDetailAddress, craftshopPhoneNumber } =
+  const { craftshopName, craftshopDetailAddress, craftshopPhoneNumber } =
     craftshopValue;
   const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
     (state) => state.findAddress
   );
 
-  if (
+  //공방수정시 적용되는 내용
+  const selectedCraftshopValue = useAppSelector(
+    (state) => state.selectCraftshop
+  );
+  console.log("선택된공방값", selectedCraftshopValue);
+  const isReplace: boolean =
     globalThis.location.pathname ===
     "/ItemCategoryCrafthopManage/Craftshop/replace"
-  ) {
-  }
+      ? true
+      : false;
+  //
 
   const handleCraftshopValue: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -103,7 +109,60 @@ export default function AddNewCraftshop() {
     });
   };
 
+  const submitValue = () => {
+    if (craftshopName === "" || craftshopPhoneNumber === "") {
+      alert("공방 이름과 연락처는 필수로 입력해야합니다!");
+      return;
+    }
+
+    //수정과정
+    if (isReplace) {
+      // dispatch(updateCraftshopActions.updateCraftshopPending({
+      //   ...대충 수정할 내용들
+      // }))
+    }
+
+    //신규등록과정
+    if (!isReplace) {
+      dispatch(
+        addNewCraftshopActions.addNewCraftshopPending({
+          address: baseAddress + addtionalAddress,
+          detailAddress: craftshopDetailAddress,
+          name: craftshopName,
+          phone: craftshopPhoneNumber,
+          postCode: zoneCode,
+        })
+      );
+    }
+
+    //두과정이 끝난후 상태값 초기화
+    dispatch(findAddressActions.getAddressValueReset());
+    setCraftshopValue({
+      craftshopName: "",
+      craftshopDetailAddress: "",
+      craftshopPhoneNumber: "",
+    });
+    history.push("/ItemCategoryCrafthopManage/Craftshop");
+    return;
+  };
+
   useEffect(() => {
+    if (isReplace) {
+      setCraftshopValue({
+        craftshopName: selectedCraftshopValue.name,
+        craftshopPhoneNumber: selectedCraftshopValue.phone,
+        craftshopDetailAddress: selectedCraftshopValue.detailAddress,
+      });
+      const initialCraftshopAddressValue = {
+        baseAddress: selectedCraftshopValue.address,
+        addtionalAddress: "",
+        zoneCode: selectedCraftshopValue.postCode,
+      };
+      dispatch(
+        findAddressActions.getAddressValuePending(initialCraftshopAddressValue)
+      );
+    }
+
     return () => {
       dispatch(findAddressActions.getAddressValueReset());
     };
@@ -114,7 +173,7 @@ export default function AddNewCraftshop() {
       <div className={classes.contentsBase}>
         <div className={classes.inputContainer}>
           <Typography variant="h5" gutterBottom className={classes.inputHeader}>
-            신규 공방 등록하기
+            {isReplace ? "공방 수정하기" : "공방 등록하기"}
           </Typography>
 
           <TextField
@@ -144,6 +203,7 @@ export default function AddNewCraftshop() {
             name="craftshopPostCode"
             size="small"
             disabled
+            onChange={handleCraftshopValue}
             value={zoneCode}
           />
 
@@ -158,7 +218,7 @@ export default function AddNewCraftshop() {
             name="craftshopAddress"
             size="small"
             disabled
-            // fullWidth
+            onChange={handleCraftshopValue}
             value={baseAddress}
           />
 
@@ -169,7 +229,7 @@ export default function AddNewCraftshop() {
             name="craftshopDetailAddress"
             size="small"
             onChange={handleCraftshopValue}
-            value={CraftshopDetailAddress}
+            value={craftshopDetailAddress}
           />
           <TextField
             className={classes.craftshopAddressRef}
@@ -178,6 +238,7 @@ export default function AddNewCraftshop() {
             name="craftshopAddressRef"
             size="small"
             disabled
+            onChange={handleCraftshopValue}
             value={addtionalAddress}
           />
         </div>
@@ -187,29 +248,10 @@ export default function AddNewCraftshop() {
           variant="outlined"
           color="primary"
           onClick={() => {
-            if (craftshopName === "" || craftshopPhoneNumber === "") {
-              alert("공방 이름과 연락처는 필수로 입력해야합니다!");
-              return;
-            }
-            dispatch(
-              addNewCraftshopActions.addNewCraftshopPending({
-                address: baseAddress + addtionalAddress,
-                detailAddress: CraftshopDetailAddress,
-                name: craftshopName,
-                phone: craftshopPhoneNumber,
-                postCode: zoneCode,
-              })
-            );
-            dispatch(findAddressActions.getAddressValueReset());
-            setCraftshopValue({
-              craftshopName: "",
-              CraftshopDetailAddress: "",
-              craftshopPhoneNumber: "",
-            });
-            history.push("/ItemCategoryCrafthopManage/Craftshop");
+            submitValue();
           }}
         >
-          등록하기
+          {isReplace ? "수정하기" : "등록하기"}
         </Button>
       </div>
     </>
