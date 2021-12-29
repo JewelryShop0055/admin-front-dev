@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
 const LoginPage: React.FC = () => {
   const classes = useStyles();
 
-  const [userId, setUserId] = useState("shopoperator");
-  const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
