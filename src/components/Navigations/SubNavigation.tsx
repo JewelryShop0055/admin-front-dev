@@ -1,19 +1,19 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
+
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
-const drawerWidth = 280;
+import ListItemText from "@material-ui/core/ListItemText";
+import { topNavigationHeight } from "./TopNavigation";
+import { useHistory } from "react-router-dom";
+import { useAppDispatch } from "../../modules/hooks";
+import { actions } from "../../store/signOut/slice";
+import { SubNavigationParams } from "../../types";
+
+export const drawerWidth = 280;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,33 +25,42 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: drawerWidth,
     },
     drawer: {
-      width: drawerWidth,
+      width: theme.spacing(20),
       flexShrink: 0,
     },
     drawerPaper: {
       position: "absolute",
       top: "72px",
-      width: drawerWidth,
+      width: `${drawerWidth}px`,
+      height: `calc(100vh - ${topNavigationHeight}px)`,
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(3),
+      // padding: theme.spacing(3),
+    },
+
+    divider: {
+      border: "1px solid lightgray",
     },
   })
 );
 
-export default function SubNavigation() {
+export default function SubNavigation({ elementsArray }: SubNavigationParams) {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useAppDispatch();
+
+  const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
+    await dispatch(actions.getSignOutPending());
+  };
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-
       <Drawer
-        className={classes.drawer}
+        // className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
@@ -59,27 +68,22 @@ export default function SubNavigation() {
         anchor="left"
       >
         <List>
-          {[
-            "전체 발주 대기리스트",
-            "전체 금일 출고 제품리스트",
-            "전체 고객 미수령 상품리스트",
-          ].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button onClick={handleLogout} key={"Logout"}>
+            <ListItemText primary={"Logout"} />
+          </ListItem>
         </List>
-        <Divider />
+        <Divider className={classes.divider} />
         <List>
-          {["금값 들어올곳"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+          {elementsArray.map((element) => (
+            <ListItem
+              divider
+              button
+              key={element.elementName}
+              onClick={() => {
+                history.push(element.elementLink);
+              }}
+            >
+              <ListItemText primary={element.elementName} />
             </ListItem>
           ))}
         </List>
@@ -87,3 +91,7 @@ export default function SubNavigation() {
     </div>
   );
 }
+
+SubNavigation.defaultProps = {
+  ListItemArray: [],
+};

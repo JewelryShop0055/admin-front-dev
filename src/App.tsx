@@ -1,35 +1,54 @@
 import React from "react";
-import { BrowserView, MobileView } from "react-device-detect";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthRouth } from "./components/AuthRoute";
-import Error404 from "./pages/Error/Error404";
-import LoginPage from "./pages/Login";
+import { Route, Switch } from "react-router";
 
+import { AuthRoute } from "./components/AuthRoute";
+
+import Error404 from "./pages/ErrorPage/Error404";
+import ItemCategoryPage, {
+  CraftshopManagePage,
+  CraftshopPage,
+} from "./pages/ItemCategoryCrafthopManage";
+import LoginPage from "./pages/Login";
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <BrowserView>
-        <Router>
-          <Switch>
-            <Route path="/" component={LoginPage} exact />
+    <>
+      <Switch>
+        <Route path="/" component={LoginPage} exact />
 
-            <AuthRouth
-              path="/TodaysChecklist"
-              exact
-              component={TodaysCheckListMainPage}
-            />
+        <AuthRoute
+          path="/TodaysChecklist"
+          exact
+          component={TodaysCheckListMainPage}
+        />
 
-            <Route component={Error404} />
-          </Switch>
-        </Router>
-      </BrowserView>
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage"
+          exact
+          component={ItemCategoryPage}
+        />
 
-      <MobileView>
-        <div>현재 모바일은 지원하지 않습니다. PC버전으로 사용해주세요</div>
-      </MobileView>
-    </div>
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Category"
+          exact
+          component={ItemCategoryPage}
+        />
+
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Craftshop"
+          exact
+          component={CraftshopPage}
+        />
+
+        <AuthRoute
+          path="/ItemCategoryCrafthopManage/Craftshop/"
+          component={CraftshopManagePage}
+        />
+
+        <Route component={Error404} />
+      </Switch>
+    </>
   );
 };
 

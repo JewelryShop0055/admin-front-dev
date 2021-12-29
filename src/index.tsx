@@ -1,17 +1,22 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { history, store } from "./modules/store";
+import { ConnectedRouter } from "connected-react-router";
+import { SnackbarProvider } from "notistack";
+import { SnackbarUtilsConfigurator } from "./util/snackBarUitls";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ConnectedRouter history={history}>
+      <SnackbarProvider maxSnack={3}>
+        <SnackbarUtilsConfigurator />
+        <App />
+      </SnackbarProvider>
+    </ConnectedRouter>
   </Provider>,
+
   document.getElementById("root")
 );

@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import { getAuthToken } from "./auth";
+import { getAuthTokenFromCookies } from "./auth";
 
 interface tokenDecode {
   tokenType: string;
@@ -9,16 +9,8 @@ interface tokenDecode {
   iss: string;
 }
 
-const initialDecodeValue = {
-  tokenType: "none",
-  scope: "none",
-  iat: 0,
-  exp: 0,
-  iss: "none",
-};
-
 export function checkTokenExpired(tokenName: string) {
-  const token = getAuthToken(tokenName);
+  const token = getAuthTokenFromCookies(tokenName);
 
   if (token === undefined) {
     return false;

@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Signup from "./components/FindIdAndPassword";
+import FindIdPassword from "./components/FindIdPassword";
 
 import {
   ButtonBlock,
   InputBlock,
   LoginBlock,
 } from "./components/LoginBlock_styled";
-import { signinEvent } from "./components/signinEvent";
-import { SigninButton } from "./components/debounceButton";
-import { useHistory } from "react-router-dom";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@material-ui/core";
+import { useAppDispatch } from "../../modules/hooks";
+import { actions } from "../../store/signIn/slice";
+
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +40,9 @@ const LoginPage: React.FC = () => {
 
   const [userId, setUserId] = useState("shopoperator");
   const [userPassword, setUserPassword] = useState("sh0pOperatorTmpPwd");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const handleChangeId: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -48,12 +58,26 @@ const LoginPage: React.FC = () => {
     setUserPassword(value);
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   const handleKeyPress: React.KeyboardEventHandler<HTMLFormElement> = async (
     e
   ) => {
     if (e.key === "Enter") {
-      await signinEvent(userId, userPassword, setUserId, setUserPassword);
-      return history.replace("/TodaysChecklist");
+      await dispatch(
+        actions.getAuthTokenPending({
+          userId: userId,
+          userPassword: userPassword,
+        })
+      );
     }
   };
 
@@ -69,42 +93,56 @@ const LoginPage: React.FC = () => {
             autoComplete="off"
             onKeyPress={handleKeyPress}
           >
-            <TextField
-              id="outlined-basic"
-              label="ID"
-              variant="outlined"
-              name="id"
-              onChange={handleChangeId}
-              value={userId}
-            />
-            <TextField
-              id="outlined-basic"
-              label="PASSWORD"
-              variant="outlined"
-              name="password"
-              onChange={handleChangePassword}
-              value={userPassword}
-            />
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="id">ID</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-id"
+                value={userId}
+                onChange={handleChangeId}
+                labelWidth={70}
+              />
+            </FormControl>
+
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                value={userPassword}
+                onChange={handleChangePassword}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+              />
+            </FormControl>
 
             <ButtonBlock className={classes.button}>
-              <SigninButton
+              <Button
+                variant="outlined"
+                color="primary"
                 onClick={async () => {
-                  await new Promise(async (resolve) => {
-                    await signinEvent(
-                      userId,
-                      userPassword,
-                      setUserId,
-                      setUserPassword
-                    );
-                    history.replace("/TodaysChecklist");
-                    setTimeout(resolve, 500);
-                  });
+                  await dispatch(
+                    actions.getAuthTokenPending({
+                      userId: userId,
+                      userPassword: userPassword,
+                    })
+                  );
                 }}
               >
                 SIGN IN
-              </SigninButton>
+              </Button>
 
-              <Signup />
+              <FindIdPassword />
             </ButtonBlock>
           </form>
         </InputBlock>

@@ -8,8 +8,7 @@ export default function CustomizedTabs() {
   return (
     <>
       <TopNavigation />
-
-      <SubNavigation />
+      {/* <SubNavigation /> */}
     </>
   );
 }

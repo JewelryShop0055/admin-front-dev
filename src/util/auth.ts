@@ -1,4 +1,4 @@
-import { signoutAPI } from "../api/signout";
+import { signOut } from "../api/signOut";
 
 export function saveAuthToken(accessToken: string, refreshToken: string) {
   document.cookie = `user_access_token=${accessToken}; max-age=3599; samesite=lax;`;
@@ -9,7 +9,7 @@ export function deleteAuthToken(name: string, value: string) {
   document.cookie = `${name}=${value}; max-age=-1;`;
 }
 
-export const getAuthToken = (name: string) => {
+export const getAuthTokenFromCookies = (name: string) => {
   let matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
@@ -24,15 +24,15 @@ export async function signout() {
   await window.localStorage.setItem("signout", String(Date.now()));
 
   const tokens = [
-    ["user_access_token", getAuthToken("user_access_token")],
-    ["user_refresh_token", getAuthToken("user_refresh_token")],
+    ["user_access_token", getAuthTokenFromCookies("user_access_token")],
+    ["user_refresh_token", getAuthTokenFromCookies("user_refresh_token")],
   ];
 
   tokens.forEach((token) => {
     if (token[1] !== undefined) {
       deleteAuthToken(token[0]!.toString(), token[1]!.toString());
       if (token[0] === "user_access_token") {
-        signoutAPI(token[1]!.toString());
+        signOut({ accessToken: token[1]!.toString() });
       }
     }
   });

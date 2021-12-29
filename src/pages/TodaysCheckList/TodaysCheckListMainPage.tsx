@@ -41,7 +41,6 @@ export default function TodaysCheckListMainPage() {
     <>
       <TopNavigation />
       <div className={classes.root}>
-        <CssBaseline />
         <TodoCheckListsSubNavigation />
 
         <main className={classes.content}>
