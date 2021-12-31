@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
 
-export const topNavigationHeight = 70;
+export const topNavigationHeight = 60;
 
 // TOP NAVIGATION
 const StoreName = styled.div`
@@ -27,6 +27,7 @@ const StoreName = styled.div`
 const AntTabs = withStyles({
   root: {
     borderBottom: "1px solid #e8e8e8",
+    height: "60px",
   },
   indicator: {
     backgroundColor: "#1890ff",
@@ -36,23 +37,10 @@ const AntTabs = withStyles({
 const AntTab = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      textTransform: "none",
       minWidth: 150,
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: "18px",
       marginRight: theme.spacing(2),
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
       "&:hover": {
         color: "#40a9ff",
         opacity: 1,
