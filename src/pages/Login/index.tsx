@@ -38,8 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const LoginPage: React.FC = () => {
   const classes = useStyles();
 
-  const [userId, setUserId] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [userId, setUserId] = useState(String(process.env.REACT_APP_USER_ID));
+  const [userPassword, setUserPassword] = useState(
+    String(process.env.REACT_APP_USER_PW)
+  );
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
