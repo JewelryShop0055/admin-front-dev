@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   withStyles,
@@ -11,9 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
-
-import { useAppSelector, useAppDispatch } from "../../modules/hooks";
-import { selectState } from "../../util/TopNavigationSlice";
 
 export const topNavigationHeight = 70;
 
@@ -94,13 +91,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function TopNavigation() {
   const classes = useStyles();
 
-  const value = useAppSelector((state) => state.topNavigation.value);
-  const dispatch = useAppDispatch();
-
+  const [nowTab, setNowTab] = useState(1);
   const history = useHistory();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    dispatch(selectState(newValue));
+    setNowTab(newValue);
     if (newValue === 1) {
       return history.push("/TodaysChecklist");
     }
@@ -111,7 +106,7 @@ export default function TopNavigation() {
     //   return history.push("/TodaysChecklist");
     // }
     if (newValue === 4) {
-      return history.push("/ProductManage");
+      return history.push("/ProductCreate");
     }
     if (newValue === 5) {
       return history.push("/ItemCategoryCrafthopManage");
@@ -120,11 +115,10 @@ export default function TopNavigation() {
 
   return (
     <>
-      {/* TOP NAVIGATION  */}
       <div className={classes.root}>
         <div className={classes.topNavigation}>
           <AntTabs
-            value={value}
+            value={nowTab}
             onChange={handleChange}
             aria-label="ant example"
           >

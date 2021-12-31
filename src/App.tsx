@@ -9,7 +9,7 @@ import ItemCategoryPage, {
   CraftshopPage,
 } from "./pages/ItemCategoryCrafthopManagePage";
 import LoginPage from "./pages/LoginPage";
-import ProductManagePage from "./pages/ProductManagePage";
+import ProductCreatePage from "./pages/ProductCreatePage";
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 
 const App: React.FC = () => {
@@ -47,7 +47,7 @@ const App: React.FC = () => {
           component={CraftshopManagePage}
         />
 
-        <AuthRoute path="/ProductManage" exact component={ProductManagePage} />
+        <AuthRoute path="/ProductCreate" exact component={ProductCreatePage} />
 
         <Route component={Error404} />
       </Switch>
