@@ -110,9 +110,9 @@ export default function TopNavigation() {
     // if (newValue === 3) {
     //   return history.push("/TodaysChecklist");
     // }
-    // if (newValue === 4) {
-    //   return history.push("/TodaysChecklist");
-    // }
+    if (newValue === 4) {
+      return history.push("/ProductManage");
+    }
     if (newValue === 5) {
       return history.push("/ItemCategoryCrafthopManage");
     }

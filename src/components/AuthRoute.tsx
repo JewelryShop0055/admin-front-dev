@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router";
 import { useAppDispatch } from "../modules/hooks";
-import LoginPage from "../pages/Login";
+import LoginPage from "../pages/LoginPage";
 import { actions } from "../store/signIn/slice";
 import { getAuthTokenFromCookies } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";

@@ -7,8 +7,9 @@ import Error404 from "./pages/ErrorPage/Error404";
 import ItemCategoryPage, {
   CraftshopManagePage,
   CraftshopPage,
-} from "./pages/ItemCategoryCrafthopManage";
-import LoginPage from "./pages/Login";
+} from "./pages/ItemCategoryCrafthopManagePage";
+import LoginPage from "./pages/LoginPage";
+import ProductManagePage from "./pages/ProductManagePage";
 import TodaysCheckListMainPage from "./pages/TodaysCheckList/TodaysCheckListMainPage";
 
 const App: React.FC = () => {
@@ -45,6 +46,8 @@ const App: React.FC = () => {
           path="/ItemCategoryCrafthopManage/Craftshop/"
           component={CraftshopManagePage}
         />
+
+        <AuthRoute path="/ProductManage" exact component={ProductManagePage} />
 
         <Route component={Error404} />
       </Switch>
