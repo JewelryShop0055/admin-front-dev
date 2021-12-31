@@ -28,7 +28,7 @@ function* getAuthTokenSaga(action: PayloadAction<SignIn>) {
   try {
     const result: AuthToken = yield call(() => passwordGrantAuth(params));
     yield saveAuthToken(result.access_token, result.refresh_token);
-    yield history.push("/TodaysChecklist");
+    yield history.push("/pages");
     alertSnackBarMessage({
       message: "로그인 성공",
       type: SnackBarMessageType.SUCCESS,

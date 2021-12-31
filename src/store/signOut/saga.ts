@@ -19,7 +19,6 @@ function* deleteAuthTokenSaga() {
       message: "정상적으로 로그아웃 되었습니다.",
       type: SnackBarMessageType.SUCCESS,
     });
-    yield history.push("/");
   } catch (error) {
     if (axios.isAxiosError(error)) {
       yield ErrorControl({ error: error, errorType: ErrorEnvironment.SignOut });

@@ -58,7 +58,7 @@ export default function TodaysCheckListSubNavigation() {
         anchor="left"
       >
         <List>
-          <StyledLink to="/">
+          <StyledLink to="/loginPage">
             <ListItem button onClick={handleLogout} key={"Logout"}>
               <ListItemIcon>
                 <InboxIcon />

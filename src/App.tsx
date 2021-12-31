@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 
 import { AuthRoute } from "./components/AuthRoute";
 
@@ -8,12 +8,16 @@ import Pages from "./pages";
 import Error404 from "./pages/ErrorPage/Error404";
 
 const App: React.FC = () => {
+  const history = useHistory();
+  if (globalThis.location.pathname === "/") {
+    history.replace("/loginPage");
+  }
   return (
     <>
       <Switch>
-        <Route path="/" exact component={LoginPage} />
+        <Route path="/loginPage" exact component={LoginPage} />
 
-        <AuthRoute path="/" component={Pages} />
+        <AuthRoute path="/pages" component={Pages} />
 
         <Route component={Error404} />
       </Switch>

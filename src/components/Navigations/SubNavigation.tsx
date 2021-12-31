@@ -54,7 +54,7 @@ export default function SubNavigation({ elementsArray }: SubNavigationParams) {
   const dispatch = useAppDispatch();
 
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
-    await dispatch(actions.getSignOutPending());
+    dispatch(actions.getSignOutPending());
   };
 
   return (
@@ -68,7 +68,14 @@ export default function SubNavigation({ elementsArray }: SubNavigationParams) {
         anchor="left"
       >
         <List>
-          <ListItem button onClick={handleLogout} key={"Logout"}>
+          <ListItem
+            button
+            onClick={(e) => {
+              handleLogout(e);
+              history.push("/loginPage");
+            }}
+            key="Logout"
+          >
             <ListItemText primary={"Logout"} />
           </ListItem>
         </List>

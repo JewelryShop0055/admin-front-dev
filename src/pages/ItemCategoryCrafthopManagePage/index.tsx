@@ -46,6 +46,7 @@ export enum CraftshopManageType {
 }
 
 export const CraftshopManagePage: React.FC = () => {
+  console.log("그냥찍어봄");
   switch (globalThis.location.pathname) {
     case "/ItemCategoryCrafthopManage/Craftshop/add":
       return (

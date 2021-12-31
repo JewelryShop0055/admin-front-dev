@@ -74,7 +74,7 @@ const LoginPage: React.FC = () => {
     e
   ) => {
     if (e.key === "Enter") {
-      await dispatch(
+      dispatch(
         actions.getAuthTokenPending({
           userId: userId,
           userPassword: userPassword,
@@ -133,7 +133,7 @@ const LoginPage: React.FC = () => {
                 variant="outlined"
                 color="primary"
                 onClick={async () => {
-                  await dispatch(
+                  dispatch(
                     actions.getAuthTokenPending({
                       userId: userId,
                       userPassword: userPassword,
