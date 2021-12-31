@@ -22,7 +22,6 @@ const subNaviElements: Array<SubNavigationElements> = [
 export const ItemCategoryPage: React.FC = () => {
   return (
     <>
-      <TopNavigation />
       <SubNavigation elementsArray={subNaviElements} />
       <CategoryContents />
     </>
@@ -32,7 +31,6 @@ export const ItemCategoryPage: React.FC = () => {
 export const CraftshopPage: React.FC = () => {
   return (
     <>
-      <TopNavigation />
       <SubNavigation elementsArray={subNaviElements} />
       <CraftshopContents />
     </>
@@ -51,7 +49,6 @@ export const CraftshopManagePage: React.FC = () => {
     case "/ItemCategoryCrafthopManage/Craftshop/add":
       return (
         <>
-          <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
           <AddNewCraftshop />
         </>
@@ -60,7 +57,6 @@ export const CraftshopManagePage: React.FC = () => {
     case "/ItemCategoryCrafthopManage/Craftshop/delete":
       return (
         <>
-          <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
           <DeleteCraftshop />
         </>
@@ -69,7 +65,6 @@ export const CraftshopManagePage: React.FC = () => {
     case "/ItemCategoryCrafthopManage/Craftshop/replace":
       return (
         <>
-          <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
           <AddNewCraftshop />
         </>
@@ -78,7 +73,6 @@ export const CraftshopManagePage: React.FC = () => {
     default:
       return (
         <>
-          <TopNavigation />
           <SubNavigation elementsArray={subNaviElements} />
           <AddNewCraftshop />
         </>

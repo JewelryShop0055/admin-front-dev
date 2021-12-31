@@ -74,7 +74,7 @@ export const Pages = () => {
             component={ProductCreatePage}
           />
 
-          <Route path="*" component={Error404} />
+          <Route path="*" component={TodaysCheckListMainPage} />
         </Switch>
       </div>
     </>
