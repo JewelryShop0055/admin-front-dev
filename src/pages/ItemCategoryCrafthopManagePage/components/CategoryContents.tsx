@@ -67,48 +67,48 @@ export default function CategoryContents() {
   return (
     <>
       <div className={classes.ContentsBase}>
-        <Paper elevation={PaperElevation.BOTTOM}>
-          <div className={classes.paginationBlock}>
-            <PaginationTexts
-              headerText={"등록된 제품 카테고리"}
-              mainText={
-                "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
+        {/* <Paper elevation={PaperElevation.BOTTOM}> */}
+        <div className={classes.paginationBlock}>
+          <PaginationTexts
+            headerText={"등록된 제품 카테고리"}
+            mainText={
+              "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
+            }
+          />
+
+          <RenderCategoryElements categoryList={categoryList} />
+
+          <div className={classes.paginationAddButton}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              startIcon={<AddIcon />}
+              onClick={() =>
+                dispatch(
+                  toggleModalAction.openModal({
+                    modalType: ModalType.CREATE,
+                    id: 0,
+                    name: "",
+                    itemCount: 0,
+                  })
+                )
               }
-            />
-
-            <RenderCategoryElements categoryList={categoryList} />
-
-            <div className={classes.paginationAddButton}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                startIcon={<AddIcon />}
-                onClick={() =>
-                  dispatch(
-                    toggleModalAction.openModal({
-                      modalType: ModalType.CREATE,
-                      id: 0,
-                      name: "",
-                      itemCount: 0,
-                    })
-                  )
-                }
-              >
-                추가하기
-              </Button>
-            </div>
-
-            <Pagination
-              className={classes.paginationNavigation}
-              count={maxPage}
-              showFirstButton
-              showLastButton
-              page={nowPage}
-              onChange={paginationNavigationHandler}
-            />
+            >
+              추가하기
+            </Button>
           </div>
-        </Paper>
+
+          <Pagination
+            className={classes.paginationNavigation}
+            count={maxPage}
+            showFirstButton
+            showLastButton
+            page={nowPage}
+            onChange={paginationNavigationHandler}
+          />
+        </div>
+        {/* </Paper> */}
       </div>
 
       <CategoryModal openModal={openModal} />

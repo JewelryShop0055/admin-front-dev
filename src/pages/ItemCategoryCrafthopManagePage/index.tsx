@@ -22,7 +22,7 @@ const subNaviElements: Array<SubNavigationElements> = [
 export const ItemCategoryPage: React.FC = () => {
   return (
     <>
-      <SubNavigation elementsArray={subNaviElements} />
+      {/* <SubNavigation elementsArray={subNaviElements} /> */}
       <CategoryContents />
     </>
   );

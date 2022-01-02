@@ -1,44 +1,25 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import { useHistory } from "react-router-dom";
+import { FontSize } from "../../styleTypes";
 
 export const topNavigationHeight = 60;
 
 const useStyles = makeStyles(() => ({
   topNavigation: {
-    width: "1000px",
+    width: "auto",
     height: "60px",
     fontSize: "1rem",
-    listStyle: "none",
-
-    display: "grid",
-    gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr 1fr",
-    gridTemplateAreas: `"stoneName tab1 tab2 tab3 tab4 tab5"`,
+    borderBottom: "1px solid #bbbbbb",
   },
   stoneName: {
-    fontSize: "3rem",
+    fontSize: FontSize.STONE_NAME,
     fontWeight: "bold",
     textAlign: "center",
     margin: "0 20px 0 50px",
-  },
-  tab: {
-    width: "10rem",
-
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "&:hover": {
-      color: "#40a9ff",
-    },
-  },
-  seletedTab: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "#1890ff",
   },
 }));
 
@@ -67,11 +48,10 @@ export default function TopNavigation() {
     }
   };
 
-  const selected = useRef<number>(0);
-
   return (
     <>
       <Tabs
+        className={classes.topNavigation}
         value={nowTab}
         onChange={handleChange}
         indicatorColor="primary"

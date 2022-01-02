@@ -7,43 +7,22 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 
 import ListItemText from "@material-ui/core/ListItemText";
-import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
 import { SubNavigationParams } from "../../types";
+import { Border } from "../../styleTypes";
 
 export const drawerWidth = 280;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
+      height: "100%",
+      borderRight: Border.DEFAULT_BORDER,
     },
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    drawer: {
-      width: theme.spacing(20),
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      position: "absolute",
-      top: "72px",
-      width: `${drawerWidth}px`,
-      height: `calc(100vh - ${topNavigationHeight}px)`,
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.default,
-      // padding: theme.spacing(3),
-    },
-
-    divider: {
-      border: "1px solid lightgray",
+    funtionDivider: {
+      border: Border.DEFAULT_BORDER,
     },
   })
 );
@@ -59,42 +38,33 @@ export default function SubNavigation({ elementsArray }: SubNavigationParams) {
 
   return (
     <div className={classes.root}>
-      <Drawer
-        // className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <List>
+      <List>
+        <ListItem
+          button
+          onClick={(e) => {
+            handleLogout(e);
+            history.push("/loginPage");
+          }}
+          key="Logout"
+        >
+          <ListItemText primary={"Logout"} />
+        </ListItem>
+
+        <Divider className={classes.funtionDivider} />
+
+        {elementsArray.map((element) => (
           <ListItem
+            divider
             button
-            onClick={(e) => {
-              handleLogout(e);
-              history.push("/loginPage");
+            key={element.elementName}
+            onClick={() => {
+              history.push(element.elementLink);
             }}
-            key="Logout"
           >
-            <ListItemText primary={"Logout"} />
+            <ListItemText primary={element.elementName} />
           </ListItem>
-        </List>
-        <Divider className={classes.divider} />
-        <List>
-          {elementsArray.map((element) => (
-            <ListItem
-              divider
-              button
-              key={element.elementName}
-              onClick={() => {
-                history.push(element.elementLink);
-              }}
-            >
-              <ListItemText primary={element.elementName} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+        ))}
+      </List>
     </div>
   );
 }

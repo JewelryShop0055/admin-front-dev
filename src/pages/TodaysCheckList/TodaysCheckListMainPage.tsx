@@ -1,9 +1,6 @@
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
-import TopNavigation from "../../components/Navigations/TopNavigation";
-import { useEffect } from "react";
 
 const drawerWidth = 240;
 
@@ -44,7 +41,6 @@ export default function TodaysCheckListMainPage() {
         <TodoCheckListsSubNavigation />
 
         <main className={classes.content}>
-          <div className={classes.toolbar} />
           <TodaysCheckListMainPageContents />
         </main>
       </div>
