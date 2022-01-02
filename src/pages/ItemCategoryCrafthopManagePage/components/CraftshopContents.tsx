@@ -72,7 +72,9 @@ export default function CraftshopContents() {
                 size="small"
                 startIcon={<AddIcon />}
                 onClick={() =>
-                  history.push("/ItemCategoryCrafthopManage/Craftshop/add")
+                  history.push(
+                    "/pages/ItemCategoryCrafthopManage/Craftshop/add"
+                  )
                 }
               >
                 추가하기

@@ -33,8 +33,7 @@ const pagesStyles = makeStyles(() =>
     },
     pageContents: {
       gridArea: "pageContents",
-      // background: BackgroundColor.CONTENTS_BG,
-      background: "green",
+      background: BackgroundColor.CONTENTS_BG,
     },
   })
 );
@@ -48,9 +47,7 @@ export const Pages = () => {
         <TopNavigation />
       </div>
       <div className={classes.subNavi}>
-        <SubNavigation
-          elementsArray={[{ elementName: "a", elementLink: "alink" }]}
-        />
+        <SubNavigation />
       </div>
       <div className={classes.pageContents}>
         <Switch>

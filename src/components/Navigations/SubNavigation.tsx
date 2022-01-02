@@ -11,6 +11,7 @@ import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
 import { SubNavigationParams } from "../../types";
 import { Border } from "../../styleTypes";
+import subNavigationElements from "./subNavigationElements";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SubNavigation({ elementsArray }: SubNavigationParams) {
+export default function SubNavigation() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useAppDispatch();
@@ -49,7 +50,7 @@ export default function SubNavigation({ elementsArray }: SubNavigationParams) {
 
         <Divider className={classes.funtionDivider} />
 
-        {elementsArray.map((element) => (
+        {subNavigationElements(globalThis.location.pathname).map((element) => (
           <ListItem
             divider
             button

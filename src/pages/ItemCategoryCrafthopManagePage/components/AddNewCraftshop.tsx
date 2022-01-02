@@ -84,7 +84,7 @@ export default function AddNewCraftshop() {
   );
   const isReplace: boolean =
     globalThis.location.pathname ===
-    "/ItemCategoryCrafthopManage/Craftshop/replace"
+    "/pages/ItemCategoryCrafthopManage/Craftshop/replace"
       ? true
       : false;
 
@@ -137,7 +137,7 @@ export default function AddNewCraftshop() {
       craftshopDetailAddress: "",
       craftshopPhoneNumber: "",
     });
-    history.push("/ItemCategoryCrafthopManage/Craftshop");
+    history.push("/pages/ItemCategoryCrafthopManage/Craftshop");
     return;
   };
 

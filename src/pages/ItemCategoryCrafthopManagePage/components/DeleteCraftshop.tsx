@@ -103,7 +103,7 @@ export default function DeleteCraftshop() {
                       name: selectCraftshopValue.name,
                     })
                   );
-                  history.push("/ItemCategoryCrafthopManage/Craftshop");
+                  history.push("/pages/ItemCategoryCrafthopManage/Craftshop");
                 }}
               >
                 삭제하기

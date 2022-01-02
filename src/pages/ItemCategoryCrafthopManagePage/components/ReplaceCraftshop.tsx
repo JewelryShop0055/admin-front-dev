@@ -102,7 +102,7 @@ export default function ReplaceCraftshop() {
                   //     name: selectCraftshopValue.name,
                   //   })
                   // );
-                  history.push("/ItemCategoryCrafthopManage/Craftshop");
+                  history.push("/pages/ItemCategoryCrafthopManage/Craftshop");
                 }}
               >
                 수정하기

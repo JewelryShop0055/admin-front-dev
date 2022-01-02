@@ -38,7 +38,7 @@ export default function TodaysCheckListMainPage() {
   return (
     <>
       <div className={classes.root}>
-        <TodoCheckListsSubNavigation />
+        {/* <TodoCheckListsSubNavigation /> */}
 
         <main className={classes.content}>
           <TodaysCheckListMainPageContents />

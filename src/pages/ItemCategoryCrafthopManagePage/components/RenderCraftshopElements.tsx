@@ -82,7 +82,7 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
         createdAt: props.createdAt,
       })
     );
-    history.push("/ItemCategoryCrafthopManage/Craftshop/replace");
+    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/replace");
   };
 
   const handleDeleteButton = () => {
@@ -99,7 +99,7 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
         createdAt: props.createdAt,
       })
     );
-    history.push("/ItemCategoryCrafthopManage/Craftshop/delete");
+    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
   };
 
   return (
