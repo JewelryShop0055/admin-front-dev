@@ -1,5 +1,4 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 
 //여기도 정리가 필요함
 export const useStyles = makeStyles((theme: Theme) =>

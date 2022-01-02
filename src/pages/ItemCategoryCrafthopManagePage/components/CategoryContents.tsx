@@ -3,7 +3,6 @@ import Paper from "@material-ui/core/Paper";
 import { PaperElevation } from "../../../styleTypes";
 import AddIcon from "@material-ui/icons/Add";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 
 import { useAppSelector } from "../../../modules/hooks";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";

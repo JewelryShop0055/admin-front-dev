@@ -1,6 +1,5 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 
 import Divider from "@material-ui/core/Divider";
@@ -12,8 +11,6 @@ import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
 import { SubNavigationParams } from "../../types";
 import { Border } from "../../styleTypes";
-
-export const drawerWidth = 280;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -6,7 +6,6 @@ import { Button, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 import { useAppSelector } from "../../../modules/hooks";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import { useDispatch } from "react-redux";
 import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
 import { useHistory } from "react-router";
@@ -15,9 +14,7 @@ import { actions as updateCraftshopActions } from "../../../store/craftshop/upda
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
-    contentsBase: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
-    },
+    contentsBase: {},
     inputContainer: {
       padding: "50px 48px 0 48px",
 
