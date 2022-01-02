@@ -11,12 +11,13 @@ import { actions as addNewCraftshopActions } from "../../../store/craftshop/addN
 import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
 import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
+import { Padding } from "../../../styleTypes";
 
 const addNewCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentsBase: {},
     inputContainer: {
-      padding: "50px 48px 0 48px",
+      padding: Padding.CONTENTS_CONTAINER,
 
       display: "grid",
       gridAutoRows: "1fr 1fr 1fr 1fr 1fr 1fr",

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import FindIdPassword from "./components/FindIdPassword";
 
-import {
-  ButtonBlock,
-  InputBlock,
-  LoginBlock,
-} from "./components/LoginBlock_styled";
 import {
   Button,
   FormControl,
@@ -20,20 +15,61 @@ import { actions } from "../../store/signIn/slice";
 
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Border, FontSize, Padding } from "../../styleTypes";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "45ch",
+const useStyles = makeStyles(
+  createStyles({
+    root: {
+      width: "500px",
+      margin: "auto",
+
+      position: "relative",
+      top: "200px",
+
+      display: "grid",
+      gridTemplateRows: "60px, 500px",
+      gridGap: "20px",
+      gridTemplateAreas: `
+      "header"
+      "container"`,
     },
-  },
-  button: {
-    "& > *": {
-      margin: theme.spacing(3),
+    header: {
+      gridArea: "header",
+      fontSize: FontSize.LOGIN_HEADER,
+      fontWeight: "bold",
+
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
-  },
-}));
+    container: {
+      gridArea: "container",
+      border: Border.DEFAULT_BORDER,
+      borderRadius: "5px",
+      padding: Padding.LOGIN_CONTAINER,
+
+      display: "grid",
+      gridTemplateRows: "1fr 1fr auto",
+      gridGap: "20px",
+      gridTemplateAreas: `
+      "id"
+      "password"
+      "buttons"`,
+    },
+    id: {
+      gridArea: "id",
+    },
+    password: {
+      gridArea: "password",
+    },
+    buttons: {
+      gridArea: "buttons",
+
+      display: "flex",
+      justifyContent: "space-around",
+    },
+  })
+);
 
 const LoginPage: React.FC = () => {
   const classes = useStyles();
@@ -42,6 +78,7 @@ const LoginPage: React.FC = () => {
   const [userPassword, setUserPassword] = useState(
     String(process.env.REACT_APP_USER_PW)
   );
+
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -84,72 +121,63 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <>
-      <LoginBlock>
-        <h1>Laviluz Admin Page</h1>
+    <div className={classes.root}>
+      <div className={classes.header}>Laviluz Admin Page</div>
 
-        <InputBlock>
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-            onKeyPress={handleKeyPress}
+      <form className={classes.container} onKeyPress={handleKeyPress}>
+        <FormControl className={classes.id} variant="outlined">
+          <InputLabel htmlFor="id">ID</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-id"
+            value={userId}
+            onChange={handleChangeId}
+            labelWidth={20}
+          />
+        </FormControl>
+
+        <FormControl className={classes.password} variant="outlined">
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            value={userPassword}
+            onChange={handleChangePassword}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
+
+        <div className={classes.buttons}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={async () => {
+              dispatch(
+                actions.getAuthTokenPending({
+                  userId: userId,
+                  userPassword: userPassword,
+                })
+              );
+            }}
           >
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="id">ID</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-id"
-                value={userId}
-                onChange={handleChangeId}
-                labelWidth={70}
-              />
-            </FormControl>
+            SIGN IN
+          </Button>
 
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
-                value={userPassword}
-                onChange={handleChangePassword}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                labelWidth={70}
-              />
-            </FormControl>
-
-            <ButtonBlock className={classes.button}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={async () => {
-                  dispatch(
-                    actions.getAuthTokenPending({
-                      userId: userId,
-                      userPassword: userPassword,
-                    })
-                  );
-                }}
-              >
-                SIGN IN
-              </Button>
-
-              <FindIdPassword />
-            </ButtonBlock>
-          </form>
-        </InputBlock>
-      </LoginBlock>
-    </>
+          <FindIdPassword />
+        </div>
+      </form>
+    </div>
   );
 };
 

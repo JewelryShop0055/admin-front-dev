@@ -5,7 +5,6 @@ import { AuthRoute } from "../components/AuthRoute";
 import SubNavigation from "../components/Navigations/SubNavigation";
 import TopNavigation from "../components/Navigations/TopNavigation";
 import { BackgroundColor } from "../styleTypes";
-import Error404 from "./ErrorPage/Error404";
 
 import ItemCategoryPage, {
   CraftshopManagePage,

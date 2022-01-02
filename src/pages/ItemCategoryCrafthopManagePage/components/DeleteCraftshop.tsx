@@ -15,19 +15,19 @@ import { useAppSelector } from "../../../modules/hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actions } from "../../../store/craftshop/deleteCraftshop/slice";
+import { Padding } from "../../../styleTypes";
 
 const DeleteCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentsBase: {},
     inputBlock: {
       backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
+      padding: Padding.CONTENTS_CONTAINER,
       minWidth: "600px",
     },
     deleteButton: {
       display: "flex",
       justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
     },
   })
 );

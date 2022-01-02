@@ -3,11 +3,10 @@ import React, { useEffect } from "react";
 interface ErrorPage {
   url: string;
 }
-
 const Error404: React.FC<ErrorPage> = () => {
   useEffect(() => {
     const moveToLoginPage = setTimeout(() => {
-      window.location.pathname = "/loginPage";
+      globalThis.location.pathname = "/loginPage";
     }, 3000);
     return () => {
       clearTimeout(moveToLoginPage);

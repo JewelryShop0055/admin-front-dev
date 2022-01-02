@@ -14,7 +14,7 @@ import { Craftshop } from "../../../types";
 import { useHistory } from "react-router-dom";
 import { actions as selectAction } from "../../../store/craftshop/selectedCraftshop/slice";
 
-export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
+export const CraftshopElementsStyles = makeStyles(
   createStyles({
     paginationCraftshopElements: {
       borderBottom: "black solid 0.5px",

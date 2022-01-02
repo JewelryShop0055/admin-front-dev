@@ -1,4 +1,5 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
+import { Padding } from "../../../styleTypes";
 
 //여기도 정리가 필요함
 export const useStyles = makeStyles((theme: Theme) =>
@@ -91,7 +92,7 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
     },
     paginationBlock: {
       backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
+      padding: Padding.CONTENTS_CONTAINER,
       minWidth: "600px",
     },
     paginationAddButton: {
