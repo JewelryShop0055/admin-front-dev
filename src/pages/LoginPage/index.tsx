@@ -10,12 +10,12 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@material-ui/core";
-import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signIn/slice";
 
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Border, FontSize, Padding } from "../../styleTypes";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles(
   createStyles({
@@ -73,29 +73,25 @@ const useStyles = makeStyles(
 
 const LoginPage: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [userId, setUserId] = useState(String(process.env.REACT_APP_USER_ID));
-  const [userPassword, setUserPassword] = useState(
-    String(process.env.REACT_APP_USER_PW)
-  );
+  const [userValue, setUserValue] = useState({
+    userId: String(process.env.REACT_APP_USER_ID),
+    userPassword: String(process.env.REACT_APP_USER_PW),
+  });
+  const { userId, userPassword } = userValue;
+
+  const handleChangeUserValue: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
+    const { name, value } = e.target;
+    setUserValue({
+      ...userValue,
+      [name]: value,
+    });
+  };
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const dispatch = useAppDispatch();
-
-  const handleChangeId: React.ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
-    const { value } = e.target;
-    setUserId(value);
-  };
-
-  const handleChangePassword: React.ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
-    const { value } = e.target;
-    setUserPassword(value);
-  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -128,9 +124,9 @@ const LoginPage: React.FC = () => {
         <FormControl className={classes.id} variant="outlined">
           <InputLabel htmlFor="id">ID</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-id"
+            name="userId"
             value={userId}
-            onChange={handleChangeId}
+            onChange={handleChangeUserValue}
             labelWidth={20}
           />
         </FormControl>
@@ -138,10 +134,10 @@ const LoginPage: React.FC = () => {
         <FormControl className={classes.password} variant="outlined">
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            name="userPassword"
             type={showPassword ? "text" : "password"}
             value={userPassword}
-            onChange={handleChangePassword}
+            onChange={handleChangeUserValue}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
