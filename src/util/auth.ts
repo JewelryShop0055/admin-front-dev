@@ -20,8 +20,8 @@ export const getAuthTokenFromCookies = (name: string) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
-export async function signout() {
-  await window.localStorage.setItem("signout", String(Date.now()));
+export function deleteCookieToken() {
+  window.localStorage.setItem("signout", String(Date.now()));
 
   const tokens = [
     ["user_access_token", getAuthTokenFromCookies("user_access_token")],

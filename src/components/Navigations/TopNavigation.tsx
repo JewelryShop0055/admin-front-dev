@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 
 import { useHistory } from "react-router-dom";
-import { FontSize } from "../../styleTypes";
+import { BackgroundColor, FontSize, FontColor } from "../../styleTypes";
+import { useDispatch } from "react-redux";
+import { actions as signOutActions } from "../../store/signOut/slice";
 
 export const topNavigationHeight = 60;
 
@@ -12,25 +12,67 @@ const useStyles = makeStyles(() => ({
   topNavigation: {
     width: "auto",
     height: "60px",
-    fontSize: "1rem",
     borderBottom: "1px solid #bbbbbb",
+
+    display: "grid",
+    gridTemplateColumns: "auto auto 160px 160px",
+    gridTemplateAreas: `"userName remainTime extendTimeBtn signOutBtn"`,
   },
-  stoneName: {
-    fontSize: FontSize.STONE_NAME,
+  userName: {
+    gridArea: "userName",
     fontWeight: "bold",
-    textAlign: "center",
-    margin: "0 20px 0 50px",
+    fontSize: FontSize.LARGE,
+
+    marginLeft: "20px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  remainTime: {
+    gridArea: "remainTime",
+    fontSize: FontSize.MEDIUM_LARGE,
+
+    marginRight: "20px",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  extendTimeBtn: {
+    gridArea: "extendTimeBtn",
+    margin: "10px",
+    border: "none",
+    background: BackgroundColor.BUTTON_BG_PINK,
+    borderRadius: "5px",
+    color: FontColor.WHITE,
+    fontSize: FontSize.MEDIUM_LARGE,
+    fontWeight: "bold",
+  },
+  signOutBtn: {
+    gridArea: "signOutBtn",
+    margin: "10px 10px 10px 10px",
+    border: "none",
+    background: BackgroundColor.BUTTON_BG_GRAY,
+    borderRadius: "5px",
+    color: FontColor.WHITE,
+    fontSize: FontSize.MEDIUM_LARGE,
+    fontWeight: "bold",
   },
 }));
 
 export default function TopNavigation() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [nowTab, setNowTab] = useState(1);
   const history = useHistory();
 
+  //로그아웃
+  const signOut = () => {
+    dispatch(signOutActions.getSignOutPending());
+    history.push("/loginPage");
+  };
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setNowTab(newValue);
+    // setNowTab(newValue);
     if (newValue === 1) {
       return history.push("/pages/TodaysChecklist");
     }
@@ -48,22 +90,18 @@ export default function TopNavigation() {
     }
   };
 
+  const username = "엄준식";
+  const remainTime = "24:30";
   return (
     <>
-      <Tabs
-        className={classes.topNavigation}
-        value={nowTab}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <div className={classes.stoneName}>Raviluz</div>
-        <Tab label="오늘의 체크리스트" />
-        <Tab label="손님 예약 일정" />
-        <Tab label="제품 검색/관리" />
-        <Tab label="제품 등록" />
-        <Tab label="제품카테고리/공방 관리" />
-      </Tabs>
+      <div className={classes.topNavigation}>
+        <div className={classes.userName}>안녕하세요 {username} 님</div>
+        <div className={classes.remainTime}>{remainTime} 후 자동 로그아웃</div>
+        <button className={classes.extendTimeBtn}>사용시간 연장</button>
+        <button className={classes.signOutBtn} onClick={signOut}>
+          로그아웃
+        </button>
+      </div>
     </>
   );
 }

@@ -1,29 +1,17 @@
-import React, { useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 
-import ListItemText from "@material-ui/core/ListItemText";
 import { useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
 import { BackgroundColor, Border, FontColor, FontSize } from "../../styleTypes";
-import subNavigationElements from "./subNavigationElements";
 import LinkIcon from "@material-ui/icons/Link";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import StoreIcon from "@material-ui/icons/Store";
 import BusinessIcon from "@material-ui/icons/Business";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@material-ui/core";
 import AccordianElement from "./SubNavigationAccordianElement";
 
 export const subNaviStyles = makeStyles((theme: Theme) =>
@@ -95,11 +83,6 @@ export default function SubNavigation() {
   const classes = subNaviStyles();
   const history = useHistory();
   const dispatch = useAppDispatch();
-
-  //로그아웃
-  const handleLogout = async () => {
-    dispatch(actions.getSignOutPending());
-  };
 
   return (
     <div className={classes.root}>

@@ -8,7 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { signout } from "../../util/auth";
+import { deleteCookieToken } from "../../util/auth";
 import { StyledLink } from "../../components/StyledLink";
 
 const drawerWidth = 280;
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function TodaysCheckListSubNavigation() {
   const classes = useStyles();
   const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
-    await signout();
+    await deleteCookieToken();
   };
 
   return (

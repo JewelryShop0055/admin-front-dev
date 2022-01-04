@@ -10,6 +10,9 @@ export enum FontSize {
   STONE_NAME = "32px",
 
   MEDIUM = "16px",
+  MEDIUM_LARGE = "20px",
+
+  LARGE = "24px",
 }
 
 export enum FontColor {
@@ -20,6 +23,9 @@ export enum FontColor {
 export enum BackgroundColor {
   TOPNAVI_BG = "#FFFFFF",
   SUBNAVI_BG = "#454D57",
+
+  BUTTON_BG_PINK = "#FF6B6B",
+  BUTTON_BG_GRAY = "#ABABAB",
 
   BLUE = "#2C98F0",
 
