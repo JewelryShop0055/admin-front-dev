@@ -20,7 +20,7 @@ const pagesStyles = makeStyles(() =>
       gridTemplateRows: "auto auto",
       gridTemplateColumns: "230px auto",
       gridTemplateAreas: `
-        "topNavi topNavi"
+        "subNavi topNavi"
         "subNavi pageContents"
       `,
     },
@@ -29,6 +29,7 @@ const pagesStyles = makeStyles(() =>
     },
     subNavi: {
       gridArea: "subNavi",
+      background: BackgroundColor.SUBNAVI_BG,
     },
     pageContents: {
       gridArea: "pageContents",
@@ -45,9 +46,11 @@ export const Pages = () => {
       <div className={classes.topNavi}>
         <TopNavigation />
       </div>
+
       <div className={classes.subNavi}>
         <SubNavigation />
       </div>
+
       <div className={classes.pageContents}>
         <Switch>
           <AuthRoute path="/pages" exact component={TodaysCheckListMainPage} />

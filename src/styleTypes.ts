@@ -7,15 +7,28 @@ export enum PaperElevation {
 
 export enum FontSize {
   LOGIN_HEADER = "2rem",
-  STONE_NAME = "3rem",
+  STONE_NAME = "32px",
+
+  MEDIUM = "16px",
+}
+
+export enum FontColor {
+  WHITE = "#FFFFFF",
+  BLUE = "#2C98F0",
 }
 
 export enum BackgroundColor {
+  TOPNAVI_BG = "#FFFFFF",
+  SUBNAVI_BG = "#454D57",
+
+  BLUE = "#2C98F0",
+
   CONTENTS_BG = "#C0C0C0", //구역식별용 임시
 }
 
 export enum Border {
   DEFAULT_BORDER = "1px solid #bbbbbb",
+  SUBNAVI_BORDER = "1px solid #5F6976",
 }
 
 export enum Padding {
