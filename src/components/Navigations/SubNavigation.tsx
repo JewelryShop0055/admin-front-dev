@@ -96,8 +96,6 @@ export default function SubNavigation() {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const [isSelect, setIsSelect] = useState(false);
-
   //로그아웃
   const handleLogout = async () => {
     dispatch(actions.getSignOutPending());
@@ -146,21 +144,13 @@ export default function SubNavigation() {
           <div>오늘의 할일</div>
         </ListItem>
 
-        <Accordion className={classes.accordionElement} square>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            className={classes.accordionSummaryElement}
-          >
-            <EventAvailableIcon className={classes.icon} />
-            예약
-          </AccordionSummary>
-          <AccordionDetails>오늘의 예약</AccordionDetails>
-          <AccordionDetails>어제의 예약</AccordionDetails>
-        </Accordion>
+        <AccordianElement
+          summaryText={"예약"}
+          SummaryIcon={EventAvailableIcon}
+          detailTexts={["오늘의 예약", "어제의 예약"]}
+        />
 
         <AccordianElement
-          isSelect={isSelect}
-          setIsSelect={setIsSelect}
           summaryText={"제품관리"}
           SummaryIcon={StoreIcon}
           detailTexts={[
@@ -170,17 +160,11 @@ export default function SubNavigation() {
           ]}
         />
 
-        <Accordion className={classes.accordionElement} square>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            // aria-controls="panel1a-content"
-            // id="panel1a-header"
-          >
-            <BusinessIcon className={classes.icon} />
-            공방관리
-          </AccordionSummary>
-          <AccordionDetails>공방 등록/수정</AccordionDetails>
-        </Accordion>
+        <AccordianElement
+          summaryText={"공방관리"}
+          SummaryIcon={BusinessIcon}
+          detailTexts={["공방 등록/수정"]}
+        />
       </List>
     </div>
   );

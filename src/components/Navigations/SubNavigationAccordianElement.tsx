@@ -7,23 +7,22 @@ import {
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import StoreIcon from "@material-ui/icons/Store";
+import { useState } from "react";
 import { subNaviStyles } from "./SubNavigation";
 
 interface AccordianElementSelectProps {
   summaryText: String;
   SummaryIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
   detailTexts: Array<string>;
-  isSelect: boolean;
-  setIsSelect: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function AccordianElement({
   summaryText,
   SummaryIcon,
   detailTexts,
-  isSelect,
-  setIsSelect,
 }: AccordianElementSelectProps) {
   const classes = subNaviStyles();
+
+  const [isSelect, setIsSelect] = useState(false);
 
   return (
     <Accordion
