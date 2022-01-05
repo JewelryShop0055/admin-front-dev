@@ -1,7 +1,7 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { PaperElevation } from "../../../styleTypes";
-import { ContentsBaseStyles } from "../utils/useStyles";
+import { ContentsBaseStyles } from "../../ItemCategoryCrafthopManagePage/utils/useStyles";
 import PaginationTexts from "../../../components/Pagination/PaginationTexts";
 import RenderCraftshopElements from "./RenderCraftshopElements";
 import { Button } from "@material-ui/core";
@@ -12,8 +12,16 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
 import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
 import { useHistory } from "react-router";
+import { Craftshop } from "../../../types";
 
-export default function CraftshopContents() {
+interface CraftshopContentsProps {
+  setSelectedCraftshop: React.Dispatch<
+    React.SetStateAction<Craftshop | undefined>
+  >;
+}
+export default function CraftshopContents({
+  setSelectedCraftshop,
+}: CraftshopContentsProps) {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
   const history = useHistory();

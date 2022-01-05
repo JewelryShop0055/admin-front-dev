@@ -5,10 +5,10 @@ import { AuthRoute } from "../components/AuthRoute";
 import SubNavigation from "../components/Navigations/SubNavigation";
 import TopNavigation from "../components/Navigations/TopNavigation";
 import { BackgroundColor } from "../styleTypes";
+import { CraftshopPage } from "./CraftshopPage";
 
 import ItemCategoryPage, {
   CraftshopManagePage,
-  CraftshopPage,
 } from "./ItemCategoryCrafthopManagePage";
 import ProductCreatePage from "./ProductCreatePage";
 import TodaysCheckListMainPage from "./TodaysCheckList/TodaysCheckListMainPage";
