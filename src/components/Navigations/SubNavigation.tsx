@@ -43,6 +43,10 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "flex-start",
       textAlign: "center",
+
+      "&:hover": {
+        background: "#252525",
+      },
     },
     element: {
       fontSize: FontSize.MEDIUM,
@@ -51,6 +55,10 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "flex-start",
       textAlign: "center",
+
+      "&:hover": {
+        background: "#252525",
+      },
     },
     managementHeader: {
       color: "#bbbbbb",
@@ -65,16 +73,25 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
       background: BackgroundColor.SUBNAVI_BG,
       color: FontColor.WHITE,
       padding: "8px 0 8px 0",
-      "&:active": {
-        background: "#252525",
-      },
     },
-    selecedAccordionElement: {
+    selectedAccordionElement: {
       background: BackgroundColor.BLUE,
       color: FontColor.WHITE,
     },
     accordionSummaryElement: {
       lineHeight: "22px",
+
+      "&:hover": {
+        background: "#252525",
+      },
+    },
+    accordionDetailElement: {
+      // background: BackgroundColor.BLUE,
+      // color: FontColor.WHITE,
+
+      "&:active": {
+        background: "#252525",
+      },
     },
   })
 );
@@ -82,7 +99,8 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
 export default function SubNavigation() {
   const classes = subNaviStyles();
   const history = useHistory();
-  const dispatch = useAppDispatch();
+
+  //라우팅처리해야함
 
   return (
     <div className={classes.root}>
@@ -130,23 +148,28 @@ export default function SubNavigation() {
         <AccordianElement
           summaryText={"예약"}
           SummaryIcon={EventAvailableIcon}
-          detailTexts={["오늘의 예약", "어제의 예약"]}
+          detailElement={[
+            { title: "오늘의 예약", path: "#" },
+            { title: "어제의 예약", path: "#" },
+          ]}
         />
 
         <AccordianElement
           summaryText={"제품관리"}
           SummaryIcon={StoreIcon}
-          detailTexts={[
-            "전체 제품 검색",
-            "제품 등록/수정",
-            "제품카테고리 등록/수정",
+          detailElement={[
+            { title: "전체 제품 검색", path: "#" },
+            { title: "제품 등록/수정", path: "#" },
+            { title: "제품카테고리 등록/수정", path: "/pages/productCategory" },
           ]}
         />
 
         <AccordianElement
           summaryText={"공방관리"}
           SummaryIcon={BusinessIcon}
-          detailTexts={["공방 등록/수정"]}
+          detailElement={[
+            { title: "공방 등록/수정", path: "/pages/craftshop" },
+          ]}
         />
       </List>
     </div>

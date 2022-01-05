@@ -6,22 +6,25 @@ import {
 } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import StoreIcon from "@material-ui/icons/Store";
 import { useState } from "react";
+import { useHistory } from "react-router";
 import { subNaviStyles } from "./SubNavigation";
 
 interface AccordianElementSelectProps {
   summaryText: String;
   SummaryIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-  detailTexts: Array<string>;
+  detailElement: Array<{
+    title: string;
+    path: string;
+  }>;
 }
 export default function AccordianElement({
   summaryText,
   SummaryIcon,
-  detailTexts,
+  detailElement,
 }: AccordianElementSelectProps) {
   const classes = subNaviStyles();
-
+  const history = useHistory();
   const [isSelect, setIsSelect] = useState(false);
 
   return (
@@ -36,7 +39,7 @@ export default function AccordianElement({
         expandIcon={<ExpandMoreIcon />}
         className={
           isSelect
-            ? classes.selecedAccordionElement
+            ? classes.selectedAccordionElement
             : classes.accordionSummaryElement
         }
       >
@@ -44,8 +47,17 @@ export default function AccordianElement({
         {summaryText}
       </AccordionSummary>
 
-      {detailTexts.map((detailText) => {
-        return <AccordionDetails>{detailText}</AccordionDetails>;
+      {detailElement.map((value) => {
+        return (
+          <AccordionDetails
+            className={classes.accordionDetailElement}
+            onClick={() => {
+              history.push(value.path);
+            }}
+          >
+            {value.title}
+          </AccordionDetails>
+        );
       })}
     </Accordion>
   );

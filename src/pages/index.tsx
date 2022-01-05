@@ -56,29 +56,19 @@ export const Pages = () => {
           <AuthRoute path="/pages" exact component={TodaysCheckListMainPage} />
 
           <AuthRoute
-            path="/pages/TodaysChecklist"
-            exact
-            component={TodaysCheckListMainPage}
-          />
-
-          <AuthRoute
-            path="/pages/ItemCategoryCrafthopManage"
+            path="/pages/productCategory"
             exact
             component={ItemCategoryPage}
           />
 
-          <AuthRoute
-            path="/pages/ItemCategoryCrafthopManage/Category"
-            exact
-            component={ItemCategoryPage}
-          />
+          <AuthRoute path="/pages/craftshop" exact component={CraftshopPage} />
 
-          <AuthRoute
-            path="/pages/ItemCategoryCrafthopManage/Craftshop"
-            exact
-            component={CraftshopPage}
-          />
-
+          {/* 이하는 구 라우팅 */}
+          {/* <AuthRoute
+              path="/pages/TodaysChecklist"
+              exact
+              component={TodaysCheckListMainPage}
+            /> */}
           <AuthRoute
             path="/pages/ItemCategoryCrafthopManage/Craftshop/"
             component={CraftshopManagePage}
