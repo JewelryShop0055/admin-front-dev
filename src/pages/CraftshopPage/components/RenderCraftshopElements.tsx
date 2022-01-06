@@ -134,13 +134,16 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
   );
 };
 
-const RenderCraftshopElements: React.FC<{ craftshopList: Craftshop[] }> = ({
-  craftshopList,
-}) => {
+const RenderCraftshopElements: React.FC<{
+  craftshopList: Craftshop[];
+  setSelectedCraftshop: React.Dispatch<
+    React.SetStateAction<Craftshop | undefined>
+  >;
+}> = ({ craftshopList, setSelectedCraftshop }) => {
   return (
     <>
       {craftshopList.map((value) => (
-        <div key={value.id}>
+        <div key={value.id} onClick={() => setSelectedCraftshop(value)}>
           <CraftshopElementsForm props={value} />
         </div>
       ))}

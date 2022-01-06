@@ -69,7 +69,10 @@ export default function CraftshopContents({
               <div className={classes.headerCraftAddress}>주소</div>
               <div className={classes.headerCraftPhone}>연락처</div>
               <div className={classes.craftElements}>
-                <RenderCraftshopElements craftshopList={craftshopList} />
+                <RenderCraftshopElements
+                  craftshopList={craftshopList}
+                  setSelectedCraftshop={setSelectedCraftshop}
+                />
               </div>
             </div>
 

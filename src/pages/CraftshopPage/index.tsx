@@ -12,18 +12,17 @@ const CraftShopPageStyles = makeStyles(
       display: "grid",
       gridTemplateRows: "1fr 11fr",
       gridTemplateColumns: "1fr 2fr",
+      gridGap: "20px",
       gridTemplateAreas: `
       "detail search"
       "detail pagination"`,
     },
     craftshopDetail: {
       gridArea: "detail",
-      marginRight: "20px",
       height: "100%",
     },
     craftshopSearch: {
       gridArea: "search",
-      marginBottom: "20px",
     },
     craftshopPagination: {
       gridArea: "pagination",
@@ -40,7 +39,7 @@ export const CraftshopPage: React.FC = () => {
   return (
     <div className={classes.root}>
       <Paper className={classes.craftshopDetail}>
-        <CraftshopDetail craftshopValue={selectedCraftshop} />
+        <CraftshopDetail selectedCraftshop={selectedCraftshop} />
       </Paper>
       <Paper className={classes.craftshopSearch}>공방검색</Paper>
       <Paper className={classes.craftshopPagination}>

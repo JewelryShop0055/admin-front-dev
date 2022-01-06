@@ -1,13 +1,13 @@
 import { Craftshop } from "../../../types";
 
 interface CraftshopDetailProps {
-  craftshopValue: Craftshop | undefined;
+  selectedCraftshop: Craftshop | undefined;
 }
 
 export default function CraftshopDetail({
-  craftshopValue,
+  selectedCraftshop,
 }: CraftshopDetailProps) {
-  console.log(craftshopValue);
+  console.log(selectedCraftshop);
   return (
     <div>
       <div>
@@ -16,10 +16,10 @@ export default function CraftshopDetail({
         <button>삭제</button>
       </div>
       <div>공방명</div>
-      {craftshopValue === undefined ? (
+      {selectedCraftshop === undefined ? (
         <div>선택된 공방이 없습니다</div>
       ) : (
-        <div>{craftshopValue.name}</div>
+        <div>{selectedCraftshop.name}</div>
       )}
     </div>
   );
