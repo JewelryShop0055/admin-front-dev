@@ -18,6 +18,7 @@ export enum FontSize {
 export enum FontColor {
   WHITE = "#FFFFFF",
   BLUE = "#2C98F0",
+  GRAY = "#878787",
 }
 
 export enum BackgroundColor {

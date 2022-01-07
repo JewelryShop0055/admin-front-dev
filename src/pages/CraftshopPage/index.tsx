@@ -19,6 +19,7 @@ const CraftShopPageStyles = makeStyles(
     },
     craftshopDetail: {
       gridArea: "detail",
+      minWidth: "300px",
       height: "100%",
     },
     craftshopSearch: {
