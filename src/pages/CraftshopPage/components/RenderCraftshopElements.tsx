@@ -57,100 +57,108 @@ export const CraftshopElementsStyles = makeStyles(
   })
 );
 
-const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
-  const classes = CraftshopElementsStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
-  //===transition menuHander
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const menuOpen = Boolean(anchorEl);
+const CraftshopElementsForm: React.FC<{ props: Craftshop; allCheck: boolean }> =
+  ({ props, allCheck }) => {
+    const classes = CraftshopElementsStyles();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    //===transition menuHander
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const menuOpen = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+    const handleMenuClose = () => {
+      setAnchorEl(null);
+    };
 
-  const handleReplaceButton = () => {
-    setAnchorEl(null);
-    dispatch(
-      selectAction.selectElementPending({
-        id: props.id,
-        name: props.name,
-        postCode: props.postCode,
-        address: props.address,
-        detailAddress: props.detailAddress,
-        phone: props.phone,
-        updatedAt: props.updatedAt,
-        createdAt: props.createdAt,
-      })
+    const handleReplaceButton = () => {
+      setAnchorEl(null);
+      dispatch(
+        selectAction.selectElementPending({
+          id: props.id,
+          name: props.name,
+          postCode: props.postCode,
+          address: props.address,
+          detailAddress: props.detailAddress,
+          phone: props.phone,
+          updatedAt: props.updatedAt,
+          createdAt: props.createdAt,
+        })
+      );
+      history.push("/pages/ItemCategoryCrafthopManage/Craftshop/replace");
+    };
+
+    const handleDeleteButton = () => {
+      setAnchorEl(null);
+      dispatch(
+        selectAction.selectElementPending({
+          id: props.id,
+          name: props.name,
+          postCode: props.postCode,
+          address: props.address,
+          detailAddress: props.detailAddress,
+          phone: props.phone,
+          updatedAt: props.updatedAt,
+          createdAt: props.createdAt,
+        })
+      );
+      history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
+    };
+
+    return (
+      <>
+        <div className={classes.paginationCraftshopElements}>
+          <input
+            type="checkbox"
+            className={classes.paginationElementCheckBox}
+            checked={allCheck}
+          />
+          <div className={classes.paginationElementName}>{props.name}</div>
+          <div className={classes.paginationElementAddress}>{props.phone}</div>
+          <div className={classes.paginationElementPhone}>
+            {props.updatedAt}
+          </div>
+
+          <IconButton
+            aria-label="more"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+            className={classes.paginationElementBtn}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={menuOpen}
+            onClose={handleMenuClose}
+            TransitionComponent={Fade}
+          >
+            <MenuItem onClick={handleReplaceButton}>공방 수정</MenuItem>
+            <MenuItem onClick={handleDeleteButton}>공방 삭제</MenuItem>
+          </Menu>
+        </div>
+      </>
     );
-    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/replace");
   };
-
-  const handleDeleteButton = () => {
-    setAnchorEl(null);
-    dispatch(
-      selectAction.selectElementPending({
-        id: props.id,
-        name: props.name,
-        postCode: props.postCode,
-        address: props.address,
-        detailAddress: props.detailAddress,
-        phone: props.phone,
-        updatedAt: props.updatedAt,
-        createdAt: props.createdAt,
-      })
-    );
-    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
-  };
-
-  return (
-    <>
-      <div className={classes.paginationCraftshopElements}>
-        <input type="checkbox" className={classes.paginationElementCheckBox} />
-        <div className={classes.paginationElementName}>{props.name}</div>
-        <div className={classes.paginationElementAddress}>{props.phone}</div>
-        <div className={classes.paginationElementPhone}>{props.updatedAt}</div>
-
-        <IconButton
-          aria-label="more"
-          aria-controls="long-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-          className={classes.paginationElementBtn}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          id="fade-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={menuOpen}
-          onClose={handleMenuClose}
-          TransitionComponent={Fade}
-        >
-          <MenuItem onClick={handleReplaceButton}>공방 수정</MenuItem>
-          <MenuItem onClick={handleDeleteButton}>공방 삭제</MenuItem>
-        </Menu>
-      </div>
-    </>
-  );
-};
 
 const RenderCraftshopElements: React.FC<{
   craftshopList: Craftshop[];
   setSelectedCraftshop: React.Dispatch<
     React.SetStateAction<Craftshop | undefined>
   >;
-}> = ({ craftshopList, setSelectedCraftshop }) => {
+  allCheck: boolean;
+}> = ({ craftshopList, setSelectedCraftshop, allCheck }) => {
   return (
     <>
       {craftshopList.map((value) => (
         <div key={value.id} onClick={() => setSelectedCraftshop(value)}>
-          <CraftshopElementsForm props={value} />
+          <CraftshopElementsForm props={value} allCheck={allCheck} />
         </div>
       ))}
     </>

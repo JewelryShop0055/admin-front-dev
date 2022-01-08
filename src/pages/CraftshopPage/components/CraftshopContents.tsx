@@ -133,6 +133,8 @@ export default function CraftshopContents({
     );
   };
 
+  const [allCheck, setAllCheck] = useState(false);
+
   useEffect(() => {
     dispatch(
       craftshopListAction.getCraftshopListPending({
@@ -166,7 +168,14 @@ export default function CraftshopContents({
       </div>
 
       <div className={classes.craftShopListContainer}>
-        <input type="checkbox" className={classes.headerCheckBox} />
+        <input
+          type="checkbox"
+          className={classes.headerCheckBox}
+          checked={allCheck}
+          onChange={() => {
+            setAllCheck(!allCheck);
+          }}
+        />
         <div className={classes.headerCraftName}>공방이름</div>
         <div className={classes.headerCraftAddress}>연락처</div>
         <div className={classes.headerCraftPhone}>등록/수정일</div>
@@ -174,6 +183,7 @@ export default function CraftshopContents({
           <RenderCraftshopElements
             craftshopList={craftshopList}
             setSelectedCraftshop={setSelectedCraftshop}
+            allCheck={allCheck}
           />
         </div>
       </div>
