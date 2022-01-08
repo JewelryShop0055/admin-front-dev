@@ -184,6 +184,7 @@ export default function CraftshopContents({
             craftshopList={craftshopList}
             setSelectedCraftshop={setSelectedCraftshop}
             allCheck={allCheck}
+            setAllCheck={setAllCheck}
           />
         </div>
       </div>
