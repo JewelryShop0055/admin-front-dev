@@ -34,31 +34,37 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
       paddingTop: "20px",
       minWidth: "600px",
     },
-
     craftShopListContainer: {
-      marginTop: "20px",
       display: "grid",
       gridTemplateRows: "1fr auto",
-      gridTemplateColumns: "2fr 5fr 2fr 1fr",
+      gridTemplateColumns: ".5fr 2fr 2fr 2fr 1fr",
       gridTemplateAreas: `
-      "headerCraftName headerCraftAddress headerCraftPhone none"
-      "elements elements elements elements"`,
+      "checkBox headerCraftName headerCraftAddress headerCraftPhone none"
+      "elements elements elements elements elements"`,
+
+      "& > input:nth-child(1)": {
+        height: "50px",
+      },
+    },
+    headerCheckBox: {
+      gridArea: "checkBox",
+      margin: "auto",
     },
     headerCraftName: {
       gridArea: "headerCraftName",
       paddingLeft: "10px",
       fontWeight: "bold",
-      marginBottom: "10px",
+      margin: "auto 0 auto 0",
     },
     headerCraftAddress: {
       gridArea: "headerCraftAddress",
       fontWeight: "bold",
-      marginBottom: "10px",
+      margin: "auto 0 auto 0",
     },
     headerCraftPhone: {
       gridArea: "headerCraftPhone",
       fontWeight: "bold",
-      marginBottom: "10px",
+      margin: "auto 0 auto 0",
     },
     craftElements: {
       gridArea: "elements",
@@ -69,7 +75,6 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
     },
-    //
 
     paginationAddButton: {
       display: "flex",
@@ -161,9 +166,10 @@ export default function CraftshopContents({
       </div>
 
       <div className={classes.craftShopListContainer}>
+        <input type="checkbox" className={classes.headerCheckBox} />
         <div className={classes.headerCraftName}>공방이름</div>
-        <div className={classes.headerCraftAddress}>주소</div>
-        <div className={classes.headerCraftPhone}>연락처</div>
+        <div className={classes.headerCraftAddress}>연락처</div>
+        <div className={classes.headerCraftPhone}>등록/수정일</div>
         <div className={classes.craftElements}>
           <RenderCraftshopElements
             craftshopList={craftshopList}

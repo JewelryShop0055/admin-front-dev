@@ -20,8 +20,13 @@ export const CraftshopElementsStyles = makeStyles(
       borderBottom: "black solid 0.5px",
       padding: "5px 0 5px 0",
       display: "grid",
-      gridTemplateColumns: "2fr 5fr 2fr 1fr",
-      gridTemplateAreas: `"name address phone menuBtn"`,
+      gridTemplateColumns: ".5fr 2fr 2fr 2fr 1fr",
+      gridTemplateAreas: `"checkbox name address phone menuBtn"`,
+    },
+    paginationElementCheckBox: {
+      gridArea: "checkbox",
+
+      margin: "auto",
     },
     paginationElementName: {
       gridArea: "name",
@@ -105,9 +110,10 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
+        <input type="checkbox" className={classes.paginationElementCheckBox} />
         <div className={classes.paginationElementName}>{props.name}</div>
-        <div className={classes.paginationElementAddress}>{props.address}</div>
-        <div className={classes.paginationElementPhone}>{props.phone}</div>
+        <div className={classes.paginationElementAddress}>{props.phone}</div>
+        <div className={classes.paginationElementPhone}>{props.updatedAt}</div>
 
         <IconButton
           aria-label="more"
