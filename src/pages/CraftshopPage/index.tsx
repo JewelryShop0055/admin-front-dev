@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Craftshop } from "../../types";
 import CraftshopContents from "./components/CraftshopContents";
 import CraftshopDetail from "./components/CraftshopDetail";
+import SearchCraftshop from "./components/SearchCraftshop";
 
 const CraftShopPageStyles = makeStyles(
   createStyles({
@@ -42,7 +43,9 @@ export const CraftshopPage: React.FC = () => {
       <Paper className={classes.craftshopDetail}>
         <CraftshopDetail selectedCraftshop={selectedCraftshop} />
       </Paper>
-      <Paper className={classes.craftshopSearch}>공방검색</Paper>
+      <Paper className={classes.craftshopSearch}>
+        <SearchCraftshop />
+      </Paper>
       <Paper className={classes.craftshopPagination}>
         <CraftshopContents setSelectedCraftshop={setSelectedCraftshop} />
       </Paper>
