@@ -1,108 +1,80 @@
-import React from "react";
-import {
-  makeStyles,
-  withStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import styled from "styled-components";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { useHistory } from "react-router-dom";
+import { BackgroundColor, FontSize, FontColor } from "../../styleTypes";
+import { useDispatch } from "react-redux";
+import { actions as signOutActions } from "../../store/signOut/slice";
 
-import { useAppSelector, useAppDispatch } from "../../modules/hooks";
-import { selectState } from "../../util/TopNavigationSlice";
+export const topNavigationHeight = 60;
 
-export const topNavigationHeight = 70;
-
-// TOP NAVIGATION
-const StoreName = styled.div`
-  display: block;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  padding-left: 70px;
-  padding-right: 70px;
-`;
-
-const AntTabs = withStyles({
-  root: {
-    borderBottom: "1px solid #e8e8e8",
-  },
-  indicator: {
-    backgroundColor: "#1890ff",
-  },
-})(Tabs);
-
-const AntTab = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      textTransform: "none",
-      minWidth: 150,
-      fontWeight: theme.typography.fontWeightRegular,
-      fontSize: "18px",
-      marginRight: theme.spacing(2),
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
-      "&:hover": {
-        color: "#40a9ff",
-        opacity: 1,
-      },
-      "&$selected": {
-        color: "#1890ff",
-        fontWeight: theme.typography.fontWeightMedium,
-      },
-      "&:focus": {
-        color: "#40a9ff",
-      },
-    },
-    selected: {},
-  })
-)((props: StyledTabProps) => <Tab disableRipple {...props} />);
-
-interface StyledTabProps {
-  label: string;
-}
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  padding: {
-    padding: theme.spacing(0),
-  },
+const useStyles = makeStyles(() => ({
   topNavigation: {
-    backgroundColor: theme.palette.background.paper,
+    width: "auto",
+    height: "60px",
+    borderBottom: "1px solid #bbbbbb",
+
+    display: "grid",
+    gridTemplateColumns: "auto auto 160px 160px",
+    gridTemplateAreas: `"userName remainTime extendTimeBtn signOutBtn"`,
   },
-  demo2: {
-    backgroundColor: "#2e1534",
+  userName: {
+    gridArea: "userName",
+    fontWeight: "bold",
+    fontSize: FontSize.LARGE,
+
+    marginLeft: "20px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  remainTime: {
+    gridArea: "remainTime",
+    fontSize: FontSize.MEDIUM_LARGE,
+
+    marginRight: "20px",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  extendTimeBtn: {
+    gridArea: "extendTimeBtn",
+    margin: "10px",
+    border: "none",
+    background: BackgroundColor.BUTTON_BG_PINK,
+    borderRadius: "5px",
+    color: FontColor.WHITE,
+    fontSize: FontSize.MEDIUM_LARGE,
+    fontWeight: "bold",
+  },
+  signOutBtn: {
+    gridArea: "signOutBtn",
+    margin: "10px 10px 10px 10px",
+    border: "none",
+    background: BackgroundColor.BUTTON_BG_GRAY,
+    borderRadius: "5px",
+    color: FontColor.WHITE,
+    fontSize: FontSize.MEDIUM_LARGE,
+    fontWeight: "bold",
   },
 }));
 
 export default function TopNavigation() {
   const classes = useStyles();
-
-  const value = useAppSelector((state) => state.topNavigation.value);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
+  //로그아웃
+  const signOut = () => {
+    dispatch(signOutActions.getSignOutPending());
+    history.push("/loginPage");
+  };
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    dispatch(selectState(newValue));
+    // setNowTab(newValue);
     if (newValue === 1) {
-      return history.push("/TodaysChecklist");
+      return history.push("/pages/TodaysChecklist");
     }
     // if (newValue === 2) {
     //   return history.push("/TodaysChecklist");
@@ -110,38 +82,25 @@ export default function TopNavigation() {
     // if (newValue === 3) {
     //   return history.push("/TodaysChecklist");
     // }
-    // if (newValue === 4) {
-    //   return history.push("/TodaysChecklist");
-    // }
+    if (newValue === 4) {
+      return history.push("/pages/ProductCreate");
+    }
     if (newValue === 5) {
-      return history.push("/ItemCategoryCrafthopManage");
+      return history.push("/pages/ItemCategoryCrafthopManage");
     }
   };
 
+  const username = "엄준식";
+  const remainTime = "24:30";
   return (
     <>
-      {/* TOP NAVIGATION  */}
-      <div className={classes.root}>
-        <div className={classes.topNavigation}>
-          <AntTabs
-            value={value}
-            onChange={handleChange}
-            aria-label="ant example"
-          >
-            <StoreName>Raviluz</StoreName>
-
-            <AntTab label="오늘의 체크리스트" />
-
-            <AntTab label="손님 예약 일정" />
-
-            <AntTab label="제품 검색/관리" />
-
-            <AntTab label="제품 등록" />
-
-            <AntTab label="제품카테고리, 공방 관리" />
-          </AntTabs>
-          <Typography className={classes.padding} />
-        </div>
+      <div className={classes.topNavigation}>
+        <div className={classes.userName}>안녕하세요 {username} 님</div>
+        <div className={classes.remainTime}>{remainTime} 후 자동 로그아웃</div>
+        <button className={classes.extendTimeBtn}>사용시간 연장</button>
+        <button className={classes.signOutBtn} onClick={signOut}>
+          로그아웃
+        </button>
       </div>
     </>
   );

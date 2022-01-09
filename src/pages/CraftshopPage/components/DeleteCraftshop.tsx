@@ -12,25 +12,22 @@ import { blue } from "@material-ui/core/colors";
 
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actions } from "../../../store/craftshop/deleteCraftshop/slice";
+import { Padding } from "../../../styleTypes";
 
 const DeleteCraftshopStyles = makeStyles((theme: Theme) =>
   createStyles({
-    contentsBase: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
-    },
+    contentsBase: {},
     inputBlock: {
       backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
+      padding: Padding.CONTENTS_CONTAINER,
       minWidth: "600px",
     },
     deleteButton: {
       display: "flex",
       justifyContent: "flex-end",
-      padding: "10px 0 10px 0",
     },
   })
 );
@@ -106,7 +103,7 @@ export default function DeleteCraftshop() {
                       name: selectCraftshopValue.name,
                     })
                   );
-                  history.push("/ItemCategoryCrafthopManage/Craftshop");
+                  history.push("/pages/ItemCategoryCrafthopManage/Craftshop");
                 }}
               >
                 삭제하기

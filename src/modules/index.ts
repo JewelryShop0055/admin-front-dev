@@ -1,7 +1,5 @@
 import { all } from "@redux-saga/core/effects";
 
-import topNavigation from "../util/TopNavigationSlice";
-
 import signInSaga from "../store/signIn/saga";
 import signIn from "../store/signIn/slice";
 import signOut from "../store/signOut/slice";
@@ -29,7 +27,6 @@ import updateCraftshop from "../store/craftshop/updateCraftshop/slice";
 import updateCraftshopSaga from "../store/craftshop/updateCraftshop/saga";
 
 export const reducers = {
-  topNavigation,
   signIn,
   signOut,
 

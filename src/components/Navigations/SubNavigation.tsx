@@ -1,97 +1,177 @@
-import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 
-import ListItemText from "@material-ui/core/ListItemText";
-import { topNavigationHeight } from "./TopNavigation";
 import { useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../modules/hooks";
 import { actions } from "../../store/signOut/slice";
-import { SubNavigationParams } from "../../types";
+import { BackgroundColor, Border, FontColor, FontSize } from "../../styleTypes";
+import LinkIcon from "@material-ui/icons/Link";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import StoreIcon from "@material-ui/icons/Store";
+import BusinessIcon from "@material-ui/icons/Business";
+import AccordianElement from "./SubNavigationAccordianElement";
 
-export const drawerWidth = 280;
-
-const useStyles = makeStyles((theme: Theme) =>
+export const subNaviStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
+      height: "100%",
+      borderRight: Border.DEFAULT_BORDER,
+      color: FontColor.WHITE,
+      background: BackgroundColor.SUBNAVI_BG,
     },
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    drawer: {
-      width: theme.spacing(20),
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      position: "absolute",
-      top: "72px",
-      width: `${drawerWidth}px`,
-      height: `calc(100vh - ${topNavigationHeight}px)`,
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.default,
-      // padding: theme.spacing(3),
-    },
+    stoneName: {
+      fontSize: FontSize.STONE_NAME,
+      fontWeight: "bold",
+      lineHeight: "60px",
+      borderBottom: Border.SUBNAVI_BORDER,
 
-    divider: {
-      border: "1px solid lightgray",
+      display: "flex",
+      justifyContent: "center",
+      textAlign: "center",
+    },
+    icon: {
+      marginRight: "10px",
+    },
+    moveServicePage: {
+      fontSize: FontSize.MEDIUM,
+      lineHeight: "40px",
+      borderBottom: Border.SUBNAVI_BORDER,
+
+      display: "flex",
+      justifyContent: "flex-start",
+      textAlign: "center",
+
+      "&:hover": {
+        background: "#252525",
+      },
+    },
+    element: {
+      fontSize: FontSize.MEDIUM,
+      lineHeight: "40px",
+
+      display: "flex",
+      justifyContent: "flex-start",
+      textAlign: "center",
+
+      "&:hover": {
+        background: "#252525",
+      },
+    },
+    managementHeader: {
+      color: "#bbbbbb",
+      fontSize: FontSize.MEDIUM,
+      lineHeight: "40px",
+      paddingLeft: "20px",
+
+      display: "flex",
+      textAlign: "center",
+    },
+    accordionElement: {
+      background: BackgroundColor.SUBNAVI_BG,
+      color: FontColor.WHITE,
+      padding: "8px 0 8px 0",
+    },
+    selectedAccordionElement: {
+      background: BackgroundColor.BLUE,
+      color: FontColor.WHITE,
+    },
+    accordionSummaryElement: {
+      lineHeight: "22px",
+
+      "&:hover": {
+        background: "#252525",
+      },
+    },
+    accordionDetailElement: {
+      // background: BackgroundColor.BLUE,
+      // color: FontColor.WHITE,
+
+      "&:active": {
+        background: "#252525",
+      },
     },
   })
 );
 
-export default function SubNavigation({ elementsArray }: SubNavigationParams) {
-  const classes = useStyles();
+export default function SubNavigation() {
+  const classes = subNaviStyles();
   const history = useHistory();
-  const dispatch = useAppDispatch();
 
-  const handleLogout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
-    await dispatch(actions.getSignOutPending());
-  };
+  //라우팅처리해야함
 
   return (
     <div className={classes.root}>
-      <Drawer
-        // className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <List>
-          <ListItem button onClick={handleLogout} key={"Logout"}>
-            <ListItemText primary={"Logout"} />
-          </ListItem>
-        </List>
-        <Divider className={classes.divider} />
-        <List>
-          {elementsArray.map((element) => (
-            <ListItem
-              divider
-              button
-              key={element.elementName}
-              onClick={() => {
-                history.push(element.elementLink);
-              }}
-            >
-              <ListItemText primary={element.elementName} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+      <List disablePadding>
+        <div className={classes.stoneName}>Raviluz</div>
+
+        <ListItem
+          button
+          onClick={() => {
+            history.push("#");
+          }}
+          key="servicePageLink"
+          className={classes.moveServicePage}
+        >
+          <LinkIcon className={classes.icon} />
+          <div>Raviluz 에약페이지 이동</div>
+        </ListItem>
+
+        <div className={classes.managementHeader}>점포관리</div>
+
+        <ListItem
+          button
+          onClick={() => {
+            history.push("#");
+          }}
+          key="servicePageLink"
+          className={classes.element}
+        >
+          <DashboardIcon className={classes.icon} />
+          <div>대시보드</div>
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={() => {
+            history.push("#");
+          }}
+          key="servicePageLink"
+          className={classes.element}
+        >
+          <PlaylistAddCheckIcon className={classes.icon} />
+          <div>오늘의 할일</div>
+        </ListItem>
+
+        <AccordianElement
+          summaryText={"예약"}
+          SummaryIcon={EventAvailableIcon}
+          detailElement={[
+            { title: "오늘의 예약", path: "#" },
+            { title: "어제의 예약", path: "#" },
+          ]}
+        />
+
+        <AccordianElement
+          summaryText={"제품관리"}
+          SummaryIcon={StoreIcon}
+          detailElement={[
+            { title: "전체 제품 검색", path: "#" },
+            { title: "제품 등록/수정", path: "#" },
+            { title: "제품카테고리 등록/수정", path: "/pages/productCategory" },
+          ]}
+        />
+
+        <AccordianElement
+          summaryText={"공방관리"}
+          SummaryIcon={BusinessIcon}
+          detailElement={[
+            { title: "공방 등록/수정", path: "/pages/craftshop" },
+          ]}
+        />
+      </List>
     </div>
   );
 }
-
-SubNavigation.defaultProps = {
-  ListItemArray: [],
-};
