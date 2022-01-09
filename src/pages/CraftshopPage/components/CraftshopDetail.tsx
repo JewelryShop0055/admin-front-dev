@@ -6,6 +6,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { CraftshopPageMode } from "..";
 import AddNewCraftshop from "./AddNewCraftshop";
 import UpdateCraftshop from "./UpdateCraftshop";
+import DeleteCraftshop from "./DeleteCraftshop";
 
 export interface CraftshopDetailProps {
   selectedCraftshop: Craftshop | undefined;
@@ -13,7 +14,7 @@ export interface CraftshopDetailProps {
   setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
 }
 
-const CraftShopDetailStyles = makeStyles(
+export const CraftShopDetailStyles = makeStyles(
   createStyles({
     root: {
       padding: "20px",
@@ -134,7 +135,7 @@ export default function CraftshopDetail({
     <div className={classes.root}>
       <div className={classes.header}>
         <div>{detailHeadText(mode)}</div>
-        {detailHeadController(mode)}
+        {selectedCraftshop === undefined ? null : detailHeadController(mode)}
       </div>
 
       <div className={classes.body}>
@@ -142,7 +143,11 @@ export default function CraftshopDetail({
         mode === CraftshopPageMode.DEFAULT ? (
           <EmptyValue />
         ) : (
-          <CraftshopValue selectedCraftshop={selectedCraftshop} mode={mode} />
+          <CraftshopValue
+            selectedCraftshop={selectedCraftshop}
+            mode={mode}
+            setMode={setMode}
+          />
         )}
       </div>
     </div>
@@ -157,7 +162,8 @@ function EmptyValue() {
 function CraftshopValue({
   selectedCraftshop,
   mode,
-}: Omit<CraftshopDetailProps, "setMode">) {
+  setMode,
+}: CraftshopDetailProps) {
   const classes = CraftShopDetailStyles();
 
   switch (mode) {
@@ -184,16 +190,29 @@ function CraftshopValue({
       );
 
     case "create":
-      return <AddNewCraftshop />;
+      return <AddNewCraftshop setMode={setMode} />;
 
     case "update":
       if (selectedCraftshop === undefined) {
         return <div>값이 선택되지 않았습니다</div>;
       }
-      return <UpdateCraftshop selectedCraftshop={selectedCraftshop} />;
+      return (
+        <UpdateCraftshop
+          selectedCraftshop={selectedCraftshop}
+          setMode={setMode}
+        />
+      );
 
     case "delete":
-      return <div>삭제</div>;
+      if (selectedCraftshop === undefined) {
+        return <div>값이 선택되지 않았습니다</div>;
+      }
+      return (
+        <DeleteCraftshop
+          selectedCraftshop={selectedCraftshop}
+          setMode={setMode}
+        />
+      );
 
     default:
       return (

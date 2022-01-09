@@ -61,6 +61,7 @@ export const CraftshopPage: React.FC = () => {
       <Paper className={classes.craftshopPagination}>
         <CraftshopContents
           setSelectedCraftshop={setSelectedCraftshop}
+          mode={mode}
           setMode={setMode}
         />
       </Paper>

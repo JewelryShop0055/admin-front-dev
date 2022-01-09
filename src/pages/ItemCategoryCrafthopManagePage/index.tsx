@@ -18,16 +18,17 @@ export enum CraftshopManageType {
 export const CraftshopManagePage: React.FC = () => {
   switch (globalThis.location.pathname) {
     case "/pages/ItemCategoryCrafthopManage/Craftshop/add":
-      return <AddNewCraftshop />;
+    // return <AddNewCraftshop />;
 
-    case "/pages/ItemCategoryCrafthopManage/Craftshop/delete":
-      return <DeleteCraftshop />;
+    // case "/pages/ItemCategoryCrafthopManage/Craftshop/delete":
+    // return <DeleteCraftshop />;
 
     case "/pages/ItemCategoryCrafthopManage/Craftshop/replace":
-      return <AddNewCraftshop />;
+    // return <AddNewCraftshop />;
 
     default:
-      return <AddNewCraftshop />;
+      return <div>asd</div>;
+    // return <AddNewCraftshop />;
   }
 };
 
