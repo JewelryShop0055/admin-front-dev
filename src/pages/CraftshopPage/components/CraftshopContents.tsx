@@ -185,6 +185,7 @@ export default function CraftshopContents({
           <RenderCraftshopElements
             craftshopList={craftshopList}
             setSelectedCraftshop={setSelectedCraftshop}
+            setMode={setMode}
           />
         </div>
       </div>

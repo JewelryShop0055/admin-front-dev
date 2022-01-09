@@ -35,7 +35,7 @@ const CraftShopPageStyles = makeStyles(
 export enum CraftshopPageMode {
   DEFAULT = "default",
   CREATE = "create",
-  UPDATE = "delete",
+  UPDATE = "update",
   DELETE = "delete",
 }
 

@@ -5,8 +5,9 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { CraftshopPageMode } from "..";
 import AddNewCraftshop from "./AddNewCraftshop";
+import UpdateCraftshop from "./UpdateCraftshop";
 
-interface CraftshopDetailProps {
+export interface CraftshopDetailProps {
   selectedCraftshop: Craftshop | undefined;
   mode: CraftshopPageMode;
   setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
@@ -18,7 +19,7 @@ const CraftShopDetailStyles = makeStyles(
       padding: "20px",
 
       display: "grid",
-      gridTemplateRows: "1fr 14fr",
+      gridTemplateRows: "50px 14fr",
       gridTemplateAreas: `
         "header"
         "body"`,
@@ -83,18 +84,57 @@ export default function CraftshopDetail({
 }: CraftshopDetailProps) {
   const classes = CraftShopDetailStyles();
 
+  const detailHeadText = (mode: CraftshopPageMode) => {
+    switch (mode) {
+      case "create":
+        return "공방 등록하기";
+
+      case "update":
+        return "공방 수정하기";
+
+      case "delete":
+        return "공방 삭제하기";
+
+      case "default":
+        return "공방 상세정보";
+      default:
+        return "공방 상세정보";
+    }
+  };
+
+  const detailHeadController = (mode: CraftshopPageMode) => {
+    switch (mode) {
+      case "default":
+        return (
+          <>
+            <button
+              onClick={() => {
+                setMode(CraftshopPageMode.UPDATE);
+              }}
+            >
+              <CreateIcon />
+              수정
+            </button>
+            <button
+              onClick={() => {
+                setMode(CraftshopPageMode.DELETE);
+              }}
+            >
+              <DeleteIcon />
+              삭제
+            </button>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <div>공방 상세정보</div>
-        <button>
-          <CreateIcon />
-          수정
-        </button>
-        <button>
-          <DeleteIcon />
-          삭제
-        </button>
+        <div>{detailHeadText(mode)}</div>
+        {detailHeadController(mode)}
       </div>
 
       <div className={classes.body}>
@@ -145,6 +185,15 @@ function CraftshopValue({
 
     case "create":
       return <AddNewCraftshop />;
+
+    case "update":
+      if (selectedCraftshop === undefined) {
+        return <div>값이 선택되지 않았습니다</div>;
+      }
+      return <UpdateCraftshop selectedCraftshop={selectedCraftshop} />;
+
+    case "delete":
+      return <div>삭제</div>;
 
     default:
       return (

@@ -13,6 +13,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Craftshop } from "../../../types";
 import { useHistory } from "react-router-dom";
 import { actions as selectAction } from "../../../store/craftshop/selectedCraftshop/slice";
+import { CraftshopPageMode } from "..";
 
 export const CraftshopElementsStyles = makeStyles(
   createStyles({
@@ -111,6 +112,11 @@ const CraftshopElementsForm: React.FC<{
     history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
   };
 
+  function prettyDate(rawDate: string) {
+    const YYYYMMDD = rawDate.split("T")[0];
+    return YYYYMMDD;
+  }
+
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
@@ -124,7 +130,9 @@ const CraftshopElementsForm: React.FC<{
         />
         <div className={classes.paginationElementName}>{props.name}</div>
         <div className={classes.paginationElementAddress}>{props.phone}</div>
-        <div className={classes.paginationElementPhone}>{props.updatedAt}</div>
+        <div className={classes.paginationElementPhone}>
+          {prettyDate(props.updatedAt)}
+        </div>
 
         <IconButton
           aria-label="more"
@@ -156,11 +164,18 @@ const RenderCraftshopElements: React.FC<{
   setSelectedCraftshop: React.Dispatch<
     React.SetStateAction<Craftshop | undefined>
   >;
-}> = ({ craftshopList, setSelectedCraftshop }) => {
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
+}> = ({ craftshopList, setSelectedCraftshop, setMode }) => {
   return (
     <>
       {craftshopList.map((value) => (
-        <div key={value.id} onClick={() => setSelectedCraftshop(value)}>
+        <div
+          key={value.id}
+          onClick={() => {
+            setMode(CraftshopPageMode.DEFAULT);
+            setSelectedCraftshop(value);
+          }}
+        >
           <CraftshopElementsForm props={value} />
         </div>
       ))}

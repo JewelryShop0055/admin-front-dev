@@ -12,6 +12,8 @@ import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
 import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
 import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
+import { Craftshop } from "../../../types";
+import { CraftshopDetailProps } from "./CraftshopDetail";
 
 const CraftShopDetailStyles = makeStyles(
   createStyles({
@@ -77,40 +79,64 @@ const CraftShopDetailStyles = makeStyles(
   })
 );
 
-export default function AddNewCraftshop() {
+interface SelectedCraftshopProps {
+  selectedCraftshop: Craftshop;
+}
+
+export default function UpdateCraftshop({
+  selectedCraftshop,
+}: SelectedCraftshopProps) {
   const classes = CraftShopDetailStyles();
   const dispatch = useDispatch();
-  const [craftshopValue, setCraftshopValue] = useState({
-    craftshopName: "",
-    craftshopDetailAddress: "",
-    craftshopPhoneNumber: "",
+
+  const initialValue = Object.assign({}, selectedCraftshop);
+  console.log("initialValue", initialValue);
+
+  const [updateValue, setUpdateValue] = useState({
+    craftshopName: initialValue.name,
+    craftshopPhoneNumber: initialValue.phone,
+    craftshopPostCode: initialValue.postCode,
+    craftshopAddress: initialValue.address,
+    craftshopDetailAddress: initialValue.detailAddress,
+    craftshopAddressRef: "",
   });
 
-  const { craftshopName, craftshopDetailAddress, craftshopPhoneNumber } =
-    craftshopValue;
-  const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
-    (state) => state.findAddress
-  );
-
-  //공방수정시 적용되는 내용
-  const selectedCraftshopValue = useAppSelector(
-    (state) => state.selectCraftshop
-  );
-  const isReplace: boolean =
-    globalThis.location.pathname ===
-    "/pages/ItemCategoryCrafthopManage/Craftshop/replace"
-      ? true
-      : false;
+  const {
+    craftshopName,
+    craftshopPhoneNumber,
+    craftshopPostCode,
+    craftshopAddress,
+    craftshopDetailAddress,
+    craftshopAddressRef,
+  } = updateValue;
 
   const handleCraftshopValue: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
     const { name, value } = e.target;
-    setCraftshopValue({
-      ...craftshopValue,
+    setUpdateValue({
+      ...updateValue,
       [name]: value,
     });
   };
+
+  const { baseAddress, addtionalAddress, zoneCode } = useAppSelector(
+    (state) => state.findAddress
+  );
+
+  useEffect(() => {
+    if (baseAddress !== "") {
+      setUpdateValue({
+        ...updateValue,
+        craftshopPostCode: zoneCode,
+        craftshopAddress: baseAddress,
+        craftshopAddressRef: addtionalAddress,
+      });
+    }
+    return () => {
+      dispatch(findAddressActions.getAddressValueReset());
+    };
+  }, [baseAddress, addtionalAddress, zoneCode]);
 
   const submitValue = () => {
     if (craftshopName === "" || craftshopPhoneNumber === "") {
@@ -119,62 +145,29 @@ export default function AddNewCraftshop() {
     }
 
     //수정과정
-    if (isReplace) {
-      dispatch(
-        updateCraftshopActions.updateCraftshopPending({
-          id: selectedCraftshopValue.id,
-          name: craftshopName,
-          postCode: zoneCode,
-          address: baseAddress + addtionalAddress,
-          detailAddress: craftshopDetailAddress,
-          phone: craftshopPhoneNumber,
-        })
-      );
-    }
 
-    //신규등록과정
-    if (!isReplace) {
-      dispatch(
-        addNewCraftshopActions.addNewCraftshopPending({
-          address: baseAddress + addtionalAddress,
-          detailAddress: craftshopDetailAddress,
-          name: craftshopName,
-          phone: craftshopPhoneNumber,
-          postCode: zoneCode,
-        })
-      );
-    }
+    dispatch(
+      updateCraftshopActions.updateCraftshopPending({
+        id: selectedCraftshop.id,
+        name: craftshopName,
+        postCode: craftshopPostCode,
+        address: craftshopAddress + craftshopAddressRef,
+        detailAddress: craftshopDetailAddress,
+        phone: craftshopPhoneNumber,
+      })
+    );
 
     dispatch(findAddressActions.getAddressValueReset());
-    setCraftshopValue({
+    setUpdateValue({
       craftshopName: "",
-      craftshopDetailAddress: "",
       craftshopPhoneNumber: "",
+      craftshopPostCode: "",
+      craftshopAddress: "",
+      craftshopDetailAddress: "",
+      craftshopAddressRef: "",
     });
     return;
   };
-
-  useEffect(() => {
-    if (isReplace) {
-      setCraftshopValue({
-        craftshopName: selectedCraftshopValue.name,
-        craftshopPhoneNumber: selectedCraftshopValue.phone,
-        craftshopDetailAddress: selectedCraftshopValue.detailAddress,
-      });
-      const initialCraftshopAddressValue = {
-        baseAddress: selectedCraftshopValue.address,
-        addtionalAddress: "",
-        zoneCode: selectedCraftshopValue.postCode,
-      };
-      dispatch(
-        findAddressActions.getAddressValuePending(initialCraftshopAddressValue)
-      );
-    }
-
-    return () => {
-      dispatch(findAddressActions.getAddressValueReset());
-    };
-  }, []);
 
   return (
     <>
@@ -207,7 +200,7 @@ export default function AddNewCraftshop() {
         size="small"
         disabled
         onChange={handleCraftshopValue}
-        value={zoneCode}
+        value={craftshopPostCode}
       />
 
       <div className={classes.innerElement}>
@@ -223,7 +216,7 @@ export default function AddNewCraftshop() {
         size="small"
         disabled
         onChange={handleCraftshopValue}
-        value={baseAddress}
+        value={craftshopAddress}
       />
       <div className={classes.innerHeader}>상세주소</div>
       <TextField
@@ -243,7 +236,7 @@ export default function AddNewCraftshop() {
         size="small"
         disabled
         onChange={handleCraftshopValue}
-        value={addtionalAddress}
+        value={craftshopAddressRef}
       />
 
       <Button
@@ -254,7 +247,7 @@ export default function AddNewCraftshop() {
           submitValue();
         }}
       >
-        {isReplace ? "수정하기" : "등록하기"}
+        수정하기
       </Button>
     </>
   );
