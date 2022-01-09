@@ -11,60 +11,125 @@ import { actions as addNewCraftshopActions } from "../../../store/craftshop/addN
 import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
 import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
-import { Padding } from "../../../styleTypes";
+import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
 
-const addNewCraftshopStyles = makeStyles((theme: Theme) =>
+// const addNewCraftshopStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     contentsBase: {},
+//     inputContainer: {
+//       padding: Padding.CONTENTS_CONTAINER,
+
+//       display: "grid",
+//       gridAutoRows: "1fr 1fr 1fr 1fr 1fr 1fr",
+//       gridAutoColumns: "150px 150px 200px 200px",
+//       gridGap: "10px",
+//       gridTemplateAreas: `
+//       "inputHeader inputHeader inputHeader inputHeader"
+//       "craftshopName craftshopName . ."
+//       "craftshopPhoneNumber craftshopPhoneNumber . ."
+//       "craftshopPostCode findAddressCode . ."
+//       "craftshopAddress craftshopAddress craftshopAddress craftshopAddress"
+//       "craftshopDetailAddress craftshopDetailAddress craftshopAddressRef ."
+//       `,
+//     },
+//     inputHeader: {
+//       gridArea: "inputHeader",
+//     },
+//     craftshopName: {
+//       gridArea: "craftshopName",
+//     },
+//     craftshopPhoneNumber: {
+//       gridArea: "craftshopPhoneNumber",
+//     },
+//     craftshopPostCode: {
+//       gridArea: "craftshopPostCode",
+//     },
+//     findAddressCode: {
+//       gridArea: "findAddressCode",
+//     },
+//     craftshopAddress: {
+//       gridArea: "craftshopAddress",
+//     },
+//     craftshopDetailAddress: {
+//       gridArea: "craftshopDetailAddress",
+//     },
+//     craftshopAddressRef: {
+//       gridArea: "craftshopAddressRef",
+//     },
+//     submitBtn: {
+//       margin: "20px 0 0 680px ",
+//       minWidth: "100px",
+//     },
+//   })
+// );
+
+const CraftShopDetailStyles = makeStyles(
   createStyles({
-    contentsBase: {},
-    inputContainer: {
-      padding: Padding.CONTENTS_CONTAINER,
+    root: {
+      padding: "20px",
 
       display: "grid",
-      gridAutoRows: "1fr 1fr 1fr 1fr 1fr 1fr",
-      gridAutoColumns: "150px 150px 200px 200px",
-      gridGap: "10px",
+      gridTemplateRows: "1fr 14fr",
       gridTemplateAreas: `
-      "inputHeader inputHeader inputHeader inputHeader"
-      "craftshopName craftshopName . ."
-      "craftshopPhoneNumber craftshopPhoneNumber . ."
-      "craftshopPostCode findAddressCode . ."
-      "craftshopAddress craftshopAddress craftshopAddress craftshopAddress"
-      "craftshopDetailAddress craftshopDetailAddress craftshopAddressRef ."
-      `,
+        "header"
+        "body"`,
     },
-    inputHeader: {
-      gridArea: "inputHeader",
+    header: {
+      gridArea: "header",
+      borderBottom: Border.DEFAULT_BORDER,
+      paddingBottom: "10px",
+
+      display: "flex",
+      alignItems: "center",
+      fontSize: FontSize.MEDIUM_LARGE,
+      fontWeight: "bold",
+
+      "& > div:nth-child(1)": {
+        flex: "1",
+      },
+      "& > button:nth-child(n)": {
+        border: "none",
+        fontSize: FontSize.MEDIUM,
+        background: "none",
+        display: "flex",
+        alignItems: "center",
+      },
     },
-    craftshopName: {
-      gridArea: "craftshopName",
+    body: {
+      gridArea: "body",
+      marginTop: "10px",
+
+      "& > *": {
+        margin: "10px 0 10px 0",
+      },
     },
-    craftshopPhoneNumber: {
-      gridArea: "craftshopPhoneNumber",
+
+    innerHeader: {
+      fontSize: FontSize.MEDIUM_LARGE,
+      fontWeight: "bold",
     },
-    craftshopPostCode: {
-      gridArea: "craftshopPostCode",
+    innerElement: {
+      fontSize: FontSize.MEDIUM_LARGE,
+      marginLeft: "20px",
     },
-    findAddressCode: {
-      gridArea: "findAddressCode",
-    },
-    craftshopAddress: {
-      gridArea: "craftshopAddress",
-    },
-    craftshopDetailAddress: {
-      gridArea: "craftshopDetailAddress",
-    },
-    craftshopAddressRef: {
-      gridArea: "craftshopAddressRef",
-    },
-    submitBtn: {
-      margin: "20px 0 0 680px ",
-      minWidth: "100px",
+
+    notSelect: {
+      position: "relative",
+      top: "50%",
+
+      fontSize: FontSize.MEDIUM_LARGE,
+      color: FontColor.GRAY,
+
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   })
 );
 
 export default function AddNewCraftshop() {
-  const classes = addNewCraftshopStyles();
+  // const classes = addNewCraftshopStyles();
+  const classes = CraftShopDetailStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const [craftshopValue, setCraftshopValue] = useState({
@@ -138,7 +203,6 @@ export default function AddNewCraftshop() {
       craftshopDetailAddress: "",
       craftshopPhoneNumber: "",
     });
-    history.push("/pages/ItemCategoryCrafthopManage/Craftshop");
     return;
   };
 
@@ -166,90 +230,84 @@ export default function AddNewCraftshop() {
 
   return (
     <>
-      <div className={classes.contentsBase}>
-        <div className={classes.inputContainer}>
-          <Typography variant="h5" gutterBottom className={classes.inputHeader}>
-            {isReplace ? "공방 수정하기" : "공방 등록하기"}
-          </Typography>
+      <div className={classes.innerHeader}>공방 명</div>
+      <TextField
+        className={classes.innerElement}
+        label="공방 이름"
+        variant="outlined"
+        name="craftshopName"
+        size="small"
+        onChange={handleCraftshopValue}
+        value={craftshopName}
+      />
+      <div className={classes.innerHeader}>연락처</div>
+      <TextField
+        className={classes.innerElement}
+        label="공방 연락처"
+        variant="outlined"
+        name="craftshopPhoneNumber"
+        size="small"
+        onChange={handleCraftshopValue}
+        value={craftshopPhoneNumber}
+      />
+      <div className={classes.innerHeader}>우편번호</div>
+      <TextField
+        className={classes.innerElement}
+        label="우편번호"
+        variant="outlined"
+        name="craftshopPostCode"
+        size="small"
+        disabled
+        onChange={handleCraftshopValue}
+        value={zoneCode}
+      />
 
-          <TextField
-            className={classes.craftshopName}
-            label="공방 이름"
-            variant="outlined"
-            name="craftshopName"
-            size="small"
-            onChange={handleCraftshopValue}
-            value={craftshopName}
-          />
-
-          <TextField
-            className={classes.craftshopPhoneNumber}
-            label="공방 연락처"
-            variant="outlined"
-            name="craftshopPhoneNumber"
-            size="small"
-            onChange={handleCraftshopValue}
-            value={craftshopPhoneNumber}
-          />
-
-          <TextField
-            className={classes.craftshopPostCode}
-            label="우편번호"
-            variant="outlined"
-            name="craftshopPostCode"
-            size="small"
-            disabled
-            onChange={handleCraftshopValue}
-            value={zoneCode}
-          />
-
-          <div className={classes.findAddressCode}>
-            <FindAddressCode />
-          </div>
-
-          <TextField
-            className={classes.craftshopAddress}
-            label="주소"
-            variant="outlined"
-            name="craftshopAddress"
-            size="small"
-            disabled
-            onChange={handleCraftshopValue}
-            value={baseAddress}
-          />
-
-          <TextField
-            className={classes.craftshopDetailAddress}
-            label="상세주소"
-            variant="outlined"
-            name="craftshopDetailAddress"
-            size="small"
-            onChange={handleCraftshopValue}
-            value={craftshopDetailAddress}
-          />
-          <TextField
-            className={classes.craftshopAddressRef}
-            label="참고항목"
-            variant="outlined"
-            name="craftshopAddressRef"
-            size="small"
-            disabled
-            onChange={handleCraftshopValue}
-            value={addtionalAddress}
-          />
-        </div>
-
-        <Button
-          className={classes.submitBtn}
-          variant="outlined"
-          color="primary"
-          onClick={() => {
-            submitValue();
-          }}
-        >
-          {isReplace ? "수정하기" : "등록하기"}
-        </Button>
+      <div className={classes.innerElement}>
+        <FindAddressCode />
       </div>
+
+      <div className={classes.innerHeader}>주소</div>
+      <TextField
+        className={classes.innerElement}
+        label="주소"
+        variant="outlined"
+        name="craftshopAddress"
+        size="small"
+        disabled
+        onChange={handleCraftshopValue}
+        value={baseAddress}
+      />
+      <div className={classes.innerHeader}>상세주소</div>
+      <TextField
+        className={classes.innerElement}
+        label="상세주소"
+        variant="outlined"
+        name="craftshopDetailAddress"
+        size="small"
+        onChange={handleCraftshopValue}
+        value={craftshopDetailAddress}
+      />
+      <TextField
+        className={classes.innerElement}
+        label="참고항목"
+        variant="outlined"
+        name="craftshopAddressRef"
+        size="small"
+        disabled
+        onChange={handleCraftshopValue}
+        value={addtionalAddress}
+      />
+
+      <Button
+        // className={classes.submitBtn}
+        variant="outlined"
+        color="primary"
+        onClick={() => {
+          submitValue();
+        }}
+      >
+        {isReplace ? "수정하기" : "등록하기"}
+      </Button>
     </>
   );
 }

@@ -18,11 +18,13 @@ import { useAppSelector } from "../../../modules/hooks";
 import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
 import { useHistory } from "react-router";
 import { Craftshop } from "../../../types";
+import { CraftshopPageMode } from "..";
 
 interface CraftshopContentsProps {
   setSelectedCraftshop: React.Dispatch<
     React.SetStateAction<Craftshop | undefined>
   >;
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
 }
 
 export const ContentsBaseStyles = makeStyles((theme: Theme) =>
@@ -109,6 +111,7 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
 
 export default function CraftshopContents({
   setSelectedCraftshop,
+  setMode,
 }: CraftshopContentsProps) {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
@@ -132,8 +135,6 @@ export default function CraftshopContents({
       })
     );
   };
-
-  const [allCheck, setAllCheck] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -159,7 +160,8 @@ export default function CraftshopContents({
             size="large"
             startIcon={<AddIcon />}
             onClick={() =>
-              history.push("/pages/ItemCategoryCrafthopManage/Craftshop/add")
+              // history.push("/pages/ItemCategoryCrafthopManage/Craftshop/add")
+              setMode(CraftshopPageMode.CREATE)
             }
           >
             추가하기

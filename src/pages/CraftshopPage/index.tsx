@@ -32,8 +32,16 @@ const CraftShopPageStyles = makeStyles(
   })
 );
 
+export enum CraftshopPageMode {
+  DEFAULT = "default",
+  CREATE = "create",
+  UPDATE = "delete",
+  DELETE = "delete",
+}
+
 export const CraftshopPage: React.FC = () => {
   const classes = CraftShopPageStyles();
+  const [mode, setMode] = useState(CraftshopPageMode.DEFAULT);
 
   const [selectedCraftshop, setSelectedCraftshop] =
     useState<Craftshop | undefined>(undefined);
@@ -41,13 +49,20 @@ export const CraftshopPage: React.FC = () => {
   return (
     <div className={classes.root}>
       <Paper className={classes.craftshopDetail}>
-        <CraftshopDetail selectedCraftshop={selectedCraftshop} />
+        <CraftshopDetail
+          selectedCraftshop={selectedCraftshop}
+          mode={mode}
+          setMode={setMode}
+        />
       </Paper>
       <Paper className={classes.craftshopSearch}>
         <SearchCraftshop />
       </Paper>
       <Paper className={classes.craftshopPagination}>
-        <CraftshopContents setSelectedCraftshop={setSelectedCraftshop} />
+        <CraftshopContents
+          setSelectedCraftshop={setSelectedCraftshop}
+          setMode={setMode}
+        />
       </Paper>
     </div>
   );

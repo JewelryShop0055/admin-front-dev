@@ -3,9 +3,13 @@ import { Border, FontColor, FontSize } from "../../../styleTypes";
 import { Craftshop } from "../../../types";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { CraftshopPageMode } from "..";
+import AddNewCraftshop from "./AddNewCraftshop";
 
 interface CraftshopDetailProps {
   selectedCraftshop: Craftshop | undefined;
+  mode: CraftshopPageMode;
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
 }
 
 const CraftShopDetailStyles = makeStyles(
@@ -74,6 +78,8 @@ const CraftShopDetailStyles = makeStyles(
 
 export default function CraftshopDetail({
   selectedCraftshop,
+  mode,
+  setMode,
 }: CraftshopDetailProps) {
   const classes = CraftShopDetailStyles();
 
@@ -92,10 +98,11 @@ export default function CraftshopDetail({
       </div>
 
       <div className={classes.body}>
-        {selectedCraftshop === undefined ? (
+        {selectedCraftshop === undefined &&
+        mode === CraftshopPageMode.DEFAULT ? (
           <EmptyValue />
         ) : (
-          <CraftshopValue selectedCraftshop={selectedCraftshop} />
+          <CraftshopValue selectedCraftshop={selectedCraftshop} mode={mode} />
         )}
       </div>
     </div>
@@ -107,22 +114,58 @@ function EmptyValue() {
   return <div className={classes.notSelect}>공방을 선택하지 않았습니다.</div>;
 }
 
-function CraftshopValue({ selectedCraftshop }: CraftshopDetailProps) {
+function CraftshopValue({
+  selectedCraftshop,
+  mode,
+}: Omit<CraftshopDetailProps, "setMode">) {
   const classes = CraftShopDetailStyles();
-  return (
-    <>
-      <div className={classes.innerHeader}>공방 명</div>
-      <div className={classes.innerElement}>{selectedCraftshop!.name}</div>
-      <div className={classes.innerHeader}>연락처</div>
-      <div className={classes.innerElement}>{selectedCraftshop!.phone}</div>
-      <div className={classes.innerHeader}>우편번호</div>
-      <div className={classes.innerElement}>{selectedCraftshop!.postCode}</div>
-      <div className={classes.innerHeader}>주소</div>
-      <div className={classes.innerElement}>{selectedCraftshop!.address}</div>
-      <div className={classes.innerHeader}>상세주소</div>
-      <div className={classes.innerElement}>
-        {selectedCraftshop!.detailAddress}
-      </div>
-    </>
-  );
+
+  switch (mode) {
+    case "default":
+      return (
+        <>
+          <div className={classes.innerHeader}>공방 명</div>
+          <div className={classes.innerElement}>{selectedCraftshop!.name}</div>
+          <div className={classes.innerHeader}>연락처</div>
+          <div className={classes.innerElement}>{selectedCraftshop!.phone}</div>
+          <div className={classes.innerHeader}>우편번호</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.postCode}
+          </div>
+          <div className={classes.innerHeader}>주소</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.address}
+          </div>
+          <div className={classes.innerHeader}>상세주소</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.detailAddress}
+          </div>
+        </>
+      );
+
+    case "create":
+      return <AddNewCraftshop />;
+
+    default:
+      return (
+        <>
+          <div className={classes.innerHeader}>공방 명</div>
+          <div className={classes.innerElement}>{selectedCraftshop!.name}</div>
+          <div className={classes.innerHeader}>연락처</div>
+          <div className={classes.innerElement}>{selectedCraftshop!.phone}</div>
+          <div className={classes.innerHeader}>우편번호</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.postCode}
+          </div>
+          <div className={classes.innerHeader}>주소</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.address}
+          </div>
+          <div className={classes.innerHeader}>상세주소</div>
+          <div className={classes.innerElement}>
+            {selectedCraftshop!.detailAddress}
+          </div>
+        </>
+      );
+  }
 }
