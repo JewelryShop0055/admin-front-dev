@@ -36,7 +36,7 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
     },
     craftShopListContainer: {
       display: "grid",
-      gridTemplateRows: "1fr auto",
+      gridTemplateRows: "40px auto",
       gridTemplateColumns: ".5fr 2fr 2fr 2fr 1fr",
       gridTemplateAreas: `
       "checkBox headerCraftName headerCraftAddress headerCraftPhone none"
@@ -168,14 +168,14 @@ export default function CraftshopContents({
       </div>
 
       <div className={classes.craftShopListContainer}>
-        <input
+        {/* <input
           type="checkbox"
           className={classes.headerCheckBox}
           checked={allCheck}
           onChange={() => {
             setAllCheck(!allCheck);
           }}
-        />
+        /> */}
         <div className={classes.headerCraftName}>공방이름</div>
         <div className={classes.headerCraftAddress}>연락처</div>
         <div className={classes.headerCraftPhone}>등록/수정일</div>
@@ -183,8 +183,6 @@ export default function CraftshopContents({
           <RenderCraftshopElements
             craftshopList={craftshopList}
             setSelectedCraftshop={setSelectedCraftshop}
-            allCheck={allCheck}
-            setAllCheck={setAllCheck}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
-import { Theme, createStyles, makeStyles } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -59,9 +59,7 @@ export const CraftshopElementsStyles = makeStyles(
 
 const CraftshopElementsForm: React.FC<{
   props: Craftshop;
-  allCheck: boolean;
-  setAllCheck: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ props, allCheck, setAllCheck }) => {
+}> = ({ props }) => {
   const classes = CraftshopElementsStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -113,27 +111,15 @@ const CraftshopElementsForm: React.FC<{
     history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
   };
 
-  useEffect(() => {
-    if (allCheck) {
-      setCheck(true);
-    } else {
-      setCheck(false);
-    }
-  }, [setAllCheck]);
-
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
         <input
           type="checkbox"
           className={classes.paginationElementCheckBox}
-          checked={allCheck ? true : check}
-          onChange={() => {
+          checked={check}
+          onChange={(e) => {
             setCheck(!check);
-            if (!allCheck) {
-              return;
-            }
-            setAllCheck(!allCheck);
           }}
         />
         <div className={classes.paginationElementName}>{props.name}</div>
@@ -170,18 +156,12 @@ const RenderCraftshopElements: React.FC<{
   setSelectedCraftshop: React.Dispatch<
     React.SetStateAction<Craftshop | undefined>
   >;
-  allCheck: boolean;
-  setAllCheck: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ craftshopList, setSelectedCraftshop, allCheck, setAllCheck }) => {
+}> = ({ craftshopList, setSelectedCraftshop }) => {
   return (
     <>
       {craftshopList.map((value) => (
         <div key={value.id} onClick={() => setSelectedCraftshop(value)}>
-          <CraftshopElementsForm
-            props={value}
-            allCheck={allCheck}
-            setAllCheck={setAllCheck}
-          />
+          <CraftshopElementsForm props={value} />
         </div>
       ))}
     </>
