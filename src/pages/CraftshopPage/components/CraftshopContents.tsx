@@ -145,7 +145,7 @@ export default function CraftshopContents({
         limit: 10,
       })
     );
-  }, [mode]);
+  }, [mode, setMode, nowPage, dispatch]);
 
   return (
     <div className={classes.paginationBlock}>

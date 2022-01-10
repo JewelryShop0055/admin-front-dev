@@ -6,10 +6,8 @@ import SubNavigation from "../components/Navigations/SubNavigation";
 import TopNavigation from "../components/Navigations/TopNavigation";
 import { BackgroundColor } from "../styleTypes";
 import { CraftshopPage } from "./CraftshopPage";
+import { ItemCategoryPage } from "./ItemCategoryPage";
 
-import ItemCategoryPage, {
-  CraftshopManagePage,
-} from "./ItemCategoryCrafthopManagePage";
 import ProductCreatePage from "./ProductCreatePage";
 import TodaysCheckListMainPage from "./TodaysCheckList/TodaysCheckListMainPage";
 
@@ -69,10 +67,10 @@ export const Pages = () => {
               exact
               component={TodaysCheckListMainPage}
             /> */}
-          <AuthRoute
+          {/* <AuthRoute
             path="/pages/ItemCategoryCrafthopManage/Craftshop/"
             component={CraftshopManagePage}
-          />
+          /> */}
 
           <AuthRoute
             path="/pages/ProductCreate"

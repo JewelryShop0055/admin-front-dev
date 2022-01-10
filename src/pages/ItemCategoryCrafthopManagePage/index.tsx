@@ -1,13 +1,13 @@
 import React from "react";
 import AddNewCraftshop from "../CraftshopPage/components/AddNewCraftshop";
-import CategoryContents from "./components/CategoryContents";
+import CategoryContents from "../ItemCategoryPage/components/CategoryContents";
 import CraftshopContents from "../CraftshopPage/components/CraftshopContents";
 import DeleteCraftshop from "../CraftshopPage/components/DeleteCraftshop";
 // import ReplaceCraftshop from "./components/ReplaceCraftshop";
 
-export const ItemCategoryPage: React.FC = () => {
-  return <CategoryContents />;
-};
+// export const ItemCategoryPage: React.FC = () => {
+//   return <CategoryContents />;
+// };
 
 export enum CraftshopManageType {
   ADD = "Add",
@@ -32,4 +32,4 @@ export const CraftshopManagePage: React.FC = () => {
   }
 };
 
-export default ItemCategoryPage;
+// export default ItemCategoryPage;
