@@ -40,7 +40,7 @@ export default function AddNewCategory({ setMode }: AddNewCategoryProps) {
       <div className={classes.innerHeader}>카테고리 명</div>
       <TextField
         className={classes.innerElement}
-        label="공방 이름"
+        label="카테고리 명"
         variant="outlined"
         name="name"
         size="small"

@@ -8,6 +8,7 @@ import { ItemCategoryPageMode } from "..";
 // import UpdateCraftshop from "./UpdateCraftshop";
 // import DeleteCraftshop from "./DeleteCraftshop";
 import AddNewCategory from "./AddNewCategory";
+import UpdateCategory from "./UpdateCategory";
 
 export interface CategoryDetailProps {
   selectedCategory: Category | undefined;
@@ -189,13 +190,9 @@ function CraftshopValue({
       if (selectedCategory === undefined) {
         return <div>값이 선택되지 않았습니다</div>;
       }
-      //   return (
-      //     <UpdateCraftshop
-      //       selectedCraftshop={selectedCraftshop}
-      //       setMode={setMode}
-      //     />
-      //   );
-      return <div>카테고리 수정</div>;
+      return (
+        <UpdateCategory selectedCategory={selectedCategory} setMode={setMode} />
+      );
 
     case "delete":
       if (selectedCategory === undefined) {
