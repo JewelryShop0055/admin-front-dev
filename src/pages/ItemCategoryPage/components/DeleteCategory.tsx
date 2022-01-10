@@ -64,7 +64,7 @@ export default function DeleteCategory({
       <form noValidate autoComplete="off">
         <TextField
           id="outlined-basic"
-          label="공방 이름"
+          label="삭제할 카테고리명"
           variant="outlined"
           name="craftshopName"
           size="medium"
