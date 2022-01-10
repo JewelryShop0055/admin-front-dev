@@ -1,25 +1,25 @@
-import Typography from "@material-ui/core/Typography";
 import { Button, TextField } from "@material-ui/core";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { actions } from "../../../store/craftshop/deleteCraftshop/slice";
-import { CraftShopDetailStyles } from "./CraftshopDetail";
-import { Craftshop } from "../../../types";
-import { CraftshopPageMode } from "..";
 
-interface SelectedCraftshopProps {
-  selectedCraftshop: Craftshop;
-  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
+import { Category } from "../../../types";
+import { ItemCategoryPageMode } from "..";
+import { CategoryDetailStyles } from "./CategoryDetail";
+import { actions as deleteCategoryActions } from "../../../store/category/deleteCategory/slice";
+
+interface SelectedCategoryProps {
+  selectedCategory: Category;
+  setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
 }
 
-export default function DeleteCraftshop({
-  selectedCraftshop,
+export default function DeleteCategory({
+  selectedCategory,
   setMode,
-}: SelectedCraftshopProps) {
-  const classes = CraftShopDetailStyles();
+}: SelectedCategoryProps) {
+  const classes = CategoryDetailStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const selectCraftshopValue = useAppSelector((state) => state.selectCraftshop);
@@ -31,9 +31,21 @@ export default function DeleteCraftshop({
     setInputValue(e.target.value);
   };
 
-  useEffect(() => {
-    return () => {};
-  }, []);
+  function submitValue() {
+    if (inputValue !== selectedCategory.name) {
+      alert("삭제하실 카테고리명과 일치하지 않습니다");
+      return;
+    }
+
+    dispatch(
+      deleteCategoryActions.deleteCategoryPending({
+        categoryId: selectedCategory.id,
+        categoryName: inputValue,
+      })
+    );
+
+    setInputValue("");
+  }
 
   return (
     <>
@@ -42,20 +54,17 @@ export default function DeleteCraftshop({
       </div>
 
       <div className={classes.innerElement}>
-        {"공방명: " + selectedCraftshop.name}
-      </div>
-      <div className={classes.innerElement}>
-        {"주소: " + selectedCraftshop.address}
+        {"카테고리 명: " + selectedCategory.name}
       </div>
 
       <div className={classes.innerElement}>
-        {"전화번호: " + selectedCraftshop.phone}
+        {"소속 제품 수: " + selectedCategory.itemCount}
       </div>
 
       <form noValidate autoComplete="off">
         <TextField
           id="outlined-basic"
-          label="공방 이름"
+          label="삭제할 카테고리명"
           variant="outlined"
           name="craftshopName"
           size="medium"
@@ -68,13 +77,7 @@ export default function DeleteCraftshop({
         variant="outlined"
         color="primary"
         onClick={() => {
-          dispatch(
-            actions.deleteCraftshopPending({
-              id: selectedCraftshop.id,
-              name: inputValue,
-            })
-          );
-          setMode(CraftshopPageMode.DEFAULT);
+          submitValue();
         }}
       >
         삭제하기

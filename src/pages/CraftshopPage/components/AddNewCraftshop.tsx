@@ -12,72 +12,14 @@ import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
 import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
 import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
+import { CraftShopDetailStyles } from "./CraftshopDetail";
+import { CraftshopPageMode } from "..";
 
-const CraftShopDetailStyles = makeStyles(
-  createStyles({
-    root: {
-      padding: "20px",
+interface AddNewCraftshopProps {
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
+}
 
-      display: "grid",
-      gridTemplateRows: "1fr 14fr",
-      gridTemplateAreas: `
-        "header"
-        "body"`,
-    },
-    header: {
-      gridArea: "header",
-      borderBottom: Border.DEFAULT_BORDER,
-      paddingBottom: "10px",
-
-      display: "flex",
-      alignItems: "center",
-      fontSize: FontSize.MEDIUM_LARGE,
-      fontWeight: "bold",
-
-      "& > div:nth-child(1)": {
-        flex: "1",
-      },
-      "& > button:nth-child(n)": {
-        border: "none",
-        fontSize: FontSize.MEDIUM,
-        background: "none",
-        display: "flex",
-        alignItems: "center",
-      },
-    },
-    body: {
-      gridArea: "body",
-      marginTop: "10px",
-
-      "& > *": {
-        margin: "10px 0 10px 0",
-      },
-    },
-
-    innerHeader: {
-      fontSize: FontSize.MEDIUM_LARGE,
-      fontWeight: "bold",
-    },
-    innerElement: {
-      fontSize: FontSize.MEDIUM_LARGE,
-      marginLeft: "20px",
-    },
-
-    notSelect: {
-      position: "relative",
-      top: "50%",
-
-      fontSize: FontSize.MEDIUM_LARGE,
-      color: FontColor.GRAY,
-
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  })
-);
-
-export default function AddNewCraftshop() {
+export default function AddNewCraftshop({ setMode }: AddNewCraftshopProps) {
   const classes = CraftShopDetailStyles();
   const dispatch = useDispatch();
   const [craftshopValue, setCraftshopValue] = useState({
@@ -252,9 +194,10 @@ export default function AddNewCraftshop() {
         color="primary"
         onClick={() => {
           submitValue();
+          setMode(CraftshopPageMode.DEFAULT);
         }}
       >
-        {isReplace ? "수정하기" : "등록하기"}
+        등록하기
       </Button>
     </>
   );

@@ -1,9 +1,12 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
 import { useState } from "react";
-import { Craftshop } from "../../types";
-import CraftshopContents from "./components/CraftshopContents";
-import CraftshopDetail from "./components/CraftshopDetail";
-import SearchCraftshop from "./components/SearchCraftshop";
+import { Category, Craftshop } from "../../types";
+import CategoryContents from "./components/CategoryContents";
+import CategoryDetail from "./components/CategoryDetail";
+// import CraftshopContents from "./components/CraftshopContents";
+// import CraftshopDetail from "./components/CraftshopDetail";
+// import SearchCraftshop from "./components/SearchCraftshop";
+import SearchCategory from "./components/SearchCategory";
 
 const CraftShopPageStyles = makeStyles(
   createStyles({
@@ -32,35 +35,45 @@ const CraftShopPageStyles = makeStyles(
   })
 );
 
-export enum CraftshopPageMode {
+export enum ItemCategoryPageMode {
   DEFAULT = "default",
   CREATE = "create",
   UPDATE = "update",
   DELETE = "delete",
 }
 
-export const CraftshopPage: React.FC = () => {
+export const ItemCategoryPage: React.FC = () => {
   const classes = CraftShopPageStyles();
-  const [mode, setMode] = useState(CraftshopPageMode.DEFAULT);
+  const [mode, setMode] = useState(ItemCategoryPageMode.DEFAULT);
 
-  const [selectedCraftshop, setSelectedCraftshop] =
-    useState<Craftshop | undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] =
+    useState<Category | undefined>(undefined);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.craftshopDetail}>
-        <CraftshopDetail
+        {/* <CraftshopDetail
           selectedCraftshop={selectedCraftshop}
+          mode={mode}
+          setMode={setMode}
+        /> */}
+        <CategoryDetail
+          selectedCategory={selectedCategory}
           mode={mode}
           setMode={setMode}
         />
       </Paper>
       <Paper className={classes.craftshopSearch}>
-        <SearchCraftshop />
+        <SearchCategory />
       </Paper>
       <Paper className={classes.craftshopPagination}>
-        <CraftshopContents
+        {/* <CraftshopContents
           setSelectedCraftshop={setSelectedCraftshop}
+          mode={mode}
+          setMode={setMode}
+        /> */}
+        <CategoryContents
+          setSelectedCategory={setSelectedCategory}
           mode={mode}
           setMode={setMode}
         />

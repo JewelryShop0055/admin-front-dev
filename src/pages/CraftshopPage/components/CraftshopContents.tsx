@@ -24,6 +24,7 @@ interface CraftshopContentsProps {
   setSelectedCraftshop: React.Dispatch<
     React.SetStateAction<Craftshop | undefined>
   >;
+  mode: CraftshopPageMode;
   setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
 }
 
@@ -111,6 +112,7 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
 
 export default function CraftshopContents({
   setSelectedCraftshop,
+  mode,
   setMode,
 }: CraftshopContentsProps) {
   const classes = ContentsBaseStyles();
@@ -143,7 +145,7 @@ export default function CraftshopContents({
         limit: 10,
       })
     );
-  }, []);
+  }, [mode, setMode, nowPage, dispatch]);
 
   return (
     <div className={classes.paginationBlock}>
@@ -159,10 +161,7 @@ export default function CraftshopContents({
             color="primary"
             size="large"
             startIcon={<AddIcon />}
-            onClick={() =>
-              // history.push("/pages/ItemCategoryCrafthopManage/Craftshop/add")
-              setMode(CraftshopPageMode.CREATE)
-            }
+            onClick={() => setMode(CraftshopPageMode.CREATE)}
           >
             추가하기
           </Button>

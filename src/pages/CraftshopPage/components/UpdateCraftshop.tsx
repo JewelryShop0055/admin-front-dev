@@ -14,6 +14,7 @@ import { actions as updateCraftshopActions } from "../../../store/craftshop/upda
 import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
 import { Craftshop } from "../../../types";
 import { CraftshopDetailProps } from "./CraftshopDetail";
+import { CraftshopPageMode } from "..";
 
 const CraftShopDetailStyles = makeStyles(
   createStyles({
@@ -81,10 +82,12 @@ const CraftShopDetailStyles = makeStyles(
 
 interface SelectedCraftshopProps {
   selectedCraftshop: Craftshop;
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
 }
 
 export default function UpdateCraftshop({
   selectedCraftshop,
+  setMode,
 }: SelectedCraftshopProps) {
   const classes = CraftShopDetailStyles();
   const dispatch = useDispatch();
@@ -245,6 +248,7 @@ export default function UpdateCraftshop({
         color="primary"
         onClick={() => {
           submitValue();
+          setMode(CraftshopPageMode.DEFAULT);
         }}
       >
         수정하기

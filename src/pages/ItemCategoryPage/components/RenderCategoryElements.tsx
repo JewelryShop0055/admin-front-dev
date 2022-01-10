@@ -12,6 +12,7 @@ import Fade from "@material-ui/core/Fade";
 
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { ItemCategoryPageMode } from "..";
 
 function CategoryElementsForm({
   id,
@@ -94,11 +95,21 @@ function CategoryElementsForm({
 
 const RenderCategoryElements: React.FC<{
   categoryList: Category[];
-}> = ({ categoryList }) => {
+  setSelectedCategory: React.Dispatch<
+    React.SetStateAction<Category | undefined>
+  >;
+  setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
+}> = ({ categoryList, setMode, setSelectedCategory }) => {
   return (
     <>
       {categoryList.map((value) => (
-        <div key={value.id}>
+        <div
+          key={value.id}
+          onClick={() => {
+            setMode(ItemCategoryPageMode.DEFAULT);
+            setSelectedCategory(value);
+          }}
+        >
           <CategoryElementsForm
             id={value.id}
             name={value.name}
