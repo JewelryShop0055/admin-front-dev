@@ -199,7 +199,7 @@ export default function CategoryContents({
           setMode={setMode}
         />
 
-        <div className={classes.paginationAddButton}>
+        {/* <div className={classes.paginationAddButton}>
           <Button
             variant="contained"
             color="primary"
@@ -218,7 +218,7 @@ export default function CategoryContents({
           >
             추가하기
           </Button>
-        </div>
+        </div> */}
 
         <Pagination
           className={classes.paginationNavigation}

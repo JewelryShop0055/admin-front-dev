@@ -7,6 +7,7 @@ import { ItemCategoryPageMode } from "..";
 // import AddNewCraftshop from "./AddNewCraftshop";
 // import UpdateCraftshop from "./UpdateCraftshop";
 // import DeleteCraftshop from "./DeleteCraftshop";
+import AddNewCategory from "./AddNewCategory";
 
 export interface CategoryDetailProps {
   selectedCategory: Category | undefined;
@@ -182,8 +183,7 @@ function CraftshopValue({
       );
 
     case "create":
-      //   return <AddNewCraftshop setMode={setMode} />;
-      return <div>카테고리추가</div>;
+      return <AddNewCategory setMode={setMode} />;
 
     case "update":
       if (selectedCategory === undefined) {
