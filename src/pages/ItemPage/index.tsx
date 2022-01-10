@@ -1,9 +1,6 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
 import { useState } from "react";
-import { Category } from "../../types";
-import CategoryContents from "./components/CategoryContents";
-import CategoryDetail from "./components/CategoryDetail";
-import SearchCategory from "./components/SearchCategory";
+import { Craftshop } from "../../types";
 
 const CraftShopPageStyles = makeStyles(
   createStyles({
@@ -32,38 +29,41 @@ const CraftShopPageStyles = makeStyles(
   })
 );
 
-export enum ItemCategoryPageMode {
+export enum CraftshopPageMode {
   DEFAULT = "default",
   CREATE = "create",
   UPDATE = "update",
   DELETE = "delete",
 }
 
-export const ItemCategoryPage: React.FC = () => {
+export const ItemPage: React.FC = () => {
   const classes = CraftShopPageStyles();
-  const [mode, setMode] = useState(ItemCategoryPageMode.DEFAULT);
+  const [mode, setMode] = useState(CraftshopPageMode.DEFAULT);
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<Category | undefined>(undefined);
+  const [selectedCraftshop, setSelectedCraftshop] =
+    useState<Craftshop | undefined>(undefined);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.craftshopDetail}>
-        <CategoryDetail
-          selectedCategory={selectedCategory}
+        {/* <CraftshopDetail
+          selectedCraftshop={selectedCraftshop}
           mode={mode}
           setMode={setMode}
-        />
+        /> */}
+        <div>제품상세구역</div>
       </Paper>
       <Paper className={classes.craftshopSearch}>
-        <SearchCategory />
+        {/* <SearchCraftshop /> */}
+        <div>제품검색구역</div>
       </Paper>
       <Paper className={classes.craftshopPagination}>
-        <CategoryContents
-          setSelectedCategory={setSelectedCategory}
+        {/* <CraftshopContents
+          setSelectedCraftshop={setSelectedCraftshop}
           mode={mode}
           setMode={setMode}
-        />
+        /> */}
+        <div>제품페이지네이션구역</div>
       </Paper>
     </div>
   );

@@ -124,7 +124,7 @@ export default function SubNavigation() {
         <ListItem
           button
           onClick={() => {
-            history.push("#");
+            history.push("/pages/dashboard");
           }}
           key="servicePageLink"
           className={classes.element}
@@ -159,7 +159,7 @@ export default function SubNavigation() {
           SummaryIcon={StoreIcon}
           detailElement={[
             { title: "전체 제품 검색", path: "#" },
-            { title: "제품 등록/수정", path: "#" },
+            { title: "제품 등록/수정", path: "/pages/items" },
             { title: "제품카테고리 등록/수정", path: "/pages/productCategory" },
           ]}
         />
