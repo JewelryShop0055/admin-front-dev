@@ -1,6 +1,7 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
 import { useState } from "react";
 import { Craftshop } from "../../types";
+import ItemSubmitBar from "./components/ItemSubmitBar";
 
 const CraftShopPageStyles = makeStyles(
   createStyles({
@@ -8,23 +9,36 @@ const CraftShopPageStyles = makeStyles(
       padding: "20px",
 
       display: "grid",
-      gridTemplateRows: "1fr 11fr",
-      gridTemplateColumns: "1fr 2fr",
+      gridTemplateRows: "1fr 4fr 4fr auto",
+      gridTemplateColumns: "3.5fr 3fr 2fr",
       gridGap: "20px",
       gridTemplateAreas: `
-      "detail search"
-      "detail pagination"`,
+      "submitBar submitBar submitBar"
+      "image basicForm classify"
+      "useStones price classify"
+      "memo memo memo "`,
     },
-    craftshopDetail: {
-      gridArea: "detail",
-      minWidth: "300px",
-      height: "100%",
+    itemSubmitBar: {
+      gridArea: "submitBar",
+      height: "60px",
     },
-    craftshopSearch: {
-      gridArea: "search",
+    itemClassify: {
+      gridArea: "classify",
     },
-    craftshopPagination: {
-      gridArea: "pagination",
+    itemImage: {
+      gridArea: "image",
+    },
+    itemBasicForm: {
+      gridArea: "basicForm",
+    },
+    itemUseStones: {
+      gridArea: "useStones",
+    },
+    itemPrice: {
+      gridArea: "price",
+    },
+    itemMemo: {
+      gridArea: "memo",
     },
   })
 );
@@ -45,25 +59,26 @@ export const ItemPage: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.craftshopDetail}>
-        {/* <CraftshopDetail
-          selectedCraftshop={selectedCraftshop}
-          mode={mode}
-          setMode={setMode}
-        /> */}
-        <div>제품상세구역</div>
+      <Paper className={classes.itemSubmitBar}>
+        <ItemSubmitBar />
       </Paper>
-      <Paper className={classes.craftshopSearch}>
-        {/* <SearchCraftshop /> */}
-        <div>제품검색구역</div>
+      <Paper className={classes.itemClassify}>
+        <div>분류</div>
       </Paper>
-      <Paper className={classes.craftshopPagination}>
-        {/* <CraftshopContents
-          setSelectedCraftshop={setSelectedCraftshop}
-          mode={mode}
-          setMode={setMode}
-        /> */}
-        <div>제품페이지네이션구역</div>
+      <Paper className={classes.itemImage}>
+        <div>제품이미지등록</div>
+      </Paper>
+      <Paper className={classes.itemBasicForm}>
+        <div>제품기본정보</div>
+      </Paper>
+      <Paper className={classes.itemUseStones}>
+        <div>제품 사용원석</div>
+      </Paper>
+      <Paper className={classes.itemPrice}>
+        <div>제품가격정보</div>
+      </Paper>
+      <Paper className={classes.itemMemo}>
+        <div>제품상세메모</div>
       </Paper>
     </div>
   );
