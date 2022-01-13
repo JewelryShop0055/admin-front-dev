@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ErrorPage {
   url: string;
 }
-
 const Error404: React.FC<ErrorPage> = () => {
-  setTimeout(() => {
-    window.location.href = `${process.env.REACT_APP_CLIENT_BASE_URL}`;
-  }, 3000);
+  useEffect(() => {
+    const moveToLoginPage = setTimeout(() => {
+      globalThis.location.pathname = "/loginPage";
+    }, 3000);
+    return () => {
+      clearTimeout(moveToLoginPage);
+    };
+  }, []);
 
   return (
     <>

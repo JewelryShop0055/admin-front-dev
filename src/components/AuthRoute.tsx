@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router";
 import { useAppDispatch } from "../modules/hooks";
-import LoginPage from "../pages/Login";
+import LoginPage from "../pages/LoginPage";
 import { actions } from "../store/signIn/slice";
 import { getAuthTokenFromCookies } from "../util/auth";
 import { getTokenExpiredState } from "../util/tokenExpireCheck";
@@ -22,7 +22,7 @@ export const AuthRoute = ({
   const dispatch = useAppDispatch();
 
   const authCheck = async () => {
-    const tokenState = await getTokenExpiredState();
+    const tokenState = getTokenExpiredState();
 
     if (
       tokenState.user_access_token === true &&
@@ -35,13 +35,13 @@ export const AuthRoute = ({
       tokenState.user_access_token === false &&
       tokenState.user_refresh_token === true
     ) {
-      await dispatch(
+      dispatch(
         actions.getAuthTokenRefreshPending({
           refreshToken:
             getAuthTokenFromCookies("user_refresh_token")!.toString(),
         })
       );
-      const newTokenState = await getTokenExpiredState();
+      const newTokenState = getTokenExpiredState();
       if (
         newTokenState.user_access_token === true &&
         newTokenState.user_refresh_token === true
@@ -52,13 +52,13 @@ export const AuthRoute = ({
 
     if (tokenState.user_refresh_token === false) {
       alert("인증시간이 만료되었습니다. 로그인 페이지로 이동합니다.");
-      return history.push("/");
+      return history.push("/loginPage");
     }
   };
 
   useEffect(() => {
     authCheck();
-  });
+  }, []);
 
   if (authenticated) {
     return <Route exact={exact} path={path} component={component} />;

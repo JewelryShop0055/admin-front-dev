@@ -1,15 +1,15 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
-import { drawerWidth } from "../../../components/Navigations/SubNavigation";
+import { Padding } from "../../../styleTypes";
 
 //여기도 정리가 필요함
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     CategoryContentsBase: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
+      // margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
     },
 
     paperElements: {
-      padding: theme.spacing(0, 0, 3, 0),
+      // padding: theme.spacing(0, 0, 3, 0),
     },
 
     //공통으로 빼는 스타일이 아니면 그냥 거기놔두는 것도 좋을지도?
@@ -60,9 +60,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const ContentsBaseStyles = makeStyles((theme: Theme) =>
   createStyles({
-    ContentsBase: {
-      margin: theme.spacing(0, 0, 0, `${drawerWidth}px`),
-    },
+    ContentsBase: {},
     craftShopListContainer: {
       marginTop: "20px",
       display: "grid",
@@ -94,7 +92,7 @@ export const ContentsBaseStyles = makeStyles((theme: Theme) =>
     },
     paginationBlock: {
       backgroundColor: theme.palette.background.paper,
-      padding: "50px 48px 0 48px",
+      padding: Padding.CONTENTS_CONTAINER,
       minWidth: "600px",
     },
     paginationAddButton: {

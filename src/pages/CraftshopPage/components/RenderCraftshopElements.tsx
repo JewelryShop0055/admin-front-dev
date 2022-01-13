@@ -1,4 +1,4 @@
-import { Theme, createStyles, makeStyles } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core";
 
 import React, { useState } from "react";
 
@@ -13,15 +13,21 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Craftshop } from "../../../types";
 import { useHistory } from "react-router-dom";
 import { actions as selectAction } from "../../../store/craftshop/selectedCraftshop/slice";
+import { CraftshopPageMode } from "..";
 
-export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
+export const CraftshopElementsStyles = makeStyles(
   createStyles({
     paginationCraftshopElements: {
       borderBottom: "black solid 0.5px",
       padding: "5px 0 5px 0",
       display: "grid",
-      gridTemplateColumns: "2fr 5fr 2fr 1fr",
-      gridTemplateAreas: `"name address phone menuBtn"`,
+      gridTemplateColumns: ".5fr 2fr 2fr 2fr 1fr",
+      gridTemplateAreas: `"checkbox name address phone menuBtn"`,
+    },
+    paginationElementCheckBox: {
+      gridArea: "checkbox",
+
+      margin: "auto",
     },
     paginationElementName: {
       gridArea: "name",
@@ -52,13 +58,17 @@ export const CraftshopElementsStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
+const CraftshopElementsForm: React.FC<{
+  props: Craftshop;
+}> = ({ props }) => {
   const classes = CraftshopElementsStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   //===transition menuHander
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
+
+  const [check, setCheck] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -82,7 +92,7 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
         createdAt: props.createdAt,
       })
     );
-    history.push("/ItemCategoryCrafthopManage/Craftshop/replace");
+    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/replace");
   };
 
   const handleDeleteButton = () => {
@@ -99,15 +109,30 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
         createdAt: props.createdAt,
       })
     );
-    history.push("/ItemCategoryCrafthopManage/Craftshop/delete");
+    history.push("/pages/ItemCategoryCrafthopManage/Craftshop/delete");
   };
+
+  function prettyDate(rawDate: string) {
+    const YYYYMMDD = rawDate.split("T")[0];
+    return YYYYMMDD;
+  }
 
   return (
     <>
       <div className={classes.paginationCraftshopElements}>
+        <input
+          type="checkbox"
+          className={classes.paginationElementCheckBox}
+          checked={check}
+          onChange={(e) => {
+            setCheck(!check);
+          }}
+        />
         <div className={classes.paginationElementName}>{props.name}</div>
-        <div className={classes.paginationElementAddress}>{props.address}</div>
-        <div className={classes.paginationElementPhone}>{props.phone}</div>
+        <div className={classes.paginationElementAddress}>{props.phone}</div>
+        <div className={classes.paginationElementPhone}>
+          {prettyDate(props.updatedAt)}
+        </div>
 
         <IconButton
           aria-label="more"
@@ -134,13 +159,23 @@ const CraftshopElementsForm: React.FC<{ props: Craftshop }> = ({ props }) => {
   );
 };
 
-const RenderCraftshopElements: React.FC<{ craftshopList: Craftshop[] }> = ({
-  craftshopList,
-}) => {
+const RenderCraftshopElements: React.FC<{
+  craftshopList: Craftshop[];
+  setSelectedCraftshop: React.Dispatch<
+    React.SetStateAction<Craftshop | undefined>
+  >;
+  setMode: React.Dispatch<React.SetStateAction<CraftshopPageMode>>;
+}> = ({ craftshopList, setSelectedCraftshop, setMode }) => {
   return (
     <>
       {craftshopList.map((value) => (
-        <div key={value.id}>
+        <div
+          key={value.id}
+          onClick={() => {
+            setMode(CraftshopPageMode.DEFAULT);
+            setSelectedCraftshop(value);
+          }}
+        >
           <CraftshopElementsForm props={value} />
         </div>
       ))}
