@@ -20,6 +20,7 @@ const CraftShopPageStyles = makeStyles(
     },
     itemSubmitBar: {
       gridArea: "submitBar",
+      width: "100%",
       height: "60px",
     },
     itemClassify: {

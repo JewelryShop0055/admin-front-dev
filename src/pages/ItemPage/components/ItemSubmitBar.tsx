@@ -7,16 +7,23 @@ const ItemSubmitBarStyles = makeStyles(
   createStyles({
     root: {
       display: "flex",
+      padding: "10px",
 
       justifyContent: "flex-start",
+      alignItems: "center",
+
+      "& > button": {
+        marginLeft: "10px",
+        width: "130px",
+      },
     },
     header: {
       fontSize: FontSize.LARGE,
       fontWeight: "bold",
+      paddingLeft: "10px",
+      flex: "1",
 
       display: "flex",
-      justifyContent: "center",
-      alignContent: "center",
     },
   })
 );
