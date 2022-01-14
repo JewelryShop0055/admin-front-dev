@@ -18,6 +18,7 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100%",
+      minHeight: "100vh",
       borderRight: Border.DEFAULT_BORDER,
       color: FontColor.WHITE,
       background: BackgroundColor.SUBNAVI_BG,
