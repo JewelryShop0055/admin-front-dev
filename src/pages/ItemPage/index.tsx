@@ -26,6 +26,7 @@ const CraftShopPageStyles = makeStyles(
     },
     itemClassify: {
       gridArea: "classify",
+      background: "#CACACA",
     },
     itemImage: {
       gridArea: "image",

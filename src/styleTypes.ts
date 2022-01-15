@@ -30,7 +30,7 @@ export enum BackgroundColor {
 
   BLUE = "#2C98F0",
 
-  CONTENTS_BG = "#C0C0C0", //구역식별용 임시
+  CONTENTS_BG = "#E9E9E9", //구역식별용 임시
 }
 
 export enum Border {

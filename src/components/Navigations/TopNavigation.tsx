@@ -71,25 +71,6 @@ export default function TopNavigation() {
     history.push("/loginPage");
   };
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    // setNowTab(newValue);
-    if (newValue === 1) {
-      return history.push("/pages/TodaysChecklist");
-    }
-    // if (newValue === 2) {
-    //   return history.push("/TodaysChecklist");
-    // }
-    // if (newValue === 3) {
-    //   return history.push("/TodaysChecklist");
-    // }
-    if (newValue === 4) {
-      return history.push("/pages/ProductCreate");
-    }
-    if (newValue === 5) {
-      return history.push("/pages/ItemCategoryCrafthopManage");
-    }
-  };
-
   const username = "엄준식";
   const remainTime = "24:30";
   return (

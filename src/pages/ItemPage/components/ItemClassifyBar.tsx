@@ -37,11 +37,9 @@ const ItemClassifyBarStyles = makeStyles(
     },
 
     formControl: {
-      margin: "10px",
       minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: "20px",
+      background: "#EEEEEE",
+      // paddingLeft: "10px",
     },
   })
 );
@@ -67,7 +65,6 @@ export function ItemClassifyBar() {
             value={age}
             onChange={handleChange}
             displayEmpty
-            className={classes.selectEmpty}
           >
             <MenuItem value="">
               <em>None</em>
@@ -87,7 +84,6 @@ export function ItemClassifyBar() {
             value={age}
             onChange={handleChange}
             displayEmpty
-            className={classes.selectEmpty}
           >
             <MenuItem value="">
               <em>None</em>

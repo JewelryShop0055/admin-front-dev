@@ -17,7 +17,7 @@ const pagesStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "grid",
-      gridTemplateRows: "auto auto",
+      gridTemplateRows: "60px auto",
       gridTemplateColumns: "230px auto",
       gridTemplateAreas: `
         "subNavi topNavi"
