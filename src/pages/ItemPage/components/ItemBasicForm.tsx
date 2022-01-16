@@ -57,10 +57,23 @@ const ItemBasicFormStyles = makeStyles(
 export function ItemBasicForm() {
   const classes = ItemBasicFormStyles();
 
-  const [checked, setChecked] = useState(true);
+  const [itemBasicValue, setItemBasicValue] = useState({
+    itemName: "",
+    itemCode: "",
+  });
+  const { itemName, itemCode } = itemBasicValue;
+  const [isCustom, setIsCustom] = useState(true);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setItemBasicValue({
+      ...itemBasicValue,
+      [name]: value,
+    });
+  };
+
+  const handleCustomCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCustom(e.target.checked);
   };
 
   return (
@@ -71,25 +84,29 @@ export function ItemBasicForm() {
         <form autoComplete="on">
           <TextField
             fullWidth
-            id="standard-basic"
+            name="itemName"
             label="상품명을 입력하세요"
+            value={itemName}
+            onChange={handleInputValue}
           />
         </form>
       </div>
       <div className={classes.itemCodeForm}>
-        상품명
+        상품코드
         <form autoComplete="on">
           <TextField
             fullWidth
-            id="standard-basic"
+            name="itemCode"
             label="상품코드를 입력하세요"
+            value={itemCode}
+            onChange={handleInputValue}
           />
           <FormControlLabel
             control={
               <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                name="checkedB"
+                checked={isCustom}
+                onChange={handleCustomCheck}
+                name="checked"
                 color="primary"
               />
             }
