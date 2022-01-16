@@ -5,6 +5,7 @@ import ItemBasicForm from "./components/ItemBasicForm";
 import ItemClassifyBar from "./components/ItemClassifyBar";
 import ItemImageForm from "./components/ItemImageForm";
 import ItemSubmitBar from "./components/ItemSubmitBar";
+import ItemUseStones from "./components/ItemUseStones";
 
 const CraftShopPageStyles = makeStyles(
   createStyles({
@@ -78,7 +79,7 @@ export const ItemPage: React.FC = () => {
         <ItemBasicForm />
       </Paper>
       <Paper className={classes.itemUseStones}>
-        <div>제품 사용원석</div>
+        <ItemUseStones />
       </Paper>
       <Paper className={classes.itemPrice}>
         <div>제품가격정보</div>
