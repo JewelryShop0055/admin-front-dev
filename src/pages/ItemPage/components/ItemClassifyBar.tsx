@@ -39,18 +39,70 @@ const ItemClassifyBarStyles = makeStyles(
     formControl: {
       minWidth: 120,
       background: "#EEEEEE",
-      // paddingLeft: "10px",
     },
   })
 );
 
+interface SelectListProps {
+  targetName: string;
+  selectedValue: string;
+  handleChangeSelectedValue: (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => void;
+}
+
+function SelectList({
+  targetName,
+  selectedValue,
+  handleChangeSelectedValue,
+}: SelectListProps) {
+  const classes = ItemClassifyBarStyles();
+
+  return (
+    <FormControl className={classes.formControl}>
+      <Select
+        native
+        value={selectedValue}
+        onChange={handleChangeSelectedValue}
+        inputProps={{
+          name: targetName,
+          id: "age-native-simple",
+        }}
+      >
+        <option aria-label="공방을 선택하세요" value="">
+          카테고리를 선택하세요
+        </option>
+        {/* 추후 option의 value는 해당 항목의 id값을 배정해야함 */}
+        <option value={10}>Ten</option>
+        <option value={20}>Twenty</option>
+        <option value={30}>Thirty</option>
+      </Select>
+    </FormControl>
+  );
+}
+
 export function ItemClassifyBar() {
   const classes = ItemClassifyBarStyles();
 
-  const [age, setAge] = useState("");
+  const [selectedValue, setSelectedValue] = useState<{
+    category: string;
+    craftshop: string;
+  }>({
+    category: "카테고리를 선택하세요",
+    craftshop: "",
+  });
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+  const handleChangeSelectedValue = (
+    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
+  ) => {
+    const name = event.target.name as keyof typeof selectedValue;
+    setSelectedValue({
+      ...selectedValue,
+      [name]: event.target.value,
+    });
   };
 
   return (
@@ -58,42 +110,27 @@ export function ItemClassifyBar() {
       <div className={classes.header}>분류</div>
       <div className={classes.category}>
         카테고리
-        <FormControl className={classes.formControl}>
-          <Select
-            labelId="demo-simple-select-placeholder-label-label"
-            id="demo-simple-select-placeholder-label"
-            value={age}
-            onChange={handleChange}
-            displayEmpty
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
+        <SelectList
+          targetName={"category"}
+          selectedValue={selectedValue.category}
+          handleChangeSelectedValue={handleChangeSelectedValue}
+        />
       </div>
       <div className={classes.craftshop}>
         제조공방
-        <FormControl className={classes.formControl}>
-          <Select
-            labelId="demo-simple-select-placeholder-label-label"
-            id="demo-simple-select-placeholder-label"
-            value={age}
-            onChange={handleChange}
-            displayEmpty
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
+        <SelectList
+          targetName={"craftshop"}
+          selectedValue={selectedValue.craftshop}
+          handleChangeSelectedValue={handleChangeSelectedValue}
+        />
       </div>
+      <button
+        onClick={() =>
+          alert(selectedValue.category + "|" + selectedValue.craftshop)
+        }
+      >
+        임시 선택값 확인 버튼
+      </button>
     </div>
   );
 }
