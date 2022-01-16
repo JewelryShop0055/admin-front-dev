@@ -172,6 +172,10 @@ export default function SubNavigation() {
             { title: "공방 등록/수정", path: "/pages/craftshop" },
           ]}
         />
+        {/* <details> => 이걸로 갈아버리면 더 심플하게 구현가능
+          <summary>테스트아코디언</summary>
+          <span>누르면 보이는거</span>
+        </details> */}
       </List>
     </div>
   );
