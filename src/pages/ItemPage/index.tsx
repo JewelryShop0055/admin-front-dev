@@ -1,6 +1,7 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
 import { useState } from "react";
 import { Craftshop } from "../../types";
+import ItemBasicForm from "./components/ItemBasicForm";
 import ItemClassifyBar from "./components/ItemClassifyBar";
 import ItemSubmitBar from "./components/ItemSubmitBar";
 
@@ -22,6 +23,7 @@ const CraftShopPageStyles = makeStyles(
     itemSubmitBar: {
       gridArea: "submitBar",
       width: "100%",
+      minWidth: "1000px",
       height: "60px",
     },
     itemClassify: {
@@ -72,7 +74,7 @@ export const ItemPage: React.FC = () => {
         <div>제품이미지등록</div>
       </Paper>
       <Paper className={classes.itemBasicForm}>
-        <div>제품기본정보</div>
+        <ItemBasicForm />
       </Paper>
       <Paper className={classes.itemUseStones}>
         <div>제품 사용원석</div>

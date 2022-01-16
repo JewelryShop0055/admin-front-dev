@@ -9,6 +9,7 @@ export enum FontSize {
   LOGIN_HEADER = "2rem",
   STONE_NAME = "32px",
 
+  MEDIUM_SMALL = "12px",
   MEDIUM = "16px",
   MEDIUM_LARGE = "20px",
 
