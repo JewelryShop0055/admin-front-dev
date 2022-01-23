@@ -4,6 +4,8 @@ import { Craftshop } from "../../types";
 import ItemBasicForm from "./components/ItemBasicForm";
 import ItemClassifyBar from "./components/ItemClassifyBar";
 import ItemImageForm from "./components/ItemImageForm";
+import ItemMemo from "./components/ItemMemo";
+import ItemPrice from "./components/ItemPrice";
 import ItemSubmitBar from "./components/ItemSubmitBar";
 import ItemUseStones from "./components/ItemUseStones";
 
@@ -82,10 +84,10 @@ export const ItemPage: React.FC = () => {
         <ItemUseStones />
       </Paper>
       <Paper className={classes.itemPrice}>
-        <div>제품가격정보</div>
+        <ItemPrice />
       </Paper>
       <Paper className={classes.itemMemo}>
-        <div>제품상세메모</div>
+        <ItemMemo />
       </Paper>
     </div>
   );

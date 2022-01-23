@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, TextField } from "@material-ui/core";
 
 import { ItemCategoryPageMode } from "..";
 import { CategoryDetailStyles } from "./CategoryDetail";
 import { actions as addNewCategoryActions } from "../../../store/category/addNewCategory/slice";
+import { useAppSelector } from "../../../modules/hooks";
 
 interface AddNewCategoryProps {
   setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
@@ -34,6 +35,12 @@ export default function AddNewCategory({ setMode }: AddNewCategoryProps) {
       })
     );
   }
+
+  const state = useAppSelector((state) => state);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state, submitValue]);
 
   return (
     <>

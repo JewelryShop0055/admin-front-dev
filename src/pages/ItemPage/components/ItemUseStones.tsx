@@ -91,7 +91,7 @@ function InputStoneInfo({
       <TextField
         className={classes.inputStoneName}
         label="원석"
-        variant="filled"
+        variant="standard"
         size="small"
         name="stoneName"
         type="text"
@@ -102,7 +102,7 @@ function InputStoneInfo({
       <TextField
         className={classes.inputStoneCount}
         label="수량(개)"
-        variant="filled"
+        variant="standard"
         size="small"
         name="count"
         type="number"
@@ -113,7 +113,7 @@ function InputStoneInfo({
       <TextField
         className={classes.inputStoneMemo}
         label="추가내용"
-        variant="filled"
+        variant="standard"
         size="small"
         name="memo"
         type="text"

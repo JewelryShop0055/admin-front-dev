@@ -6,7 +6,7 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontSize } from "../../../styleTypes";
 
 const ItemImageFormStyles = makeStyles(
@@ -26,28 +26,39 @@ const ItemImageFormStyles = makeStyles(
     inputImage: {
       display: "none",
     },
+    thumbnailImage: {},
   })
 );
+
+interface imageSet {
+  file: File | null;
+  url: string | null;
+}
 
 export function ItemImageForm() {
   const classes = ItemImageFormStyles();
 
-  const [images, setImages] = useState([]);
+  const [image, setImage] = useState<imageSet>({ file: null, url: null });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    const formData = new FormData();
+    if (!e.target.files) return;
 
-    if (!files) return;
-
-    for (const file of files) {
-      formData.append("asd[]", file);
-    }
-
-    // imgs.map(img => formData.append('file', img))
-
-    console.log(formData);
+    let reader = new FileReader();
+    let setFile = e.target.files[0];
+    //이미지 등록과정 에러핸들링도 추후 추가해야함
+    reader.onloadend = () => {
+      console.log(typeof reader.result);
+      setImage({
+        file: setFile,
+        url: reader.result!.toString(),
+      });
+    };
+    reader.readAsDataURL(setFile);
   };
+
+  useEffect(() => {
+    console.log(image.url, typeof image.url);
+  }, [image]);
 
   return (
     <div className={classes.root}>
@@ -65,6 +76,7 @@ export function ItemImageForm() {
           Upload
         </Button>
       </label>
+      {image.file && image.url && <img src={image.url} alt={"asdf"} />}
     </div>
   );
 }

@@ -51,6 +51,7 @@ export const ItemCategoryPage: React.FC = () => {
       <Paper className={classes.craftshopDetail}>
         <CategoryDetail
           selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
           mode={mode}
           setMode={setMode}
         />
