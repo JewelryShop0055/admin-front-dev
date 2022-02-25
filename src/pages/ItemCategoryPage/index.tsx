@@ -1,11 +1,8 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
 import { useState } from "react";
-import { Category, Craftshop } from "../../types";
+import { Category } from "../../types";
 import CategoryContents from "./components/CategoryContents";
 import CategoryDetail from "./components/CategoryDetail";
-// import CraftshopContents from "./components/CraftshopContents";
-// import CraftshopDetail from "./components/CraftshopDetail";
-// import SearchCraftshop from "./components/SearchCraftshop";
 import SearchCategory from "./components/SearchCategory";
 
 const CraftShopPageStyles = makeStyles(
@@ -52,13 +49,9 @@ export const ItemCategoryPage: React.FC = () => {
   return (
     <div className={classes.root}>
       <Paper className={classes.craftshopDetail}>
-        {/* <CraftshopDetail
-          selectedCraftshop={selectedCraftshop}
-          mode={mode}
-          setMode={setMode}
-        /> */}
         <CategoryDetail
           selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
           mode={mode}
           setMode={setMode}
         />
@@ -67,11 +60,6 @@ export const ItemCategoryPage: React.FC = () => {
         <SearchCategory />
       </Paper>
       <Paper className={classes.craftshopPagination}>
-        {/* <CraftshopContents
-          setSelectedCraftshop={setSelectedCraftshop}
-          mode={mode}
-          setMode={setMode}
-        /> */}
         <CategoryContents
           setSelectedCategory={setSelectedCategory}
           mode={mode}

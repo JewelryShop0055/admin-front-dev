@@ -75,9 +75,16 @@ const LoginPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  //테스트용 id, pw Value입력
   const [userValue, setUserValue] = useState({
-    userId: String(process.env.REACT_APP_USER_ID),
-    userPassword: String(process.env.REACT_APP_USER_PW),
+    userId:
+      process.env.REACT_APP_USER_ID === undefined
+        ? ""
+        : String(process.env.REACT_APP_USER_ID),
+    userPassword:
+      process.env.REACT_APP_USER_PW === undefined
+        ? ""
+        : String(process.env.REACT_APP_USER_PW),
   });
   const { userId, userPassword } = userValue;
 

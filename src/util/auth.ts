@@ -1,6 +1,7 @@
 import { signOut } from "../api/signOut";
 
 export function saveAuthToken(accessToken: string, refreshToken: string) {
+  window.localStorage.setItem("signin", String(Date.now()));
   document.cookie = `user_access_token=${accessToken}; max-age=3599; samesite=lax;`;
   document.cookie = `user_refresh_token=${refreshToken}; max-age=3599; samesite=lax;`;
 }

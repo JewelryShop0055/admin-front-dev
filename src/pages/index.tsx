@@ -6,7 +6,9 @@ import SubNavigation from "../components/Navigations/SubNavigation";
 import TopNavigation from "../components/Navigations/TopNavigation";
 import { BackgroundColor } from "../styleTypes";
 import { CraftshopPage } from "./CraftshopPage";
+import { DashBoardPage } from "./DashBoardPage";
 import { ItemCategoryPage } from "./ItemCategoryPage";
+import { ItemPage } from "./ItemPage";
 
 import ProductCreatePage from "./ProductCreatePage";
 import TodaysCheckListMainPage from "./TodaysCheckList/TodaysCheckListMainPage";
@@ -15,7 +17,7 @@ const pagesStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "grid",
-      gridTemplateRows: "auto auto",
+      gridTemplateRows: "60px auto",
       gridTemplateColumns: "230px auto",
       gridTemplateAreas: `
         "subNavi topNavi"
@@ -51,7 +53,9 @@ export const Pages = () => {
 
       <div className={classes.pageContents}>
         <Switch>
-          <AuthRoute path="/pages" exact component={TodaysCheckListMainPage} />
+          <AuthRoute path="/pages" exact component={DashBoardPage} />
+
+          <AuthRoute path="/pages/dashboard" exact component={DashBoardPage} />
 
           <AuthRoute
             path="/pages/productCategory"
@@ -60,6 +64,8 @@ export const Pages = () => {
           />
 
           <AuthRoute path="/pages/craftshop" exact component={CraftshopPage} />
+
+          <AuthRoute path="/pages/items" exact component={ItemPage} />
 
           {/* 이하는 구 라우팅 */}
           {/* <AuthRoute

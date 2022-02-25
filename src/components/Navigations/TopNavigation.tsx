@@ -1,14 +1,11 @@
-import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { useHistory } from "react-router-dom";
 import { BackgroundColor, FontSize, FontColor } from "../../styleTypes";
 import { useDispatch } from "react-redux";
-import { actions as signOutActions } from "../../store/signOut/slice";
+import AutoSignOut from "./AutoSignOut";
 
 export const topNavigationHeight = 60;
 
-const useStyles = makeStyles(() => ({
+export const topNavigaionStyles = makeStyles(() => ({
   topNavigation: {
     width: "auto",
     height: "60px",
@@ -60,47 +57,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function TopNavigation() {
-  const classes = useStyles();
+  const classes = topNavigaionStyles();
   const dispatch = useDispatch();
 
-  const history = useHistory();
-
-  //로그아웃
-  const signOut = () => {
-    dispatch(signOutActions.getSignOutPending());
-    history.push("/loginPage");
-  };
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    // setNowTab(newValue);
-    if (newValue === 1) {
-      return history.push("/pages/TodaysChecklist");
-    }
-    // if (newValue === 2) {
-    //   return history.push("/TodaysChecklist");
-    // }
-    // if (newValue === 3) {
-    //   return history.push("/TodaysChecklist");
-    // }
-    if (newValue === 4) {
-      return history.push("/pages/ProductCreate");
-    }
-    if (newValue === 5) {
-      return history.push("/pages/ItemCategoryCrafthopManage");
-    }
-  };
-
   const username = "엄준식";
-  const remainTime = "24:30";
+
   return (
     <>
       <div className={classes.topNavigation}>
         <div className={classes.userName}>안녕하세요 {username} 님</div>
-        <div className={classes.remainTime}>{remainTime} 후 자동 로그아웃</div>
-        <button className={classes.extendTimeBtn}>사용시간 연장</button>
-        <button className={classes.signOutBtn} onClick={signOut}>
-          로그아웃
-        </button>
+        <AutoSignOut />
       </div>
     </>
   );

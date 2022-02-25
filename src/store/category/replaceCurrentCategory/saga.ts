@@ -2,7 +2,11 @@ import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { replaceCurrentCategory } from "../../../api/category/replaceCurrentCategory";
-import { ErrorEnvironment, SnackBarMessageType } from "../../../types";
+import {
+  Category,
+  ErrorEnvironment,
+  SnackBarMessageType,
+} from "../../../types";
 import alertSnackBarMessage from "../../../util/snackBarUitls";
 import { ErrorControl } from "../../errorControl";
 import { actions, replaceCurrentCategoryParams } from "./slice";
@@ -16,16 +20,26 @@ function* replaceCurrentCategorySaga(
     newCategoryName: action.payload.newCategoryName,
   };
   try {
-    yield call(() => replaceCurrentCategory(params));
+    const res: Category = yield call(async () =>
+      replaceCurrentCategory(params)
+    );
+    yield console.log(res);
     alertSnackBarMessage({
       message: `카테고리명 "${action.payload.currentCategoryName}"을 "${action.payload.newCategoryName}"으로 수정했습니다.`,
       type: SnackBarMessageType.SUCCESS,
     });
+    // yield put(
+    //   actions.replaceCurrentCategoryFullfilled({
+    //     targetId: action.payload.targetId,
+    //     currentCategoryName: action.payload.currentCategoryName,
+    //     newCategoryName: action.payload.newCategoryName,
+    //   })
+    // );
     yield put(
       actions.replaceCurrentCategoryFullfilled({
-        targetId: action.payload.targetId,
+        targetId: res.id,
         currentCategoryName: action.payload.currentCategoryName,
-        newCategoryName: action.payload.newCategoryName,
+        newCategoryName: res.name,
       })
     );
   } catch (error) {

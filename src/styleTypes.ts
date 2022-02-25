@@ -9,6 +9,7 @@ export enum FontSize {
   LOGIN_HEADER = "2rem",
   STONE_NAME = "32px",
 
+  MEDIUM_SMALL = "12px",
   MEDIUM = "16px",
   MEDIUM_LARGE = "20px",
 
@@ -30,7 +31,7 @@ export enum BackgroundColor {
 
   BLUE = "#2C98F0",
 
-  CONTENTS_BG = "#C0C0C0", //구역식별용 임시
+  CONTENTS_BG = "#E9E9E9", //구역식별용 임시
 }
 
 export enum Border {

@@ -18,6 +18,7 @@ export const subNaviStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100%",
+      minHeight: "100vh",
       borderRight: Border.DEFAULT_BORDER,
       color: FontColor.WHITE,
       background: BackgroundColor.SUBNAVI_BG,
@@ -124,7 +125,7 @@ export default function SubNavigation() {
         <ListItem
           button
           onClick={() => {
-            history.push("#");
+            history.push("/pages/dashboard");
           }}
           key="servicePageLink"
           className={classes.element}
@@ -159,7 +160,7 @@ export default function SubNavigation() {
           SummaryIcon={StoreIcon}
           detailElement={[
             { title: "전체 제품 검색", path: "#" },
-            { title: "제품 등록/수정", path: "#" },
+            { title: "제품 등록/수정", path: "/pages/items" },
             { title: "제품카테고리 등록/수정", path: "/pages/productCategory" },
           ]}
         />
@@ -171,6 +172,10 @@ export default function SubNavigation() {
             { title: "공방 등록/수정", path: "/pages/craftshop" },
           ]}
         />
+        {/* <details> => 이걸로 갈아버리면 더 심플하게 구현가능
+          <summary>테스트아코디언</summary>
+          <span>누르면 보이는거</span>
+        </details> */}
       </List>
     </div>
   );
