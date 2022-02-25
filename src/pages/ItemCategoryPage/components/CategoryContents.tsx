@@ -165,15 +165,7 @@ export default function CategoryContents({
 
   return (
     <>
-      {/* <div className={classes.ContentsBase}> */}
-      {/* <Paper elevation={PaperElevation.BOTTOM}> */}
       <div className={classes.paginationBlock}>
-        {/* <PaginationTexts
-            headerText={"등록된 제품 카테고리"}
-            mainText={
-              "소속된 제품이 있는 경우 삭제가 불가능합니다. 다른 카테고리로 이동 후 삭제해 주세요."
-            }
-          /> */}
         <div className={classes.craftshopListHeader}>
           <div className={classes.totalCraftshop}>
             전체 공방
@@ -199,27 +191,6 @@ export default function CategoryContents({
           setMode={setMode}
         />
 
-        {/* <div className={classes.paginationAddButton}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            startIcon={<AddIcon />}
-            onClick={() =>
-              dispatch(
-                toggleModalAction.openModal({
-                  modalType: ModalType.CREATE,
-                  id: 0,
-                  name: "",
-                  itemCount: 0,
-                })
-              )
-            }
-          >
-            추가하기
-          </Button>
-        </div> */}
-
         <Pagination
           className={classes.paginationNavigation}
           count={maxPage}
@@ -229,10 +200,6 @@ export default function CategoryContents({
           onChange={paginationNavigationHandler}
         />
       </div>
-      {/* </Paper> */}
-      {/* </div> */}
-
-      {/* <CategoryModal openModal={openModal} /> */}
     </>
   );
 }

@@ -188,6 +188,9 @@ function CraftshopValue({
           <div className={classes.innerElement}>
             {selectedCategory!.itemCount}
           </div>
+          <button onClick={() => console.log(selectedCategory)}>
+            상태값 확인
+          </button>
         </>
       );
 
@@ -211,7 +214,11 @@ function CraftshopValue({
         return <div>값이 선택되지 않았습니다</div>;
       }
       return (
-        <DeleteCategory selectedCategory={selectedCategory} setMode={setMode} />
+        <DeleteCategory
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          setMode={setMode}
+        />
       );
 
     default:

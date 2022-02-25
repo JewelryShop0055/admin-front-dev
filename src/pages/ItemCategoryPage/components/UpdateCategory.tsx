@@ -33,10 +33,9 @@ export default function UpdateCategory({
 }: SelectedCategoryProps) {
   const classes = CategoryDetailStyles();
   const dispatch = useDispatch();
-  const newCategoryName = useAppSelector((state) => {
-    console.log(state);
-    return state.replaceCurrentCategory.newCategoryName;
-  });
+  const { newCategoryName } = useAppSelector(
+    (state) => state.replaceCurrentCategory
+  );
 
   const initialValue = Object.assign({}, selectedCategory);
 
@@ -87,6 +86,10 @@ export default function UpdateCategory({
     });
   };
 
+  useEffect(() => {
+    console.log(newCategoryName);
+  }, [submitValue]);
+
   return (
     <>
       <div className={classes.innerHeader}>현재 카테고리 명</div>
@@ -110,6 +113,8 @@ export default function UpdateCategory({
         color="primary"
         onClick={() => {
           submitValue();
+          setMode(ItemCategoryPageMode.DEFAULT);
+          // setSelectedCategory();
         }}
       >
         수정하기

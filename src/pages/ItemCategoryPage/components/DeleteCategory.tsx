@@ -12,11 +12,15 @@ import { actions as deleteCategoryActions } from "../../../store/category/delete
 
 interface SelectedCategoryProps {
   selectedCategory: Category;
+  setSelectedCategory: React.Dispatch<
+    React.SetStateAction<Category | undefined>
+  >;
   setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
 }
 
 export default function DeleteCategory({
   selectedCategory,
+  setSelectedCategory,
   setMode,
 }: SelectedCategoryProps) {
   const classes = CategoryDetailStyles();
@@ -78,6 +82,8 @@ export default function DeleteCategory({
         color="primary"
         onClick={() => {
           submitValue();
+          setMode(ItemCategoryPageMode.DEFAULT);
+          setSelectedCategory(undefined);
         }}
       >
         삭제하기

@@ -21,12 +21,21 @@ const ItemImageFormStyles = makeStyles(
     header: {
       fontSize: FontSize.LARGE,
       fontWeight: "bold",
+
+      display: "flex",
+
+      "& > div:nth-child(1)": {
+        flex: "1",
+      },
     },
 
     inputImage: {
       display: "none",
     },
-    thumbnailImage: {},
+    thumbnailImage: {
+      width: "100px",
+      height: "100px",
+    },
   })
 );
 
@@ -47,7 +56,7 @@ export function ItemImageForm() {
     let setFile = e.target.files[0];
     //이미지 등록과정 에러핸들링도 추후 추가해야함
     reader.onloadend = () => {
-      console.log(typeof reader.result);
+      console.log(typeof reader.result); //string
       setImage({
         file: setFile,
         url: reader.result!.toString(),
@@ -62,21 +71,32 @@ export function ItemImageForm() {
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>제품 이미지</div>
-      <input
-        accept="image/*"
-        className={classes.inputImage}
-        id="input-item-images"
-        multiple
-        type="file"
-        onChange={handleImageUpload}
-      />
-      <label htmlFor="input-item-images">
-        <Button variant="contained" color="primary" component="span">
-          Upload
-        </Button>
-      </label>
-      {image.file && image.url && <img src={image.url} alt={"asdf"} />}
+      <div className={classes.header}>
+        <div>제품 이미지</div>
+        <input
+          accept="image/*"
+          className={classes.inputImage}
+          id="input-item-images"
+          multiple
+          type="file"
+          onChange={handleImageUpload}
+        />
+        <label htmlFor="input-item-images">
+          <Button variant="contained" color="primary" component="span">
+            Upload
+          </Button>
+        </label>
+      </div>
+
+      <div>
+        {image.file && image.url && (
+          <img
+            className={classes.thumbnailImage}
+            src={image.url}
+            alt={"asdf"}
+          />
+        )}
+      </div>
     </div>
   );
 }
