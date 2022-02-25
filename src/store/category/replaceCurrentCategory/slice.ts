@@ -22,6 +22,14 @@ const initialState: putCurrentCategoryState = {
   isPutCategoryName: false,
 };
 
+const test = (
+  state: putCurrentCategoryState,
+  action: PayloadAction<replaceCurrentCategoryParams>
+) => {
+  state.newCategoryName = action.payload.newCategoryName;
+  state.isLoadingPutCategoryName = true;
+};
+
 export const replaceCurrentCategorySlice = createSlice({
   name: "replaceCurrentCategory",
   initialState,
@@ -37,7 +45,7 @@ export const replaceCurrentCategorySlice = createSlice({
       state,
       action: PayloadAction<replaceCurrentCategoryParams>
     ) => {
-      state.newCategoryName = "";
+      state.newCategoryName = action.payload.newCategoryName;
       state.isLoadingPutCategoryName = false;
       state.isPutCategoryName = true;
     },
@@ -50,6 +58,7 @@ export const replaceCurrentCategorySlice = createSlice({
       state.newCategoryName = "";
       state.isLoadingPutCategoryName = false;
     },
+    test,
   },
 });
 

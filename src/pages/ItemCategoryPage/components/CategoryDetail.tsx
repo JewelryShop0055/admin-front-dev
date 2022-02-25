@@ -10,9 +10,13 @@ import { ItemCategoryPageMode } from "..";
 import AddNewCategory from "./AddNewCategory";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
+import { useAppSelector } from "../../../modules/hooks";
 
 export interface CategoryDetailProps {
   selectedCategory: Category | undefined;
+  setSelectedCategory: React.Dispatch<
+    React.SetStateAction<Category | undefined>
+  >;
   mode: ItemCategoryPageMode;
   setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
 }
@@ -83,6 +87,7 @@ export const CategoryDetailStyles = makeStyles(
 
 export default function CategoryDetail({
   selectedCategory,
+  setSelectedCategory,
   mode,
   setMode,
 }: CategoryDetailProps) {
@@ -148,6 +153,7 @@ export default function CategoryDetail({
         ) : (
           <CraftshopValue
             selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             mode={mode}
             setMode={setMode}
           />
@@ -166,6 +172,7 @@ function EmptyValue() {
 
 function CraftshopValue({
   selectedCategory,
+  setSelectedCategory,
   mode,
   setMode,
 }: CategoryDetailProps) {
@@ -181,6 +188,9 @@ function CraftshopValue({
           <div className={classes.innerElement}>
             {selectedCategory!.itemCount}
           </div>
+          <button onClick={() => console.log(selectedCategory)}>
+            상태값 확인
+          </button>
         </>
       );
 
@@ -192,7 +202,11 @@ function CraftshopValue({
         return <div>값이 선택되지 않았습니다</div>;
       }
       return (
-        <UpdateCategory selectedCategory={selectedCategory} setMode={setMode} />
+        <UpdateCategory
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          setMode={setMode}
+        />
       );
 
     case "delete":
@@ -200,7 +214,11 @@ function CraftshopValue({
         return <div>값이 선택되지 않았습니다</div>;
       }
       return (
-        <DeleteCategory selectedCategory={selectedCategory} setMode={setMode} />
+        <DeleteCategory
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          setMode={setMode}
+        />
       );
 
     default:

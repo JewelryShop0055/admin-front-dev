@@ -20,15 +20,22 @@ import { actions as updateCategoryActions } from "../../../store/category/replac
 
 interface SelectedCategoryProps {
   selectedCategory: Category;
+  setSelectedCategory: React.Dispatch<
+    React.SetStateAction<Category | undefined>
+  >;
   setMode: React.Dispatch<React.SetStateAction<ItemCategoryPageMode>>;
 }
 
 export default function UpdateCategory({
   selectedCategory,
+  setSelectedCategory,
   setMode,
 }: SelectedCategoryProps) {
   const classes = CategoryDetailStyles();
   const dispatch = useDispatch();
+  const { newCategoryName } = useAppSelector(
+    (state) => state.replaceCurrentCategory
+  );
 
   const initialValue = Object.assign({}, selectedCategory);
 
@@ -71,8 +78,17 @@ export default function UpdateCategory({
     setUpdateValue({
       categoryName: "",
     });
-    return;
+
+    setMode(ItemCategoryPageMode.DEFAULT);
+    setSelectedCategory({
+      ...selectedCategory,
+      name: newCategoryName,
+    });
   };
+
+  useEffect(() => {
+    console.log(newCategoryName);
+  }, [submitValue]);
 
   return (
     <>
@@ -98,6 +114,7 @@ export default function UpdateCategory({
         onClick={() => {
           submitValue();
           setMode(ItemCategoryPageMode.DEFAULT);
+          // setSelectedCategory();
         }}
       >
         수정하기
