@@ -18,7 +18,7 @@ export const addNewCraftshop = async (params: AddNewCraftshopParams) => {
   };
 
   const response = await axiosInstance(config).post(
-    "/admin/craftshop/",
+    "/v1/craftshop/",
     config.data
   );
   return response.data;

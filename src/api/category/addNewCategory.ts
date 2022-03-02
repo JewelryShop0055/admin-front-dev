@@ -14,7 +14,7 @@ export const addNewCategory = async (params: AddNewCategoryParams) => {
   };
 
   const response = await axiosInstance(config).post(
-    `/admin/category/${params.categoryGroup}`,
+    `/v1/category/${params.categoryGroup}`,
     config.data
   );
   return response.data;
