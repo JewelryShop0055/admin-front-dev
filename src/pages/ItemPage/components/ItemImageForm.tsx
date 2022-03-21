@@ -6,7 +6,7 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontSize } from "../../../styleTypes";
 
 const ItemImageFormStyles = makeStyles(
@@ -40,34 +40,79 @@ const ItemImageFormStyles = makeStyles(
 );
 
 interface imageSet {
-  file: File | null;
-  url: string | null;
+  file: File;
+  url: string;
+}
+
+interface RenderThumnailImgsProps {
+  imageArray: Array<imageSet>;
+}
+
+function RenderThumnailImgs({ imageArray }: RenderThumnailImgsProps) {
+  const classes = ItemImageFormStyles();
+
+  return (
+    <>
+      {imageArray.map((image) => {
+        return (
+          <img
+            className={classes.thumbnailImage}
+            src={image.url}
+            alt={"asdf"}
+          />
+        );
+      })}
+    </>
+  );
 }
 
 export function ItemImageForm() {
   const classes = ItemImageFormStyles();
 
-  const [image, setImage] = useState<imageSet>({ file: null, url: null });
+  const [images, setImages] = useState<Array<imageSet>>([]);
+  const imagesRef = useRef(images);
+  imagesRef.current = images;
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+  const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) return;
 
-    let reader = new FileReader();
-    let setFile = e.target.files[0];
-    //이미지 등록과정 에러핸들링도 추후 추가해야함
-    reader.onloadend = () => {
-      console.log(typeof reader.result); //string
-      setImage({
-        file: setFile,
-        url: reader.result!.toString(),
-      });
-    };
-    reader.readAsDataURL(setFile);
+    console.log(evt.target.files);
+
+    let imageFilesArray = Array.from(evt.target.files);
+
+    imageFilesArray.map((imageFile) => {
+      let fileReader = new FileReader();
+
+      try {
+        fileReader.readAsDataURL(imageFile);
+
+        fileReader.onerror = () => {
+          throw new Error("can't read file");
+        };
+
+        fileReader.onload = () => {
+          if (fileReader.result === null) {
+            throw new Error("can't read file");
+          }
+          const imageURL = fileReader.result.toString();
+
+          const newImages = [
+            ...imagesRef.current,
+            {
+              file: imageFile,
+              url: imageURL,
+            },
+          ];
+
+          setImages(newImages);
+        };
+      } catch (err) {
+        console.log("ERROR:", fileReader.error);
+      }
+    });
+
+    console.log(images);
   };
-
-  useEffect(() => {
-    console.log(image.url, typeof image.url);
-  }, [image]);
 
   return (
     <div className={classes.root}>
@@ -89,13 +134,7 @@ export function ItemImageForm() {
       </div>
 
       <div>
-        {image.file && image.url && (
-          <img
-            className={classes.thumbnailImage}
-            src={image.url}
-            alt={"asdf"}
-          />
-        )}
+        <RenderThumnailImgs imageArray={images} />
       </div>
     </div>
   );
