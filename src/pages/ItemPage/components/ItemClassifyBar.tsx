@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from "@material-ui/core";
 import { FontSize } from "../../../styleTypes";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import SelectableSearchBar from "../../../components/SelectableSearchBar";
 
 const ItemClassifyBarStyles = makeStyles(
   createStyles({
@@ -128,6 +129,7 @@ export function ItemClassifyBar() {
       >
         임시 선택값 확인 버튼
       </button>
+      <SelectableSearchBar />
     </div>
   );
 }
