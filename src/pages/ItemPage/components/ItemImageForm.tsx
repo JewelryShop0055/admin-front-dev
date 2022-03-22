@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import { FontSize } from "../../../styleTypes";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const ItemImageFormStyles = makeStyles(
   createStyles({
@@ -32,9 +33,28 @@ const ItemImageFormStyles = makeStyles(
     inputImage: {
       display: "none",
     },
+
+    thumbnailImagesContainer: {
+      display: "flex",
+      flex: "0.33 0.33 0.33",
+    },
     thumbnailImage: {
-      width: "100px",
-      height: "100px",
+      position: "relative",
+      width: "250px",
+      height: "250px",
+
+      "&:hover > button": {
+        display: "inline-flex",
+      },
+    },
+    unvisibleDeleteBtn: {
+      display: "none",
+      left: "50%",
+      top: "-100%",
+    },
+    visibleDeleteBtn: {
+      left: "50%",
+      top: "-100%",
     },
   })
 );
@@ -52,17 +72,23 @@ function RenderThumnailImgs({ imageArray }: RenderThumnailImgsProps) {
   const classes = ItemImageFormStyles();
 
   return (
-    <>
+    <div className={classes.thumbnailImagesContainer}>
       {imageArray.map((image) => {
         return (
-          <img
-            className={classes.thumbnailImage}
-            src={image.url}
-            alt={"asdf"}
-          />
+          <div className={classes.thumbnailImage}>
+            <img src={image.url} alt={image.file.name} width="250px" />
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.unvisibleDeleteBtn}
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
+          </div>
         );
       })}
-    </>
+    </div>
   );
 }
 
@@ -108,8 +134,6 @@ export function ItemImageForm() {
         console.log("ERROR:", fileReader.error);
       }
     });
-
-    console.log(images);
   };
 
   return (
@@ -131,9 +155,7 @@ export function ItemImageForm() {
         </label>
       </div>
 
-      <div>
-        <RenderThumnailImgs imageArray={images} />
-      </div>
+      <RenderThumnailImgs imageArray={images} />
     </div>
   );
 }
