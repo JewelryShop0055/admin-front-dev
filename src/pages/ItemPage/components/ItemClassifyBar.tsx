@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from "@material-ui/core";
 import { FontSize } from "../../../styleTypes";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import SelectableSearchBar from "../../../components/SelectableSearchBar";
 
 const ItemClassifyBarStyles = makeStyles(
   createStyles({
@@ -40,93 +41,35 @@ const ItemClassifyBarStyles = makeStyles(
   })
 );
 
-interface SelectListProps {
-  targetName: string;
-  selectedValue: string;
-  handleChangeSelectedValue: (
-    event: React.ChangeEvent<{
-      name?: string | undefined;
-      value: unknown;
-    }>
-  ) => void;
-}
-
-function SelectList({
-  targetName,
-  selectedValue,
-  handleChangeSelectedValue,
-}: SelectListProps) {
-  const classes = ItemClassifyBarStyles();
-
-  return (
-    <FormControl className={classes.formControl}>
-      <Select
-        native
-        value={selectedValue}
-        onChange={handleChangeSelectedValue}
-        inputProps={{
-          name: targetName,
-          id: "age-native-simple",
-        }}
-      >
-        <option aria-label="공방을 선택하세요" value="">
-          카테고리를 선택하세요
-        </option>
-        {/* 추후 option의 value는 해당 항목의 id값을 배정해야함 */}
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
-      </Select>
-    </FormControl>
-  );
-}
-
 export function ItemClassifyBar() {
   const classes = ItemClassifyBarStyles();
 
-  const [selectedValue, setSelectedValue] = useState<{
-    category: string;
-    craftshop: string;
-  }>({
-    category: "카테고리를 선택하세요",
-    craftshop: "",
-  });
-
-  const handleChangeSelectedValue = (
-    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
-  ) => {
-    const name = event.target.name as keyof typeof selectedValue;
-    setSelectedValue({
-      ...selectedValue,
-      [name]: event.target.value,
-    });
-  };
+  const [categoryValue, setCategoryValue] = useState<string>("");
+  const [craftShopValue, setCraftShopValue] = useState<string>("");
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>분류</div>
       <div className={classes.category}>
         카테고리
-        <SelectList
-          targetName={"category"}
-          selectedValue={selectedValue.category}
-          handleChangeSelectedValue={handleChangeSelectedValue}
+        <SelectableSearchBar
+          placeholderText="지정할 카테고리를 입력"
+          dispatchValue={setCategoryValue}
         />
       </div>
       <div className={classes.craftshop}>
         제조공방
-        <SelectList
-          targetName={"craftshop"}
-          selectedValue={selectedValue.craftshop}
-          handleChangeSelectedValue={handleChangeSelectedValue}
+        <SelectableSearchBar
+          placeholderText="지정할 카테고리를 입력"
+          dispatchValue={setCraftShopValue}
         />
       </div>
       <button
-        onClick={() =>
-          alert(selectedValue.category + "|" + selectedValue.craftshop)
-        }
+        onClick={() => {
+          console.log(categoryValue, craftShopValue);
+        }}
       >
-        임시 선택값 확인 버튼
+        선택값 체크
       </button>
     </div>
   );

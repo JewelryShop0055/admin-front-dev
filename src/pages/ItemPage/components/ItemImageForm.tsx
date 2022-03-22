@@ -76,8 +76,6 @@ export function ItemImageForm() {
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (!evt.target.files) return;
 
-    console.log(evt.target.files);
-
     let imageFilesArray = Array.from(evt.target.files);
 
     imageFilesArray.map((imageFile) => {
