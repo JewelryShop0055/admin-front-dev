@@ -1,6 +1,9 @@
 import { makeStyles, createStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete, {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+} from "@material-ui/lab/Autocomplete";
 import { useState } from "react";
 
 const SelectableSearchBarStyles = makeStyles(
@@ -16,9 +19,13 @@ export default function SelectableSearchBar() {
 
   const [selecedValue, setSelectedValue] = useState<string>();
 
-  const handleSelectedValue = (evt: any) => {
-    console.log(evt.target.value);
-    setSelectedValue(evt.target.value);
+  const handleSelectedValue = (
+    event: React.ChangeEvent<{}>,
+    value: string,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<string> | undefined
+  ) => {
+    setSelectedValue(value);
   };
 
   return (
@@ -26,25 +33,24 @@ export default function SelectableSearchBar() {
       <Autocomplete
         freeSolo
         disableClearable
-        options={top100Films.map((option) => option.title)}
+        onChange={handleSelectedValue}
+        options={top100Films.map((option) => {
+          return option.title;
+        })}
         renderInput={(params) => (
           <TextField
             className={classes.textField}
             {...params}
             placeholder="지정할 카테고리를 입력"
-            margin="normal"
             variant="outlined"
-            onChange={handleSelectedValue}
             InputProps={{ ...params.InputProps, type: "search" }}
           />
         )}
       />
-      <div>{selecedValue}</div>
     </>
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
   { title: "The Godfather", year: 1972 },
