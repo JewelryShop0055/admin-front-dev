@@ -4,7 +4,7 @@ import Autocomplete, {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
 } from "@material-ui/lab/Autocomplete";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 
 const SelectableSearchBarStyles = makeStyles(
   createStyles({
@@ -14,10 +14,16 @@ const SelectableSearchBarStyles = makeStyles(
   })
 );
 
-export default function SelectableSearchBar() {
-  const classes = SelectableSearchBarStyles();
+interface SelectableSearchBarProps {
+  placeholderText: string;
+  dispatchValue: Dispatch<React.SetStateAction<string>>;
+}
 
-  const [selecedValue, setSelectedValue] = useState<string>();
+export default function SelectableSearchBar({
+  placeholderText,
+  dispatchValue,
+}: SelectableSearchBarProps) {
+  const classes = SelectableSearchBarStyles();
 
   const handleSelectedValue = (
     event: React.ChangeEvent<{}>,
@@ -25,7 +31,7 @@ export default function SelectableSearchBar() {
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<string> | undefined
   ) => {
-    setSelectedValue(value);
+    dispatchValue(value);
   };
 
   return (
@@ -41,7 +47,8 @@ export default function SelectableSearchBar() {
           <TextField
             className={classes.textField}
             {...params}
-            placeholder="지정할 카테고리를 입력"
+            size="small"
+            placeholder={placeholderText}
             variant="outlined"
             InputProps={{ ...params.InputProps, type: "search" }}
           />

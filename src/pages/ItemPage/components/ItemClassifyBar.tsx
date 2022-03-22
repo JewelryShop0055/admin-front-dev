@@ -44,17 +44,33 @@ const ItemClassifyBarStyles = makeStyles(
 export function ItemClassifyBar() {
   const classes = ItemClassifyBarStyles();
 
+  const [categoryValue, setCategoryValue] = useState<string>("");
+  const [craftShopValue, setCraftShopValue] = useState<string>("");
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>분류</div>
       <div className={classes.category}>
         카테고리
-        <SelectableSearchBar />
+        <SelectableSearchBar
+          placeholderText="지정할 카테고리를 입력"
+          dispatchValue={setCategoryValue}
+        />
       </div>
       <div className={classes.craftshop}>
         제조공방
-        <SelectableSearchBar />
+        <SelectableSearchBar
+          placeholderText="지정할 카테고리를 입력"
+          dispatchValue={setCraftShopValue}
+        />
       </div>
+      <button
+        onClick={() => {
+          console.log(categoryValue, craftShopValue);
+        }}
+      >
+        선택값 체크
+      </button>
     </div>
   );
 }
