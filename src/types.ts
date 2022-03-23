@@ -46,6 +46,7 @@ export type Category = {
   updatedAt: string;
 };
 
+//Craftshop => Company로 변경필요
 export type Craftshop = {
   id: string;
   name: string;
@@ -55,6 +56,7 @@ export type Craftshop = {
   phone: string;
   updatedAt: string;
   createdAt: string;
+  // CompanyType: "craftshop" | "company" | "retail"
 };
 
 export type CraftshopList = {

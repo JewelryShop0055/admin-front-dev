@@ -38,7 +38,7 @@ const ItemImageFormStyles = makeStyles(
       display: "flex",
       flex: "0.33 0.33 0.33",
     },
-    thumbnailImage: {
+    thumbnailImageElement: {
       position: "relative",
       width: "250px",
       height: "250px",
@@ -47,14 +47,10 @@ const ItemImageFormStyles = makeStyles(
         display: "inline-flex",
       },
     },
-    unvisibleDeleteBtn: {
+    deleteBtn: {
       display: "none",
       left: "50%",
-      top: "-100%",
-    },
-    visibleDeleteBtn: {
-      left: "50%",
-      top: "-100%",
+      top: "-95%",
     },
   })
 );
@@ -66,22 +62,37 @@ interface imageSet {
 
 interface RenderThumnailImgsProps {
   imageArray: Array<imageSet>;
+  handleUploadedImageDelete: (imageName: string) => void;
 }
 
-function RenderThumnailImgs({ imageArray }: RenderThumnailImgsProps) {
+function RenderThumnailImgs({
+  imageArray,
+  handleUploadedImageDelete,
+}: RenderThumnailImgsProps) {
   const classes = ItemImageFormStyles();
 
   return (
     <div className={classes.thumbnailImagesContainer}>
-      {imageArray.map((image) => {
+      {imageArray.map((image, idx) => {
         return (
-          <div className={classes.thumbnailImage}>
-            <img src={image.url} alt={image.file.name} width="250px" />
+          <div
+            className={classes.thumbnailImageElement}
+            key={image.file.name + idx}
+          >
+            <img
+              src={image.url}
+              alt={image.file.name}
+              width="250px"
+              height="250px"
+            />
             <Button
               variant="contained"
               color="secondary"
-              className={classes.unvisibleDeleteBtn}
+              className={classes.deleteBtn}
               startIcon={<DeleteIcon />}
+              onClick={() => {
+                handleUploadedImageDelete(image.file.name);
+              }}
             >
               Delete
             </Button>
@@ -99,6 +110,10 @@ export function ItemImageForm() {
   const imagesRef = useRef(images);
   imagesRef.current = images;
 
+  const handleUploadedImageDelete = (imageName: string) => {
+    const nowImages = images.filter((img) => img.file.name !== imageName);
+    setImages(nowImages);
+  };
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (!evt.target.files) return;
 
@@ -155,7 +170,10 @@ export function ItemImageForm() {
         </label>
       </div>
 
-      <RenderThumnailImgs imageArray={images} />
+      <RenderThumnailImgs
+        imageArray={images}
+        handleUploadedImageDelete={handleUploadedImageDelete}
+      />
     </div>
   );
 }
