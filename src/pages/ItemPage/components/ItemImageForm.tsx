@@ -2,12 +2,14 @@ import {
   Button,
   Checkbox,
   createStyles,
+  Fade,
   FormControlLabel,
   IconButton,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   makeStyles,
+  Modal,
   TextField,
   Theme,
 } from "@material-ui/core";
@@ -15,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { FontSize } from "../../../styleTypes";
 import DeleteIcon from "@material-ui/icons/Delete";
 import InfoIcon from "@material-ui/icons/Info";
+import ItemImageCropModal from "./ItemImageCropModal";
 
 const ItemImageFormStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,10 +93,6 @@ function RenderThumnailImgs({
       <ImageList className={classes.imageList} rowHeight={180}>
         {imageArray.map((image, idx) => {
           return (
-            // <div
-            //   className={classes.thumbnailImageElement}
-            //   key={image.file.name + idx}
-            // >
             <ImageListItem
               key={image.file.name + idx}
               cols={1}
@@ -124,7 +123,6 @@ function RenderThumnailImgs({
                 }
               />
             </ImageListItem>
-            // </div>
           );
         })}
       </ImageList>
@@ -184,6 +182,11 @@ export function ItemImageForm() {
     <div className={classes.root}>
       <div className={classes.header}>
         <div>제품 이미지</div>
+
+        {/* crop버튼은 업로드기능에 통합할 예정 */}
+        <ItemImageCropModal />
+        {/* 여기까지 모달 */}
+
         <input
           accept="image/*"
           className={classes.inputImage}
