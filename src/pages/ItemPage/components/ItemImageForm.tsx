@@ -3,14 +3,20 @@ import {
   Checkbox,
   createStyles,
   FormControlLabel,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   makeStyles,
   TextField,
+  Theme,
 } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import { FontSize } from "../../../styleTypes";
 import DeleteIcon from "@material-ui/icons/Delete";
+import InfoIcon from "@material-ui/icons/Info";
 
-const ItemImageFormStyles = makeStyles(
+const ItemImageFormStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "20px",
@@ -36,21 +42,29 @@ const ItemImageFormStyles = makeStyles(
 
     thumbnailImagesContainer: {
       display: "flex",
-      flex: "0.33 0.33 0.33",
+      flexWrap: "wrap",
+
+      justifyContent: "space-around",
+      overflow: "hidden",
+      backgroundColor: theme.palette.background.paper,
+    },
+    imageList: {
+      height: 450,
     },
     thumbnailImageElement: {
       position: "relative",
-      width: "250px",
-      height: "250px",
-
-      "&:hover > button": {
+      "&:hover button": {
         display: "inline-flex",
       },
     },
     deleteBtn: {
       display: "none",
-      left: "50%",
-      top: "-95%",
+      position: "absolute",
+      left: "60%",
+      top: "5%",
+    },
+    icon: {
+      color: "rgba(255, 255, 255, 0.54)",
     },
   })
 );
@@ -73,32 +87,47 @@ function RenderThumnailImgs({
 
   return (
     <div className={classes.thumbnailImagesContainer}>
-      {imageArray.map((image, idx) => {
-        return (
-          <div
-            className={classes.thumbnailImageElement}
-            key={image.file.name + idx}
-          >
-            <img
-              src={image.url}
-              alt={image.file.name}
-              width="250px"
-              height="250px"
-            />
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.deleteBtn}
-              startIcon={<DeleteIcon />}
-              onClick={() => {
-                handleUploadedImageDelete(image.file.name);
-              }}
+      <ImageList className={classes.imageList} rowHeight={180}>
+        {imageArray.map((image, idx) => {
+          return (
+            // <div
+            //   className={classes.thumbnailImageElement}
+            //   key={image.file.name + idx}
+            // >
+            <ImageListItem
+              key={image.file.name + idx}
+              cols={1}
+              className={classes.thumbnailImageElement}
             >
-              Delete
-            </Button>
-          </div>
-        );
-      })}
+              <img src={image.url} alt={image.file.name} />
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.deleteBtn}
+                startIcon={<DeleteIcon />}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleUploadedImageDelete(image.file.name);
+                }}
+              >
+                Delete
+              </Button>
+              <ImageListItemBar
+                title={image.file.name}
+                actionIcon={
+                  <IconButton
+                    aria-label={`info about ${image.file.name}`}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+            // </div>
+          );
+        })}
+      </ImageList>
     </div>
   );
 }
