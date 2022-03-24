@@ -9,6 +9,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
+import CropImage from "../../../components/CropImage";
 
 interface imageSet {
   file: File;
@@ -35,8 +36,8 @@ const ItemImageCropModalStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       boxSizing: "border-box",
-      width: 600,
-      height: 800,
+      width: 1000,
+      height: 1200,
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
@@ -61,6 +62,10 @@ const ItemImageCropModalStyles = makeStyles((theme: Theme) =>
     cropModeBtn: {
       display: "absolute",
       transform: "translate(0%, -2000%)",
+    },
+    cropSaveBtn: {
+      display: "absolute",
+      transform: "translate(20%, -1910%)",
     },
   })
 );
@@ -112,15 +117,6 @@ export default function ItemImageCropModal() {
           ];
 
           setImages(newImages);
-
-          //
-          const canvas = rawImageLayer.current;
-          const context = canvas?.getContext("2d");
-          const img = new Image();
-          img.src = imageURL;
-          img.onload = () => {
-            context?.drawImage(img, 0, 0, 800, 800);
-          };
         };
       } catch (err) {
         console.log("ERROR:", fileReader.error);
@@ -129,45 +125,6 @@ export default function ItemImageCropModal() {
 
     setOpen(true);
   };
-
-  //====
-  const rawImageLayer = useRef<HTMLCanvasElement>(null);
-  const dragLayer = useRef<HTMLCanvasElement>(null);
-  const croptedImageLayer = useRef<HTMLCanvasElement>(null);
-
-  const INITIAL_CROP_AREA = {
-    x: 50,
-    y: 50,
-    width: 100,
-    height: 100,
-  };
-
-  const [cropArea, setCropArea] = useState(INITIAL_CROP_AREA);
-  const [mode, setMode] = useState<"NONE" | "CROP">("NONE");
-  const [isHold, setIsHold] = useState(false);
-
-  useEffect(() => {
-    if (mode === "CROP") {
-      const canvas = dragLayer.current;
-      const context = canvas?.getContext("2d");
-      if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
-      if (context) context.fillStyle = "rgba(240, 22, 22, 0.2)";
-      context?.fillRect(
-        cropArea.x,
-        cropArea.y,
-        cropArea.width,
-        cropArea.height
-      );
-    }
-  }, [mode]);
-
-  useEffect(() => {
-    const canvas = dragLayer.current;
-    const context = canvas?.getContext("2d");
-    if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
-    if (context) context.fillStyle = "rgba(240, 22, 22, 0.2)";
-    context?.fillRect(cropArea.x, cropArea.y, cropArea.width, cropArea.height);
-  }, [cropArea]);
 
   return (
     <>
@@ -198,71 +155,7 @@ export default function ItemImageCropModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            {images.map((image) => {
-              return (
-                <>
-                  {/* <img src={image.url} alt={image.file.name} width="400px" /> */}
-                  <canvas
-                    ref={rawImageLayer}
-                    className={classes.rawImageLayer}
-                    width={500}
-                    height={500}
-                  />
-                  <canvas
-                    ref={dragLayer}
-                    className={classes.dragCropArea}
-                    width={500}
-                    height={500}
-                    onMouseDown={(evt) => {
-                      if (mode === "CROP") {
-                        setIsHold(true);
-                        const canvasPosition =
-                          dragLayer.current?.getBoundingClientRect() ??
-                          new DOMRect(0, 0, 0, 0);
-                        setCropArea({
-                          ...cropArea,
-                          x: evt.clientX - canvasPosition.x,
-                          y: evt.clientY - canvasPosition.y,
-                        });
-                      }
-                    }}
-                    onMouseMove={(evt) => {
-                      if (mode === "CROP" && isHold) {
-                        console.log(cropArea);
-                        const canvasPosition =
-                          dragLayer.current?.getBoundingClientRect() ??
-                          new DOMRect(0, 0, 0, 0);
-                        setCropArea({
-                          ...cropArea,
-                          width: evt.clientX - cropArea.x - canvasPosition.x,
-                          height: evt.clientY - cropArea.y - canvasPosition.y,
-                        });
-                      }
-                    }}
-                    onMouseUp={(evt) => {
-                      if (mode === "CROP") {
-                        setIsHold(false);
-                        console.log(cropArea);
-                        // setCropArea(INITIAL_CROP_AREA);
-                      }
-                    }}
-                  />
-                </>
-              );
-            })}
-            <button
-              className={classes.cropModeBtn}
-              onClick={() => {
-                if (mode === "NONE") {
-                  setMode("CROP");
-                }
-                if (mode === "CROP") {
-                  setMode("NONE");
-                }
-              }}
-            >
-              {mode === "NONE" ? "CropStart" : "CropStop"}
-            </button>
+            <CropImage imageArray={images} />
           </div>
         </Fade>
       </Modal>

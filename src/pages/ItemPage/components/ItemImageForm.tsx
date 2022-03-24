@@ -72,13 +72,13 @@ const ItemImageFormStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface imageSet {
+export interface ImageValues {
   file: File;
   url: string;
 }
 
 interface RenderThumnailImgsProps {
-  imageArray: Array<imageSet>;
+  imageArray: Array<ImageValues>;
   handleUploadedImageDelete: (imageName: string) => void;
 }
 
@@ -133,7 +133,7 @@ function RenderThumnailImgs({
 export function ItemImageForm() {
   const classes = ItemImageFormStyles();
 
-  const [images, setImages] = useState<Array<imageSet>>([]);
+  const [images, setImages] = useState<Array<ImageValues>>([]);
   const imagesRef = useRef(images);
   imagesRef.current = images;
 
