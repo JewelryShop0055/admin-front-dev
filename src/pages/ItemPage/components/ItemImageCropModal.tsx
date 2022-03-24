@@ -49,14 +49,18 @@ const ItemImageCropModalStyles = makeStyles((theme: Theme) =>
       display: "absolute",
       top: "50%",
       left: "50%",
-      transform: "translate(-50%, -50%)",
+      transform: "translate(0%, 0%)",
     },
     dragCropArea: {
       boxSizing: "border-box",
       display: "absolute",
       top: "50%",
       left: "50%",
-      transform: "translate(-50%, -50%)",
+      transform: "translate(0%, -100%)",
+    },
+    cropModeBtn: {
+      display: "absolute",
+      transform: "translate(0%, -2000%)",
     },
   })
 );
@@ -132,14 +136,30 @@ export default function ItemImageCropModal() {
   const croptedImageLayer = useRef<HTMLCanvasElement>(null);
 
   const INITIAL_CROP_AREA = {
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
+    x: 50,
+    y: 50,
+    width: 100,
+    height: 100,
   };
 
   const [cropArea, setCropArea] = useState(INITIAL_CROP_AREA);
-  const [isDrag, setIsDrag] = useState(false);
+  const [mode, setMode] = useState<"NONE" | "CROP">("NONE");
+  const [isHold, setIsHold] = useState(false);
+
+  useEffect(() => {
+    if (mode === "CROP") {
+      const canvas = dragLayer.current;
+      const context = canvas?.getContext("2d");
+      if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
+      if (context) context.fillStyle = "rgba(240, 22, 22, 0.2)";
+      context?.fillRect(
+        cropArea.x,
+        cropArea.y,
+        cropArea.width,
+        cropArea.height
+      );
+    }
+  }, [mode]);
 
   useEffect(() => {
     const canvas = dragLayer.current;
@@ -160,12 +180,7 @@ export default function ItemImageCropModal() {
         onChange={handleImageUploadForCrop}
       />
       <label htmlFor="cropImage">
-        <Button
-          variant="contained"
-          color="primary"
-          component="span"
-          // onClick={handleOpen}
-        >
+        <Button variant="contained" color="primary" component="span">
           upload&crop
         </Button>
       </label>
@@ -199,19 +214,20 @@ export default function ItemImageCropModal() {
                     width={500}
                     height={500}
                     onMouseDown={(evt) => {
-                      setIsDrag(true);
-                      // console.log(evt.)
-                      const canvasPosition =
-                        dragLayer.current?.getBoundingClientRect() ??
-                        new DOMRect(0, 0, 0, 0);
-                      setCropArea({
-                        ...cropArea,
-                        x: evt.clientX - canvasPosition.x,
-                        y: evt.clientY - canvasPosition.y,
-                      });
+                      if (mode === "CROP") {
+                        setIsHold(true);
+                        const canvasPosition =
+                          dragLayer.current?.getBoundingClientRect() ??
+                          new DOMRect(0, 0, 0, 0);
+                        setCropArea({
+                          ...cropArea,
+                          x: evt.clientX - canvasPosition.x,
+                          y: evt.clientY - canvasPosition.y,
+                        });
+                      }
                     }}
                     onMouseMove={(evt) => {
-                      if (isDrag) {
+                      if (mode === "CROP" && isHold) {
                         console.log(cropArea);
                         const canvasPosition =
                           dragLayer.current?.getBoundingClientRect() ??
@@ -224,14 +240,29 @@ export default function ItemImageCropModal() {
                       }
                     }}
                     onMouseUp={(evt) => {
-                      setIsDrag(false);
-                      console.log(cropArea);
-                      setCropArea(INITIAL_CROP_AREA);
+                      if (mode === "CROP") {
+                        setIsHold(false);
+                        console.log(cropArea);
+                        // setCropArea(INITIAL_CROP_AREA);
+                      }
                     }}
                   />
                 </>
               );
             })}
+            <button
+              className={classes.cropModeBtn}
+              onClick={() => {
+                if (mode === "NONE") {
+                  setMode("CROP");
+                }
+                if (mode === "CROP") {
+                  setMode("NONE");
+                }
+              }}
+            >
+              {mode === "NONE" ? "CropStart" : "CropStop"}
+            </button>
           </div>
         </Fade>
       </Modal>
