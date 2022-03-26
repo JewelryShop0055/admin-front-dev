@@ -116,19 +116,7 @@ export default function CropImage({ imageArray }: CropImageProps) {
       if (context && canvas) {
         context.fillStyle = "rgba(104, 104, 104, 0.2)";
         context.fillRect(0, 0, canvas.width, canvas.height);
-        context.setLineDash([4, 2]);
-        context.strokeRect(
-          cropArea.x,
-          cropArea.y,
-          cropArea.width,
-          cropArea.height
-        );
-        context.clearRect(
-          cropArea.x,
-          cropArea.y,
-          cropArea.width,
-          cropArea.height
-        );
+        drawCropAreaBox(context, cropArea);
       }
     }
     if (mode === "NONE") {
@@ -235,4 +223,69 @@ const isMouseInCropArea = (
   if (mouseCoordinate.y > cropArea.y + cropArea.height) return false;
 
   return true;
+};
+
+const drawCropAreaBox = (
+  ctx: CanvasRenderingContext2D,
+  cropArea: CropArea
+): void => {
+  const cropHandlerBoxWidth = 16;
+
+  ctx.setLineDash([4, 2]);
+  ctx.strokeRect(cropArea.x, cropArea.y, cropArea.width, cropArea.height);
+  ctx.clearRect(cropArea.x, cropArea.y, cropArea.width, cropArea.height);
+
+  ctx.setLineDash([]);
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.strokeRect(
+    cropArea.x - cropHandlerBoxWidth / 2,
+    cropArea.y - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+  ctx.fillRect(
+    cropArea.x - cropHandlerBoxWidth / 2,
+    cropArea.y - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+
+  ctx.strokeRect(
+    cropArea.x + cropArea.width - cropHandlerBoxWidth / 2,
+    cropArea.y - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+  ctx.fillRect(
+    cropArea.x + cropArea.width - cropHandlerBoxWidth / 2,
+    cropArea.y - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+
+  ctx.strokeRect(
+    cropArea.x - cropHandlerBoxWidth / 2,
+    cropArea.y + cropArea.height - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+  ctx.fillRect(
+    cropArea.x - cropHandlerBoxWidth / 2,
+    cropArea.y + cropArea.height - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+
+  ctx.strokeRect(
+    cropArea.x + cropArea.width - cropHandlerBoxWidth / 2,
+    cropArea.y + cropArea.height - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
+  ctx.fillRect(
+    cropArea.x + cropArea.width - cropHandlerBoxWidth / 2,
+    cropArea.y + cropArea.height - cropHandlerBoxWidth / 2,
+    cropHandlerBoxWidth,
+    cropHandlerBoxWidth
+  );
 };
