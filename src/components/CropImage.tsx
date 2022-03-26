@@ -16,6 +16,7 @@ const CropImageStyles = makeStyles((theme: Theme) =>
       top: "50%",
       left: "50%",
       transform: "translate(0%, 0%)",
+      border: "1px solid black",
     },
     cropAreaLayer: {
       display: "absolute",
@@ -28,6 +29,10 @@ const CropImageStyles = makeStyles((theme: Theme) =>
       display: "absolute",
       transform: "translate(-1280%, -3500%)",
     },
+    mouseXY: {
+      display: "absolute",
+      transform: "translate(0%, -3800%)",
+    },
   })
 );
 
@@ -35,13 +40,30 @@ interface CropImageProps {
   imageArray: Array<ImageValues>;
 }
 
-type Mode = "NONE" | "CROP";
+interface CropArea {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  innerClickX: number;
+  innerClickY: number;
+}
 
-const INITIAL_CROP_AREA = {
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
+interface MouseCoordinate {
+  x: number;
+  y: number;
+}
+
+type Mode = "NONE" | "CROP";
+type MouseHold = "INNER_HOLD" | "OUTER_HOLD" | false;
+
+const INITIAL_CROP_AREA: CropArea = {
+  x: 50,
+  y: 50,
+  width: 300,
+  height: 200,
+  innerClickX: 0,
+  innerClickY: 0,
 };
 
 export default function CropImage({ imageArray }: CropImageProps) {
@@ -49,12 +71,12 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   const [selectedImg, setSelectedImage] = useState<ImageValues | undefined>();
   const [mode, setMode] = useState<Mode>("NONE");
-  const [isMouseHold, setIsMouseHold] = useState<boolean>(false);
+  const [isMouseHold, setIsMouseHold] = useState<MouseHold>(false);
 
   const rawImageLayer = useRef<HTMLCanvasElement>(null);
   const cropAreaLayer = useRef<HTMLCanvasElement>(null);
 
-  const [cropArea, setCropArea] = useState(INITIAL_CROP_AREA);
+  const [cropArea, setCropArea] = useState<CropArea>(INITIAL_CROP_AREA);
 
   const handleCropMode = () => {
     switch (mode) {
@@ -91,20 +113,23 @@ export default function CropImage({ imageArray }: CropImageProps) {
       const context = canvas?.getContext("2d");
       if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (context) context.fillStyle = "rgba(240, 22, 22, 0.2)";
-      context?.setLineDash([4, 2]);
-      context?.strokeRect(
-        cropArea.x,
-        cropArea.y,
-        cropArea.width,
-        cropArea.height
-      );
-      context?.fillRect(
-        cropArea.x,
-        cropArea.y,
-        cropArea.width,
-        cropArea.height
-      );
+      if (context && canvas) {
+        context.fillStyle = "rgba(104, 104, 104, 0.2)";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.setLineDash([4, 2]);
+        context.strokeRect(
+          cropArea.x,
+          cropArea.y,
+          cropArea.width,
+          cropArea.height
+        );
+        context.clearRect(
+          cropArea.x,
+          cropArea.y,
+          cropArea.width,
+          cropArea.height
+        );
+      }
     }
     if (mode === "NONE") {
       const canvas = cropAreaLayer.current;
@@ -120,12 +145,23 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
     const canvasPosition =
       cropAreaLayer.current?.getBoundingClientRect() ?? new DOMRect(0, 0, 0, 0);
-    setCropArea({
-      ...cropArea,
-      x: evt.clientX - canvasPosition.x,
-      y: evt.clientY - canvasPosition.y,
-    });
-    setIsMouseHold(true);
+
+    if (
+      isMouseInCropArea(cropArea, {
+        x: evt.clientX - canvasPosition.x,
+        y: evt.clientY - canvasPosition.y,
+      })
+    ) {
+      setIsMouseHold("INNER_HOLD");
+      setCropArea({
+        ...cropArea,
+        innerClickX: evt.clientX - canvasPosition.x - cropArea.x,
+        innerClickY: evt.clientY - canvasPosition.y - cropArea.y,
+      });
+      return;
+    }
+
+    setIsMouseHold("OUTER_HOLD");
   };
   const handleCropAreaLayerMouseMove = (
     evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -134,11 +170,14 @@ export default function CropImage({ imageArray }: CropImageProps) {
     if (!isMouseHold) return;
     const canvasPosition =
       cropAreaLayer.current?.getBoundingClientRect() ?? new DOMRect(0, 0, 0, 0);
-    setCropArea({
-      ...cropArea,
-      width: evt.clientX - cropArea.x - canvasPosition.x,
-      height: evt.clientY - cropArea.y - canvasPosition.y,
-    });
+
+    if (isMouseHold === "INNER_HOLD") {
+      setCropArea({
+        ...cropArea,
+        x: evt.clientX - canvasPosition.x - cropArea.innerClickX,
+        y: evt.clientY - canvasPosition.y - cropArea.innerClickY,
+      });
+    }
   };
   const handleCropAreaLayerMouseUp = (
     evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -158,7 +197,6 @@ export default function CropImage({ imageArray }: CropImageProps) {
         imageArray={imageArray}
         setSelectedImage={setSelectedImage}
       />
-
       <div className={classes.cropImageContainer}>
         <canvas
           ref={rawImageLayer}
@@ -186,3 +224,15 @@ export default function CropImage({ imageArray }: CropImageProps) {
     </>
   );
 }
+
+const isMouseInCropArea = (
+  cropArea: CropArea,
+  mouseCoordinate: MouseCoordinate
+): boolean => {
+  if (mouseCoordinate.x < cropArea.x) return false;
+  if (mouseCoordinate.x > cropArea.x + cropArea.width) return false;
+  if (mouseCoordinate.y < cropArea.y) return false;
+  if (mouseCoordinate.y > cropArea.y + cropArea.height) return false;
+
+  return true;
+};
