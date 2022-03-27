@@ -17,7 +17,7 @@ export const replaceCurrentCategory = async (
   };
 
   const response = await axiosInstance(config).put(
-    `/v1/category/${ProductType.product}/${params.targetId}`,
+    `/admin/category/${ProductType.product}/${params.targetId}`,
     config.data
   );
 

@@ -10,7 +10,7 @@ export const signOut = async (params: AccessTokenParams) => {
   };
 
   const response = await axiosInstance(config).delete(
-    "/v1/account/signout",
+    "/admin/account/signout",
     { data: `access_token=${params.accessToken}` }
   );
 

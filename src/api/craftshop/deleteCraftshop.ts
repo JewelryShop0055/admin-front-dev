@@ -13,7 +13,7 @@ export const deleteCraftshop = async (params: DeleteCraftshopParams) => {
   };
 
   const response = await axiosInstance(config).delete(
-    `/v1/craftshop/${params.id}`
+    `/admin/craftshop/${params.id}`
   );
 
   return response.data;
