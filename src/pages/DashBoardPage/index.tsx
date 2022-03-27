@@ -1,5 +1,4 @@
 import { makeStyles, Paper, createStyles } from "@material-ui/core";
-import { useState } from "react";
 
 const DashBoardPageStyles = makeStyles(
   createStyles({

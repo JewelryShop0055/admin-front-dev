@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from "@redux-saga/core/effects";
+import { put, takeLatest, all } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { actions, CategoryModalParams } from "./slice";
 

@@ -1,5 +1,4 @@
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import TodoCheckListsSubNavigation from "./TodaysCheckListSubNavigation";
 import TodaysCheckListMainPageContents from "./TodaysCheckListMainPageContents";
 
 const drawerWidth = 240;

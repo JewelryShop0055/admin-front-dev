@@ -14,7 +14,7 @@ import {
 } from "../../types";
 import { saveAuthToken } from "../../util/auth";
 
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { history } from "../../modules/store";
 import { refreshTokenGrantAuth } from "../../api/refreshToken";
 import { ErrorControl } from "../errorControl";

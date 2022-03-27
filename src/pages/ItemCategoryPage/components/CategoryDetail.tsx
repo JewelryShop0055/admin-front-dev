@@ -1,16 +1,12 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import { Border, FontColor, FontSize } from "../../../styleTypes";
-import { Category, Craftshop } from "../../../types";
+import { Category } from "../../../types";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ItemCategoryPageMode } from "..";
-// import AddNewCraftshop from "./AddNewCraftshop";
-// import UpdateCraftshop from "./UpdateCraftshop";
-// import DeleteCraftshop from "./DeleteCraftshop";
 import AddNewCategory from "./AddNewCategory";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
-import { useAppSelector } from "../../../modules/hooks";
 
 export interface CategoryDetailProps {
   selectedCategory: Category | undefined;

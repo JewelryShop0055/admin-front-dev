@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useState } from "react";
 import DaumPostcode, { Address } from "react-daum-postcode";
 
 import Button from "@material-ui/core/Button";
@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../../store/findAddress/slice";
 
 export function FindAddressCode() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);

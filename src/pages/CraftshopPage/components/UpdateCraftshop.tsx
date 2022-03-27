@@ -1,19 +1,15 @@
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
-import Typography from "@material-ui/core/Typography";
 import { Button, TextField } from "@material-ui/core";
 
 import { useEffect, useState } from "react";
 import { FindAddressCode } from "./FindAddressCode";
 import { useAppSelector } from "../../../modules/hooks";
 import { useDispatch } from "react-redux";
-import { actions as addNewCraftshopActions } from "../../../store/craftshop/addNewCraftshop/slice";
-import { useHistory } from "react-router";
 import { actions as findAddressActions } from "../../../store/findAddress/slice";
 import { actions as updateCraftshopActions } from "../../../store/craftshop/updateCraftshop/slice";
-import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
+import { Border, FontColor, FontSize } from "../../../styleTypes";
 import { Craftshop } from "../../../types";
-import { CraftshopDetailProps } from "./CraftshopDetail";
 import { CraftshopPageMode } from "..";
 
 const CraftShopDetailStyles = makeStyles(

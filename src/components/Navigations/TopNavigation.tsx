@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { BackgroundColor, FontSize, FontColor } from "../../styleTypes";
-import { useDispatch } from "react-redux";
 import AutoSignOut from "./AutoSignOut";
 
 export const topNavigationHeight = 60;
@@ -58,7 +57,6 @@ export const topNavigaionStyles = makeStyles(() => ({
 
 export default function TopNavigation() {
   const classes = topNavigaionStyles();
-  const dispatch = useDispatch();
 
   const username = "엄준식";
 

@@ -1,27 +1,18 @@
 import { Button } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import {
-  Border,
-  FontColor,
-  FontSize,
-  Padding,
-  PaperElevation,
-} from "../../../styleTypes";
+import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
 import AddIcon from "@material-ui/icons/Add";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
 
 import { useAppSelector } from "../../../modules/hooks";
-import PaginationTexts from "../../../components/Pagination/PaginationTexts";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { actions as getListActions } from "../../../store/category/categoryList/slice";
 import Pagination from "@material-ui/lab/Pagination";
-import { Category, ModalType, ProductCategoryList } from "../../../types";
+import { Category, ProductCategoryList } from "../../../types";
 
 import RenderCategoryElements from "./RenderCategoryElements";
 
 import { actions as toggleModalAction } from "../../../store/category/categoryModal/slice";
-import CategoryModal from "./CategoryModal";
 
 import { ItemCategoryPageMode } from "..";
 

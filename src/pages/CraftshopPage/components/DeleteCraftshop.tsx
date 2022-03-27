@@ -1,10 +1,7 @@
-import Typography from "@material-ui/core/Typography";
 import { Button, TextField } from "@material-ui/core";
 
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../modules/hooks";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 import { actions } from "../../../store/craftshop/deleteCraftshop/slice";
 import { CraftShopDetailStyles } from "./CraftshopDetail";
 import { Craftshop } from "../../../types";
@@ -21,8 +18,6 @@ export default function DeleteCraftshop({
 }: SelectedCraftshopProps) {
   const classes = CraftShopDetailStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
-  const selectCraftshopValue = useAppSelector((state) => state.selectCraftshop);
 
   const [inputValue, setInputValue] = useState("");
   const handleChangeInputValue: React.ChangeEventHandler<

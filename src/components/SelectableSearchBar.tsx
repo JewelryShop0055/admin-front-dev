@@ -4,7 +4,7 @@ import Autocomplete, {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
 } from "@material-ui/lab/Autocomplete";
-import { Dispatch, useState } from "react";
+import { Dispatch } from "react";
 
 const SelectableSearchBarStyles = makeStyles(
   createStyles({

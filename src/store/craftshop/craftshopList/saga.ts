@@ -1,11 +1,4 @@
-import {
-  call,
-  put,
-  takeLatest,
-  all,
-  delay,
-  takeEvery,
-} from "@redux-saga/core/effects";
+import { call, put, takeLatest, all, delay } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCraftshopList } from "../../../api/craftshop/craftshopList";

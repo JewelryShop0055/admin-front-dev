@@ -10,7 +10,6 @@ import { actions } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getCategoryList } from "../../../api/category/categoryList";
 import {
-  Category,
   ErrorEnvironment,
   GetCategoryListResponse,
   ProductCategoryList,

@@ -66,6 +66,11 @@ const INITIAL_CROP_AREA: CropArea = {
   innerClickY: 0,
 };
 
+enum IMAGE_LAYER_SIZE {
+  WIDTH = 800,
+  HEIGHT = 800,
+}
+
 export default function CropImage({ imageArray }: CropImageProps) {
   const classes = CropImageStyles();
 
@@ -134,22 +139,28 @@ export default function CropImage({ imageArray }: CropImageProps) {
     const canvasPosition =
       cropAreaLayer.current?.getBoundingClientRect() ?? new DOMRect(0, 0, 0, 0);
 
-    if (
-      isMouseInCropArea(cropArea, {
-        x: evt.clientX - canvasPosition.x,
-        y: evt.clientY - canvasPosition.y,
-      })
-    ) {
-      setIsMouseHold("INNER_HOLD");
-      setCropArea({
-        ...cropArea,
-        innerClickX: evt.clientX - canvasPosition.x - cropArea.x,
-        innerClickY: evt.clientY - canvasPosition.y - cropArea.y,
-      });
-      return;
-    }
+    const HOLD_POSITION = isMouseInCropArea(cropArea, {
+      x: evt.clientX - canvasPosition.x,
+      y: evt.clientY - canvasPosition.y,
+    });
 
-    setIsMouseHold("OUTER_HOLD");
+    switch (HOLD_POSITION) {
+      case "INNER_HOLD":
+        setIsMouseHold("INNER_HOLD");
+        setCropArea({
+          ...cropArea,
+          innerClickX: evt.clientX - canvasPosition.x - cropArea.x,
+          innerClickY: evt.clientY - canvasPosition.y - cropArea.y,
+        });
+        break;
+
+      case "OUTER_HOLD":
+        setIsMouseHold("OUTER_HOLD");
+        break;
+
+      default:
+        break;
+    }
   };
   const handleCropAreaLayerMouseMove = (
     evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -166,6 +177,24 @@ export default function CropImage({ imageArray }: CropImageProps) {
         y: evt.clientY - canvasPosition.y - cropArea.innerClickY,
       });
     }
+
+    if (isMouseHold === "OUTER_HOLD") {
+      console.log("크기조절움직임");
+      setCropArea({
+        ...cropArea,
+        width: evt.clientX - canvasPosition.x,
+        height: evt.clientY - canvasPosition.y,
+      });
+    }
+  };
+
+  const handleCropAreaLayerMouseOut = (
+    evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
+  ) => {
+    if (isMouseHold) {
+      // 크기조절시 밖으로 나가게되면 멈추게핸들링
+      //   setIsMouseHold(false);
+    }
   };
   const handleCropAreaLayerMouseUp = (
     evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
@@ -178,6 +207,23 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   useEffect(drawRawImageLayer, [selectedImg]);
   useEffect(drawCropAreaLayer, [cropArea, mode]);
+  useEffect(() => {
+    const bodyTag = document.body;
+    if (isMouseHold === "INNER_HOLD") {
+      bodyTag.style.cursor = "move";
+    }
+    switch (isMouseHold) {
+      case "INNER_HOLD":
+        bodyTag.style.cursor = "move";
+        break;
+      case "OUTER_HOLD":
+        bodyTag.style.cursor = "se-resize";
+        break;
+      default:
+        bodyTag.style.cursor = "default";
+        break;
+    }
+  }, [isMouseHold]);
 
   return (
     <>
@@ -189,16 +235,17 @@ export default function CropImage({ imageArray }: CropImageProps) {
         <canvas
           ref={rawImageLayer}
           className={classes.rawImageLayer}
-          width={800}
-          height={800}
+          width={IMAGE_LAYER_SIZE.WIDTH}
+          height={IMAGE_LAYER_SIZE.HEIGHT}
         />
         <canvas
           ref={cropAreaLayer}
           className={classes.cropAreaLayer}
-          width={800}
-          height={800}
+          width={IMAGE_LAYER_SIZE.WIDTH}
+          height={IMAGE_LAYER_SIZE.HEIGHT}
           onMouseDown={handleCropAreaLayerMouseDown}
           onMouseMove={handleCropAreaLayerMouseMove}
+          onMouseOut={handleCropAreaLayerMouseOut}
           onMouseUp={handleCropAreaLayerMouseUp}
         />
         <button
@@ -216,13 +263,24 @@ export default function CropImage({ imageArray }: CropImageProps) {
 const isMouseInCropArea = (
   cropArea: CropArea,
   mouseCoordinate: MouseCoordinate
-): boolean => {
-  if (mouseCoordinate.x < cropArea.x) return false;
-  if (mouseCoordinate.x > cropArea.x + cropArea.width) return false;
-  if (mouseCoordinate.y < cropArea.y) return false;
-  if (mouseCoordinate.y > cropArea.y + cropArea.height) return false;
+): MouseHold => {
+  if (
+    mouseCoordinate.x > cropArea.x + 20 &&
+    mouseCoordinate.x < cropArea.x + cropArea.width - 20 &&
+    mouseCoordinate.y > cropArea.y + 20 &&
+    mouseCoordinate.y < cropArea.y + cropArea.height - 20
+  )
+    return "INNER_HOLD";
 
-  return true;
+  if (
+    mouseCoordinate.x > cropArea.x &&
+    mouseCoordinate.x < cropArea.x + cropArea.width &&
+    mouseCoordinate.y > cropArea.y &&
+    mouseCoordinate.y < cropArea.y + cropArea.height
+  )
+    return "OUTER_HOLD";
+
+  return false;
 };
 
 const drawCropAreaBox = (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router";
 import { useAppDispatch } from "../modules/hooks";
 import LoginPage from "../pages/LoginPage";
@@ -58,7 +58,7 @@ export const AuthRoute = ({
 
   useEffect(() => {
     authCheck();
-  }, []);
+  });
 
   if (authenticated) {
     return <Route exact={exact} path={path} component={component} />;

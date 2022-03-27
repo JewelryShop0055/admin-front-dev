@@ -1,13 +1,5 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import {
-  Border,
-  FontColor,
-  FontSize,
-  Padding,
-  PaperElevation,
-} from "../../../styleTypes";
-import PaginationTexts from "../../../components/Pagination/PaginationTexts";
+import { Border, FontColor, FontSize, Padding } from "../../../styleTypes";
 import RenderCraftshopElements from "./RenderCraftshopElements";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
@@ -16,7 +8,6 @@ import Pagination from "@material-ui/lab/Pagination";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../modules/hooks";
 import { actions as craftshopListAction } from "../../../store/craftshop/craftshopList/slice";
-import { useHistory } from "react-router";
 import { Craftshop } from "../../../types";
 import { CraftshopPageMode } from "..";
 
@@ -117,7 +108,6 @@ export default function CraftshopContents({
 }: CraftshopContentsProps) {
   const classes = ContentsBaseStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { craftshopList, maxPage } = useAppSelector(
     (state) => state.craftshopList

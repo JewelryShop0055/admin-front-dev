@@ -1,7 +1,6 @@
 import { call, put, takeLatest, all } from "@redux-saga/core/effects";
 import { signOut } from "../../api/signOut";
 import { deleteCookieToken, getAuthTokenFromCookies } from "../../util/auth";
-import { history } from "../../modules/store";
 import { ErrorEnvironment, SnackBarMessageType } from "../../types";
 import { ErrorControl } from "../errorControl";
 import axios from "axios";

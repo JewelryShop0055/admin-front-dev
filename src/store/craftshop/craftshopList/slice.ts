@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   Craftshop,
-  CraftshopList,
   CraftshopListParams,
   GetCraftshopListResponse,
 } from "../../../types";

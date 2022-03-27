@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddNewCategory, DeleteCategory, ProductType } from "../../../types";
+import { DeleteCategory, ProductType } from "../../../types";
 
 interface deleteCategoryParams {
   categoryType: ProductType;

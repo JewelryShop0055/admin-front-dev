@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useState } from "react";
-import { BackgroundColor, FontSize } from "../../../styleTypes";
+import { FontSize } from "../../../styleTypes";
 
 const SearchCraftshopStyles = makeStyles(
   createStyles({

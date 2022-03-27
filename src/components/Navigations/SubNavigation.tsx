@@ -3,8 +3,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
 import { useHistory } from "react-router-dom";
-import { useAppDispatch } from "../../modules/hooks";
-import { actions } from "../../store/signOut/slice";
 import { BackgroundColor, Border, FontColor, FontSize } from "../../styleTypes";
 import LinkIcon from "@material-ui/icons/Link";
 import DashboardIcon from "@material-ui/icons/Dashboard";

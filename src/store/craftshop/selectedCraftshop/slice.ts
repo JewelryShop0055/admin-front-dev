@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Craftshop, ModalType } from "../../../types";
+import { Craftshop } from "../../../types";
 
 export interface selectedCraftshopState extends Craftshop {
   isSelect: boolean;
