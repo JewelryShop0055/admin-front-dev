@@ -2,14 +2,24 @@ import {
   Button,
   Checkbox,
   createStyles,
+  Fade,
   FormControlLabel,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   makeStyles,
+  Modal,
   TextField,
+  Theme,
 } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import { FontSize } from "../../../styleTypes";
+import DeleteIcon from "@material-ui/icons/Delete";
+import InfoIcon from "@material-ui/icons/Info";
+import ItemImageCropModal from "./ItemImageCropModal";
 
-const ItemImageFormStyles = makeStyles(
+const ItemImageFormStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "20px",
@@ -32,47 +42,105 @@ const ItemImageFormStyles = makeStyles(
     inputImage: {
       display: "none",
     },
-    thumbnailImage: {
-      width: "100px",
-      height: "100px",
+
+    thumbnailImagesContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+
+      justifyContent: "space-around",
+      overflow: "hidden",
+      backgroundColor: theme.palette.background.paper,
+    },
+    imageList: {
+      height: 450,
+    },
+    thumbnailImageElement: {
+      position: "relative",
+      "&:hover button": {
+        display: "inline-flex",
+      },
+    },
+    deleteBtn: {
+      display: "none",
+      position: "absolute",
+      left: "60%",
+      top: "5%",
+    },
+    icon: {
+      color: "rgba(255, 255, 255, 0.54)",
     },
   })
 );
 
-interface imageSet {
+export interface ImageValues {
   file: File;
   url: string;
 }
 
 interface RenderThumnailImgsProps {
-  imageArray: Array<imageSet>;
+  imageArray: Array<ImageValues>;
+  handleUploadedImageDelete: (imageName: string) => void;
 }
 
-function RenderThumnailImgs({ imageArray }: RenderThumnailImgsProps) {
+function RenderThumnailImgs({
+  imageArray,
+  handleUploadedImageDelete,
+}: RenderThumnailImgsProps) {
   const classes = ItemImageFormStyles();
 
   return (
-    <>
-      {imageArray.map((image) => {
-        return (
-          <img
-            className={classes.thumbnailImage}
-            src={image.url}
-            alt={"asdf"}
-          />
-        );
-      })}
-    </>
+    <div className={classes.thumbnailImagesContainer}>
+      <ImageList className={classes.imageList} rowHeight={180}>
+        {imageArray.map((image, idx) => {
+          return (
+            <ImageListItem
+              key={image.file.name + idx}
+              cols={1}
+              className={classes.thumbnailImageElement}
+            >
+              <img src={image.url} alt={image.file.name} />
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.deleteBtn}
+                startIcon={<DeleteIcon />}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleUploadedImageDelete(image.file.name);
+                }}
+              >
+                Delete
+              </Button>
+              <ImageListItemBar
+                title={image.file.name}
+                actionIcon={
+                  <IconButton
+                    aria-label={`info about ${image.file.name}`}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          );
+        })}
+      </ImageList>
+    </div>
   );
 }
 
 export function ItemImageForm() {
   const classes = ItemImageFormStyles();
 
-  const [images, setImages] = useState<Array<imageSet>>([]);
+  const [images, setImages] = useState<Array<ImageValues>>([]);
   const imagesRef = useRef(images);
   imagesRef.current = images;
 
+  const handleUploadedImageDelete = (imageName: string) => {
+    const nowImages = images.filter((img) => img.file.name !== imageName);
+    setImages(nowImages);
+  };
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (!evt.target.files) return;
 
@@ -108,14 +176,17 @@ export function ItemImageForm() {
         console.log("ERROR:", fileReader.error);
       }
     });
-
-    console.log(images);
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <div>제품 이미지</div>
+
+        {/* crop버튼은 업로드기능에 통합할 예정 */}
+        <ItemImageCropModal />
+        {/* 여기까지 모달 */}
+
         <input
           accept="image/*"
           className={classes.inputImage}
@@ -131,9 +202,10 @@ export function ItemImageForm() {
         </label>
       </div>
 
-      <div>
-        <RenderThumnailImgs imageArray={images} />
-      </div>
+      <RenderThumnailImgs
+        imageArray={images}
+        handleUploadedImageDelete={handleUploadedImageDelete}
+      />
     </div>
   );
 }
