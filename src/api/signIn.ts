@@ -9,7 +9,7 @@ export const passwordGrantAuth = async (params: SignInParams) => {
     },
   };
   const response = await axiosInstance(config).post(
-    `/v1/auth/token`,
+    `/admin/auth/token`,
     `username=${params.userId}&password=${params.userPassword}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&scope=${process.env.REACT_APP_SCOPE}&grant_type=password`
   );
   return response.data;
