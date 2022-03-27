@@ -11,7 +11,7 @@ export const deleteCategory = async (params: DeleteCategoryParams) => {
   };
 
   const response = await axiosInstance(config).delete(
-    `/admin/category/${params.categoryGroup}/${params.categoryId}`
+    `/v1/category/${params.categoryGroup}/${params.categoryId}`
   );
 
   return response.data;
