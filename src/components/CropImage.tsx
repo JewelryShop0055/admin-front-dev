@@ -136,7 +136,10 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   const drawCropAreaLayer = () => {
     if (mode === "CROP") {
-      setCropArea(INITIAL_CROP_AREA);
+      if (cropArea === DISABLED_CROP_AREA) {
+        setCropArea(INITIAL_CROP_AREA);
+      }
+
       const canvas = cropAreaLayer.current;
       const context = canvas?.getContext("2d");
       if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
@@ -162,31 +165,31 @@ export default function CropImage({ imageArray }: CropImageProps) {
         bodyTag.style.cursor = "default";
         break;
       case "NW_OUTER":
-        bodyTag.style.cursor = "nw-resize";
+        bodyTag.style.cursor = "nwse-resize";
         break;
       case "N_OUTER":
-        bodyTag.style.cursor = "n-resize";
+        bodyTag.style.cursor = "ns-resize";
         break;
       case "NE_OUTER":
-        bodyTag.style.cursor = "ne-resize";
+        bodyTag.style.cursor = "nesw-resize";
         break;
       case "W_OUTER":
-        bodyTag.style.cursor = "w-resize";
+        bodyTag.style.cursor = "ew-resize";
         break;
       case "INNER":
         bodyTag.style.cursor = "move";
         break;
       case "E_OUTER":
-        bodyTag.style.cursor = "e-resize";
+        bodyTag.style.cursor = "ew-resize";
         break;
       case "SW_OUTER":
-        bodyTag.style.cursor = "sw-resize";
+        bodyTag.style.cursor = "nesw-resize";
         break;
       case "S_OUTER":
-        bodyTag.style.cursor = "s-resize";
+        bodyTag.style.cursor = "ns-resize";
         break;
       case "SE_OUTER":
-        bodyTag.style.cursor = "se-resize";
+        bodyTag.style.cursor = "nwse-resize";
         break;
       default:
         bodyTag.style.cursor = "default";
@@ -209,6 +212,7 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
     switch (HOLD_POSITION) {
       case "INNER_HOLD":
+        console.log("이동");
         setIsMouseHold("INNER_HOLD");
         setCropArea({
           ...cropArea,
