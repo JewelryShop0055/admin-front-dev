@@ -56,6 +56,26 @@ interface MouseCoordinate {
 
 type Mode = "NONE" | "CROP";
 type MouseHold = "INNER_HOLD" | "OUTER_HOLD" | false;
+type MousePosition =
+  | "INNER"
+  | "E_OUTER"
+  | "W_OUTER"
+  | "S_OUTER"
+  | "N_OUTER"
+  | "NE_OUTER"
+  | "NW_OUTER"
+  | "SE_OUTER"
+  | "SW_OUTER"
+  | false;
+
+const DISABLED_CROP_AREA: CropArea = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+  innerClickX: 0,
+  innerClickY: 0,
+};
 
 const INITIAL_CROP_AREA: CropArea = {
   x: 50,
@@ -76,12 +96,14 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   const [selectedImg, setSelectedImage] = useState<ImageValues | undefined>();
   const [mode, setMode] = useState<Mode>("NONE");
+
   const [isMouseHold, setIsMouseHold] = useState<MouseHold>(false);
 
   const rawImageLayer = useRef<HTMLCanvasElement>(null);
   const cropAreaLayer = useRef<HTMLCanvasElement>(null);
 
-  const [cropArea, setCropArea] = useState<CropArea>(INITIAL_CROP_AREA);
+  const [cropArea, setCropArea] = useState<CropArea>(DISABLED_CROP_AREA);
+  const [mousePosition, setMousePosition] = useState<MousePosition>(false);
 
   const handleCropMode = () => {
     switch (mode) {
@@ -114,6 +136,7 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   const drawCropAreaLayer = () => {
     if (mode === "CROP") {
+      setCropArea(INITIAL_CROP_AREA);
       const canvas = cropAreaLayer.current;
       const context = canvas?.getContext("2d");
       if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,6 +151,46 @@ export default function CropImage({ imageArray }: CropImageProps) {
       const canvas = cropAreaLayer.current;
       const context = canvas?.getContext("2d");
       if (canvas) context?.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  };
+
+  const handleCursor = () => {
+    const bodyTag = document.body;
+
+    switch (mousePosition) {
+      case !mousePosition:
+        bodyTag.style.cursor = "default";
+        break;
+      case "NW_OUTER":
+        bodyTag.style.cursor = "nw-resize";
+        break;
+      case "N_OUTER":
+        bodyTag.style.cursor = "n-resize";
+        break;
+      case "NE_OUTER":
+        bodyTag.style.cursor = "ne-resize";
+        break;
+      case "W_OUTER":
+        bodyTag.style.cursor = "w-resize";
+        break;
+      case "INNER":
+        bodyTag.style.cursor = "move";
+        break;
+      case "E_OUTER":
+        bodyTag.style.cursor = "e-resize";
+        break;
+      case "SW_OUTER":
+        bodyTag.style.cursor = "sw-resize";
+        break;
+      case "S_OUTER":
+        bodyTag.style.cursor = "s-resize";
+        break;
+      case "SE_OUTER":
+        bodyTag.style.cursor = "se-resize";
+        break;
+      default:
+        bodyTag.style.cursor = "default";
+        break;
     }
   };
 
@@ -165,10 +228,17 @@ export default function CropImage({ imageArray }: CropImageProps) {
   const handleCropAreaLayerMouseMove = (
     evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
   ) => {
-    if (mode === "NONE") return;
-    if (!isMouseHold) return;
     const canvasPosition =
       cropAreaLayer.current?.getBoundingClientRect() ?? new DOMRect(0, 0, 0, 0);
+    const MOUSE_POSITION = mousePositionInCropArea(cropArea, {
+      x: evt.clientX - canvasPosition.x,
+      y: evt.clientY - canvasPosition.y,
+    });
+
+    setMousePosition(MOUSE_POSITION);
+
+    if (mode === "NONE") return;
+    if (!isMouseHold) return;
 
     if (isMouseHold === "INNER_HOLD") {
       setCropArea({
@@ -207,23 +277,7 @@ export default function CropImage({ imageArray }: CropImageProps) {
 
   useEffect(drawRawImageLayer, [selectedImg]);
   useEffect(drawCropAreaLayer, [cropArea, mode]);
-  useEffect(() => {
-    const bodyTag = document.body;
-    if (isMouseHold === "INNER_HOLD") {
-      bodyTag.style.cursor = "move";
-    }
-    switch (isMouseHold) {
-      case "INNER_HOLD":
-        bodyTag.style.cursor = "move";
-        break;
-      case "OUTER_HOLD":
-        bodyTag.style.cursor = "se-resize";
-        break;
-      default:
-        bodyTag.style.cursor = "default";
-        break;
-    }
-  }, [isMouseHold]);
+  useEffect(handleCursor, [mousePosition]);
 
   return (
     <>
@@ -259,6 +313,115 @@ export default function CropImage({ imageArray }: CropImageProps) {
     </>
   );
 }
+
+interface CropAreaCoordinates {
+  X_OUTER_LEFT: number;
+  X_INNER_LEFT: number;
+  X_INNER_RIGHT: number;
+  X_OUTER_RIGHT: number;
+  Y_OUTER_TOP: number;
+  Y_INNER_TOP: number;
+  Y_INNER_BOTTOM: number;
+  Y_OUTER_BOTTOM: number;
+}
+
+const mousePositionInCropArea = (
+  cropArea: CropArea,
+  mouseCoordinate: MouseCoordinate
+): MousePosition => {
+  const OUTER_MARGIN = 20;
+
+  const COORDINATES: CropAreaCoordinates = {
+    X_OUTER_LEFT: cropArea.x - OUTER_MARGIN,
+    X_INNER_LEFT:
+      cropArea.x + (cropArea.width + OUTER_MARGIN * 2) * 0.2 - OUTER_MARGIN,
+    X_INNER_RIGHT:
+      cropArea.x + (cropArea.width + OUTER_MARGIN * 2) * 0.8 - OUTER_MARGIN,
+    X_OUTER_RIGHT: cropArea.x + cropArea.width + OUTER_MARGIN,
+    Y_OUTER_TOP: cropArea.y - OUTER_MARGIN,
+    Y_INNER_TOP:
+      cropArea.y + (cropArea.height + OUTER_MARGIN * 2) * 0.2 - OUTER_MARGIN,
+    Y_INNER_BOTTOM:
+      cropArea.y + (cropArea.height + OUTER_MARGIN * 2) * 0.8 - OUTER_MARGIN,
+    Y_OUTER_BOTTOM: cropArea.y + cropArea.height + OUTER_MARGIN,
+  };
+
+  if (
+    mouseCoordinate.x < COORDINATES.X_OUTER_LEFT ||
+    mouseCoordinate.x >= COORDINATES.X_OUTER_RIGHT ||
+    mouseCoordinate.y < COORDINATES.Y_OUTER_TOP ||
+    mouseCoordinate.y >= COORDINATES.Y_OUTER_BOTTOM
+  )
+    return false;
+
+  if (
+    mouseCoordinate.x >= COORDINATES.X_OUTER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.y >= COORDINATES.Y_OUTER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_TOP
+  )
+    return "NW_OUTER";
+
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_OUTER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_TOP
+  )
+    return "N_OUTER";
+
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.x < COORDINATES.X_OUTER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_OUTER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_TOP
+  )
+    return "NE_OUTER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_OUTER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_BOTTOM
+  )
+    return "W_OUTER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_BOTTOM
+  )
+    return "INNER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.x < COORDINATES.X_OUTER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_TOP &&
+    mouseCoordinate.y < COORDINATES.Y_INNER_BOTTOM
+  )
+    return "E_OUTER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_OUTER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_BOTTOM &&
+    mouseCoordinate.y < COORDINATES.Y_OUTER_BOTTOM
+  )
+    return "SW_OUTER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_LEFT &&
+    mouseCoordinate.x < COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_BOTTOM &&
+    mouseCoordinate.y < COORDINATES.Y_OUTER_BOTTOM
+  )
+    return "S_OUTER";
+  if (
+    mouseCoordinate.x >= COORDINATES.X_INNER_RIGHT &&
+    mouseCoordinate.x < COORDINATES.X_OUTER_RIGHT &&
+    mouseCoordinate.y >= COORDINATES.Y_INNER_BOTTOM &&
+    mouseCoordinate.y < COORDINATES.Y_OUTER_BOTTOM
+  )
+    return "SE_OUTER";
+
+  return false;
+};
 
 const isMouseInCropArea = (
   cropArea: CropArea,
