@@ -1,4 +1,4 @@
-# Raviluz admin page (front)
+# Raviluz admin page (front) (개발중단)
 
 귀금속 악세서리 매장 Raviluz의 점주 관리자 페이지입니다.
 
@@ -8,8 +8,6 @@
 https://www.figma.com/file/9fxpydne9x5rlm1LbFcf8F/Raviluz-admin-page?node-id=4%3A2
 
 ### Process
-
-- 2021.09.04 start
 
 - 작업현황은 https://trello.com/b/ILAuLpWn/raviluz-admin-page 에서 확인
 
